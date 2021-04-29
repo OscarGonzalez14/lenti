@@ -7,7 +7,7 @@
 
 
           <li class="nav-item">
-            <a class="nav-link" style="color: white">
+            <a href='orden.php'class="nav-link" style="color: white">
               <i class="nav-icon fas fa-file"></i>
               <p>Ordenes</p>
             </a>
@@ -19,12 +19,12 @@
               <p>
                 Inventario
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">6</span>
+               <!-- <span class="badge badge-info right">6</span>-->
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
+                <a href="adquisiciones.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Adquisiciones</p>
                 </a>

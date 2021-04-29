@@ -18,7 +18,7 @@ class Conectar {
 		return $this->dbh->query("SET NAMES 'utf8'");
     }
 	public function ruta(){
-		return "http://localhost/lenti/";
+		return "localhost/lenti/";
 	}
 
     //Función para convertir fecha del mes de numero al nombre, ejemplo de 01 a enero
