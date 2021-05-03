@@ -70,7 +70,7 @@
 if(isset($_POST['codigo'])){
           
 ?>             
-<img src="../plugins/barcode.php?text=<?php echo $_POST['codigo'];?>r&size=50&orientation=horizontal&codetype=Code39&print=true&sizefactor=1"/>
+<img class="barcode" src="../plugins/barcode.php?text=<?php echo $_POST['codigo'];?>r&size=50&orientation=horizontal&codetype=Code39&print=true&sizefactor=1"/>
  <?php }?> 
           </div>
 </div>          
