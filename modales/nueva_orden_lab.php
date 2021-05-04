@@ -200,7 +200,7 @@
             </div>
 
          </div> 
-          <input type="text" id="codigo" value="141119872021">
+          <input type="text" id="codigoOrden">
           </div><!--/END MODAL BODY-->
 
             <div class="modal-footer justify-content-between">

@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html>
-<body>
+<?php
+date_default_timezone_set('America/El_Salvador'); $now = date("dmY");
+echo $now.'<br>';
 
-<input type="text" id="myText" value="Mickey">
-
-<p>Click the button to change the value of the text field.</p>
-
-<button onclick="myFunction()">Try it</button>
-
-<script>
-function myFunction() {
-  let personaje = document.getElementById("myText").value;
-  console.log('Este es el personaje:'+personaje);
-}
-</script>
-
-</body>
-</html>
+$codigo = '0103202199989';
+$numero_orden = substr($codigo,8,15);
+echo $numero_orden;
+?>

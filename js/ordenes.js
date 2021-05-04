@@ -1,5 +1,6 @@
 function init(){
  //status_checks_tratamientos():
+ get_numero_orden();
 }
 
 function status_checks_tratamientos(){
@@ -43,7 +44,7 @@ function guardar_orden(){
   console.log(codigo);
 
    $.ajax({
-    url:"ajax/ordnes.php?op=registrar_orden",
+    url:"../ajax/ordenes.php?op=registrar_orden",
     method:"POST",
     data:{codigo:codigo},
     cache: false,
@@ -60,6 +61,20 @@ function guardar_orden(){
     });//////FIN AJAX
 
 }
+
+ function get_numero_orden(){
+
+  $.ajax({
+      url:"../ajax/ordenes.php?op=get_correlativo_orden",
+      method:"POST",
+      cache:false,
+      dataType:"json",
+      success:function(data){
+       console.log(data)   
+       $("#codigoOrden").val(data.codigo_orden);       
+      }
+    });
+ }
 
 
 init();
