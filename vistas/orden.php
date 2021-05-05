@@ -1,3 +1,8 @@
+<?php 
+require_once("../config/conexion.php");
+if(isset($_SESSION["usuario"])){
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +36,7 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-
+      <input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
         <div style='margin:0px'>
         <a class="btn btn-app bg-info" data-toggle="modal" data-target="#nueva_orden_lab">
             <i class="fas fa-glasses"></i> Crear orden
@@ -59,3 +64,6 @@ require_once("links_js.php");
 <script type="text/javascript" src="../js/ordenes.js"></script>
 </body>
 </html>
+ <?php } else{
+echo "Acceso denegado";
+  } ?>

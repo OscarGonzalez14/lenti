@@ -4,6 +4,11 @@ use Dompdf\Options;
 
 require_once '../dompdf/autoload.inc.php';
 
+$codigo = $_POST["codigoOrden"];
+$paciente = $_POST["paciente_orden"];
+
+//
+
 
 ?>
 <!DOCTYPE html>
@@ -45,7 +50,15 @@ require_once '../dompdf/autoload.inc.php';
    </style>
   </head>
   <body>
-    <img src="../000100255590.png"/ style=" margin-top: 10px">
+    <div>
+      <div> 
+          <?php 
+            echo $codigo.'<br>'.$paciente;
+          ?>
+      </div>  
+      <img src="../codigos/<?php echo $codigo;?>.png"/ style=" margin-top: 10px">
+    </div>
+    
 </body>
 </html>
 <?php

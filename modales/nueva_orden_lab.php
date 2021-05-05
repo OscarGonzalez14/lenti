@@ -2,26 +2,26 @@
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header bg-dark">
-              <h4 class="modal-title" style="font-size: 15px">ORDEN DE PRODUCCION</h4>
+              <h4 class="modal-title" style="font-size: 15px">ORDEN DE PRODUCCION &nbsp;&nbsp;<span id="correlativo_op"></span></h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body"><!--START MODAL BODY-->
-              
+            <form action="barcode_orden_print.php" method="POST">  
             <div class="eight datos-generales">
               <strong><h1>DATOS GENERALES</h1></strong>
               <div class="form-row" style="margin-top: 1px"><!--./Inicio Form row-->
 
                 <div class="form-group col-sm-8">
                   <label for="inlineFormInputGroup">Paciente</label>
-                  <input type="text" class="form-control clear_orden_i" id="paciente_orden" autocomplete='off'>
+                  <input type="text" class="form-control clear_orden_i" id="paciente_orden" name="paciente_orden" autocomplete='off'>
                 </div>
 
                 <div class="form-group col-sm-4">
                   <label for="inputPassword4">Óptica</label>
-                  <select class="form-control clear_orden_i" id="laboratorio_orden" required>
-                  <option value="">Optica AV Plus</option>
+                  <select class="form-control clear_orden_i" id="optica_orden" required>
+                  <option value="AV Plus">Optica AV Plus</option>
                   </select>
                 </div>
 
@@ -148,6 +148,12 @@
               </div>
             </div>
 
+            <div class="input-group" style="margin: 8px">
+              <div class="input-group-prepend">
+                <span class="input-group-text">DISEÑO ESPECIAL</span>
+              </div>
+              <input type="text" class="form-control" style="border: 1px solid black">
+            </div>
           </div> <!--Fin tratamientos-->
 
           <div class="eight">
@@ -157,22 +163,22 @@
 
               <div class="form-group col-sm-3">
                 <label for="">Modelo</label>
-                <input type="text" class="form-control clear_orden_i" id="modelo_aro_orden" readonly="">
+                <input type="text" class="form-control clear_orden_i" id="modelo_aro_orden">
               </div>
 
               <div class="form-group col-sm-3">
                 <label for="">Marca</label>
-                <input type="text" class="form-control clear_orden_i" id="marca_aro_orden" readonly="">
+                <input type="text" class="form-control clear_orden_i" id="marca_aro_orden">
               </div>
 
               <div class="form-group col-sm-3">
                 <label for="">Color</label>
-                <input type="text" class="form-control clear_orden_i" id="color_aro_orden" readonly="">
+                <input type="text" class="form-control clear_orden_i" id="color_aro_orden">
               </div>
 
               <div class="form-group col-sm-3">
                   <label for="">Diseño</label>
-                  <input type="text" class="form-control clear_orden_i" id="diseno_aro_orden" readonly="">
+                  <input type="text" class="form-control clear_orden_i" id="diseno_aro_orden">
                 </div>
               </div>
 
@@ -192,6 +198,7 @@
                   <td colspan="25" style="width: 25%"> <input type="text" class="form-control clear_orden_i" placeholder="---" id="med_c" onClick="get_correlativo_orden();"></td>     
                   <td colspan="25" style="width: 25%"> <input type="text" class="form-control clear_orden_i" placeholder="---" id="med_d" onClick="get_correlativo_orden();"></td>                
                 </tr>
+              </tbody>  
             </table>
 
             <div class="form-group col-sm-12">
@@ -200,11 +207,13 @@
             </div>
 
          </div> 
-          <input type="text" id="codigoOrden">
+          <input type="hidden" id="codigoOrden" name="codigoOrden">
+          <button type="submit" class="btn btn-default" style="background: black; color: white"><i class="fas fa-barcode"></i> Imprimir</button>
+        </form>
           </div><!--/END MODAL BODY-->
 
             <div class="modal-footer justify-content-between">
-              <a href="barcode_orden_print.php" ><button type="button" class="btn btn-default" style="background: black; color: white"><i class="fas fa-barcode"></i> Imprimir</button></a>
+            
               <button type="button" class="btn btn-primary" onClick='guardar_orden();'>Guardar</button>
             </div>
           </div>

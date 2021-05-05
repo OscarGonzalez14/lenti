@@ -38,15 +38,18 @@ function status_checks_tratamientos(){
 
 function guardar_orden(){
 
-  console.log('Save Orden')
-  let codigo = $('#codigo').val();
- // var nom_user =$("#nom_user").val();
-  console.log(codigo);
+  let codigo = $('#codigoOrden').val();
+   let paciente = $("#paciente_orden").val();
+  let optica = $("#optica_orden").val();
+  let observaciones = $("#observaciones_orden").val();
+  let id_usuario = $("#id_usuario").val();
+  //document.getElementById("btn_print_recibo").href='imprimir_recibo_pdf.php?n_recibo='+n_recibo
+  console.log(`paciente ${paciente} optica ${optica} observaciones ${observaciones} id_usuario ${id_usuario}`)
 
-   $.ajax({
+  $.ajax({
     url:"../ajax/ordenes.php?op=registrar_orden",
     method:"POST",
-    data:{codigo:codigo},
+    data:{codigo:codigo,paciente:paciente,optica:optica,observaciones:observaciones,id_usuario:id_usuario},
     cache: false,
     dataType:"json",
     error:function(x,y,z){
@@ -71,7 +74,8 @@ function guardar_orden(){
       dataType:"json",
       success:function(data){
        console.log(data)   
-       $("#codigoOrden").val(data.codigo_orden);       
+       $("#codigoOrden").val(data.codigo_orden);
+       $("#correlativo_op").html(data.codigo_orden);      
       }
     });
  }
