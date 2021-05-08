@@ -8,8 +8,25 @@ $ordenes = new Ordenes();
 
 switch ($_GET["op"]){
 
+case 'crear_barcode':
+	$datos = $ordenes->comprobar_existe_correlativo($_POST["codigo"]);
+    if(is_array($datos) == true and count($datos)==0){
+    	$ordenes->crea_barcode($_POST["codigo"]);
+    	$variable = 'Exito';
+    	echo json_encode(array("bla"=>$variable));
+
+    }
+break;
+
 case 'registrar_orden':
-	$ordenes->registrar_orden($_POST['codigo'],$_POST['paciente'],$_POST['optica'],$_POST['observaciones'],$_POST['id_usuario']);
+	$datos = $ordenes->comprobar_existe_correlativo($_POST["codigo"]);
+    if(is_array($datos) == true and count($datos)==0){		
+		$ordenes->registrar_orden($_POST['codigo'],$_POST['paciente'],$_POST['optica'],$_POST['observaciones'],$_POST['id_usuario']);
+		$mensaje='exito';	
+	}else{
+		$mensaje="error";
+	}
+    echo json_encode($mensaje);
 	break;
 
 case "get_correlativo_orden":

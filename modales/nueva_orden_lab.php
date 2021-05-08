@@ -1,5 +1,5 @@
       <div class="modal fade" id="nueva_orden_lab">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog modal-xl" style="max-width: 95%">
           <div class="modal-content">
             <div class="modal-header bg-dark">
               <h4 class="modal-title" style="font-size: 15px">ORDEN DE PRODUCCION &nbsp;&nbsp;<span id="correlativo_op"></span></h4>
@@ -8,7 +8,7 @@
               </button>
             </div>
             <div class="modal-body"><!--START MODAL BODY-->
-            <form action="barcode_orden_print.php" method="POST">  
+            <form action="barcode_orden_print.php" method="POST" target="print_popup" onsubmit="window.open('about:blank','print_popup','width=600,height=500');">  
             <div class="eight datos-generales">
               <strong><h1>DATOS GENERALES</h1></strong>
               <div class="form-row" style="margin-top: 1px"><!--./Inicio Form row-->
@@ -20,7 +20,7 @@
 
                 <div class="form-group col-sm-4">
                   <label for="inputPassword4">Óptica</label>
-                  <select class="form-control clear_orden_i" id="optica_orden" required>
+                  <select class="form-control clear_orden_i" id="optica_orden" name="optica_orden" required>
                   <option value="AV Plus">Optica AV Plus</option>
                   </select>
                 </div>
@@ -93,7 +93,7 @@
 <!--################ FIN rx final + medidas #############-->
           <div class="row tratamientos">
               
-              <div class="col-sm-5 antirrflejantes">
+            <div class="col-sm-5 antirrflejantes">
 
                 <div class="eight" style="align-items: center">
                   <h1>ANTIRREFLEJANTE</h1>
@@ -208,13 +208,11 @@
 
          </div> 
           <input type="hidden" id="codigoOrden" name="codigoOrden">
-          <button type="submit" class="btn btn-default" style="background: black; color: white"><i class="fas fa-barcode"></i> Imprimir</button>
+          <button type="submit" class="btn btn-default btn-block" style="background: black; color: white" id="btn-print-bc"><i class="fas fa-barcode"></i> Imprimir</button>
         </form>
           </div><!--/END MODAL BODY-->
-
-            <div class="modal-footer justify-content-between">
-            
-              <button type="button" class="btn btn-primary" onClick='guardar_orden();'>Guardar</button>
+            <div class="modal-footer justify-content-between">            
+              <button type="button" class="btn btn-primary btn-block" onClick='create_barcode();'>Guardar</button>
             </div>
           </div>
           <!-- /.modal-content -->

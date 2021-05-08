@@ -1,6 +1,12 @@
 function init(){
  //status_checks_tratamientos():
  get_numero_orden();
+ document.getElementById("btn-print-bc").style.display = "none";
+}
+
+
+function ocultar_btn_print_rec_ini(){
+  document.getElementById("btn_print_recibos").style.display = "none";
 }
 
 function status_checks_tratamientos(){
@@ -32,9 +38,38 @@ function status_checks_tratamientos(){
   }else{
   	
     $("#transitionphoto").removeAttr("disabled");
-  }
+  }s
 
-} 
+}
+
+//////////EJECUTAR ORDEN GUARDAR SPACE KEY ////
+
+function space_guardar_orden(event){
+  tecla = event.keyCode; 
+    if(tecla==13)
+    {
+     create_barcode();
+    }
+}
+
+function create_barcode(){
+  let codigo = $('#codigoOrden').val();
+  $.ajax({
+    url:"../ajax/ordenes.php?op=crear_barcode",
+    method:"POST",
+    data:{codigo:codigo},
+    cache: false,
+    dataType:"json",
+    error:function(data){
+      setTimeout("guardar_orden();",1500);  
+    },
+    success:function(data){
+      console.log(data)
+    }
+  });///fin ajax
+}
+
+window.onkeydown= space_guardar_orden;
 
 function guardar_orden(){
 
@@ -42,26 +77,50 @@ function guardar_orden(){
    let paciente = $("#paciente_orden").val();
   let optica = $("#optica_orden").val();
   let observaciones = $("#observaciones_orden").val();
-  let id_usuario = $("#id_usuario").val();
-  //document.getElementById("btn_print_recibo").href='imprimir_recibo_pdf.php?n_recibo='+n_recibo
-  console.log(`paciente ${paciente} optica ${optica} observaciones ${observaciones} id_usuario ${id_usuario}`)
-
+  let id_usuario = $("#id_usuario").val();  
+  
   $.ajax({
     url:"../ajax/ordenes.php?op=registrar_orden",
     method:"POST",
     data:{codigo:codigo,paciente:paciente,optica:optica,observaciones:observaciones,id_usuario:id_usuario},
     cache: false,
     dataType:"json",
-    error:function(x,y,z){
-      d_pacole.log(x);
-      console.log(y);
-      console.log(z);
-    },     
-    success:function(data){
-    
-    }
+   /* error:function(){
+      Swal.fire({
+        position: 'top-center',
+        icon: 'success',
+        title: 'Orden Registrada Exitosamente',
+        showConfirmButton: true,
+        timer: 2500
+      })
+    document.getElementById("btn-print-bc").style.display = "block";
+    //document.getElementById("btn_print_recibos").style.display = "none";
 
-    });//////FIN AJAX
+    },  */   
+    success:function(data){
+    console.log(data)
+     if (data=='exito') {
+      Swal.fire({
+        position: 'top-center',
+        icon: 'success',
+        title: 'Codigo Registrado',
+        showConfirmButton: true,
+        timer: 2500
+      });
+      document.getElementById("btn-print-bc").style.display = "block";
+     }else{
+      Swal.fire({
+        position: 'top-center',
+        icon: 'error',
+        title: 'Codigo ya existe',
+        showConfirmButton: true,
+        timer: 2500
+      })
+     }
+    
+     
+    }
+  });//////FIN AJAX
 
 }
 
@@ -79,6 +138,5 @@ function guardar_orden(){
       }
     });
  }
-
 
 init();

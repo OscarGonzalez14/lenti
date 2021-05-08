@@ -38,7 +38,7 @@ if(isset($_SESSION["usuario"])){
       <div class="container-fluid">
       <input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
         <div style='margin:0px'>
-        <a class="btn btn-app bg-info" data-toggle="modal" data-target="#nueva_orden_lab">
+        <a class="btn btn-app bg-info" data-toggle="modal" data-target="#nueva_orden_lab" onClick='get_numero_orden();'>
             <i class="fas fa-glasses"></i> Crear orden
         </a> 
         </div>
