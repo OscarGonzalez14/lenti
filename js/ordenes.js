@@ -1,5 +1,5 @@
 function init(){
- //status_checks_tratamientos():
+ listar_ordenes();
  get_numero_orden();
  document.getElementById("btn-print-bc").style.display = "none";
 }
@@ -137,6 +137,28 @@ function guardar_orden(){
        $("#correlativo_op").html(data.codigo_orden);      
       }
     });
+ }
+
+ function listar_ordenes(){
+  $("#datatable_ordenes").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      //dom: 'Bfrti',
+      //"buttons": [ "excel"],
+      "searching": false,
+      "ajax":
+        {
+          url: '../ajax/ordenes.php?op=get_ordenes',
+          type : "post",
+          dataType : "json",        
+          error: function(e){
+            console.log(e.responseText);  
+          }
+        },
+    "language": {
+      "sSearch": "Buscar:"
+    }
+    }).buttons().container().appendTo('#datatable_ordenes_wrapper .col-md-6:eq(0)');
+
  }
 
 init();

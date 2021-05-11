@@ -34,7 +34,7 @@
   public function crea_barcode($codigo){
     include 'barcode.php';       
     barcode('../codigos/' . $codigo . '.png', $codigo, 50, 'horizontal', 'code128', true);
-  
+
    }
   /////////////   REGISTRAR ORDEN ///////////////////////////////
    public function registrar_orden($codigo,$paciente,$optica,$observaciones,$id_usuario){
@@ -54,6 +54,16 @@
     $sql->bindValue(7,$estado);
     $sql->execute();
    }
+
+   ////////////////////LISTAR ORDENES///////////////
+
+   public function get_ordenes(){
+    $conectar= parent::conexion();
+    $sql= "select*from orden order by id_orden DESC;";
+    $sql=$conectar->prepare($sql);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
 
 
    }//Fin de la Clase

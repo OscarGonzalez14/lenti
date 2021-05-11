@@ -32,7 +32,7 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-slide="true" href="#" role="button">
+        <a class="nav-link" data-slide="true" href="logout.php" role="button">
           <i class="fas fa-sign-out-alt"></i>
         </a>
       </li>

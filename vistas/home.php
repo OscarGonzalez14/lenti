@@ -1,3 +1,8 @@
+<?php 
+require_once("../config/conexion.php");
+if(isset($_SESSION["usuario"])){
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,10 +33,9 @@
 
     <!-- Main content -->
     <section class="content">
-      <div class="container-fluid">
-
-        HOLA MUNDO
-       
+      <h5 style="text-transform: uppercase;text-align: center;font-size: 18px;font-family: Helvetica, Arial, sans-serif;">BENVENID@: &nbsp;<?php echo $_SESSION["usuario"];?></h5>
+      <div style="display:flex;justify-content: center;margin-top:0px;">        
+        <img src="../dist/img/lenti_logo.png" alt="" width="50%" class="img-responsive log" align="center">       
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
@@ -49,3 +53,6 @@
 <?php require_once("links_js.php"); ?>
 </body>
 </html>
+<?php } else{
+echo "Acceso no permitido";
+  } ?>

@@ -14,11 +14,24 @@ $hoy = date("d-m-Y H:i:s");
 ?>
 <html lang="en" dir="ltr">
   <head>
-
+   <style>
+      #footer .page:after { content: counter(page, upper-roman); }
    </style>
   </head>
   <body>
-    <div style="text-align: center; font-size: 10px">
+    <div style="text-align: center; font-size: 10px;">
+      <div> 
+          <?php 
+            echo strtoupper($optica).'<br>'.strtoupper($paciente);
+          ?>
+      </div>  
+      <img src="../codigos/<?php echo $codigo;?>.png" style=" margin-top: 10px;margin:8px">
+    </div>
+    <p style="text-align: center;color: gray">-------------------------</p>
+    <div style="text-align: center; font-size: 10px;">
+
+    <div id="content"> 
+    </div>
       <div> 
           <?php 
             echo strtoupper($optica).'<br>'.strtoupper($paciente);
@@ -39,7 +52,7 @@ $dompdf = new Dompdf();
 $dompdf->loadHtml($salida_html);
 
 // (Optional) Setup the paper size and orientation
-$dompdf->setPaper(array(0,0,200,200));
+$dompdf->setPaper(array(0,0,190,300));
 
 // Render the HTML as PDF
 $dompdf->render();
