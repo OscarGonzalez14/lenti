@@ -28,9 +28,33 @@
               </div><!--./Fin Form row-->
             </div><!--./*********Fin datos-generales************-->
 
+            <div class="eight"style="align-items: center">
+
+              <strong><h1 style="color:#034f84">TIPO LENTE</h1></strong>
+              <div class="row">
+                  <div class="col-sm-4" class="d-flex justify-content-center" style="display:flex;justify-content: center;margin-top:0px;">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="lentevs" value="option2" onClick='valida_adicion();'>
+                      <label class="form-check-label" for="inlineCheckbox2" id="lentevs">Visión Sencilla</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-4" style="display:flex;justify-content: center;margin-top:0px;">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="lentebf" value="option2" onClick='status_checks_tratamientos();'>
+                      <label class="form-check-label" for="inlineCheckbox2" id="lentebf">Bifocal</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-4" style="display:flex;justify-content: center;margin-top:0px;">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="lentemulti" value="option2" onClick='status_checks_tratamientos();'>
+                      <label class="form-check-label" for="inlineCheckbox2" id="lentemulti">Multifocal</label>
+                    </div>
+                  </div>
+              </div>
+            </div>  
+
             <!--################ RX final + medidas #############-->
             <div class="eight">
-
               <strong><h1 style="color: #034f84">GRADUACIÓN(Rx Final) Y MEDIDAS</h1></strong>
               <div class="row">
                 <div class="col-sm-6">    

@@ -9,6 +9,20 @@ function ocultar_btn_print_rec_ini(){
   document.getElementById("btn_print_recibos").style.display = "none";
 }
 
+/////////validar ingreso de adicion////////////
+function valida_adicion(){
+  let vs_check = $("#lentevs").is(":checked");
+  if(vs_check == true){
+    document.getElementById('oddicionf_orden').readOnly = true;
+    document.getElementById('oiadicionf_orden').readOnly = true;
+    document.getElementById('oddicionf_orden').value = "";
+    document.getElementById('oiadicionf_orden').value = "";
+  }else{
+    document.getElementById('oddicionf_orden').readOnly = false;
+    document.getElementById('oiadicionf_orden').readOnly = false;
+  }
+}
+
 function status_checks_tratamientos(){
 
   let photocrom_check = $('#photocromphoto').is(":checked");
@@ -48,7 +62,7 @@ function space_guardar_orden(event){
   tecla = event.keyCode; 
     if(tecla==13)
     {
-     create_barcode();
+     create_barcode_interno();
     }
 }
 
@@ -77,7 +91,37 @@ function guardar_orden(){
    let paciente = $("#paciente_orden").val();
   let optica = $("#optica_orden").val();
   let observaciones = $("#observaciones_orden").val();
-  let id_usuario = $("#id_usuario").val();  
+  let id_usuario = $("#id_usuario").val();
+  let lentevs = $("#lentevs").val();
+  let lentebf = $("#lentebf").val();
+  let lentemulti = $("#lentemulti").val();
+
+  ////GRADUACIONES///////
+  let odesferasf_orden = $("#odesferasf_orden").val();
+  let odcilindrosf_orden = $("#odcilindrosf_orden").val();
+  let odejesf_orden = $("#odejesf_orden").val();
+  let oddicionf_orden = $("#oddicionf_orden").val();
+  let odprismaf_orden = $("#odprismaf_orden").val();
+  let oiesferasf_orden = $("#oiesferasf_orden").val();
+  let oicolindrosf_orden = $("#oicolindrosf_orden").val();
+  let oiejesf_orden = $("#oiejesf_orden").val();
+  let oiadicionf_orden = $("#oiadicionf_orden").val();
+  let oiprismaf_orden = $("#oiprismaf_orden").val();
+
+
+  let bf_check = $("#lentebf").is(":checked");
+  let multi_check = $("#lentemulti").is(":checked");
+
+  if((bf_check == true || multi_check == true) &&  (oddicionf_orden=="" || oiadicionf_orden=="")){
+        Swal.fire({
+        position: 'top-center',
+        icon: 'error',
+        title: 'Adicion incompleta',
+        showConfirmButton: true,
+        timer: 2500
+      });
+    return false;    
+  }
   
   $.ajax({
     url:"../ajax/ordenes.php?op=registrar_orden",
@@ -116,6 +160,7 @@ function guardar_orden(){
         showConfirmButton: true,
         timer: 2500
       })
+
      }
     
      
@@ -160,5 +205,24 @@ function guardar_orden(){
     }).buttons().container().appendTo('#datatable_ordenes_wrapper .col-md-6:eq(0)');
 
  }
+
+ function create_barcode_interno(){
+ 
+  Swal.fire({
+  title: 'Código interno?',
+  text: "Desea generar un codigo Interno",
+  icon: 'warning',
+  showCancelButton: false,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  cancelButtonText: 'No',
+  confirmButtonText: 'Si!'
+}).then((result) => {
+  if (result.isConfirmed) {
+   $("#codigo_lente").val('12785')
+  }
+})
+ 
+}
 
 init();
