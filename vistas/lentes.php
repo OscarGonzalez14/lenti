@@ -29,7 +29,7 @@ if(isset($_SESSION["usuario"])){
     <section class="content">
       <div class="container-fluid">
       <input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
-        <button class="btn btn-outline-success btn-sm btn-flat" onClick="focus_input();" data-toggle="modal" data-target="#nuevo_lente" data-backdrop="static" data-keyboard="false"><i class="fa fa-glasses" style="margin-top: 2px"> Crear Lente</i></button>       
+        <button class="btn btn-outline-success btn-sm btn-flat" data-toggle="modal" data-target="#nuevo_lente" data-backdrop="static" data-keyboard="false" onClick="focus_input();"><i class="fa fa-glasses" style="margin-top: 2px"> Crear Lente</i></button>       
        
       </div><!-- /.container-fluid -->
     </section>
@@ -46,8 +46,16 @@ if(isset($_SESSION["usuario"])){
 </div>
 <!-- ./wrapper -->
 <?php require_once("links_js.php"); ?>
-<script type="text/javascript" src="../js/ordenes.js"></script>
-
+<script type="text/javascript" src="../js/productos.js"></script>
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    })
+      })
 </script>
 </body>
 </html>

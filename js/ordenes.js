@@ -21,6 +21,26 @@ function valida_adicion(){
     document.getElementById('oddicionf_orden').readOnly = false;
     document.getElementById('oiadicionf_orden').readOnly = false;
   }
+
+  let lentebf_chk = $("#lentebf").is(":checked");
+
+  if (lentebf_chk==true) {
+    document.getElementById('ap_od').readOnly = true;
+    document.getElementById('ap_oi').readOnly = true;
+  }else{
+    document.getElementById('ap_od').readOnly = false;
+    document.getElementById('ap_oi').readOnly = false;
+  }
+
+  let lentemulti_chk = $("#lentemulti").is(":checked");
+
+  if (lentemulti_chk==true) {
+    document.getElementById('ao_od').readOnly = true;
+    document.getElementById('ao_oi').readOnly = true;
+  }else{
+    document.getElementById('ao_od').readOnly = false;
+    document.getElementById('ao_oi').readOnly = false;
+  }
 }
 
 function status_checks_tratamientos(){
@@ -52,7 +72,7 @@ function status_checks_tratamientos(){
   }else{
   	
     $("#transitionphoto").removeAttr("disabled");
-  }s
+  }
 
 }
 
@@ -206,23 +226,6 @@ function guardar_orden(){
 
  }
 
- function create_barcode_interno(){
- 
-  Swal.fire({
-  title: 'Código interno?',
-  text: "Desea generar un codigo Interno",
-  icon: 'warning',
-  showCancelButton: false,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  cancelButtonText: 'No',
-  confirmButtonText: 'Si!'
-}).then((result) => {
-  if (result.isConfirmed) {
-   $("#codigo_lente").val('12785')
-  }
-})
- 
-}
+
 
 init();

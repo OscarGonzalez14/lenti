@@ -1,4 +1,4 @@
-      <div class="modal fade" id="nueva_orden_lab">
+      <div class="modal fade" id="nueva_orden_lab" style="text-transform: uppercase;">
         <div class="modal-dialog modal-xl" style="max-width: 95%">
           <div class="modal-content">
             <div class="modal-header bg-dark">
@@ -34,19 +34,19 @@
               <div class="row">
                   <div class="col-sm-4" class="d-flex justify-content-center" style="display:flex;justify-content: center;margin-top:0px;">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" id="lentevs" value="option2" onClick='valida_adicion();'>
+                      <input class="form-check-input" type="radio" id="lentevs" value="option2" name="inlineRadioOptions" onClick='valida_adicion();'>
                       <label class="form-check-label" for="inlineCheckbox2" id="lentevs">Visión Sencilla</label>
                     </div>
                   </div>
                   <div class="col-sm-4" style="display:flex;justify-content: center;margin-top:0px;">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" id="lentebf" value="option2" onClick='status_checks_tratamientos();'>
+                      <input class="form-check-input" type="radio" id="lentebf" value="option2" name="inlineRadioOptions" onClick='valida_adicion();'>
                       <label class="form-check-label" for="inlineCheckbox2" id="lentebf">Bifocal</label>
                     </div>
                   </div>
                   <div class="col-sm-4" style="display:flex;justify-content: center;margin-top:0px;">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" id="lentemulti" value="option2" onClick='status_checks_tratamientos();'>
+                      <input class="form-check-input" type="radio" id="lentemulti" value="option2" name="inlineRadioOptions" onClick='valida_adicion();'>
                       <label class="form-check-label" for="inlineCheckbox2" id="lentemulti">Multifocal</label>
                     </div>
                   </div>
@@ -94,9 +94,9 @@
                       <table width="100%">
                       <thead class="thead-light" style="color: black;font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center;background: #f8f8f8">
                         <th colspan="5" style="width: 5%"></th>
-                        <th colspan="5" style="width: 5%;text-align: center">DIP</th>
-                        <th colspan="5" style="width: 5%;text-align: center">AP</th>
-                        <th colspan="5" style="width: 5%;text-align: center">AO</th>
+                        <th colspan="5" style="width: 5%;text-align: center">DISTANCIA PUPILAR</th>
+                        <th colspan="5" style="width: 5%;text-align: center">ALTURA PUPILAR</th>
+                        <th colspan="5" style="width: 5%;text-align: center">Altura oblea</th>
                       </thead>
                       <tr>
                         <td colspan="5" style="text-align:right;">OD</td>

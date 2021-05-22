@@ -14,40 +14,136 @@ Full screen Modal
   }
 }
 
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font: 16px Arial;  
+}
 </style>
 <script>
   function focus_input(){
-    document.getElementById(codigob_lente).focus();
+    console.log('Ok')
+   // document.getElementById(codigob_lente).focus();
+    $('#codigob_lente').focus(); 
   }
   </script>
 <div class="modal fade" id="nuevo_lente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document" style="max-width: 65%">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" style="background: black;color: white">
         <h5 class="modal-title" id="exampleModalLabel">NUEVO LENTE</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <!--<button type="button" class="btn btn-sm btn-dark btn-flat float-right"><i class="fas fa-barcode"></i> Generar</button><br>-->
-
-      
+        <button type="button" class="btn btn-info btn-flat btn-xs" onClick="create_barcode_interno();"><i class="fas fa-barcode"></i> Generar Cod.</button>
 
       <div class="form-row">
-          <div class="input-group input-group-sm">
-            <input type="text" class="form-control" id="codigob_lente">
-              <span class="input-group-append">
-              <button type="button" class="btn btn-info btn-flat" onClick="create_barcode_interno();"><i class="fas fa-barcode"></i> Generar</button>
-              </span>
+          <div class="col-sm-4">
+            <label for="">Codigo</label>
+            <input type="text" class="form-control" id="codigob_lente" onchange="read_barcode();" autofocus="">
           </div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>  
+          
+          <div class="col-sm-4" class="autocomplete">
+            <label for="">Marca</label>
+            <input type="text" class="form-control" name="marca_lente" id="marca_lente" onchange="autocomplete_marcas()" onkeyup="valida_diseno();">
+          </div>
+          
+          <div class="col-sm-4">
+            <label for="">Diseño</label>
+            <input type="text" class="form-control" id="dis_lente">
+          </div>
+          
+      </div>
+      
+      <div class="eight" style="align-items: center">
+          <h1>Tipo de lente</h1>
+          <div class="d-flex justify-content-center">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="vs_term" value="option1" onClick="valida_base_term();">
+              <label class="form-check-label" for="inlineRadio1">VS (Terminado)</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="vs_semi_term" value="option2" onClick="valida_base_term();">
+              <label class="form-check-label" for="inlineRadio2">VS (Semi-terminado)</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="bifo_flap" value="option3" onClick="valida_base_term();">
+              <label class="form-check-label" for="inlineRadio3">Bifocal-Flaptop</label>
+            </div>
+          </div>
+      </div>
 
+      <div class="eight" style="align-items: center" id="terminado_section">
+          <h1>Terminado</h1>
+          <div class="d-flex justify-content-center form-row">
+            <div class="form-group col-sm-4">
+              <label for="inlineRadio1">Esfera</label>
+              <input class="form-control" type="number" name="inlineRadioOptions" id="vs_term">   
+            </div>
+          <div class="form-group col-sm-4">
+            <label for="inlineRadio1">Cilindro</label>
+              <input class="form-control" type="number" name="inlineRadioOptions" id="vs_term">
+            </div>
+          </div>
 
+        <span id="tipo_lente"></span>  
+      </div>
 
+      <div class="eight" style="align-items: center" id="semiterminado_section">
+          <h1>VS(Semiterminado)</h1>
+          <div class="d-flex justify-content-center form-row">
+            <div class="form-group col-sm-4">
+              <label for="inlineRadio1">Base</label>
+              <input class="form-control" type="text" name="inlineRadioOptions" id="vs_term">
+            </div>
+            <div class="form-group col-sm-4">
+              <label for="inlineRadio1">Diametro</label>
+              <input class="form-control" type="text" name="inlineRadioOptions" id="vs_term">
+            </div>
+          </div>
+      </div>
+
+      <div class="eight" style="align-items: center" id="base_section">
+          <h1>Base</h1>
+          <div class="d-flex justify-content-center form-row">
+            <div class="form-group col-sm-4">
+              <label for="inlineRadio1">Base</label>
+              <input class="form-control" type="text" name="inlineRadioOptions" id="base_flap" onchange="proof()">
+            </div>
+          <div class="form-group col-sm-4">
+            <label for="inlineRadio1">Add.</label>
+              <input class="form-control" type="text" name="inlineRadioOptions" id="add_flap">
+            </div>
+
+            <div class="form-group col-sm-4">
+              <label for="inlineRadio1">Diametro</label>
+              <input class="form-control" type="text" name="inlineRadioOptions" id="vs_term">
+            </div>
+          </div>
+      </div>
+
+      <div class="form-row">
+          <div class="col-12 col-sm-12">
+          <div class="form-group">
+          <label>Tratamientos</label>
+              <div class="select2-purple">
+                <select class="select2" multiple="multiple" data-placeholder="Seleccionar tratamientos" data-dropdown-css-class="select2-purple" style="width: 100%;">
+                  <option>BLANCO</option>
+                  <option>BLUECAP</option>
+                  <option>PHOTOCROM</option>
+                  <option>TRANSITIONS</option>
+                  <option>1.67</option>
+                  <option>TRANSITION 1.67</option>
+                  <option>ANTIRREFLEJANTE</option>
+                </select>
+              </div>
+            </div>
+          </div>       
+      </div><!--Fin form row-->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">GUARDAR</button>
@@ -55,3 +151,4 @@ Full screen Modal
     </div>
   </div>
 </div>
+
