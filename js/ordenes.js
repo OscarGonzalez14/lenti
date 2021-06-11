@@ -9,6 +9,18 @@ function ocultar_btn_print_rec_ini(){
   document.getElementById("btn_print_recibos").style.display = "none";
 }
 
+/////////////// SELECCIONAR SUCURSAL //////////
+$(document).ready(function(){
+  $("#optica_orden").change(function () {         
+    $("#optica_orden option:selected").each(function () {
+     let optica = $(this).val();
+        $.post('../ajax/ordenes.php?op=sucursales_optica',{optica:optica}, function(data){
+        $("#optica_sucursal").html(data);
+      });            
+    });
+  })
+});
+
 /////////validar ingreso de adicion////////////
 function valida_adicion(){
   let vs_check = $("#lentevs").is(":checked");
@@ -69,8 +81,7 @@ function status_checks_tratamientos(){
     $('#transitionphoto').prop('checked', false)
     $('#lbl_transitionphoto').css('color', '#989898');
     
-  }else{
-  	
+  }else{  	
     $("#transitionphoto").removeAttr("disabled");
   }
 
@@ -108,14 +119,14 @@ window.onkeydown= space_guardar_orden;
 function guardar_orden(){
 
   let codigo = $('#codigoOrden').val();
-   let paciente = $("#paciente_orden").val();
+  let paciente = $("#paciente_orden").val();
   let optica = $("#optica_orden").val();
   let observaciones = $("#observaciones_orden").val();
   let id_usuario = $("#id_usuario").val();
+  let usuario = $("#usuario").val();
   let lentevs = $("#lentevs").val();
   let lentebf = $("#lentebf").val();
   let lentemulti = $("#lentemulti").val();
-
   ////GRADUACIONES///////
   let odesferasf_orden = $("#odesferasf_orden").val();
   let odcilindrosf_orden = $("#odcilindrosf_orden").val();
@@ -149,18 +160,7 @@ function guardar_orden(){
     data:{codigo:codigo,paciente:paciente,optica:optica,observaciones:observaciones,id_usuario:id_usuario},
     cache: false,
     dataType:"json",
-   /* error:function(){
-      Swal.fire({
-        position: 'top-center',
-        icon: 'success',
-        title: 'Orden Registrada Exitosamente',
-        showConfirmButton: true,
-        timer: 2500
-      })
-    document.getElementById("btn-print-bc").style.display = "block";
-    //document.getElementById("btn_print_recibos").style.display = "none";
-
-    },  */   
+   
     success:function(data){
     console.log(data)
      if (data=='exito') {

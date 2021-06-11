@@ -18,6 +18,19 @@ case 'crear_barcode':
     }
 break;
 
+case 'sucursales_optica':
+
+	$sucursales = $ordenes->get_sucursales_optica($_POST["optica"]);
+	$options = "<option value='0'>Seleccionar sucursal...</option>";
+
+	for($i=0; $i < sizeof($sucursales); $i++){
+		$options.="<option value='".$sucursales[$i]["id_sucursal"]."'>".$sucursales[$i]["direccion"]."</option>";
+	}
+
+	echo $options;
+
+	break;
+
 case 'registrar_orden':
 	$datos = $ordenes->comprobar_existe_correlativo($_POST["codigo"]);
     if(is_array($datos) == true and count($datos)==0){		

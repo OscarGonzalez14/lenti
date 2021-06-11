@@ -25,20 +25,20 @@ $hoy = date("d-m-Y H:i:s");
             echo strtoupper($optica).'<br>'.strtoupper($paciente);
           ?>
       </div>  
-      <img src="../codigos/<?php echo $codigo;?>.png" style=" margin-top: 10px;margin:8px">
+      <img src="../codigos/<?php echo $codigo;?>.png" style=" margin-top: 10px;margin:8px" width="250" height="100">
     </div>
-    <p style="text-align: center;color: gray">-------------------------</p>
+    <!------- <p style="text-align: center;color: gray"> -------------------------</p>
     <div style="text-align: center; font-size: 10px;">
 
     <div id="content"> 
     </div>
       <div> 
           <?php 
-            echo strtoupper($optica).'<br>'.strtoupper($paciente);
+         //   echo strtoupper($optica).'<br>'.strtoupper($paciente);
           ?>
       </div>  
-      <img src="../codigos/<?php echo $codigo;?>.png" style=" margin-top: 10px">
-    </div>
+      <img src="../codigos/<?php// echo $codigo;?>.png" style=" margin-top: 10px">
+    </div>-->
     
 </body>
 </html>
@@ -46,13 +46,12 @@ $hoy = date("d-m-Y H:i:s");
 
 $salida_html = ob_get_contents();
   //$user=$_SESSION["id_usuario"];
-
 ob_end_clean();
 $dompdf = new Dompdf();
 $dompdf->loadHtml($salida_html);
-
+$dompdf->setPaper('tabloid', 'portrait');
 // (Optional) Setup the paper size and orientation
-$dompdf->setPaper(array(0,0,190,300));
+$dompdf->setPaper(array(0,0,220,210));
 
 // Render the HTML as PDF
 $dompdf->render();

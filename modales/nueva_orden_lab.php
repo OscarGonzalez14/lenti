@@ -13,17 +13,29 @@
               <strong><h1>DATOS GENERALES</h1></strong>
               <div class="form-row" style="margin-top: 1px"><!--./Inicio Form row-->
 
-                <div class="form-group col-sm-8">
+                <div class="form-group col-sm-5">
                   <label for="inlineFormInputGroup">Paciente</label>
                   <input type="text" class="form-control clear_orden_i" id="paciente_orden" name="paciente_orden" autocomplete='off'>
                 </div>
 
-                <div class="form-group col-sm-4">
+                <div class="form-group col-sm-3">
                   <label for="inputPassword4">Óptica</label>
                   <select class="form-control clear_orden_i" id="optica_orden" name="optica_orden" required>
-                  <option value="AV Plus">Optica AV Plus</option>
+                  <option value="0">Seleccionar optica...</option>
+                      <?php
+                        for($i=0; $i<sizeof($suc);$i++){?>
+                              <option value="<?php echo $suc[$i]["id_optica"]?>"><?php echo $suc[$i]["nombre"];?></option>
+                             <?php
+                           }
+                        ?>
                   </select>
                 </div>
+
+                <div class="form-group col-sm-4">
+                  <label for="inputPassword4">Sucursal</label>
+                  <select class="form-control clear_orden_i" id="optica_sucursal" name="optica_sucursal" required>                 
+                  </select>
+                </div>  
 
               </div><!--./Fin Form row-->
             </div><!--./*********Fin datos-generales************-->

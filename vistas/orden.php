@@ -9,7 +9,10 @@ if(isset($_SESSION["usuario"])){
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Home</title>
-<?php require_once("links_plugin.php");
+<?php require_once("links_plugin.php"); 
+ require_once('../modelos/Ordenes.php');
+ $ordenes = new Ordenes();
+ $suc = $ordenes->get_opticas();
  require_once('../modales/nueva_orden_lab.php');
  ?>
 <style>
@@ -34,6 +37,7 @@ if(isset($_SESSION["usuario"])){
     <section class="content">
       <div class="container-fluid">
       <input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
+      <input type="hidden" name="usuario" id="usuario" value="<?php echo $_SESSION["usuario"];?>"/>
         <div style="border-top: 0px">
       <!--<a class="btn btn-app bg-info btn-sm btn-flat" data-toggle="modal" data-target="#nueva_orden_lab" onClick='get_numero_orden();' style="border-radius: 5px;margin:2px;">
             <i class="fas fa-glasses"></i> Crear orden

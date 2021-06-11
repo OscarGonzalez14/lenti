@@ -4,6 +4,27 @@
   
 
    class Ordenes extends Conectar{
+/*SELECT o.paciente,o.fecha_creacion,s.nombre,s.direccion,op.nombre from orden as o inner join sucursal_optica as s on o.id_sucursal = s.id_sucursal INNER join optica as op on s.id_optica= op.id_optica*/
+    ///////////GET SUCURSALES ///////////
+    public function get_opticas(){
+      $conectar=parent::conexion();
+      parent::set_names();
+      $sql="select id_optica,nombre from optica;";
+      $sql=$conectar->prepare($sql);
+      $sql->execute();
+      return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    ///////////GET SUCURSALES ///////////
+    public function get_sucursales_optica($id_optica){
+      $conectar=parent::conexion();
+      parent::set_names();
+      $sql="select id_sucursal,direccion from sucursal_optica where id_optica=?;";
+      $sql=$conectar->prepare($sql);
+      $sql->bindValue(1,$id_optica);
+      $sql->execute();
+      return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+    }
 
    	//////////////////  GET CODIGO DE ORDEN ////////////////////////
 
@@ -43,7 +64,7 @@
     date_default_timezone_set('America/El_Salvador'); 
     $hoy = date("d-m-Y H:i:s");
     $estado = 0;
-    $sql = "insert into orden values (null,?,?,?,?,?,?,?);";
+    $sql = "insert into orden values (?,?,?,?,?,?,?);";
     $sql = $conectar->prepare($sql);
     $sql->bindValue(1, $codigo);
     $sql->bindValue(2, $optica);
@@ -59,7 +80,7 @@
 
    public function get_ordenes(){
     $conectar= parent::conexion();
-    $sql= "select*from orden order by id_orden DESC;";
+    $sql= "select*from orden order by numero_orden DESC;";
     $sql=$conectar->prepare($sql);
     $sql->execute();
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
