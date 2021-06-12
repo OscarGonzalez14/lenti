@@ -13,10 +13,10 @@
               <strong><h1>DATOS GENERALES</h1></strong>
               <div class="form-row" style="margin-top: 1px"><!--./Inicio Form row-->
 
-                <div class="form-group col-sm-5">
-                  <label for="inlineFormInputGroup">Paciente</label>
-                  <input type="text" class="form-control clear_orden_i" id="paciente_orden" name="paciente_orden" autocomplete='off'>
-                </div>
+              <div class="form-group col-sm-5">
+                <label for="inlineFormInputGroup">Paciente</label>
+                <input type="text" class="form-control clear_orden_i" id="paciente_orden" name="paciente_orden" autocomplete='off'>
+              </div>
 
                 <div class="form-group col-sm-3">
                   <label for="inputPassword4">Óptica</label>
@@ -46,25 +46,24 @@
               <div class="row">
                   <div class="col-sm-4" class="d-flex justify-content-center" style="display:flex;justify-content: center;margin-top:0px;">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" id="lentevs" value="option2" name="inlineRadioOptions" onClick='valida_adicion();'>
+                      <input class="form-check-input" type="radio" id="lentevs" value="Visión Sencilla" name="tipo_lente" onClick='valida_adicion();'>
                       <label class="form-check-label" for="inlineCheckbox2" id="lentevs">Visión Sencilla</label>
                     </div>
                   </div>
                   <div class="col-sm-4" style="display:flex;justify-content: center;margin-top:0px;">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" id="lentebf" value="option2" name="inlineRadioOptions" onClick='valida_adicion();'>
+                      <input class="form-check-input" type="radio" id="lentebf" value="Bifocal" name="tipo_lente" onClick='valida_adicion();'>
                       <label class="form-check-label" for="inlineCheckbox2" id="lentebf">Bifocal</label>
                     </div>
                   </div>
                   <div class="col-sm-4" style="display:flex;justify-content: center;margin-top:0px;">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" id="lentemulti" value="option2" name="inlineRadioOptions" onClick='valida_adicion();'>
+                      <input class="form-check-input" type="radio" id="lentemulti" value="Multifocal" name="tipo_lente" onClick='valida_adicion();'>
                       <label class="form-check-label" for="inlineCheckbox2" id="lentemulti">Multifocal</label>
                     </div>
                   </div>
               </div>
-            </div>  
-
+            </div>
             <!--################ RX final + medidas #############-->
             <div class="eight">
               <strong><h1 style="color: #034f84">GRADUACIÓN(Rx Final) Y MEDIDAS</h1></strong>
@@ -248,7 +247,7 @@
         </form>
           </div><!--/END MODAL BODY-->
             <div class="modal-footer justify-content-between">            
-              <button type="button" class="btn btn-primary btn-block" onClick='create_barcode();'>Guardar</button>
+              <button type="button" class="btn btn-primary btn-block" onClick='guardar_orden();'>Guardar</button>
             </div>
           </div>
           <!-- /.modal-content -->

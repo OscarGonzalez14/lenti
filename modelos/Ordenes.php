@@ -31,7 +31,7 @@
    	public function get_correlativo_orden($fecha){
     $conectar= parent::conexion();
     $fecha_act = $fecha.'%';         
-    $sql= "select codigo from orden where fecha_creacion like ? order by id_orden DESC limit 1;";
+    $sql= "select codigo from orden where fecha_creacion like ? order by codigo DESC limit 1;";
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1,$fecha_act);
     $sql->execute();
@@ -58,21 +58,28 @@
 
    }
   /////////////   REGISTRAR ORDEN ///////////////////////////////
-   public function registrar_orden($codigo,$paciente,$optica,$observaciones,$id_usuario){
+   public function registrar_orden($codigo,$paciente,$observaciones,$usuario,$id_sucursal,$id_optica,$tipo_lente){
 
    	$conectar = parent::conexion();
     date_default_timezone_set('America/El_Salvador'); 
     $hoy = date("d-m-Y H:i:s");
     $estado = 0;
-    $sql = "insert into orden values (?,?,?,?,?,?,?);";
+
+    $sql2 ="o.nombre,s.nombre from optica as o join sucursal_optica as s where o.id_optica=? and s.id_sucursal=?";////////////AQUI ME QUEDE
+
+    $sql = "insert into orden values (?,?,?,?,?,?,?,?,?,?,?);";
     $sql = $conectar->prepare($sql);
     $sql->bindValue(1, $codigo);
     $sql->bindValue(2, $optica);
-    $sql->bindValue(3, $paciente);
-    $sql->bindValue(4, $observaciones);
-    $sql->bindValue(5, $id_usuario);
-    $sql->bindValue(6, $hoy);
-    $sql->bindValue(7,$estado);
+    $sql->bindValue(3, $sucursal);
+    $sql->bindValue(4, $paciente);
+    $sql->bindValue(5, $observaciones);
+    $sql->bindValue(6, $usuario);
+    $sql->bindValue(7, $hoy);
+    $sql->bindValue(8, $estado);
+    $sql->bindValue(9, $id_sucursal);
+    $sql->bindValue(10, $tipo_lente);
+    $sql->bindValue(11, $id_optica);
     $sql->execute();
    }
 
@@ -80,7 +87,7 @@
 
    public function get_ordenes(){
     $conectar= parent::conexion();
-    $sql= "select*from orden order by numero_orden DESC;";
+    $sql= "select*from orden order by fecha_creacion DESC;";
     $sql=$conectar->prepare($sql);
     $sql->execute();
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);

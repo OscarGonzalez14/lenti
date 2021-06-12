@@ -97,8 +97,10 @@ function space_guardar_orden(event){
     }
 }
 
-function create_barcode(){
+function create_barcode(){  
+
   let codigo = $('#codigoOrden').val();
+
   $.ajax({
     url:"../ajax/ordenes.php?op=crear_barcode",
     method:"POST",
@@ -120,14 +122,27 @@ function guardar_orden(){
 
   let codigo = $('#codigoOrden').val();
   let paciente = $("#paciente_orden").val();
-  let optica = $("#optica_orden").val();
   let observaciones = $("#observaciones_orden").val();
-  let id_usuario = $("#id_usuario").val();
   let usuario = $("#usuario").val();
+  let id_sucursal = $("#optica_sucursal").val();
+  let id_optica = $("#optica_orden").val();
+  let tipo_lente = $("input[type='radio'][name='tipo_lente']:checked").val();
+
+  if (tipo_lente===undefined) {
+        Swal.fire({
+        position: 'top-center',
+        icon: 'error',
+        title: 'Debe especificar el tipo de lente',
+        showConfirmButton: true,
+        timer: 9500
+      });
+    return false;
+  }
+
+
   let lentevs = $("#lentevs").val();
   let lentebf = $("#lentebf").val();
   let lentemulti = $("#lentemulti").val();
-  ////GRADUACIONES///////
   let odesferasf_orden = $("#odesferasf_orden").val();
   let odcilindrosf_orden = $("#odcilindrosf_orden").val();
   let odejesf_orden = $("#odejesf_orden").val();
@@ -157,7 +172,7 @@ function guardar_orden(){
   $.ajax({
     url:"../ajax/ordenes.php?op=registrar_orden",
     method:"POST",
-    data:{codigo:codigo,paciente:paciente,optica:optica,observaciones:observaciones,id_usuario:id_usuario},
+    data:{codigo:codigo,paciente:paciente,observaciones:observaciones,usuario:usuario,id_sucursal:id_sucursal,id_optica:id_optica,tipo_lente:tipo_lente},
     cache: false,
     dataType:"json",
    
@@ -171,7 +186,7 @@ function guardar_orden(){
         showConfirmButton: true,
         timer: 2500
       });
-      document.getElementById("btn-print-bc").style.display = "block";
+      //document.getElementById("btn-print-bc").style.display = "block";
      }else{
       Swal.fire({
         position: 'top-center',

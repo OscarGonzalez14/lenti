@@ -34,7 +34,7 @@ case 'sucursales_optica':
 case 'registrar_orden':
 	$datos = $ordenes->comprobar_existe_correlativo($_POST["codigo"]);
     if(is_array($datos) == true and count($datos)==0){		
-		$ordenes->registrar_orden($_POST['codigo'],$_POST['paciente'],$_POST['optica'],$_POST['observaciones'],$_POST['id_usuario']);
+		$ordenes->registrar_orden($_POST['codigo'],$_POST['paciente'],$_POST['observaciones'],$_POST['usuario'],$_POST['id_sucursal'],$_POST["id_optica"],$_POST["tipo_lente"]);
 		$mensaje='exito';	
 	}else{
 		$mensaje="error";
