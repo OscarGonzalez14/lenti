@@ -59,11 +59,11 @@ body {
           
       </div>
       
-      <div class="eight" style="align-items: center">
+      <div class="eight form-group" style="align-items: center">
           <h1>Tipo de lente</h1>
           <div class="d-flex justify-content-center">
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="vs_term" value="option1" onClick="valida_base_term();">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="vs_term" value="vs_terminado" onClick="valida_base_term();">
               <label class="form-check-label" for="inlineRadio1">VS (Terminado)</label>
             </div>
             <div class="form-check form-check-inline">
@@ -72,7 +72,11 @@ body {
             </div>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="inlineRadioOptions" id="bifo_flap" value="option3" onClick="valida_base_term();">
-              <label class="form-check-label" for="inlineRadio3">Bifocal-Flaptop</label>
+              <label class="form-check-label" for="inlineRadio3">Flaptop(Semi-terminado)</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="flap_terminado" value="option3" onClick="valida_base_term();">
+              <label class="form-check-label" for="inlineRadio3">Flaptop(Terminado)</label>
             </div>
           </div>
       </div>
@@ -108,7 +112,7 @@ body {
       </div>
 
       <div class="eight" style="align-items: center" id="base_section">
-          <h1>Base</h1>
+          <h1>Flaptop semi-terminado</h1>
           <div class="d-flex justify-content-center form-row">
             <div class="form-group col-sm-4">
               <label for="inlineRadio1">Base</label>
@@ -126,19 +130,33 @@ body {
           </div>
       </div>
 
+      <div class="eight" style="align-items: center" id="flap_terminado_section">
+          <h1>Flaptop terminado</h1>
+          <div class="d-flex justify-content-center form-row">          
+          <div class="form-group col-sm-4">
+              <label for="inlineRadio1">Esfera</label>
+              <input class="form-control" type="text" name="inlineRadioOptions" id="base_flap_terminado" onchange="proof()">
+            </div>
+          <div class="form-group col-sm-4">
+            <label for="inlineRadio1">Add.</label>
+              <input class="form-control" type="text" name="inlineRadioOptions" id="add_flap_terminado">
+          </div>
+          </div>
+      </div>
+
       <div class="form-row">
           <div class="col-12 col-sm-12">
           <div class="form-group">
           <label>Tratamientos</label>
               <div class="select2-purple">
-                <select class="select2" multiple="multiple" data-placeholder="Seleccionar tratamientos" data-dropdown-css-class="select2-purple" style="width: 100%;">
-                  <option>BLANCO</option>
-                  <option>BLUECAP</option>
-                  <option>PHOTOCROM</option>
-                  <option>TRANSITIONS</option>
-                  <option>1.67</option>
-                  <option>TRANSITION 1.67</option>
-                  <option>ANTIRREFLEJANTE</option>
+                <select class="select2" id="lentes_sel" multiple="multiple" data-placeholder="Seleccionar tratamientos" data-dropdown-css-class="select2-purple" style="width: 100%;">
+                  <option value="1">BLANCO</option>
+                  <option value="2">BLUECAP</option>
+                  <option value="3">PHOTOCROM</option>
+                  <option value="4">TRANSITIONS</option>
+                  <option value="5">1.67</option>
+                  <option value="6">TRANSITION 1.67</option>
+                  <option value="7">ANTIRREFLEJANTE</option>
                 </select>
               </div>
             </div>
@@ -146,7 +164,7 @@ body {
       </div><!--Fin form row-->
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">GUARDAR</button>
+        <button type="button" class="btn btn-primary btn-block">GUARDAR</button>
       </div>
     </div>
   </div>

@@ -46,20 +46,20 @@
               <div class="row">
                   <div class="col-sm-4" class="d-flex justify-content-center" style="display:flex;justify-content: center;margin-top:0px;">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" id="lentevs" value="Visión Sencilla" name="tipo_lente" onClick='valida_adicion();'>
-                      <label class="form-check-label" for="inlineCheckbox2" id="lentevs">Visión Sencilla</label>
+                      <input class="form-check-input checkit" type="radio" id="lentevs" value="Visión Sencilla" name="tipo_lente" onClick='valida_adicion();'>
+                      <label class="form-check-label" for="inlineCheckbox2" id="">Visión Sencilla</label>
                     </div>
                   </div>
                   <div class="col-sm-4" style="display:flex;justify-content: center;margin-top:0px;">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" id="lentebf" value="Bifocal" name="tipo_lente" onClick='valida_adicion();'>
-                      <label class="form-check-label" for="inlineCheckbox2" id="lentebf">Bifocal</label>
+                      <input class="form-check-input checkit" type="radio" id="lentebf" value="Bifocal" name="tipo_lente" onClick='valida_adicion();'>
+                      <label class="form-check-label" for="inlineCheckbox2" id="">Bifocal</label>
                     </div>
                   </div>
                   <div class="col-sm-4" style="display:flex;justify-content: center;margin-top:0px;">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" id="lentemulti" value="Multifocal" name="tipo_lente" onClick='valida_adicion();'>
-                      <label class="form-check-label" for="inlineCheckbox2" id="lentemulti">Multifocal</label>
+                      <input class="form-check-input checkit" type="radio" id="lentemulti" value="Multifocal" name="tipo_lente" onClick='valida_adicion();'>
+                      <label class="form-check-label" for="inlineCheckbox2" id="">Multifocal</label>
                     </div>
                   </div>
               </div>
@@ -198,12 +198,12 @@
 
               <div class="form-group col-sm-3">
                 <label for="">Modelo</label>
-                <input type="text" class="form-control clear_orden_i" id="modelo_aro_orden">
+                <input type="text" class="form-control clear_orden_i" id="modelo_aro_orden" onkeyup="get_numero_orden();">
               </div>
 
               <div class="form-group col-sm-3">
                 <label for="">Marca</label>
-                <input type="text" class="form-control clear_orden_i" id="marca_aro_orden">
+                <input type="text" class="form-control clear_orden_i" id="marca_aro_orden" onkeyup="get_numero_orden();">
               </div>
 
               <div class="form-group col-sm-3">
@@ -231,19 +231,18 @@
                   <td colspan="25" style="width: 25%"> <input type="text" class="form-control clear_orden_i" placeholder="---" id="med_a" onClick="get_correlativo_orden();"></td>
                   <td colspan="25" style="width: 25%"> <input type="text" class="form-control clear_orden_i" placeholder="---" id="med_b" onClick="get_correlativo_orden();"></td>
                   <td colspan="25" style="width: 25%"> <input type="text" class="form-control clear_orden_i" placeholder="---" id="med_c" onClick="get_correlativo_orden();"></td>     
-                  <td colspan="25" style="width: 25%"> <input type="text" class="form-control clear_orden_i" placeholder="---" id="med_d" onClick="get_correlativo_orden();"></td>                
+                  <td colspan="25" style="width: 25%"> <input type="text" class="form-control clear_orden_i" placeholder="---" id="med_d" onClick="get_correlativo_orden();"></td>              
                 </tr>
               </tbody>  
             </table>
 
             <div class="form-group col-sm-12">
               <label for="">Observaciones</label>
-              <input type="text" class="form-control clear_orden_i" id="observaciones_orden">
+              <input type="text" class="form-control clear_orden_i" id="observaciones_orden" onkeyup="get_numero_orden();">
             </div>
 
          </div> 
           <input type="hidden" id="codigoOrden" name="codigoOrden">
-          <button type="submit" class="btn btn-default btn-block" style="background: black; color: white" id="btn-print-bc"><i class="fas fa-barcode"></i> Imprimir</button>
         </form>
           </div><!--/END MODAL BODY-->
             <div class="modal-footer justify-content-between">            

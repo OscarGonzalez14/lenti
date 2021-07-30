@@ -43,7 +43,7 @@ if(isset($_SESSION["usuario"])){
             <i class="fas fa-glasses"></i> Crear orden
         </a>-->
         </div>
-      <button class="btn btn-outline-primary btn-sm btn-flat" data-toggle="modal" data-target="#nueva_orden_lab" onClick='get_numero_orden();'><i class="fa fa-glasses" style="margin-top: 2px"> Crear Orden</i></button>
+      <button class="btn btn-outline-primary btn-sm btn-flat" data-toggle="modal" data-target="#nueva_orden_lab" data-backdrop="static" data-keyboard="false" onClick='get_numero_orden();' id="new_order"><i class="fa fa-glasses" style="margin-top: 2px"> Crear Orden</i></button>
       <div class="row">
          <div class="col-sm-4"></div>
          <div class="col-sm-4"></div>
@@ -63,7 +63,6 @@ if(isset($_SESSION["usuario"])){
          <tbody class="style_th"></tbody>
        </table>
       </div>
-
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->

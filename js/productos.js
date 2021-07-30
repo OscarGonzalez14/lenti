@@ -8,21 +8,28 @@ function valida_base_term(){
 	let vs_term_check = $("#vs_term").is(":checked");
 	let vs_semi_term_chk = $("#vs_semi_term").is(":checked");
 	let bifo_flap_chk = $("#bifo_flap").is(":checked");
-
+  let flap_terminado = $("#flap_terminado").is(":checked");
     
-    if (vs_term_check) {
+    if(vs_term_check) {
     	document.getElementById("terminado_section").style.display = "block";
     	document.getElementById("base_section").style.display = "none";
       document.getElementById("semiterminado_section").style.display = "none";
+      document.getElementById("flap_terminado_section").style.display = "none";
     }else if(bifo_flap_chk ){
     	document.getElementById("base_section").style.display = "block";
     	document.getElementById("terminado_section").style.display = "none";
       document.getElementById("semiterminado_section").style.display = "none";
-
+      document.getElementById("flap_terminado_section").style.display = "none";
     }else if(vs_semi_term_chk){
       document.getElementById("semiterminado_section").style.display = "block";
       document.getElementById("terminado_section").style.display = "none";
       document.getElementById("base_section").style.display = "none";
+      document.getElementById("flap_terminado_section").style.display = "none";
+    }else if(flap_terminado){
+      document.getElementById("semiterminado_section").style.display = "none";
+      document.getElementById("terminado_section").style.display = "none";
+      document.getElementById("base_section").style.display = "none";
+      document.getElementById("flap_terminado_section").style.display = "block";
     }
 }
 
@@ -66,6 +73,7 @@ $(document).on('shown.bs.modal', function (e) {
   }else if (marcas_l=="Divel"){
     disenos_lente = ["Photocrom","Bifocal Blanco","Bifocal Photocrom","Index 1.67"];
   }
+
   autocomplete(document.getElementById("dis_lente"), disenos_lente); 
  }
 

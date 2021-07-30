@@ -1,12 +1,22 @@
 function init(){
- listar_ordenes();
+ //listar_ordenes();
  get_numero_orden();
- document.getElementById("btn-print-bc").style.display = "none";
+ //document.getElementById("btn-print-bc").style.display = "none";
+}
+
+function alerts(icono, titulo){
+  Swal.fire({
+        position: 'top-center',
+        icon: icono,
+        title: titulo,
+        showConfirmButton: true,
+        timer: 2500
+      });
 }
 
 
 function ocultar_btn_print_rec_ini(){
-  document.getElementById("btn_print_recibos").style.display = "none";
+  //document.getElementById("btn_print_recibos").style.display = "none";
 }
 
 /////////////// SELECCIONAR SUCURSAL //////////
@@ -88,7 +98,6 @@ function status_checks_tratamientos(){
 }
 
 //////////EJECUTAR ORDEN GUARDAR SPACE KEY ////
-
 function space_guardar_orden(event){
   tecla = event.keyCode; 
     if(tecla==13)
@@ -117,29 +126,18 @@ function create_barcode(){
 }
 
 window.onkeydown= space_guardar_orden;
-
+/***********************************************************
+/////////////////////  GUARDAR ORDEN ///////////////////////
+/***********************************************************/
 function guardar_orden(){
 
   let codigo = $('#codigoOrden').val();
   let paciente = $("#paciente_orden").val();
   let observaciones = $("#observaciones_orden").val();
-  let usuario = $("#usuario").val();
+  let usuario = $("#id_usuario").val();
   let id_sucursal = $("#optica_sucursal").val();
   let id_optica = $("#optica_orden").val();
-  let tipo_lente = $("input[type='radio'][name='tipo_lente']:checked").val();
-
-  if (tipo_lente===undefined) {
-        Swal.fire({
-        position: 'top-center',
-        icon: 'error',
-        title: 'Debe especificar el tipo de lente',
-        showConfirmButton: true,
-        timer: 9500
-      });
-    return false;
-  }
-
-
+  let tipo_orden = "Laboratorio";
   let lentevs = $("#lentevs").val();
   let lentebf = $("#lentebf").val();
   let lentemulti = $("#lentemulti").val();
@@ -153,29 +151,22 @@ function guardar_orden(){
   let oiejesf_orden = $("#oiejesf_orden").val();
   let oiadicionf_orden = $("#oiadicionf_orden").val();
   let oiprismaf_orden = $("#oiprismaf_orden").val();
-
-
-  let bf_check = $("#lentebf").is(":checked");
-  let multi_check = $("#lentemulti").is(":checked");
-
-  if((bf_check == true || multi_check == true) &&  (oddicionf_orden=="" || oiadicionf_orden=="")){
-        Swal.fire({
-        position: 'top-center',
-        icon: 'error',
-        title: 'Adicion incompleta',
-        showConfirmButton: true,
-        timer: 2500
-      });
-    return false;    
+  let tipo_lente = $("input[type='radio'][name='tipo_lente']:checked").val();  
+  if (tipo_lente==undefined || tipo_lente==null) {
+    alerts('error','Debe seleccionar Lente');return false;
   }
-  
   $.ajax({
     url:"../ajax/ordenes.php?op=registrar_orden",
     method:"POST",
-    data:{codigo:codigo,paciente:paciente,observaciones:observaciones,usuario:usuario,id_sucursal:id_sucursal,id_optica:id_optica,tipo_lente:tipo_lente},
+    data:{'codigo':codigo,'paciente':paciente,'observaciones':observaciones,'usuario':usuario,'id_sucursal':id_sucursal,'id_optica':id_optica,'tipo_orden':tipo_orden,'tipo_lente':tipo_lente},
     cache: false,
     dataType:"json",
-   
+      error:function(x,y,z){
+      console.log(x);
+      console.log(y);
+      console.log(z);
+    },
+         
     success:function(data){
     console.log(data)
      if (data=='exito') {
@@ -186,7 +177,10 @@ function guardar_orden(){
         showConfirmButton: true,
         timer: 2500
       });
-      //document.getElementById("btn-print-bc").style.display = "block";
+      //////  GENERAR CODIGO DE BARRAS ///////
+      $("#nueva_orden_lab").modal('hide');
+      generate_barcode_print(codigo,paciente);    
+
      }else{
       Swal.fire({
         position: 'top-center',
@@ -195,14 +189,46 @@ function guardar_orden(){
         showConfirmButton: true,
         timer: 2500
       })
-
-     }
-    
-     
+     }     
     }
   });//////FIN AJAX
 
 }
+
+function generate_barcode_print(codigo,paciente){
+
+var form = document.createElement("form");
+      form.target = "print_popup";
+      form.method = "POST";
+      form.action = "barcode_orden_print.php";
+      var input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "paciente";
+        input.value = paciente;
+        form.appendChild(input);
+
+      var input = document.createElement("input");
+      input.type = "hidden";
+      input.name = "codigo";
+      input.value = codigo;
+      form.appendChild(input);
+
+      let alto = (parseInt(window.innerHeight) / 4);
+      let ancho = (parseInt(window.innerWidth) / 4);
+      let x = parseInt((screen.width - ancho) / 2);
+      let y = parseInt((screen.height - alto) / 2);
+
+    document.body.appendChild(form);//"width=600,height=500"
+    window.open("about:blank","print_popup",`
+            width=${ancho}
+            height=${alto}
+            top=${y}
+            left=${x}`);
+    form.submit();
+    document.body.removeChild(form);
+
+}
+
 
  function get_numero_orden(){
 
@@ -212,7 +238,6 @@ function guardar_orden(){
       cache:false,
       dataType:"json",
       success:function(data){
-       console.log(data)   
        $("#codigoOrden").val(data.codigo_orden);
        $("#correlativo_op").html(data.codigo_orden);      
       }
@@ -240,7 +265,20 @@ function guardar_orden(){
     }).buttons().container().appendTo('#datatable_ordenes_wrapper .col-md-6:eq(0)');
 
  }
-
+///////////////LIMPIAR CAMPOS NUEVA ORDEN LAB//////////
+$(document).on('click', '#new_order', function(){
+    let element = document.getElementsByClassName("clear_orden_i");
+    for(i=0;i<element.length;i++){
+      let id_element = element[i].id;
+      document.getElementById(id_element).value="";
+   }
+/////////////////////////////UNCHECKED RADIO //////////
+   let check_box = document.getElementsByClassName("checkit");
+   for(i=0;i<check_box.length;i++){
+    let id_check = check_box[i].id;
+    document.getElementById(id_check).checked = false;
+   }
+});
 
 
 init();

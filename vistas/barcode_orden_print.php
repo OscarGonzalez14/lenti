@@ -4,42 +4,44 @@ use Dompdf\Dompdf;
 
 require_once '../dompdf/autoload.inc.php';
 
-$paciente = $_POST["paciente_orden"];
-$optica = $_POST["optica_orden"];
-$codigo = $_POST["codigoOrden"];
+$paciente = $_POST["paciente"];
+$optica = "La Realeza";
+$codigo = $_POST["codigo"];//$_POST["codigoOrden"];
 date_default_timezone_set('America/El_Salvador'); 
 $hoy = date("d-m-Y H:i:s");
 
-
+require "vendor/autoload.php";
+$Bar = new Picqer\Barcode\BarcodeGeneratorHTML();
+$code = $Bar->getBarcode($codigo, $Bar::TYPE_CODE_128,'2','50');
 ?>
 <html lang="en" dir="ltr">
   <head>
    <style>
-      #footer .page:after { content: counter(page, upper-roman); }
+      @page { margin-top: 5px; } 
    </style>
+   <script>
+     function imprimir() {
+        window.print();
+    }
+   </script>
   </head>
-  <body>
-    <div style="text-align: center; font-size: 10px;">
-      <div> 
-          <?php 
-            echo strtoupper($optica).'<br>'.strtoupper($paciente);
-          ?>
-      </div>  
-      <img src="../codigos/<?php echo $codigo;?>.png" style=" margin-top: 10px;margin:8px" width="250" height="100">
-    </div>
-    <!------- <p style="text-align: center;color: gray"> -------------------------</p>
-    <div style="text-align: center; font-size: 10px;">
 
-    <div id="content"> 
+  <body onload="imprimir();">
+
+    <div style="text-align: center; font-size: 10px;">
+      <div id="qrbox">
+        <div style="margin: 0px;">
+        <span style="font-size: 18px"><b>LENTI</b></span><br>
+        <span style="font-size: 15px"><b>PACIENTE: </b><?php echo $paciente;?></span><br>
+        <span style="font-size: 15px"><B>OPTICA</B><?php echo $optica;?></span>
+        </div>
+        <?php echo $code;?> 
+        <div style="font-size:18px"><?php echo $codigo;?><br>
+        <span style="font-size: 18px">lentitulaboratorio.com</span>
+        </div>
+      </div>
     </div>
-      <div> 
-          <?php 
-         //   echo strtoupper($optica).'<br>'.strtoupper($paciente);
-          ?>
-      </div>  
-      <img src="../codigos/<?php// echo $codigo;?>.png" style=" margin-top: 10px">
-    </div>-->
-    
+
 </body>
 </html>
 <?php
@@ -60,3 +62,4 @@ $dompdf->render();
 //$dompdf->stream();
 $dompdf->stream('document', array('Attachment'=>'0'));
 ?>
+
