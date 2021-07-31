@@ -56,25 +56,13 @@
 
    }
   /////////////   REGISTRAR ORDEN ///////////////////////////////
-   public function registrar_orden($codigo,$paciente,$observaciones,$usuario,$id_sucursal,$id_optica,$tipo_orden,$tipo_lente){
+   public function registrar_orden($codigo,$paciente,$observaciones,$usuario,$id_sucursal,$id_optica,$tipo_orden,$tipo_lente,$odesferasf_orden,$odcilindrosf_orden,$odejesf_orden,$oddicionf_orden,$odprismaf_orden,$oiesferasf_orden,$oicilindrosf_orden,$oiejesf_orden,$oiadicionf_orden,$oiprismaf_orden,$modelo,$marca,$color,$diseno,$horizontal,$diagonal,$vertical,$puente){
 
    	$conectar = parent::conexion();
     date_default_timezone_set('America/El_Salvador'); 
     $hoy = date("d-m-Y H:i:s");
     $estado = 0;
 
-    /*$sql2 ="select o.nombre as optica,o.id_optica,s.id_sucursal,s.nombre as sucursal,s.direccion from optica as o inner join sucursal_optica as s on  o.id_optica = s.id_optica where o.id_optica=? and s.id_sucursal=? limit 1;";
-    $sql2 = $conectar->prepare($sql2);
-    $sql2->bindValue(1,$id_optica);
-    $sql2->bindValue(2,$id_sucursal);
-    $sql2->execute();
-
-    $data = $sql2->fetchAll(PDO::FETCH_ASSOC);
-
-    foreach ($data as $key) {
-      $optica = $key["optica"];
-      $sucursal = $key["sucursal"].", ".$key["direccion"];
-    }*/
     $sql = "insert into orden values (null,?,?,?,?,?,?,?,?,?,?);";
     $sql = $conectar->prepare($sql);
     $sql->bindValue(1, $codigo);
@@ -89,28 +77,37 @@
     $sql->bindValue(10, $tipo_orden);
     $sql->execute();
 
-       //////////////// RECORRER ARRAY LENTE E INSERT ///
-  /* $lentes = array();
-   $lentes = json_decode($_POST["lente_orden"]);
-
-   foreach($lentes as $k => $v){
-    $tipo_lente_ord = $v->tipo_lente;
-    $sql2 = "insert into aro_orden values (?,?,);";
+/////////////////////////INSERTAR EN RX ORDEN////// 
+    $sql2 ="insert into rx_orden values(?,?,?,?,?,?,?,?,?,?,?,?);";
     $sql2 = $conectar->prepare($sql2);
     $sql2->bindValue(1, $codigo);
-    $sql2->bindValue(2, $tipo_lente_ord);
+    $sql2->bindValue(2, $paciente);
+    $sql2->bindValue(3, $odesferasf_orden);
+    $sql2->bindValue(4, $odcilindrosf_orden);
+    $sql2->bindValue(5, $odejesf_orden);
+    $sql2->bindValue(6, $oddicionf_orden);
+    $sql2->bindValue(7, $odprismaf_orden);
+    $sql2->bindValue(8, $oiesferasf_orden);
+    $sql2->bindValue(9, $oicilindrosf_orden);
+    $sql2->bindValue(10, $oiejesf_orden);
+    $sql2->bindValue(11, $oiadicionf_orden);
+    $sql2->bindValue(12, $oiprismaf_orden);
     $sql2->execute();
-   }
-   }
-   ////////////////////LISTAR ORDENES///////////////
 
-   public function get_ordenes(){
-    $conectar= parent::conexion();
-    $sql= "select*from orden order by fecha_creacion DESC;";
-    $sql=$conectar->prepare($sql);
-    $sql->execute();
-    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
-    }*/
+// **INSERT INTO ARO ORDEN** //
+
+    $sql3 = "insert into aro_orden values(?,?,?,?,?,?,?,?,?);";
+    $sql3 = $conectar->prepare($sql3);
+    $sql3->bindValue(1, $codigo);
+    $sql3->bindValue(2, $modelo);
+    $sql3->bindValue(3, $marca);
+    $sql3->bindValue(4, $color);
+    $sql3->bindValue(5, $diseno);
+    $sql3->bindValue(6, $horizontal);
+    $sql3->bindValue(7, $diagonal);
+    $sql3->bindValue(8, $vertical);
+    $sql3->bindValue(9, $puente);
+    $sql3->execute();
 
 
    }//Fin de la Clase

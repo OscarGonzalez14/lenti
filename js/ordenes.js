@@ -130,7 +130,7 @@ window.onkeydown= space_guardar_orden;
 /////////////////////  GUARDAR ORDEN ///////////////////////
 /***********************************************************/
 function guardar_orden(){
-
+  // orden data general
   let codigo = $('#codigoOrden').val();
   let paciente = $("#paciente_orden").val();
   let observaciones = $("#observaciones_orden").val();
@@ -141,16 +141,29 @@ function guardar_orden(){
   let lentevs = $("#lentevs").val();
   let lentebf = $("#lentebf").val();
   let lentemulti = $("#lentemulti").val();
+  // rx_orden
   let odesferasf_orden = $("#odesferasf_orden").val();
   let odcilindrosf_orden = $("#odcilindrosf_orden").val();
   let odejesf_orden = $("#odejesf_orden").val();
   let oddicionf_orden = $("#oddicionf_orden").val();
   let odprismaf_orden = $("#odprismaf_orden").val();
   let oiesferasf_orden = $("#oiesferasf_orden").val();
-  let oicolindrosf_orden = $("#oicolindrosf_orden").val();
+  let oicilindrosf_orden = $("#oicolindrosf_orden").val();
   let oiejesf_orden = $("#oiejesf_orden").val();
   let oiadicionf_orden = $("#oiadicionf_orden").val();
   let oiprismaf_orden = $("#oiprismaf_orden").val();
+  //// aro  
+  let modelo = $("#modelo_aro_orden").val();
+  let marca = $("#marca_aro_orden").val();
+  let color = $("#color_aro_orden").val();
+  let diseno = $("#diseno_aro_orden").val();
+  let horizontal = $("#med_a").val();
+  let diagonal = $("#med_b").val();
+  let vertical = $("#med_c").val();
+  let puente = $("#med_d").val();
+   
+
+
   let tipo_lente = $("input[type='radio'][name='tipo_lente']:checked").val();  
   if (tipo_lente==undefined || tipo_lente==null) {
     alerts('error','Debe seleccionar Lente');return false;
@@ -158,7 +171,12 @@ function guardar_orden(){
   $.ajax({
     url:"../ajax/ordenes.php?op=registrar_orden",
     method:"POST",
-    data:{'codigo':codigo,'paciente':paciente,'observaciones':observaciones,'usuario':usuario,'id_sucursal':id_sucursal,'id_optica':id_optica,'tipo_orden':tipo_orden,'tipo_lente':tipo_lente},
+    data:{'codigo':codigo,'paciente':paciente,'observaciones':observaciones,'usuario':usuario,'id_sucursal':id_sucursal,
+    'id_optica':id_optica,'tipo_orden':tipo_orden,'tipo_lente':tipo_lente,
+    'odesferasf_orden':odesferasf_orden,'odcilindrosf_orden':odcilindrosf_orden,'odejesf_orden':odejesf_orden,'oddicionf_orden':oddicionf_orden,
+    'odprismaf_orden':odprismaf_orden,'oiesferasf_orden':oiesferasf_orden,'oicilindrosf_orden':oicilindrosf_orden,'oiejesf_orden':oiejesf_orden,
+    'oiadicionf_orden':oiadicionf_orden,'oiprismaf_orden':oiprismaf_orden,
+    'modelo':modelo,'marca':marca,'color':color,'diseno':diseno,'horizontal':horizontal,'diagonal':diagonal,'vertical':vertical,'puente':puente},
     cache: false,
     dataType:"json",
       error:function(x,y,z){

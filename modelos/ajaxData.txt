@@ -1,0 +1,32 @@
+codigo
+paciente
+//////////////////////////////////////////////////data rx_orden //////////////
+odesferas -- odesferasf_orden
+odcindros -- odcilindrosf_orden
+odeje -- odejesf_orden
+odadicion -- oddicionf_orden
+odprisma -- odprismaf_orden
+oiesferas -- oiesferasf_orden
+oicindros -- oicilindrosf_orden
+oieje -- oiejesf_orden
+oiadicion -- oiadicionf_orden
+oiprisma -- oiprismaf_orden
+
+'odesferasf_orden':odesferasf_orden,'odcilindrosf_orden':odcilindrosf_orden,'odejesf_orden':odejesf_orden,'oddicionf_orden':oddicionf_orden,'odprismaf_orden':odprismaf_orden,'oiesferasf_orden':oiesferasf_orden,'oicilindrosf_orden':oicilindrosf_orden,'oiejesf_orden':oiejesf_orden,'oiadicionf_orden':oiadicionf_orden,'oiprismaf_orden':oiprismaf_orden
+$_POST['odesferasf_orden'],
+$_POST['odcilindrosf_orden'],
+$_POST['odejesf_orden'],
+$_POST['oddicionf_orden'],
+$_POST['odprismaf_orden'],
+$_POST['oiesferasf_orden'],
+$_POST['oicilindrosf_orden'],
+$_POST['oiejesf_orden'],
+$_POST['oiadicionf_orden'],
+$_POST['oiprismaf_orden'],
+
+
+$odesferasf_orden,$odcilindrosf_orden,$odejesf_orden,$oddicionf_orden,$odprismaf_orden,$oiesferasf_orden,$oicilindrosf_orden,$oiejesf_orden,$oiadicionf_orden,$oiprismaf_orden
+
+?,?,?,?,?,?,?,?,?,?
+
+/////////////////////////////////////////data aros orden
