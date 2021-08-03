@@ -56,7 +56,7 @@
 
    }
   /////////////   REGISTRAR ORDEN ///////////////////////////////
-   public function registrar_orden($codigo,$paciente,$observaciones,$usuario,$id_sucursal,$id_optica,$tipo_orden,$tipo_lente,$odesferasf_orden,$odcilindrosf_orden,$odejesf_orden,$oddicionf_orden,$odprismaf_orden,$oiesferasf_orden,$oicilindrosf_orden,$oiejesf_orden,$oiadicionf_orden,$oiprismaf_orden,$modelo,$marca,$color,$diseno,$horizontal,$diagonal,$vertical,$puente){
+   public function registrar_orden($codigo,$paciente,$observaciones,$usuario,$id_sucursal,$id_optica,$tipo_orden,$tipo_lente,$odesferasf_orden,$odcilindrosf_orden,$odejesf_orden,$oddicionf_orden,$odprismaf_orden,$oiesferasf_orden,$oicilindrosf_orden,$oiejesf_orden,$oiadicionf_orden,$oiprismaf_orden,$modelo,$marca,$color,$diseno,$horizontal,$diagonal,$vertical,$puente,$od_dist_pupilar,$od_altura_pupilar,$od_altura_oblea,$oi_dist_pupilar,$oi_altura_pupilar,$oi_altura_oblea){
 
    	$conectar = parent::conexion();
     date_default_timezone_set('America/El_Salvador'); 
@@ -108,6 +108,20 @@
     $sql3->bindValue(8, $vertical);
     $sql3->bindValue(9, $puente);
     $sql3->execute();
+
+//***INSERT INTO ALTURAS ORDEN ///
+    $sql4 = "insert into alturas_orden values(?,?,?,?,?,?,?,?);";
+    $sql4 = $conectar->prepare($sql4);
+    $sql4->bindValue(1, $codigo);
+    $sql4->bindValue(2, $paciente);
+    $sql4->bindValue(3, $od_dist_pupilar);
+    $sql4->bindValue(4, $od_altura_pupilar);
+    $sql4->bindValue(5, $od_altura_oblea);
+    $sql4->bindValue(6, $oi_dist_pupilar);
+    $sql4->bindValue(7, $oi_altura_pupilar);
+    $sql4->bindValue(8, $oi_altura_oblea);
+    $sql4->execute();
+
 
 
    }//Fin de la Clase

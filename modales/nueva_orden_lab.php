@@ -126,8 +126,8 @@
               </div>
             </div>
 <!--################ FIN rx final + medidas #############-->
-          <div class="row tratamientos">
-              
+          <div class="row tratamientos" id="tratamientos_section">
+
             <div class="col-sm-5 antirrflejantes">
 
                 <div class="eight" style="align-items: center">
@@ -135,17 +135,17 @@
                   <div class="d-flex justify-content-center">
 
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" id="arbluecap" value="option1" onClick='status_checks_tratamientos();'>
+                      <input class="form-check-input items_tratamientos" type="checkbox" id="arbluecap" value="Blue Cap" onClick='status_checks_tratamientos();'>
                       <label class="form-check-label" for="inlineCheckbox1" id="lbl_arbluecap">Blue Cap</label>
                     </div>
 
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" id="arnouv" value="option2" onClick='status_checks_tratamientos();'>
+                      <input class="form-check-input items_tratamientos" type="checkbox" id="arnouv" value="No Uv" onClick='status_checks_tratamientos();'>
                       <label class="form-check-label" for="inlineCheckbox2" id="lbl_arnouv">No UV</label>
                     </div>
 
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" id="arsh" value="option3" onClick='status_checks_tratamientos();'>
+                      <input class="form-check-input items_tratamientos" type="checkbox" id="arsh" value="ARSH" onClick='status_checks_tratamientos();'>
                       <label class="form-check-label" for="inlineCheckbox3" id="lbl_arsh">ARSH</label>
                     </div>
                   </div>
@@ -159,7 +159,7 @@
               <h1>BLANCO</h1>
                   <div class="d-flex justify-content-center">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="blanco" value="option2" onClick='status_checks_tratamientos();'>
+                        <input class="form-check-input items_tratamientos" type="checkbox" id="blanco" value="Blanco" onClick='status_checks_tratamientos();'>
                         <label class="form-check-label" for="inlineCheckbox2" id="lbl_blanco"></label>
                     </div>
                   </div>
@@ -171,25 +171,33 @@
                 <h1>PHOTOSENSIBLE</h1>
                     <div class="d-flex justify-content-center">
                       <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" id="photocromphoto" value="option1" onClick='status_checks_tratamientos();'>
+                          <input class="form-check-input items_tratamientos" type="checkbox" id="photocromphoto" value="Photocrom" onClick='status_checks_tratamientos();'>
                         <label class="form-check-label" for="inlineCheckbox1">Photocrom</label>
                       </div>
 
                       <div class="form-check form-check-inline ">
-                          <input class="form-check-input" type="checkbox" id="transitionphoto" value="option2" onClick='status_checks_tratamientos();'>
+                          <input class="form-check-input items_tratamientos" type="checkbox" id="transitionphoto" value="Transitions" onClick='status_checks_tratamientos();'>
                           <label class="form-check-label" for="inlineCheckbox2" id="lbl_transitionphoto">Transitions</label>
                       </div>
                     </div>
               </div>
             </div>
-
-            <div class="input-group" style="margin: 8px">
-              <div class="input-group-prepend">
-                <span class="input-group-text">DISEÑO ESPECIAL</span>
-              </div>
-              <input type="text" class="form-control" style="border: 1px solid black">
-            </div>
+   
           </div> <!--Fin tratamientos-->
+
+          <div class="row">
+              <div class="col-sm-11" style="margin: 30px;">
+                <div class="input-group" style="margin: auto;">
+                  <div class="input-group-prepend bg-light">
+                    <span class="input-group-text bg-info">
+                      <input type="checkbox" class="form-check-input check_trat" id="chk_trat" value="PPrR" onClick="chk_otros_tratamientos()">
+                      <label class="form-check-label" for="inlineCheckbox1">Otro tratamiento</label>
+                    </span>
+                  </div>
+                    <input type="text" class="form-control" id="otros_trat">
+                </div>
+            </div> 
+          </div>
 
           <div class="eight">
             <h1>ARO</h1>

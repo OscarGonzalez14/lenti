@@ -30,3 +30,56 @@ $odesferasf_orden,$odcilindrosf_orden,$odejesf_orden,$oddicionf_orden,$odprismaf
 ?,?,?,?,?,?,?,?,?,?
 
 /////////////////////////////////////////data aros orden
+
+codigo
+
+
+modelo ** modelo_aro_orden
+marca ** marca_aro_orden
+color ** color_aro_orden
+diseno ** diseno_aro_orden
+horizontal ** med_a
+diagonal ** med_b
+vertical ** med_c
+puente ** med_d
+
+'modelo':modelo,'marca':marca,'color':color,'diseno':diseno,'horizontal':horizontal,'diagonal':diagonal,'vertical':vertical,'puente':puente,
+
+$_POST['modelo'],$_POST['marca'],$_POST['color'],$_POST['diseno'],$_POST['horizontal'],$_POST['diagonal'],$_POST['vertical'],$_POST['puente'];
+
+$modelo,$marca,$color,$diseno,$horizontal,$diagonal,$vertical,$puente
+
+
+////////////////////////////////DTA ALTURAS ORDEN ///////////////
+
+<-**SQL**vista-->
+codigo
+paciente   
+od_dist_pupilar ***  dip_od
+od_altura_pupilar ***  ap_od
+od_altura_oblea ***  ao_od
+oi_dist_pupilar ***  dip_oi
+oi_altura_pupilar ***  ap_oi
+oi_altura_oblea ***  ao_oi
+
+'od_dist_pupilar':od_dist_pupilar,'od_altura_pupilar':od_altura_pupilar,'od_altura_oblea':od_altura_oblea,'oi_dist_pupilar':oi_dist_pupilar,'oi_altura_pupilar':oi_altura_pupilar,'oi_altura_oblea':oi_altura_oblea
+
+$od_dist_pupilar,$od_altura_pupilar,$od_altura_oblea,$oi_dist_pupilar,$oi_altura_pupilar,$oi_altura_oblea
+ *********00000000000000000000 
+
+/$(document).on('click','.check_trat', function(){
+
+  let codigo = $(this).attr("value");
+  //let paciente = $(this).attr("name");
+  let id_item = $(this).attr("id");  
+  var checkbox = document.getElementById(id_item);
+  let check_state = checkbox.checked;
+  console.log(checkbox_state)
+
+    //console.log(checkbox)
+  /*if (checkbox_state) {
+    document.getElementById("otros_trat").style.display = "block";
+  }else{
+    document.getElementById("otros_trat").style.display = "none";
+  }*/
+});

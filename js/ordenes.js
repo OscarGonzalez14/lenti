@@ -71,8 +71,7 @@ function status_checks_tratamientos(){
 
   if (photocrom_check) {
 
-    $("#transitionphoto").attr("disabled", true);
-    
+    $("#transitionphoto").attr("disabled", true);    
     $('#lbl_arsh').css('color', 'green');
 
     $("#arbluecap").attr("disabled", true);
@@ -129,6 +128,15 @@ window.onkeydown= space_guardar_orden;
 /***********************************************************
 /////////////////////  GUARDAR ORDEN ///////////////////////
 /***********************************************************/
+var tratamientos = [];
+$(document).on('click', '.items_tratamientos', function(){
+  let tratamiento = $(this).attr("value");
+  let obj ={
+    tratamientos : tratamiento
+  }
+  tratamientos.push(obj);
+});
+
 function guardar_orden(){
   // orden data general
   let codigo = $('#codigoOrden').val();
@@ -152,7 +160,7 @@ function guardar_orden(){
   let oiejesf_orden = $("#oiejesf_orden").val();
   let oiadicionf_orden = $("#oiadicionf_orden").val();
   let oiprismaf_orden = $("#oiprismaf_orden").val();
-  //// aro  
+  // aro  
   let modelo = $("#modelo_aro_orden").val();
   let marca = $("#marca_aro_orden").val();
   let color = $("#color_aro_orden").val();
@@ -161,13 +169,20 @@ function guardar_orden(){
   let diagonal = $("#med_b").val();
   let vertical = $("#med_c").val();
   let puente = $("#med_d").val();
-   
-
+  // alturas orden 
+  let od_dist_pupilar = $("#dip_od").val();
+  let od_altura_pupilar = $("#ap_od").val();
+  let od_altura_oblea = $("#ao_od").val();
+  let oi_dist_pupilar = $("#dip_oi").val();
+  let oi_altura_pupilar = $("#ap_oi").val();
+  let oi_altura_oblea = $("#ao_oi").val();
 
   let tipo_lente = $("input[type='radio'][name='tipo_lente']:checked").val();  
   if (tipo_lente==undefined || tipo_lente==null) {
     alerts('error','Debe seleccionar Lente');return false;
   }
+
+
   $.ajax({
     url:"../ajax/ordenes.php?op=registrar_orden",
     method:"POST",
@@ -176,7 +191,8 @@ function guardar_orden(){
     'odesferasf_orden':odesferasf_orden,'odcilindrosf_orden':odcilindrosf_orden,'odejesf_orden':odejesf_orden,'oddicionf_orden':oddicionf_orden,
     'odprismaf_orden':odprismaf_orden,'oiesferasf_orden':oiesferasf_orden,'oicilindrosf_orden':oicilindrosf_orden,'oiejesf_orden':oiejesf_orden,
     'oiadicionf_orden':oiadicionf_orden,'oiprismaf_orden':oiprismaf_orden,
-    'modelo':modelo,'marca':marca,'color':color,'diseno':diseno,'horizontal':horizontal,'diagonal':diagonal,'vertical':vertical,'puente':puente},
+    'modelo':modelo,'marca':marca,'color':color,'diseno':diseno,'horizontal':horizontal,'diagonal':diagonal,'vertical':vertical,'puente':puente,
+    'od_dist_pupilar':od_dist_pupilar,'od_altura_pupilar':od_altura_pupilar,'od_altura_oblea':od_altura_oblea,'oi_dist_pupilar':oi_dist_pupilar,'oi_altura_pupilar':oi_altura_pupilar,'oi_altura_oblea':oi_altura_oblea},
     cache: false,
     dataType:"json",
       error:function(x,y,z){
@@ -297,6 +313,22 @@ $(document).on('click', '#new_order', function(){
     document.getElementById(id_check).checked = false;
    }
 });
+
+////////////////ocultar input OTROS TRATAMIENTOS
+$(document).on('click', '.new_order_class', function(){
+  document.getElementById("otros_trat").style.display = "none";
+});
+
+function chk_otros_tratamientos(){
+ var isChecked = document.getElementById('chk_trat').checked;
+ if (isChecked) {
+  document.getElementById("otros_trat").style.display = "block";
+  document.getElementById("tratamientos_section").style.display = "none";
+  }else{
+    document.getElementById("otros_trat").style.display = "none";
+    document.getElementById("tratamientos_section").style.display = "flex";
+  }
+}
 
 
 init();

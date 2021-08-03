@@ -69,7 +69,7 @@ $(document).on('shown.bs.modal', function (e) {
  function autocomplete_marcas(){
   var marcas_l = document.getElementById("marca_lente").value;
   if (marcas_l=="Essilor") {
-    disenos_lente = ["Blue Capture","Transition","Transition 1.67"];
+    disenos_lente = ["Blue Capture","Transition","Transition 1.67","AR Green"];
   }else if (marcas_l=="Divel"){
     disenos_lente = ["Photocrom","Bifocal Blanco","Bifocal Photocrom","Index 1.67"];
   }

@@ -12,8 +12,7 @@ if(isset($_SESSION["usuario"])){
 <?php require_once("links_plugin.php"); 
  require_once('../modelos/Ordenes.php');
  $ordenes = new Ordenes();
- $suc = $ordenes->get_opticas();
- require_once('../modales/nueva_orden_lab.php');
+ $suc = $ordenes->get_opticas(); 
  ?>
 <style>
   .buttons-excel{
@@ -30,7 +29,9 @@ if(isset($_SESSION["usuario"])){
   <!-- /.top-bar -->
 
   <!-- Main Sidebar Container -->
-  <?php require_once('side_bar.php')?>
+  <?php require_once('side_bar.php');
+    require_once('../modales/nueva_orden_lab.php');
+  ?>
   <!--End SideBar Container-->
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -43,7 +44,7 @@ if(isset($_SESSION["usuario"])){
             <i class="fas fa-glasses"></i> Crear orden
         </a>-->
         </div>
-      <button class="btn btn-outline-primary btn-sm btn-flat" data-toggle="modal" data-target="#nueva_orden_lab" data-backdrop="static" data-keyboard="false" onClick='get_numero_orden();' id="new_order"><i class="fa fa-glasses" style="margin-top: 2px"> Crear Orden</i></button>
+      <button class="btn btn-outline-primary btn-sm btn-flat new_order_class" data-toggle="modal" data-target="#nueva_orden_lab" data-backdrop="static" data-keyboard="false" onClick='get_numero_orden();' id="new_order"><i class="fa fa-glasses" style="margin-top: 2px"> Crear Orden</i></button>
       <div class="row">
          <div class="col-sm-4"></div>
          <div class="col-sm-4"></div>
@@ -71,17 +72,17 @@ if(isset($_SESSION["usuario"])){
   <footer class="main-footer">
     <strong>2021 Lenti || <b>Version</b> 1.0</strong>
      &nbsp;All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      
+    <div class="float-right d-none d-sm-inline-block">      
     </div>
+    <?php 
+require_once("links_js.php");
+?>
+<script type="text/javascript" src="../js/ordenes.js"></script>
   </footer>
 </div>
 
 <!-- ./wrapper -->
-<?php 
-require_once("links_js.php");
-?>
-<script type="text/javascript" src="../js/ordenes.js"></script>
+
 </body>
 </html>
  <?php } else{
