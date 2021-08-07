@@ -15,13 +15,6 @@ class Pruebas extends Conectar{
 	}
 }
 
-$prueba = new Pruebas();
-$data = $prueba->get_data_ar_green_term();
-//print_r($data); 
-/*foreach ($data as $key){
-	echo $key["id_terminado"]." identificador: ".$key["identificador"]."<br>";
-}*/
-//print_r($data);
 ?>
 <!DOCTYPE html>
 <html>

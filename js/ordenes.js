@@ -330,5 +330,10 @@ function chk_otros_tratamientos(){
   }
 }
 
+$(document).on('click', '.ident', function(){
+  let id_item = $(this).attr("id");
+  alert(id_item)
+});
+
 
 init();

@@ -42,10 +42,12 @@ if(isset($_SESSION["usuario"])){
   <div class="content-wrapper">
     <section class="content">
       <div class="container-fluid">
-
+        
       <div class="card card-dark card-outline" style="margin: 2px;">
-       <table width="100%" class="table-hover table-bordered" id="datatable_ordenes">        
+        <h5 style="text-align: center;background:#034f84;color:white;font-family: Helvetica, Arial, sans-serif;font-size: 14px;">LENTE TERMINADO SPH GREEN, LENTES POR PARES</h5>
+       <table width="100%" class="table-hover table-bordered" id="datatable_ordenes">
          <thead class="style_th bg-dark" style="color: white">
+           <th></th>
            <th>0.00</th>
            <th>-0.25</th>
            <th>-0.50</th>
@@ -71,16 +73,25 @@ if(isset($_SESSION["usuario"])){
       $count_rows =0;
       $columns = Array();
       $measures = Array();
+      $colum_cil ='2.00';
+      $cil_row='';
          foreach ($data as $key) {
+          $esfera = substr($key["esfera"], 0,-1);
+          $cilindro = substr($key["cilindro"], 0,-1);
           $row = "
-            <td class='stilot1' id='".$key["id_terminado"]."'>".$key["stock"]."</td>      
+            <td class='stilot1 ident' id='".$key["id_terminado"]."' data-toggle='tooltip' title='Esfera: ".$esfera." * Cilindro: ".$cilindro."'>".$key["stock"]."</td>      
           ";
           array_push($measures, $row);
          }
 
          for ($i=0;$i<count($measures);$i++){
+                if ($colum_cil>0) {
+                  $cil_row="+".number_format($colum_cil,2,".",",");
+                }else{
+                  $cil_row=number_format($colum_cil,2,".",",");
+                }
                 if($count_rows==0){
-                  array_push($columns,"<tr>");
+                  array_push($columns,"<tr>"."<td style='text-align:center;font-size:11px' class='bg-info'><b>".$cil_row."</b></td>");
                 }
                 //array_push($columns, "<td>12</td>");
               $count_rows ++;
@@ -89,6 +100,7 @@ if(isset($_SESSION["usuario"])){
               if ($count_rows==17) {
                 array_push($columns, "</tr>");
               $count_rows=0;
+              $colum_cil = $colum_cil-0.25;
              }
           }
 
