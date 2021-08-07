@@ -29,7 +29,7 @@ body {
     $('#codigob_lente').focus(); 
   }
   </script>
-<div class="modal fade" id="nuevo_lente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="vs_ar_green_essilor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document" style="max-width: 65%">
     <div class="modal-content">
       <div class="modal-header" style="background: black;color: white">
@@ -59,89 +59,28 @@ body {
           
       </div>
       
-      <div class="eight" style="align-items: center" id="terminado_section">
-          <div class="d-flex justify-content-center form-row">
-            <div class="form-group col-sm-4">
-              <label for="inlineRadio1">Esfera</label>
-              <input class="form-control" type="number" name="inlineRadioOptions" id="vs_term">   
-            </div>
-          <div class="form-group col-sm-4">
-            <label for="inlineRadio1">Cilindro</label>
-              <input class="form-control" type="number" name="inlineRadioOptions" id="vs_term">
-            </div>
-          </div>
-
-        <span id="tipo_lente"></span>  
-      </div>
-
-      <div class="eight" style="align-items: center" id="semiterminado_section">
-          <h1>VS(Semiterminado)</h1>
-          <div class="d-flex justify-content-center form-row">
-            <div class="form-group col-sm-4">
-              <label for="inlineRadio1">Base</label>
-              <input class="form-control" type="text" name="inlineRadioOptions" id="vs_term">
-            </div>
-            <div class="form-group col-sm-4">
-              <label for="inlineRadio1">Diametro</label>
-              <input class="form-control" type="text" name="inlineRadioOptions" id="vs_term">
-            </div>
-          </div>
-      </div>
-
-      <div class="eight" style="align-items: center" id="base_section">
-          <h1>Flaptop semi-terminado</h1>
-          <div class="d-flex justify-content-center form-row">
-            <div class="form-group col-sm-4">
-              <label for="inlineRadio1">Base</label>
-              <input class="form-control" type="text" name="inlineRadioOptions" id="base_flap" onchange="proof()">
-            </div>
-          <div class="form-group col-sm-4">
-            <label for="inlineRadio1">Add.</label>
-              <input class="form-control" type="text" name="inlineRadioOptions" id="add_flap">
-            </div>
-
-            <div class="form-group col-sm-4">
-              <label for="inlineRadio1">Diametro</label>
-              <input class="form-control" type="text" name="inlineRadioOptions" id="vs_term">
-            </div>
-          </div>
-      </div>
-
+      
       <div class="eight" style="align-items: center" id="flap_terminado_section">
-          <h1>Flaptop terminado</h1>
           <div class="d-flex justify-content-center form-row">          
           <div class="form-group col-sm-4">
               <label for="inlineRadio1">Esfera</label>
-              <input class="form-control" type="text" name="inlineRadioOptions" id="base_flap_terminado" onchange="proof()">
+              <input class="form-control" type="text" name="inlineRadioOptions" id="esfera_terminado" readonly="">
             </div>
           <div class="form-group col-sm-4">
-            <label for="inlineRadio1">Add.</label>
-              <input class="form-control" type="text" name="inlineRadioOptions" id="add_flap_terminado">
+            <label for="inlineRadio1">Cilindro.</label>
+              <input class="form-control" type="text" name="inlineRadioOptions" id="cilindro_terminado" readonly="">
           </div>
+          <div class="form-group col-sm-4">
+            <label for="inlineRadio1">Cant. Ingreso</label>
+              <input class="form-control" type="number" name="inlineRadioOptions" id="cant_ingreso">
           </div>
-      </div>
 
-      <div class="form-row">
-          <div class="col-12 col-sm-12">
-          <div class="form-group">
-          <label>Tratamientos</label>
-              <div class="select2-purple">
-                <select class="select2" id="lentes_sel" multiple="multiple" data-placeholder="Seleccionar tratamientos" data-dropdown-css-class="select2-purple" style="width: 100%;">
-                  <option value="1">BLANCO</option>
-                  <option value="2">BLUECAP</option>
-                  <option value="3">PHOTOCROM</option>
-                  <option value="4">TRANSITIONS</option>
-                  <option value="5">1.67</option>
-                  <option value="6">TRANSITION 1.67</option>
-                  <option value="7">ANTIRREFLEJANTE</option>
-                </select>
-              </div>
-            </div>
-          </div>       
-      </div><!--Fin form row-->
+          </div>
       </div>
+      </div>
+      <input type="hidden" id="id_lente_term">
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary btn-block">GUARDAR</button>
+        <button type="button" class="btn btn-primary btn-block" onClick='setStockTerminados()'>REGISTRAR INGRESO</button>
       </div>
     </div>
   </div>

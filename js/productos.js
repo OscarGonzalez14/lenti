@@ -1,7 +1,7 @@
 function init(){
- document.getElementById("terminado_section").style.display = "none";
- document.getElementById("base_section").style.display = "none";
- document.getElementById("semiterminado_section").style.display = "none";
+ //document.getElementById("terminado_section").style.display = "none";
+ //document.getElementById("base_section").style.display = "none";
+ //document.getElementById("semiterminado_section").style.display = "none";
 }
 
 function valida_base_term(){
@@ -92,14 +92,40 @@ function read_barcode(){
   }
 }
 
-function proof(){
-  let codigo = $("#base_flap").val();
-  if (codigo=='088169004688') {
-    $("#add_flap").val('Es cafe musun');
+$(document).on('click', '.id_lente', function(){
+  let id_item = $(this).attr("id");
 
-  }else{
-    $("#add_flap").val('Producto No identificado');
-  }
+  $("#vs_ar_green_essilor").modal("show");
+  $.ajax({
+    url:"../ajax/productos.php?op=get_data_item_ingreso",
+    method:"POST",
+    data:{id_item:id_item},
+    cache: false,
+    dataType:"json",
+    success:function(data){
+      console.log(data);
+      $("#marca_lente").val(data.marca);
+      $("#dis_lente").val(data.diseno);
+      $("#esfera_terminado").val(data.esfera);
+      $("#cilindro_terminado").val(data.cilindro);
+      $("#id_lente_term").val(data.id_terminado);
+    }      
+  });//Fin Ajax  
+});
+
+function setStockTerminados(){
+  let id_terminado = $("#id_lente_term").val();
+  let cantidad_ingreso = $("#cant_ingreso").val();
+  $.ajax({
+    url:"../ajax/productos.php?op=update_stock_terminados",
+    method:"POST",
+    data:{id_terminado:id_terminado,cantidad_ingreso:cantidad_ingreso},
+    cache: false,
+    dataType:"json",
+    success:function(data){
+    
+    }      
+  });   
 }
 
 init();

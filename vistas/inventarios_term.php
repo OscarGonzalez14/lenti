@@ -10,9 +10,8 @@ if(isset($_SESSION["usuario"])){
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Home</title>
 <?php require_once("links_plugin.php"); 
- require_once('../modelos/Ordenes.php');
- $ordenes = new Ordenes();
- $suc = $ordenes->get_opticas(); 
+ require_once('../modelos/Productos.php');
+ require_once('../modales/warehouseIncome/vs_argreen_essilor.php');
  ?>
 <style>
   .buttons-excel{
@@ -20,6 +19,35 @@ if(isset($_SESSION["usuario"])){
       margin: 2px;
       max-width: 150px;
   }
+
+    .stilot1{
+       border: 1px solid black;
+       padding: 5px;
+       font-size: 12px;
+       font-family: Helvetica, Arial, sans-serif;
+       border-collapse: collapse;
+       text-align: center;
+    }
+
+    .stilot2{
+       border: 1px solid black;
+       text-align: center;
+       font-size: 11px;
+       font-family: Helvetica, Arial, sans-serif;
+    }
+    .stilot3{
+       text-align: center;
+       font-size: 11px;
+       font-family: Helvetica, Arial, sans-serif;
+    }
+
+    #table2 {
+       border-collapse: collapse;
+    }
+
+  .fila:hover {
+  background-color: lightyellow;
+}
 </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed" style='font-family: Helvetica, Arial, sans-serif;'>
@@ -27,15 +55,14 @@ if(isset($_SESSION["usuario"])){
 <!-- top-bar -->
   <?php 
   require_once("../modelos/Pruebas.php");
-  $prueba = new Pruebas();
-  $data = $prueba->get_data_ar_green_term();
+  $productos = new Productos();
+  $data = $productos->get_data_ar_green_term();
   require_once('top_menu.php')?>
 
   <!-- /.top-bar -->
 
   <!-- Main Sidebar Container -->
-  <?php require_once('side_bar.php');
-    require_once('../modales/nueva_orden_lab.php');
+  <?php require_once('side_bar.php');   
   ?>
   <!--End SideBar Container-->
   <!-- Content Wrapper. Contains page content -->
@@ -45,7 +72,7 @@ if(isset($_SESSION["usuario"])){
         
       <div class="card card-dark card-outline" style="margin: 2px;">
         <h5 style="text-align: center;background:#034f84;color:white;font-family: Helvetica, Arial, sans-serif;font-size: 14px;">LENTE TERMINADO SPH GREEN, LENTES POR PARES</h5>
-       <table width="100%" class="table-hover table-bordered" id="datatable_ordenes">
+       <table width="100%" class="table-bordered" id="datatable_ordenes">
          <thead class="style_th bg-dark" style="color: white">
            <th></th>
            <th>0.00</th>
@@ -79,7 +106,7 @@ if(isset($_SESSION["usuario"])){
           $esfera = substr($key["esfera"], 0,-1);
           $cilindro = substr($key["cilindro"], 0,-1);
           $row = "
-            <td class='stilot1 ident' id='".$key["id_terminado"]."' data-toggle='tooltip' title='Esfera: ".$esfera." * Cilindro: ".$cilindro."'>".$key["stock"]."</td>      
+            <td class='stilot1 id_lente' id='".$key["id_terminado"]."' data-toggle='tooltip' title='Esfera: ".$esfera." * Cilindro: ".$cilindro."'>".$key["stock"]."</td>      
           ";
           array_push($measures, $row);
          }
@@ -91,7 +118,7 @@ if(isset($_SESSION["usuario"])){
                   $cil_row=number_format($colum_cil,2,".",",");
                 }
                 if($count_rows==0){
-                  array_push($columns,"<tr>"."<td style='text-align:center;font-size:11px' class='bg-info'><b>".$cil_row."</b></td>");
+                  array_push($columns,"<tr class='fila'>"."<td style='text-align:center;font-size:11px' class='bg-info'><b>".$cil_row."</b></td>");
                 }
                 //array_push($columns, "<td>12</td>");
               $count_rows ++;
@@ -128,7 +155,7 @@ if(isset($_SESSION["usuario"])){
     <?php 
 require_once("links_js.php");
 ?>
-<script type="text/javascript" src="../js/ordenes.js"></script>
+<script type="text/javascript" src="../js/productos.js"></script>
   </footer>
 </div>
 
