@@ -3,7 +3,15 @@ function init(){
  //document.getElementById("base_section").style.display = "none";
  //document.getElementById("semiterminado_section").style.display = "none";
 }
-
+function alerts_productos(icono, titulo){
+  Swal.fire({
+        position: 'top-center',
+        icon: icono,
+        title: titulo,
+        showConfirmButton: true,
+        timer: 2500
+      });
+}
 function valida_base_term(){
 	let vs_term_check = $("#vs_term").is(":checked");
 	let vs_semi_term_chk = $("#vs_semi_term").is(":checked");
@@ -113,9 +121,24 @@ $(document).on('click', '.id_lente', function(){
   });//Fin Ajax  
 });
 
+function set_code_bar(){
+  let new_code =$("#codebar_lente").val();
+  $("#codigo_lente_term").val(new_code);
+  setTimeout ("setStockTerminados();", 1000);
+}
+
 function setStockTerminados(){
   let id_terminado = $("#id_lente_term").val();
   let cantidad_ingreso = $("#cant_ingreso").val();
+  let codigo_term = $("#codigo_lente_term").val();
+  if (codigo_term=="" || codigo_term==null || codigo_term==undefined) {
+    $("#new_barcode_lens").modal('show');
+
+    $('#new_barcode_lens').on('shown.bs.modal', function() {
+      $('#codebar_lente').focus();
+    });
+    return false;
+  }
   $.ajax({
     url:"../ajax/productos.php?op=update_stock_terminados",
     method:"POST",
@@ -123,7 +146,11 @@ function setStockTerminados(){
     cache: false,
     dataType:"json",
     success:function(data){
-    
+      if (data=="ok"){
+          alerts_productos("success", "Ingreso de productos exitosos");
+          $("#new_barcode_lens").modal('hide');
+          $("#vs_ar_green_essilor").modal('hide');
+      }
     }      
   });   
 }

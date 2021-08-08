@@ -39,12 +39,10 @@ body {
         </button>
       </div>
       <div class="modal-body">
-        <button type="button" class="btn btn-info btn-flat btn-xs" onClick="create_barcode_interno();"><i class="fas fa-barcode"></i> Generar Cod.</button>
-
-      <div class="form-row">
+        <div class="form-row">
           <div class="col-sm-4">
             <label for="">Codigo</label>
-            <input type="text" class="form-control" id="codigob_lente" onchange="read_barcode();" autofocus="">
+            <input type="text" class="form-control" id="codigo_lente_term">
           </div>
           
           <div class="col-sm-4" class="autocomplete">

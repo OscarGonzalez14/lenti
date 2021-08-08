@@ -12,6 +12,7 @@ if(isset($_SESSION["usuario"])){
 <?php require_once("links_plugin.php"); 
  require_once('../modelos/Productos.php');
  require_once('../modales/warehouseIncome/vs_argreen_essilor.php');
+ require_once('../modales/new_barcode_lentes.php');
  ?>
 <style>
   .buttons-excel{
@@ -49,6 +50,7 @@ if(isset($_SESSION["usuario"])){
   background-color: lightyellow;
 }
 </style>
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed" style='font-family: Helvetica, Arial, sans-serif;'>
 <div class="wrapper">
@@ -59,19 +61,14 @@ if(isset($_SESSION["usuario"])){
   $data = $productos->get_data_ar_green_term();
   require_once('top_menu.php')?>
 
-  <!-- /.top-bar -->
-
-  <!-- Main Sidebar Container -->
   <?php require_once('side_bar.php');   
   ?>
-  <!--End SideBar Container-->
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <section class="content">
       <div class="container-fluid">
         
       <div class="card card-dark card-outline" style="margin: 2px;">
-        <h5 style="text-align: center;background:#034f84;color:white;font-family: Helvetica, Arial, sans-serif;font-size: 14px;">LENTE TERMINADO SPH GREEN, LENTES POR PARES</h5>
+        <h5 style="text-align: center;background:#034f84;color:white;font-family: Helvetica, Arial, sans-serif;font-size: 16px;">LENTE TERMINADO SPH GREEN, LENTES POR PARES</h5>
        <table width="100%" class="table-bordered" id="datatable_ordenes">
          <thead class="style_th bg-dark" style="color: white">
            <th></th>
@@ -120,27 +117,22 @@ if(isset($_SESSION["usuario"])){
                 if($count_rows==0){
                   array_push($columns,"<tr class='fila'>"."<td style='text-align:center;font-size:11px' class='bg-info'><b>".$cil_row."</b></td>");
                 }
-                //array_push($columns, "<td>12</td>");
+
               $count_rows ++;
-              // echo $measures[$i]."<br>";
               array_push($columns, $measures[$i]);
               if ($count_rows==17) {
                 array_push($columns, "</tr>");
-              $count_rows=0;
-              $colum_cil = $colum_cil-0.25;
+                $count_rows=0;
+                $colum_cil = $colum_cil-0.25;
              }
           }
 
-         // print_r($columns);
           for($j=0;$j<count($columns);$j++){
            echo $columns[$j];
           }
-          //var_dump($columns);
-
-          require_once("../vistas/links_js.php");
-
-      ?>
-       </table>
+    require_once("../vistas/links_js.php");
+    ?>
+  </table>
       </div>
       </div><!-- /.container-fluid -->
     </section>

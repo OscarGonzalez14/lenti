@@ -24,6 +24,31 @@ switch ($_GET["op"]){
 
     case 'update_stock_terminados':
     	$productos->update_stock_terminados($_POST["id_terminado"],$_POST["cantidad_ingreso"]);
+    	$messages[]='ok';
+    	if (isset($messages)){
+     ?>
+       <?php
+         foreach ($messages as $message) {
+             echo json_encode($message);
+           }
+         ?>
+   <?php
+ }
+    //mensaje error
+      if (isset($errors)){
+
+   ?>
+
+         <?php
+           foreach ($errors as $error) {
+               echo json_encode($error);
+             }
+           ?>
+   <?php
+   }
+   ///fin mensaje error
+
+
     	break;
 	
 	break;
