@@ -42,7 +42,7 @@ body {
         <div class="form-row">
           <div class="col-sm-4">
             <label for="">Codigo</label>
-            <input type="text" class="form-control" id="codigo_lente_term">
+            <input type="text" class="form-control" id="codigo_lente_term" readonly="">
           </div>
           
           <div class="col-sm-4" class="autocomplete">

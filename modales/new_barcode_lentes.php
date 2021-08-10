@@ -29,9 +29,7 @@ body {
             <input type="text" class="form-control" id="codebar_lente" name="barcode_lente" onchange="set_code_bar();">
           </div>        
       </div>
-      <div class="modal-footer">
-        <button type="button" style="background: #172035" class="btn btn-success btn-block" onClick='registrar_barcode_lente()'>CREAR CÓDIGO DE BARRAS</button>
-      </div>
+      <input type="hidden" id="id_terminado_lense">      
     </div>
   </div>
 </div>

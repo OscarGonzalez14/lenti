@@ -17,6 +17,7 @@ switch ($_GET["op"]){
             $output["esfera"] = substr($v["esfera"],0,-1);
             $output["cilindro"] = substr($v["cilindro"],0,-1);
             $output["id_terminado"] = $v["id_terminado"];
+            $output["codigo"] = $v["codigo"];
 		}
 	echo json_encode($output);
     }
@@ -47,9 +48,24 @@ switch ($_GET["op"]){
    <?php
    }
    ///fin mensaje error
-
-
-    	break;
+  break;
 	
-	break;
+  case 'set_code_bar_ini':
+    $valida = $productos->valida_existe_barcode($_POST["new_code"],$_POST["id_terminado_term"]);
+    if (is_array($valida)==true and count($valida)==0) {
+      $productos->insert_codigo_lente($_POST["new_code"],$_POST["id_terminado_term"]);
+      $messages[]='exito';
+     }else{
+      $errors[]="error";
+     }
+     if (isset($messages)){ ?>
+        <?php foreach ($messages as $message) { echo json_encode($message);}?>
+       <?php
+      }
+    //mensaje error
+      if (isset($errors)){?>
+         <?php foreach ($errors as $error) { echo json_encode($error);}
+      ?>
+     <?php }
+    break;
 }///Fin Switch

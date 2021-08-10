@@ -29,8 +29,6 @@ if(isset($_SESSION["usuario"])){
 
       </div><!-- /.container-fluid -->
     </div>
-    <!-- /.content-header -->
-
     <!-- Main content -->
     <section class="content">
       <h5 style="text-transform: uppercase;text-align: center;font-size: 18px;font-family: Helvetica, Arial, sans-serif;">BENVENID@: &nbsp;<?php echo $_SESSION["usuario"];?></h5>
@@ -44,9 +42,7 @@ if(isset($_SESSION["usuario"])){
   <footer class="main-footer">
     <strong>2021 Lenti || <b>Version</b> 1.0</strong>
      &nbsp;All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      
-    </div>
+    <div class="float-right d-none d-sm-inline-block"></div>
   </footer>
 </div>
 <!-- ./wrapper -->

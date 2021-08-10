@@ -102,6 +102,7 @@ function read_barcode(){
 
 $(document).on('click', '.id_lente', function(){
   let id_item = $(this).attr("id");
+  console.log(id_item); //return false;
 
   $("#vs_ar_green_essilor").modal("show");
   $.ajax({
@@ -117,14 +118,50 @@ $(document).on('click', '.id_lente', function(){
       $("#esfera_terminado").val(data.esfera);
       $("#cilindro_terminado").val(data.cilindro);
       $("#id_lente_term").val(data.id_terminado);
+      $("#codigo_lente_term").val(data.codigo);
     }      
   });//Fin Ajax  
 });
 
 function set_code_bar(){
-  let new_code =$("#codebar_lente").val();
-  $("#codigo_lente_term").val(new_code);
-  setTimeout ("setStockTerminados();", 1000);
+
+  let new_code = $("#codebar_lente").val();
+  let id_terminado_term = $("#id_terminado_lense").val();
+
+  if(new_code!=""){
+    $.ajax({
+    url:"../ajax/productos.php?op=set_code_bar_ini",
+    method:"POST",
+    data:{new_code:new_code,id_terminado_term:id_terminado_term},
+    cache: false,
+    dataType:"json",
+    success:function(data){
+      if (data=="exito") {
+        $("#new_barcode_lens").modal('hide');
+        $("#codigo_lente_term").val(new_code);
+      }else{
+        alerts_productos("error", "Este código ya existe!");
+        setTimeout ("focus_input();", 2000);
+    return false;
+   }      
+  }
+  });//Fin Ajax 
+
+  }else{
+    alerts_productos("error", "Debe escanear o crear un codigo de barras para inicializar stock de producto");
+    $('#new_barcode_lens').on('shown.bs.modal', function() {
+        $('#codebar_lente').focus();
+    });
+    return false;
+    }
+  
+}
+
+function focus_input(){
+    $('#codebar_lente').val("");
+    $('#new_barcode_lens').on('shown.bs.modal', function() {
+    $('#codebar_lente').focus();
+  });
 }
 
 function setStockTerminados(){
@@ -133,11 +170,16 @@ function setStockTerminados(){
   let codigo_term = $("#codigo_lente_term").val();
   if (codigo_term=="" || codigo_term==null || codigo_term==undefined) {
     $("#new_barcode_lens").modal('show');
+    $("#id_terminado_lense").val(id_terminado);
 
     $('#new_barcode_lens').on('shown.bs.modal', function() {
       $('#codebar_lente').focus();
     });
     return false;
+  }
+  if(cantidad_ingreso=="") {
+    alerts_productos("error", "Debe Especificar la cantidad a ingresar");
+    return false; 
   }
   $.ajax({
     url:"../ajax/productos.php?op=update_stock_terminados",
