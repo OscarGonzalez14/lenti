@@ -199,6 +199,38 @@
             </div> 
           </div>
 
+        <!--Tratamientos de multifocal-->
+          <div class="eight"style="align-items: center">
+
+              <strong><h1 style="color:#034f84">TRATAMIENTOS DE MULTIFOCAL</h1></strong>
+              <div class="row">
+                  <div class="col-sm-3" class="d-flex justify-content-center" style="display:flex;justify-content: center;margin-top:0px;">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input checkit" type="radio" id="Alena" value="Alena" name="tratamiento_multifocal">
+                      <label class="form-check-label" for="inlineCheckbox2" id="">Alena</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-3" style="display:flex;justify-content: center;margin-top:0px;">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input checkit" type="radio" id="Aurora4D" value="Aurora 4D" name="tratamiento_multifocal">
+                      <label class="form-check-label" for="inlineCheckbox2" id="">Aurora 4D</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-3" style="display:flex;justify-content: center;margin-top:0px;">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input checkit" type="radio" id="Aurora_a_clear" value="Aurora A Claar" name="tratamiento_multifocal">
+                      <label class="form-check-label" for="inlineCheckbox2" id="">Aurora A Clear</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-3" style="display:flex;justify-content: center;margin-top:0px;">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input checkit" type="radio" id="Gemini" value="Gemini" name="tratamiento_multifocal">
+                      <label class="form-check-label" for="inlineCheckbox2" id="">Gemini</label>
+                    </div>
+                  </div>
+              </div>
+            </div>
+
           <div class="eight">
             <h1>ARO</h1>
 

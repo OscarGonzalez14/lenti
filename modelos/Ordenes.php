@@ -56,14 +56,14 @@
 
    }
   /////////////   REGISTRAR ORDEN ///////////////////////////////
-   public function registrar_orden($codigo,$paciente,$observaciones,$usuario,$id_sucursal,$id_optica,$tipo_orden,$tipo_lente,$odesferasf_orden,$odcilindrosf_orden,$odejesf_orden,$oddicionf_orden,$odprismaf_orden,$oiesferasf_orden,$oicilindrosf_orden,$oiejesf_orden,$oiadicionf_orden,$oiprismaf_orden,$modelo,$marca,$color,$diseno,$horizontal,$diagonal,$vertical,$puente,$od_dist_pupilar,$od_altura_pupilar,$od_altura_oblea,$oi_dist_pupilar,$oi_altura_pupilar,$oi_altura_oblea){
+   public function registrar_orden($codigo,$paciente,$observaciones,$usuario,$id_sucursal,$id_optica,$tipo_orden,$tipo_lente,$odesferasf_orden,$odcilindrosf_orden,$odejesf_orden,$oddicionf_orden,$odprismaf_orden,$oiesferasf_orden,$oicilindrosf_orden,$oiejesf_orden,$oiadicionf_orden,$oiprismaf_orden,$modelo,$marca,$color,$diseno,$horizontal,$diagonal,$vertical,$puente,$od_dist_pupilar,$od_altura_pupilar,$od_altura_oblea,$oi_dist_pupilar,$oi_altura_pupilar,$oi_altura_oblea,$trat_multifocal){
 
    	$conectar = parent::conexion();
     date_default_timezone_set('America/El_Salvador'); 
     $hoy = date("d-m-Y H:i:s");
     $estado = 0;
 
-    $sql = "insert into orden values (null,?,?,?,?,?,?,?,?,?,?);";
+    $sql = "insert into orden values (null,?,?,?,?,?,?,?,?,?,?,?);";
     $sql = $conectar->prepare($sql);
     $sql->bindValue(1, $codigo);
     $sql->bindValue(2, $paciente);
@@ -75,6 +75,7 @@
     $sql->bindValue(8, $tipo_lente);
     $sql->bindValue(9, $id_optica);
     $sql->bindValue(10, $tipo_orden);
+    $sql->bindValue(11, $trat_multifocal);
     $sql->execute();
 
 /////////////////////////INSERTAR EN RX ORDEN////// 
@@ -124,9 +125,19 @@
 
 
 
-   }//Fin de la Clase
+  
 
 }
 
+public function get_ordenes_pendientes(){
 
+    $conectar = parent::conexion();
+    parent::set_names();
+
+    $sql="select ord.id_orden,ord.codigo,ord.paciente,ord.estado,o.nombre,s.direccion from orden as ord inner join optica as o on ord.id_optica=o.id_optica inner join sucursal_optica as s on o.id_optica=s.id_optica where ord.id_sucursal=s.id_sucursal and ord.estado='0' order by ord.id_orden DESC;";
+    $sql = $conectar->prepare($sql);
+    $sql->execute();
+    return $resultado=$sql->fetchAll();
+}
+ }//Fin de la Clase
 ?>

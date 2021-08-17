@@ -35,7 +35,7 @@ case 'registrar_orden':
     //$mensaje='';
 	$datos = $ordenes->comprobar_existe_correlativo($_POST["codigo"]);
     if(is_array($datos) == true and count($datos)==0){		
-		$ordenes->registrar_orden($_POST['codigo'],$_POST['paciente'],$_POST['observaciones'],$_POST['usuario'],$_POST['id_sucursal'],$_POST["id_optica"],$_POST["tipo_orden"],$_POST["tipo_lente"],$_POST['odesferasf_orden'],$_POST['odcilindrosf_orden'],$_POST['odejesf_orden'],$_POST['oddicionf_orden'],$_POST['odprismaf_orden'],$_POST['oiesferasf_orden'],$_POST['oicilindrosf_orden'],$_POST['oiejesf_orden'],$_POST['oiadicionf_orden'],$_POST['oiprismaf_orden'],$_POST['modelo'],$_POST['marca'],$_POST['color'],$_POST['diseno'],$_POST['horizontal'],$_POST['diagonal'],$_POST['vertical'],$_POST['puente'],$_POST["od_dist_pupilar"],$_POST["od_altura_pupilar"],$_POST["od_altura_oblea"],$_POST["oi_dist_pupilar"],$_POST["oi_altura_pupilar"],$_POST["oi_altura_oblea"]);
+		$ordenes->registrar_orden($_POST['codigo'],$_POST['paciente'],$_POST['observaciones'],$_POST['usuario'],$_POST['id_sucursal'],$_POST["id_optica"],$_POST["tipo_orden"],$_POST["tipo_lente"],$_POST['odesferasf_orden'],$_POST['odcilindrosf_orden'],$_POST['odejesf_orden'],$_POST['oddicionf_orden'],$_POST['odprismaf_orden'],$_POST['oiesferasf_orden'],$_POST['oicilindrosf_orden'],$_POST['oiejesf_orden'],$_POST['oiadicionf_orden'],$_POST['oiprismaf_orden'],$_POST['modelo'],$_POST['marca'],$_POST['color'],$_POST['diseno'],$_POST['horizontal'],$_POST['diagonal'],$_POST['vertical'],$_POST['puente'],$_POST["od_dist_pupilar"],$_POST["od_altura_pupilar"],$_POST["od_altura_oblea"],$_POST["oi_dist_pupilar"],$_POST["oi_altura_pupilar"],$_POST["oi_altura_oblea"],$_POST["trat_multifocal"]);
 		$messages[]='exito';	
 	}else{
 		$errors[]="error";
@@ -82,7 +82,7 @@ case "get_correlativo_orden":
     break;
 
 case 'get_ordenes':
-	$datos = $ordenes->get_ordenes();
+	$datos = $ordenes->get_ordenes_pendientes();
 	$data = Array();
     $about = "about:blank";
     $print = "print_popup";
@@ -93,21 +93,23 @@ case 'get_ordenes':
 	$estado = $row["estado"];
 
 	if ($estado==0) {
-		$status = 'Digitalizado';
+		$status = 'Pendiente';
 		$badge = 'warning';
 		$icon = "fa-clock";
 		$color = 'warning';
 	}
 
 	$sub_array[] = $row["codigo"];
-	$sub_array[] = $row["optica"];
+	$sub_array[] = $row["nombre"];
 	$sub_array[] = strtoupper($row["paciente"]);
 	$sub_array[] = '<span class="right badge badge-'.$color.'" style="font-size:12px"><i class=" fas '.$icon.'" style="color:'.$badge.'"></i> '.$status.'</span>';
 	$sub_array[] = '<button type="button"  class="btn btn-sm bg-light"><i class="fa fa-eye" aria-hidden="true" style="color:blue"></i></button>';
+
+	$sub_array[] = '</i></button><button type="button"  class="btn btn-xs bg-light"><i class="fa fa-file" aria-hidden="true" style="color:red"></i></button>';
 	$sub_array[] = '<form action="barcode_orden_print.php" method="POST" target="print_popup" onsubmit="window.open(\''.$about.'\',\''.$print.'\',\''.$ancho.'\');">
 		<input type="hidden" value="'.$row["paciente"].'" name="paciente_orden">
 		<input type="hidden" value="'.$row["codigo"].'" name="codigoOrden">
-		<input type="hidden" value="'.$row["optica"].'" name="optica_orden">
+		<input type="hidden" value="'.$row["nombre"].'" name="nombre">
 	<button type="submit"  class="btn btn-sm bg-light"><i class="fa fa-print" aria-hidden="true" style="color:black"></i></button></form>';
 	$sub_array[] = '<button type="button"  class="btn btn-sm bg-light"><i class="fa fa-edit" aria-hidden="true" style="color:green"></i></button><button type="button"  class="btn btn-xs bg-light"><i class="fa fa-trash" aria-hidden="true" style="color:red"></i></button>';               
                                                 
@@ -121,6 +123,8 @@ case 'get_ordenes':
  			"aaData"=>$data);
  		echo json_encode($results);
 	break;
+
+    
 
 }
 

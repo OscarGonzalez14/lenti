@@ -59,6 +59,7 @@ if(isset($_SESSION["usuario"])){
            <th>Estado</th>
            <th>Detalles</th>
            <th>Imprimir</th>
+           <th>Viñeta</th>
            <th>Aciones</th>
          </thead>
          <tbody class="style_th"></tbody>

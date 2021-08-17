@@ -70,13 +70,14 @@ body {
           </div>
           <div class="form-group col-sm-4">
             <label for="inlineRadio1">Cant. Ingreso</label>
-              <input class="form-control" type="number" name="inlineRadioOptions" id="cant_ingreso">
+              <input class="form-control" type="number" name="inlineRadioOptions" id="cant_ingreso" value="0">
           </div>
 
           </div>
       </div>
       </div>
       <input type="hidden" id="id_lente_term">
+      <input type="hidden" id="stock_act">
       <div class="modal-footer">
         <button type="button" class="btn btn-primary btn-block" onClick='setStockTerminados()'>REGISTRAR INGRESO</button>
       </div>

@@ -1,5 +1,5 @@
 function init(){
- //listar_ordenes();
+ listar_ordenes();
  get_numero_orden();
  //document.getElementById("btn-print-bc").style.display = "none";
 }
@@ -181,6 +181,7 @@ function guardar_orden(){
   if (tipo_lente==undefined || tipo_lente==null) {
     alerts('error','Debe seleccionar Lente');return false;
   }
+   let trat_multifocal = $("input[type='radio'][name='tratamiento_multifocal']:checked").val();
 
 
   $.ajax({
@@ -192,7 +193,8 @@ function guardar_orden(){
     'odprismaf_orden':odprismaf_orden,'oiesferasf_orden':oiesferasf_orden,'oicilindrosf_orden':oicilindrosf_orden,'oiejesf_orden':oiejesf_orden,
     'oiadicionf_orden':oiadicionf_orden,'oiprismaf_orden':oiprismaf_orden,
     'modelo':modelo,'marca':marca,'color':color,'diseno':diseno,'horizontal':horizontal,'diagonal':diagonal,'vertical':vertical,'puente':puente,
-    'od_dist_pupilar':od_dist_pupilar,'od_altura_pupilar':od_altura_pupilar,'od_altura_oblea':od_altura_oblea,'oi_dist_pupilar':oi_dist_pupilar,'oi_altura_pupilar':oi_altura_pupilar,'oi_altura_oblea':oi_altura_oblea},
+    'od_dist_pupilar':od_dist_pupilar,'od_altura_pupilar':od_altura_pupilar,'od_altura_oblea':od_altura_oblea,'oi_dist_pupilar':oi_dist_pupilar,
+    'oi_altura_pupilar':oi_altura_pupilar,'oi_altura_oblea':oi_altura_oblea,'trat_multifocal':trat_multifocal},
     cache: false,
     dataType:"json",
       error:function(x,y,z){

@@ -104,6 +104,8 @@ $(document).on('click', '.id_lente', function(){
   let id_item = $(this).attr("id");
   console.log(id_item); //return false;
 
+  ////////////////agregar hover a celda /////////////
+  
   $("#vs_ar_green_essilor").modal("show");
   $.ajax({
     url:"../ajax/productos.php?op=get_data_item_ingreso",
@@ -119,8 +121,10 @@ $(document).on('click', '.id_lente', function(){
       $("#cilindro_terminado").val(data.cilindro);
       $("#id_lente_term").val(data.id_terminado);
       $("#codigo_lente_term").val(data.codigo);
+      $("#stock_act").val(data.stock);
     }      
-  });//Fin Ajax  
+  });//Fin Ajax
+   
 });
 
 function set_code_bar(){
@@ -166,8 +170,11 @@ function focus_input(){
 
 function setStockTerminados(){
   let id_terminado = $("#id_lente_term").val();
+  let stock_act = $("#stock_act").val();
   let cantidad_ingreso = $("#cant_ingreso").val();
   let codigo_term = $("#codigo_lente_term").val();
+  let new_stock = parseInt(stock_act)+parseInt(cantidad_ingreso);
+
   if (codigo_term=="" || codigo_term==null || codigo_term==undefined) {
     $("#new_barcode_lens").modal('show');
     $("#id_terminado_lense").val(id_terminado);
@@ -184,14 +191,17 @@ function setStockTerminados(){
   $.ajax({
     url:"../ajax/productos.php?op=update_stock_terminados",
     method:"POST",
-    data:{id_terminado:id_terminado,cantidad_ingreso:cantidad_ingreso},
+    data:{id_terminado:id_terminado,new_stock:new_stock},
     cache: false,
     dataType:"json",
     success:function(data){
       if (data=="ok"){
-          alerts_productos("success", "Ingreso de productos exitosos");
-          $("#new_barcode_lens").modal('hide');
-          $("#vs_ar_green_essilor").modal('hide');
+        document.getElementById(id_terminado).style.background='#5bc0de';
+        document.getElementById(id_terminado).style.color='white';
+        alerts_productos("success", "Ingreso de productos exitosos");
+        $("#new_barcode_lens").modal('hide');
+        $("#vs_ar_green_essilor").modal('hide');
+        document.getElementById(id_terminado).innerHTML=new_stock;
       }
     }      
   });   

@@ -13,18 +13,19 @@ switch ($_GET["op"]){
     if(is_array($data)==true and count($data)>0){
 		foreach ($data as $v) {
 			$output["marca"] = $v["marca"];
-            $output["diseno"] = $v["diseno"];
-            $output["esfera"] = substr($v["esfera"],0,-1);
-            $output["cilindro"] = substr($v["cilindro"],0,-1);
-            $output["id_terminado"] = $v["id_terminado"];
-            $output["codigo"] = $v["codigo"];
+      $output["diseno"] = $v["diseno"];
+      $output["esfera"] = substr($v["esfera"],0,-1);
+      $output["cilindro"] = substr($v["cilindro"],0,-1);
+      $output["id_terminado"] = $v["id_terminado"];
+      $output["codigo"] = $v["codigo"];
+      $output["stock"] = $v["stock"];
 		}
 	echo json_encode($output);
     }
     break;
 
     case 'update_stock_terminados':
-    	$productos->update_stock_terminados($_POST["id_terminado"],$_POST["cantidad_ingreso"]);
+    	$productos->update_stock_terminados($_POST["id_terminado"],$_POST["new_stock"]);
     	$messages[]='ok';
     	if (isset($messages)){
      ?>
@@ -52,6 +53,7 @@ switch ($_GET["op"]){
 	
   case 'set_code_bar_ini':
     $valida = $productos->valida_existe_barcode($_POST["new_code"],$_POST["id_terminado_term"]);
+    //$codigo = $productos->valida_existe_cod_lente($_POST["id_terminado_term"]);
     if (is_array($valida)==true and count($valida)==0) {
       $productos->insert_codigo_lente($_POST["new_code"],$_POST["id_terminado_term"]);
       $messages[]='exito';
