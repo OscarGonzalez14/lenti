@@ -27,6 +27,7 @@ public function login_users(){
     if(is_array($resultado) and count($resultado)>0){
         $_SESSION["id_usuario"] = $resultado["id_usuario"];           
         $_SESSION["usuario"] = $resultado["usuario"];
+        $_SESSION["categoria"] = $resultado["categoria"];
        
       header("Location:vistas/home.php");
       exit();

@@ -86,7 +86,8 @@ case 'get_ordenes':
 	$data = Array();
     $about = "about:blank";
     $print = "print_popup";
-    $ancho = "width=600,height=500";
+    $size = "width=600,height=500";
+
 	foreach ($datos as $row) { 
 	$sub_array = array();
 
@@ -97,21 +98,28 @@ case 'get_ordenes':
 		$badge = 'warning';
 		$icon = "fa-clock";
 		$color = 'warning';
+	}elseif($estado==1){
+	    $status = 'Recibido';
+		$badge = 'success';
+		$icon = "fa-check-circle";
+		$color = 'success';
 	}
 
+	if ($estado==0) {
+		$func="validar_est_orden";
+	}elseif($estado==1){
+		$func = "generate_barcode_print";
+	}
+
+    $sub_array[] = $row["id_orden"];
 	$sub_array[] = $row["codigo"];
-	$sub_array[] = $row["nombre"];
+	$sub_array[] = $row["nombre"]." - ".$row["direccion"];
 	$sub_array[] = strtoupper($row["paciente"]);
 	$sub_array[] = '<span class="right badge badge-'.$color.'" style="font-size:12px"><i class=" fas '.$icon.'" style="color:'.$badge.'"></i> '.$status.'</span>';
 	$sub_array[] = '<button type="button"  class="btn btn-sm bg-light"><i class="fa fa-eye" aria-hidden="true" style="color:blue"></i></button>';
 
-	$sub_array[] = '</i></button><button type="button"  class="btn btn-xs bg-light"><i class="fa fa-file" aria-hidden="true" style="color:red"></i></button>';
-	$sub_array[] = '<form action="barcode_orden_print.php" method="POST" target="print_popup" onsubmit="window.open(\''.$about.'\',\''.$print.'\',\''.$ancho.'\');">
-		<input type="hidden" value="'.$row["paciente"].'" name="paciente_orden">
-		<input type="hidden" value="'.$row["codigo"].'" name="codigoOrden">
-		<input type="hidden" value="'.$row["nombre"].'" name="nombre">
-	<button type="submit"  class="btn btn-sm bg-light"><i class="fa fa-print" aria-hidden="true" style="color:black"></i></button></form>';
-	$sub_array[] = '<button type="button"  class="btn btn-sm bg-light"><i class="fa fa-edit" aria-hidden="true" style="color:green"></i></button><button type="button"  class="btn btn-xs bg-light"><i class="fa fa-trash" aria-hidden="true" style="color:red"></i></button>';               
+	$sub_array[] = '<i class="fas fa-barcode" aria-hidden="true" style="color:black" onClick="'.$func.'(\''.$row["codigo"].'\',\''.$row["paciente"].'\')"></i>';
+	$sub_array[] = '<button type="button"  class="btn btn-sm bg-light"><i class="fa fa-edit" aria-hidden="true" style="color:green"></i></button><button type="button"  class="btn btn-xs bg-light"><i class="fa fa-trash" aria-hidden="true" style="color:red"></i></button><button type="button"  class="btn btn-xs bg-light"><i class="far fa-file-pdf" aria-hidden="true" style="color:blue"></i></button>';               
                                                 
     $data[] = $sub_array;
 	}

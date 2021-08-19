@@ -15,30 +15,30 @@
 
           <li class="nav-item">
             <a href="#" class="nav-link" style="color: white">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-clipboard-list"></i>
               <p>
-                Inventario
+                Inventarios&Bodega
                 <i class="fas fa-angle-left right"></i>
                <!-- <span class="badge badge-info right">6</span>-->
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="adquisiciones.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Adquisiciones</p>
+                <a href="inventarios_term.php" class="nav-link">
+                  <i class="far fa-circle nav-icon text-warning"></i>
+                  <p>Inv. Terminados</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Existencias</p>
+                <a href="inventarios_bases.php" class="nav-link">
+                  <i class="far fa-circle nav-icon text-success"></i>
+                  <p>Inv. Bases</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/layout/boxed.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Requisiciones</p>
+                <a href="descargos.php" class="nav-link">
+                  <i class="far fa-circle nav-icon text-danger"></i>
+                  <p>Descargos</p>
                 </a>
               </li>
               <li class="nav-item">

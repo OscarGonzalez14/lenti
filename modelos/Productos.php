@@ -64,11 +64,12 @@ class Productos extends Conectar{
   public function insert_codigo_lente($new_code,$id_terminado_term){
     $conectar=parent::conexion();
     parent::set_names();
-
-    $sql="insert into codigos_lentes values(?,?);";
+    $tipo_lente ="Terminado";
+    $sql="insert into codigos_lentes values(?,?,?);";
     $sql= $conectar->prepare($sql);
     $sql->bindValue(1, $new_code);
     $sql->bindValue(2, $id_terminado_term);
+    $sql->bindValue(3, $tipo_lente);
     $sql->execute();
 
     $sql2 ="update lente_terminado set codigo=? where id_terminado=?;";

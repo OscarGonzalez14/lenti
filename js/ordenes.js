@@ -215,6 +215,7 @@ function guardar_orden(){
       });
       //////  GENERAR CODIGO DE BARRAS ///////
       $("#nueva_orden_lab").modal('hide');
+      $("#datatable_ordenes").DataTable().ajax.reload();
       generate_barcode_print(codigo,paciente);    
 
      }else{
@@ -230,6 +231,11 @@ function guardar_orden(){
   });//////FIN AJAX
 
 }
+
+function validar_est_orden(){
+  alerts("error", "La orden debe ser recibida")
+}
+
 
 function generate_barcode_print(codigo,paciente){
 

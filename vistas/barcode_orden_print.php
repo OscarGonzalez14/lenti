@@ -33,7 +33,7 @@ $code = $Bar->getBarcode($codigo, $Bar::TYPE_CODE_128,'2','50');
         <div style="margin: 0px;">
         <span style="font-size: 18px"><b>LENTI</b></span><br>
         <span style="font-size: 15px"><b>PACIENTE: </b><?php echo $paciente;?></span><br>
-        <span style="font-size: 15px"><B>OPTICA</B><?php echo $optica;?></span>
+        <span style="font-size: 15px"><B>OPTICA: </B><?php echo $optica;?></span>
         </div>
         <?php echo $code;?> 
         <div style="font-size:18px"><?php echo $codigo;?><br>

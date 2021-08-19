@@ -61,7 +61,7 @@
    	$conectar = parent::conexion();
     date_default_timezone_set('America/El_Salvador'); 
     $hoy = date("d-m-Y H:i:s");
-    $estado = 0;
+    $estado = 1;
 
     $sql = "insert into orden values (null,?,?,?,?,?,?,?,?,?,?,?);";
     $sql = $conectar->prepare($sql);
@@ -134,7 +134,7 @@ public function get_ordenes_pendientes(){
     $conectar = parent::conexion();
     parent::set_names();
 
-    $sql="select ord.id_orden,ord.codigo,ord.paciente,ord.estado,o.nombre,s.direccion from orden as ord inner join optica as o on ord.id_optica=o.id_optica inner join sucursal_optica as s on o.id_optica=s.id_optica where ord.id_sucursal=s.id_sucursal and ord.estado='0' order by ord.id_orden DESC;";
+    $sql="select ord.id_orden,ord.codigo,ord.paciente,ord.estado,o.nombre,s.direccion from orden as ord inner join optica as o on ord.id_optica=o.id_optica inner join sucursal_optica as s on o.id_optica=s.id_optica where ord.id_sucursal=s.id_sucursal and (ord.estado='0' or ord.estado='1') order by ord.id_orden DESC;";
     $sql = $conectar->prepare($sql);
     $sql->execute();
     return $resultado=$sql->fetchAll();
