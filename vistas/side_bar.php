@@ -43,7 +43,7 @@
               </li>
               <li class="nav-item">
                 <a href="pages/layout/fixed-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="far fa-circle nav-icon text-info"></i>
                   <p>Lentes rotos</p>
                 </a>
               </li>

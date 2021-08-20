@@ -343,5 +343,20 @@ $(document).on('click', '.ident', function(){
   alert(id_item)
 });
 
+function get_detalles_orden(){
 
+  let cod_orden_act = $("cod_orden_current").val();
+
+    $.ajax({
+      url:"../ajax/ordenes.php?op=get_correlativo_orden",
+      method:"POST",
+      data : {cod_orden_act:cod_orden_act}
+      cache:false,
+      dataType:"json",
+      success:function(data){
+       console.log(data);      
+      }
+    });
+
+}
 init();
