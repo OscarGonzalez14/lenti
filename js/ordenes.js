@@ -343,18 +343,85 @@ $(document).on('click', '.ident', function(){
   alert(id_item)
 });
 
-function get_detalles_orden(){
-
-  let cod_orden_act = $("cod_orden_current").val();
-
+function get_dets_orden(){
+  let cod_orden_act = $("#cod_orden_current").val();
+    /////////GET DATA ORDEN /////////////
     $.ajax({
-      url:"../ajax/ordenes.php?op=get_correlativo_orden",
+      url:"../ajax/ordenes.php?op=get_data_oden",
       method:"POST",
-      data : {cod_orden_act:cod_orden_act}
+      data : {cod_orden_act:cod_orden_act},
       cache:false,
       dataType:"json",
       success:function(data){
-       console.log(data);      
+       $("#cod_det_orden_descargo").html(data.codigo);
+       $("#pac_orden_desc").html(data.paciente);
+       $("#optica_orden_suc").html(data.optica);
+       $("#sucursal_optica_orden").html(data.sucursal);
+       $("#tipo_lente_ord").html(data.tipo_lente);
+       $("#trat_multi_orden").html(data.trat_orden);
+       $("#obs_orden").val(data.observaciones)
+
+      }
+    });
+
+  /////////////////GET DATA RX FINAL   
+
+  $.ajax({
+      url:"../ajax/ordenes.php?op=get_rxfinal_oden",
+      method:"POST",
+      data : {cod_orden_act:cod_orden_act},
+      cache:false,
+      dataType:"json",
+      success:function(data){
+       $("#esf_od").html(data.odesferas);
+       $("#cil_od").html(data.odcindros);
+       $("#eje_od").html(data.odeje);
+       $("#adi_od").html(data.odadicion);
+       $("#pri_od").html(data.odprisma);
+
+       $("#esf_oi").html(data.oiesferas);
+       $("#cil_oi").html(data.oicindros);
+       $("#eje_oi").html(data.oieje);
+       $("#adi_oi").html(data.oiadicion);
+       $("#pri_oi").html(data.oiprisma);
+       
+      }
+    });
+
+  /////////// GET DATA ALTURA PUPILAR /////
+   $.ajax({
+      url:"../ajax/ordenes.php?op=get_altdist_oden",
+      method:"POST",
+      data : {cod_orden_act:cod_orden_act},
+      cache:false,
+      dataType:"json",
+      success:function(data){
+       $("#od_dip").html(data.od_dist_pupilar);
+       $("#od_ap").html(data.od_altura_pupilar);
+       $("#od_ao").html(data.od_altura_oblea);
+       $("#oi_dip").html(data.oi_dist_pupilar);
+       $("#oi_ap").html(data.oi_altura_pupilar);
+       $("#oi_ao").html(data.oi_altura_oblea);
+       
+      }
+    });
+  /////////////////////  GET DATA AROS ORDEN ////
+     $.ajax({
+      url:"../ajax/ordenes.php?op=get_aros_orden",
+      method:"POST",
+      data : {cod_orden_act:cod_orden_act},
+      cache:false,
+      dataType:"json",
+      success:function(data){
+      $("#mod_aro_orden").html(data.modelo);
+       $("#marca_aro_orden").html(data.marca);
+       $("#color_aro_orden").html(data.color);
+       $("#dis_aro_orden").html(data.diseno);
+       $("#hor_aro_orden").html(data.horizontal);
+       $("#diagonal_aro_orden").html(data.diagonal);
+       $("#vertical_aro_orden").html(data.vertical);
+       $("#puente_aro_orden").html(data.puente);
+         
       }
     });
 

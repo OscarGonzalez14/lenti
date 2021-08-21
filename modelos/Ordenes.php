@@ -139,5 +139,52 @@ public function get_ordenes_pendientes(){
     $sql->execute();
     return $resultado=$sql->fetchAll();
 }
+
+////////////////////////////// DATA ORDEN ///////////////////
+public function get_data_orden($codigo){
+    $conectar = parent::conexion();
+    parent::set_names();
+
+    $sql = "select op.nombre AS optica,op.id_optica,s.direccion as sucursal,s.telefono,s.id_sucursal,o.paciente,o.paciente,o.observaciones,o.tipo_lente,o.trat_orden,o.codigo from orden as o inner join sucursal_optica as s on o.id_sucursal=s.id_sucursal INNER JOIN optica as op on op.id_optica= s.id_optica where o.codigo=?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1, $codigo);
+    $sql->execute();
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
+public function get_rxfinal_oden($codigo){
+  $conectar = parent::conexion();
+    parent::set_names();
+
+    $sql = "select*from rx_orden where codigo=?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1, $codigo);
+    $sql->execute();
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function get_altdist_orden($codigo){
+  $conectar = parent::conexion();
+  parent::set_names();
+
+    $sql = "select*from alturas_orden where codigo=?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1, $codigo);
+    $sql->execute();
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function get_aros_orden($codigo){
+  $conectar = parent::conexion();
+  parent::set_names();
+
+    $sql = "select*from aro_orden where codigo=?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1, $codigo);
+    $sql->execute();
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
  }//Fin de la Clase
-?>
