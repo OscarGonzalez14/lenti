@@ -207,4 +207,37 @@ function setStockTerminados(){
   });   
 }
 
+function valida_tipo_lente(){
+
+  let codigo_lente = $("#cod_lente_inv").val();
+
+    $.ajax({
+      url:"../ajax/productos.php?op=get_tipo_lente",
+      method:"POST",
+      data : {codigo_lente:codigo_lente},
+      cache:false,
+      dataType:"json",
+      success:function(data){
+      console.log(data);
+
+      }
+    });
+}
+
+function get_lente_od_desc(){
+
+  let codigo_lente = $("#cod_lente_inv").val();
+
+    $.ajax({
+      url:"../ajax/productos.php?op=get_data_lente_od",
+      method:"POST",
+      data : {codigo_lente:codigo_lente},
+      cache:false,
+      dataType:"json",
+      success:function(data){
+       console.log(data);
+      }
+    });
+  }
+
 init();

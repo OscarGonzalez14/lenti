@@ -3,7 +3,7 @@
   require_once("../config/conexion.php");
   
 
-   class Ordenes extends Conectar{
+class Ordenes extends Conectar{
 /*SELECT o.paciente,o.fecha_creacion,s.nombre,s.direccion,op.nombre from orden as o inner join sucursal_optica as s on o.id_sucursal = s.id_sucursal INNER join optica as op on s.id_optica= op.id_optica*/
     ///////////GET SUCURSALES ///////////
     public function get_opticas(){
@@ -121,11 +121,7 @@
     $sql4->bindValue(6, $oi_dist_pupilar);
     $sql4->bindValue(7, $oi_altura_pupilar);
     $sql4->bindValue(8, $oi_altura_oblea);
-    $sql4->execute();
-
-
-
-  
+    $sql4->execute();  
 
 }
 

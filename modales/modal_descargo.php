@@ -21,8 +21,8 @@
       <div class="col-sm-4">
         <label> OD Lente</label>
           <div class="input-group">
-          <input type="text" class="form-control clear_orden_i" id="cod_orden" placeholder="Lente OD">
-          <div class="input-group-append" onClick="getOrdenDesc()">
+          <input type="text" class="form-control clear_orden_i" id="cod_lente_inv" placeholder="Lente OD" onchange="valida_tipo_lente()">
+          <div class="input-group-append" onClick="valida_tipo_lente()">
             <span class="input-group-text bg-info"><i class="fas fa-search"> </i></span>
           </div>             
         </div>

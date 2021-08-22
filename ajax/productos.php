@@ -70,4 +70,32 @@ switch ($_GET["op"]){
       ?>
      <?php }
     break;
+
+    case 'get_tipo_lente':
+      $tipo_lente = $productos->valida_tipo_lente($_POST["codigo_lente"]);
+
+      if (is_array($tipo_lente)==true and count($tipo_lente)>0) {
+        foreach ($tipo_lente as $key) {
+           $data["codigo"]=$key["codigo"];
+           $data["id_lente"]=$key["id_lente"];
+           $data["tipo_lente"]=$key["tipo_lente"];
+        }
+        json_encode($data);
+      }
+
+      break;
+
+    case 'get_data_lente_od':       
+      $data = $productos->get_data_lente_od($_POST["codigo_lente"]);
+
+      if (is_array($data)== true and count($data)>0) {
+        foreach ($data as $v) {
+          $output["marca"] = $v["marca"];
+        }
+        echo json_encode($output);
+      }
+
+    break;
+
+
 }///Fin Switch
