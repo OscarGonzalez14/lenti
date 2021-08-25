@@ -207,49 +207,42 @@ function setStockTerminados(){
   });   
 }
 
-function valida_tipo_lente_od(){
+//////////////////DESCARGOS DE INVENTARIO///////////
+let detalle_descargos= [];
+function valida_tipo_lente(ojo){
+  console.log(det_orden);
+  let codigo_lente=''
+  if(ojo=="derecho"){
+    codigo_lente = $("#cod_lente_inv").val();
+  }else if(ojo=="izquierdo"){
+    codigo_lente = $("#cod_lente_oi").val();
+  }  
 
-  let codigo_lente = $("#cod_lente_inv").val();
-
-    $.ajax({
-      url:"../ajax/productos.php?op=get_tipo_lente",
-      method:"POST",
-      data : {codigo_lente:codigo_lente},
-      cache:false,
-      dataType:"json",
-      success:function(data){
+  $.ajax({
+    url:"../ajax/productos.php?op=get_tipo_lente",
+    method:"POST",
+    data : {codigo_lente:codigo_lente},
+    cache:false,
+    dataType:"json",
+    success:function(data){
       
-      let codigo = data.codigo;
-      let id_lente = data.id_lente;
-      let categoria = data.tipo_lente;
+    let codigo = data.codigo;
+    let id_lente = data.id_lente;
+    let categoria = data.tipo_lente;
 
-      if (categoria=="Terminado") {
-        getInfoTerminado(codigo,id_lente);
-      }else if(categoria=="Base")
+    if (categoria=="Terminado") {
+      getInfoTerminado(codigo,id_lente,ojo,categoria);
+    }else if(categoria=="Base")
         console.log("LENTE BASE");
-      }
-    });
+    }
+  });
 }
 
-function get_lente_od_desc(){
-
-  let codigo_lente = $("#cod_lente_inv").val();
-
-    $.ajax({
-      url:"../ajax/productos.php?op=get_data_lente_od",
-      method:"POST",
-      data : {codigo_lente:codigo_lente},
-      cache:false,
-      dataType:"json",
-      success:function(data){
-       console.log(data);
-      }
-    });
-  }
-
 var terminado_od_data = [];
-function getInfoTerminado(codigo,id_lente){
+var terminado_oi_data = [];
+function getInfoTerminado(codigo,id_lente,ojo,categoria){  
   terminado_od_data = [];
+  terminado_oi_data = [];
   $.ajax({
    url: "../ajax/productos.php?op=get_info_terminado",
    method: "POST",
@@ -258,6 +251,7 @@ function getInfoTerminado(codigo,id_lente){
    dataType: "json",
    success:function(data){
     let od_data = {
+      id_lente: id_lente,
       lente:data.lente,
       marca:data.marca,
       diseno:data.diseno,
@@ -265,9 +259,14 @@ function getInfoTerminado(codigo,id_lente){
       cilindro:data.cilindro,
       codigo:data.codigo
     }
-    terminado_od_data.push(od_data);
-    table_od();
-   }
+    if(ojo=='derecho'){
+      terminado_od_data.push(od_data);
+      table_od();
+    }else if(ojo=='izquierdo'){
+      terminado_oi_data.push(od_data);
+      table_oi(); 
+    }
+  }
 
   });
 }
@@ -296,27 +295,28 @@ function table_od(){
   
 }
 
-function set_color_add_order(){
-  document.getElementById("add_ord").style.backgroundColor="#f0ad4e";
-}
+function table_oi(){
+  $("#oi_term_info").html('');
+  let filas_oi = "";
+  let header_oi = "OJO IZQUIERDO - LENTE TERMINADO"
 
-document.onkeydown = checkKey;
-
-function checkKey(e) {
-
-    if (e.keyCode == '38') {
-        alert('Flecha arriba')
-    }
-    else if (e.keyCode == '40') {
-         alert('Flecha abajo')
-    }
-    else if (e.keyCode == '37') {
-        alert('Flecha izquierda')
-    }
-    else if (e.keyCode == '39') {
-        alert('Flecha derecha')
-    }
-
+  for(let j=0; j<terminado_oi_data.length;j++ ){
+    filas_oi = filas_oi+    
+    "<tr style='text-align:center'>"+
+    "<td>"+terminado_oi_data[j].lente+"</td>"+
+    "<td>"+terminado_oi_data[j].marca+"</td>"+
+    "<td>"+terminado_oi_data[j].diseno+"</td>"+
+    "</tr>"+
+    "<tr style='text-align:center'>"+
+    "<td>Esfera: "+terminado_oi_data[j].esfera+"</td>"+
+    "<td>Cilindro: "+terminado_oi_data[j].cilindro+"</td>"+
+    "<td>"+"<i class='fas fa-trash' style='color:red'></i>"+"</td>"+
+    "</tr>";
+  }
+  $("#encabezado_oi").html(header_oi);
+  document.getElementById("encabezado_oi").style.background ="#0275d8";
+  $("#oi_term_info").html(filas_oi);
+  
 }
 
 

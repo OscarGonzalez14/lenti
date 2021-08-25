@@ -26,8 +26,8 @@
       <div class="col-sm-4">
         <label> OD Lente</label>
           <div class="input-group">
-          <input type="text" class="form-control clear_orden_i" id="cod_lente_inv" placeholder="Lente OD" onchange="valida_tipo_lente_od()">
-          <div class="input-group-append" onClick="valida_tipo_lente_od()">
+          <input type="text" class="form-control clear_orden_i" id="cod_lente_inv" placeholder="Lente OD" onchange="valida_tipo_lente('derecho')">
+          <div class="input-group-append" onClick="valida_tipo_lente('derecho')">
             <span class="input-group-text bg-info"><i class="fas fa-search"> </i></span>
           </div>             
         </div>
@@ -36,8 +36,8 @@
       <div class="col-sm-4">
         <label>OI Lente</label>
           <div class="input-group">
-          <input type="text" class="form-control clear_orden_i" id="cod_orden" placeholder="Lente OI">
-          <div class="input-group-append" onClick="getOrdenDesc()">
+          <input type="text" class="form-control clear_orden_i" id="cod_lente_oi" placeholder="Lente OI" onchange="valida_tipo_lente('izquierdo')">
+          <div class="input-group-append" onClick="valida_tipo_lente('izquierdo')">
             <span class="input-group-text bg-info"><i class="fas fa-search"> </i></span>
           </div>             
         </div>
@@ -109,7 +109,7 @@
                       </tr>
 
                       <tr style="text-align: center;font-size: 12px">
-                        <td class="bg-dark">OD</td>
+                        <td class="bg-dark">OI</td>
                         <td><span id="esf_oi"></span></td>
                         <td><span id="cil_oi"></span></td>
                         <td><span id="eje_oi"></span></td>
@@ -135,7 +135,7 @@
                       </tr>
 
                       <tr style="text-align: center;font-size: 12px">
-                        <td class="bg-dark">OD</td>
+                        <td class="bg-dark">OI</td>
                         <td><span id="oi_dip"></span></td>
                         <td><span id="oi_ap"></span></td>
                         <td><span id="oi_ao"></span></td>
@@ -194,17 +194,17 @@
                 <div class="card-body pt-0">
                   <!--SECCION OJO DERECHO--->
                   <h5 id="encabezado_od" style="font-family: Helvetica, Arial, sans-serif;width: 100%;text-align: center;font-size: 13px;padding: 1px;margin-top: 5px;color: white"></h5>
-                  <div id="section_od" style="border:solid #112438 1px">
+                  <div id="section_od" style="border:solid #112438 1px;margin-top: 0px">
                    <table  width="100%" class="table-hover table-bordered" id="od_term_info" > </table>
                   </div> 
-                   <!--SECCION OJO IZQUIERDO--->
-                  <div id="section_oi">
-                   <table  width="100%" class="table-hover table-bordered" id="oi_term_info" > </table>
+                   <!--SECCION OJO IZQUIERDO--->                  
+                    <h5 id="encabezado_oi" style="font-family: Helvetica, Arial, sans-serif;width: 100%;text-align: center;font-size: 13px;padding: 1px;margin-top: 9px;color: white"></h5>
+                    <div id="section_oi" style="border:solid #0275d8 1px;margin-top: 0px">
+                   <table  width="100%" class="table-hover table-bordered" id="oi_term_info"> </table>
                   </div>                 
                 </div>
               </div>
             </div><!--Inicio Item-->
-
         </div>
         </div>
         </div> 

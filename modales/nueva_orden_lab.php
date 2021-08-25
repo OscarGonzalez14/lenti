@@ -237,13 +237,13 @@
             <div class="form-row align-items-center row" style="margin: 4px">
 
               <div class="form-group col-sm-3">
-                <label for="">Modelo</label>
-                <input type="text" class="form-control clear_orden_i" id="modelo_aro_orden" onkeyup="get_numero_orden();">
+                <label for="">Marca</label>
+                <input type="text" class="form-control clear_orden_i" id="marca_aro_orden" onkeyup="get_numero_orden();">
               </div>
 
               <div class="form-group col-sm-3">
-                <label for="">Marca</label>
-                <input type="text" class="form-control clear_orden_i" id="marca_aro_orden" onkeyup="get_numero_orden();">
+                <label for="">Modelo</label>
+                <input type="text" class="form-control clear_orden_i" id="modelo_aro_orden" onkeyup="get_numero_orden();">
               </div>
 
               <div class="form-group col-sm-3">

@@ -5,7 +5,7 @@ use Dompdf\Dompdf;
 require_once '../dompdf/autoload.inc.php';
 
 $paciente = $_POST["paciente"];
-$optica = "La Realeza";
+$optica = $_POST["optica"];
 $codigo = $_POST["codigo"];//$_POST["codigoOrden"];
 date_default_timezone_set('America/El_Salvador'); 
 $hoy = date("d-m-Y H:i:s");

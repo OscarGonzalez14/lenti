@@ -181,7 +181,7 @@ function guardar_orden(){
   if (tipo_lente==undefined || tipo_lente==null) {
     alerts('error','Debe seleccionar Lente');return false;
   }
-   let trat_multifocal = $("input[type='radio'][name='tratamiento_multifocal']:checked").val();
+  let trat_multifocal = $("input[type='radio'][name='tratamiento_multifocal']:checked").val();
 
 
   $.ajax({
@@ -216,7 +216,7 @@ function guardar_orden(){
       //////  GENERAR CODIGO DE BARRAS ///////
       $("#nueva_orden_lab").modal('hide');
       $("#datatable_ordenes").DataTable().ajax.reload();
-      generate_barcode_print(codigo,paciente);    
+      generate_barcode_print(codigo,paciente,optica);    
 
      }else{
       Swal.fire({
@@ -237,7 +237,7 @@ function validar_est_orden(){
 }
 
 
-function generate_barcode_print(codigo,paciente){
+function generate_barcode_print(codigo,paciente,optica){
 
 var form = document.createElement("form");
       form.target = "print_popup";
@@ -253,6 +253,12 @@ var form = document.createElement("form");
       input.type = "hidden";
       input.name = "codigo";
       input.value = codigo;
+      form.appendChild(input);
+
+      var input = document.createElement("input");
+      input.type = "hidden";
+      input.name = "optica";
+      input.value = optica;
       form.appendChild(input);
 
       let alto = (parseInt(window.innerHeight) / 4);
@@ -342,7 +348,7 @@ $(document).on('click', '.ident', function(){
   let id_item = $(this).attr("id");
   alert(id_item)
 });
-
+var det_orden = []
 function get_dets_orden(){
   let cod_orden_act = $("#cod_orden_current").val();
     /////////GET DATA ORDEN /////////////
@@ -353,14 +359,23 @@ function get_dets_orden(){
       cache:false,
       dataType:"json",
       success:function(data){
-       $("#cod_det_orden_descargo").html(data.codigo);
-       $("#pac_orden_desc").html(data.paciente);
-       $("#optica_orden_suc").html(data.optica);
-       $("#sucursal_optica_orden").html(data.sucursal);
-       $("#tipo_lente_ord").html(data.tipo_lente);
-       $("#trat_multi_orden").html(data.trat_orden);
-       $("#obs_orden").val(data.observaciones)
 
+      $("#cod_det_orden_descargo").html(data.codigo);
+      $("#pac_orden_desc").html(data.paciente);
+      $("#optica_orden_suc").html(data.optica);
+      $("#sucursal_optica_orden").html(data.sucursal);
+      $("#tipo_lente_ord").html(data.tipo_lente);
+      $("#trat_multi_orden").html(data.trat_orden);
+      $("#obs_orden").val(data.observaciones);
+
+      let items_orden = {
+      codigo : data.codigo,
+      paciente :data.paciente,
+      id_optica: data.id_optica,
+      id_sucursal: data.id_sucursal
+      } 
+      det_orden.push(items_orden);
+       
       }
     });
 
@@ -424,6 +439,8 @@ function get_dets_orden(){
          
       }
     });
+
+
 
 }
 init();

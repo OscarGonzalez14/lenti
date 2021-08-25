@@ -118,7 +118,7 @@ case 'get_ordenes':
 	$sub_array[] = '<span class="right badge badge-'.$color.'" style="font-size:12px"><i class=" fas '.$icon.'" style="color:'.$badge.'"></i> '.$status.'</span>';
 	$sub_array[] = '<button type="button"  class="btn btn-sm bg-light"><i class="fa fa-eye" aria-hidden="true" style="color:blue"></i></button>';
 
-	$sub_array[] = '<i class="fas fa-barcode" aria-hidden="true" style="color:black" onClick="'.$func.'(\''.$row["codigo"].'\',\''.$row["paciente"].'\')"></i>';
+	$sub_array[] = '<i class="fas fa-barcode" aria-hidden="true" style="color:black" onClick="'.$func.'(\''.$row["codigo"].'\',\''.$row["paciente"].'\',\''.$row["nombre"]." - ".$row["direccion"].'\')"></i>';
 	$sub_array[] = '<button type="button"  class="btn btn-sm bg-light"><i class="fa fa-edit" aria-hidden="true" style="color:green"></i></button><button type="button"  class="btn btn-xs bg-light"><i class="fa fa-trash" aria-hidden="true" style="color:red"></i></button><button type="button"  class="btn btn-xs bg-light"><i class="far fa-file-pdf" aria-hidden="true" style="color:blue"></i></button>';               
                                                 
     $data[] = $sub_array;
@@ -146,6 +146,8 @@ case 'get_ordenes':
 				$data["trat_orden"] = $key["trat_orden"];
 				$data["optica"] = $key["optica"];
 				$data["sucursal"] = $key["sucursal"];
+				$data["id_optica"] = $key["id_optica"];
+				$data["id_sucursal"] = $key["id_sucursal"];
 			}
 
 			echo json_encode($data);
