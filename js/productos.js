@@ -207,7 +207,7 @@ function setStockTerminados(){
   });   
 }
 
-function valida_tipo_lente(){
+function valida_tipo_lente_od(){
 
   let codigo_lente = $("#cod_lente_inv").val();
 
@@ -218,8 +218,15 @@ function valida_tipo_lente(){
       cache:false,
       dataType:"json",
       success:function(data){
-      console.log(data);
+      
+      let codigo = data.codigo;
+      let id_lente = data.id_lente;
+      let categoria = data.tipo_lente;
 
+      if (categoria=="Terminado") {
+        getInfoTerminado(codigo,id_lente);
+      }else if(categoria=="Base")
+        console.log("LENTE BASE");
       }
     });
 }
@@ -239,5 +246,78 @@ function get_lente_od_desc(){
       }
     });
   }
+
+var terminado_od_data = [];
+function getInfoTerminado(codigo,id_lente){
+  terminado_od_data = [];
+  $.ajax({
+   url: "../ajax/productos.php?op=get_info_terminado",
+   method: "POST",
+   data: {codigo:codigo,id_lente:id_lente},
+   cache: false,
+   dataType: "json",
+   success:function(data){
+    let od_data = {
+      lente:data.lente,
+      marca:data.marca,
+      diseno:data.diseno,
+      esfera:data.esfera,
+      cilindro:data.cilindro,
+      codigo:data.codigo
+    }
+    terminado_od_data.push(od_data);
+    table_od();
+   }
+
+  });
+}
+
+function table_od(){
+  $("#od_term_info").html('');
+  let filas = "";
+  let header = "OJO DERECHO - LENTE TERMINADO"
+
+  for(let j=0; j<terminado_od_data.length;j++ ){
+    filas = filas+    
+    "<tr style='text-align:center'>"+
+    "<td>"+terminado_od_data[j].lente+"</td>"+
+    "<td>"+terminado_od_data[j].marca+"</td>"+
+    "<td>"+terminado_od_data[j].diseno+"</td>"+
+    "</tr>"+
+    "<tr style='text-align:center'>"+
+    "<td>Esfera: "+terminado_od_data[j].esfera+"</td>"+
+    "<td>Cilindro: "+terminado_od_data[j].cilindro+"</td>"+
+    "<td>"+"<i class='fas fa-trash' style='color:red'></i>"+"</td>"+
+    "</tr>";
+  }
+  $("#encabezado_od").html(header);
+  document.getElementById("encabezado_od").style.background ="#112438";
+  $("#od_term_info").html(filas);
+  
+}
+
+function set_color_add_order(){
+  document.getElementById("add_ord").style.backgroundColor="#f0ad4e";
+}
+
+document.onkeydown = checkKey;
+
+function checkKey(e) {
+
+    if (e.keyCode == '38') {
+        alert('Flecha arriba')
+    }
+    else if (e.keyCode == '40') {
+         alert('Flecha abajo')
+    }
+    else if (e.keyCode == '37') {
+        alert('Flecha izquierda')
+    }
+    else if (e.keyCode == '39') {
+        alert('Flecha derecha')
+    }
+
+}
+
 
 init();

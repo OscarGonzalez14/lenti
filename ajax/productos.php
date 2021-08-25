@@ -80,22 +80,27 @@ switch ($_GET["op"]){
            $data["id_lente"]=$key["id_lente"];
            $data["tipo_lente"]=$key["tipo_lente"];
         }
-        json_encode($data);
+        echo json_encode($data);
       }
 
       break;
 
-    case 'get_data_lente_od':       
-      $data = $productos->get_data_lente_od($_POST["codigo_lente"]);
-
-      if (is_array($data)== true and count($data)>0) {
-        foreach ($data as $v) {
-          $output["marca"] = $v["marca"];
+      case 'get_info_terminado':
+        $data = $productos->getInfoTerminado($_POST["codigo"],$_POST["id_lente"]);
+        if (is_array($data)==true and count($data)>0) {
+          foreach ($data as $key) {
+           $output["lente"]=$key["lente"];
+           $output["marca"]=$key["marca"];
+           $output["diseno"]=$key["diseno"];
+           $output["esfera"]=$key["esfera"];
+           $output["cilindro"]=$key["cilindro"];
+           $output["id_terminado"]=$key["id_terminado"];
+           $output["codigo"]=$key["codigo"];
         }
         echo json_encode($output);
       }
 
-    break;
+      break;
 
 
 }///Fin Switch

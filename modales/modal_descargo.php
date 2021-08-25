@@ -1,6 +1,11 @@
+<style>
+  .add_order:active {
+  background-color: yellow;
+}
+</style>
 <!-- Modal -->
 <div class="modal fade" id="modal_descargo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document" style="max-width: 85%">
+  <div class="modal-dialog" role="document" style="max-width: 91%">
     <div class="modal-content">
       <div class="modal-header">
       <div class="form-row"><!--INPUTS-->
@@ -8,7 +13,7 @@
 
 
 
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <label> Cod. Orden</label>
           <div class="input-group">
           <input type="text" class="form-control clear_orden_i" id="cod_orden_current" placeholder="codigo orden scan" onchange="get_dets_orden()">
@@ -21,8 +26,8 @@
       <div class="col-sm-4">
         <label> OD Lente</label>
           <div class="input-group">
-          <input type="text" class="form-control clear_orden_i" id="cod_lente_inv" placeholder="Lente OD" onchange="valida_tipo_lente()">
-          <div class="input-group-append" onClick="valida_tipo_lente()">
+          <input type="text" class="form-control clear_orden_i" id="cod_lente_inv" placeholder="Lente OD" onchange="valida_tipo_lente_od()">
+          <div class="input-group-append" onClick="valida_tipo_lente_od()">
             <span class="input-group-text bg-info"><i class="fas fa-search"> </i></span>
           </div>             
         </div>
@@ -37,8 +42,13 @@
           </div>             
         </div>
       </div>
-
+    
+    <div class="col-sm-1">
+      <label style="color: white">Add</label>
+    <button class="btn btn-primary add_order" style="border-radius: 3px;font-family: Helvetica, Arial, sans-serif;font-size: 14px;text-align: center"><i class="fas fa-plus" style="margin-top: 2px" onfocus="set_color_add_order()" id="add_ord"></i></button>
+  </div>
     </div><!--FIN INPUTS-->
+
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -50,7 +60,7 @@
         <div class="card-body pb-0">
         <div class="row d-flex align-items-between" style="display: flex;flex-wrap: wrap;align-content: space-between;">
 
-            <div class="col-12 col-sm-12 col-md-8"><!--Inicio Item-->
+            <div class="col-12 col-sm-12 col-md-7"><!--Inicio Item-->
               <div class="card" style="border: solid 2px #5bc0de">
                 <div class="card-footer" style="border-bottom: solid 1px #0275d8;" id="block_header">
                   <div class="text-left">
@@ -172,9 +182,9 @@
               </div>
             </div><!--Inicio Item-->
 
-            <div class="col-12 col-sm-12 col-md-4"><!--Inicio Item-->
-              <div class="card bg-light">
-                <div class="card-footer">
+            <div class="col-12 col-sm-12 col-md-5"><!--Inicio Item-->
+              <div class="card bg-light" style="border: solid 2px #0275d8">
+                <div class="card-footer" style="border-bottom: solid 1px #5bc0de;">
                   <div class="text-left">
                       <a href="#" class="btn btn-sm btn-dark">
                       <i class="fas fa-glasses"></i> Lentes
@@ -182,7 +192,15 @@
                   </div>
                 </div>
                 <div class="card-body pt-0">
-                  DATOS LENTE
+                  <!--SECCION OJO DERECHO--->
+                  <h5 id="encabezado_od" style="font-family: Helvetica, Arial, sans-serif;width: 100%;text-align: center;font-size: 13px;padding: 1px;margin-top: 5px;color: white"></h5>
+                  <div id="section_od" style="border:solid #112438 1px">
+                   <table  width="100%" class="table-hover table-bordered" id="od_term_info" > </table>
+                  </div> 
+                   <!--SECCION OJO IZQUIERDO--->
+                  <div id="section_oi">
+                   <table  width="100%" class="table-hover table-bordered" id="oi_term_info" > </table>
+                  </div>                 
                 </div>
               </div>
             </div><!--Inicio Item-->

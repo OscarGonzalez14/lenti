@@ -93,32 +93,17 @@ class Productos extends Conectar{
   }
 
 
-  public function get_data_lente_od($codigo_lente){
+  public function getInfoTerminado($codigo_lente,$id_lente){
     $conectar=parent::conexion();
     parent::set_names();
-
-    $sql = "select * from codigos_lentes where codigo=?;";
-    $sql = $conectar->prepare($sql);
-    $sql->bindValue(1, $codigo_lente);
-    $sql->execute();
-
-    $tipo = $sql->fetchAll(PDO::FETCH_ASSOC);
-
-    foreach ($tipo as $key => $value) {
-        $t_lente = $value["tipo_lente"];
-        $id_lente = $value["id_lente"];
-    }
-    $base ="Esta es una base";
-    if ($t_lente=="Terminado") {        
+ 
         $sql2 = "select*from lente_terminado where id_terminado=? and codigo=?;";
         $sql2 = $conectar->prepare($sql2);
         $sql2->bindValue(1, $id_lente);
         $sql2->bindValue(2, $codigo_lente);
         $sql2->execute();
         return $resultado = $sql2->fetchAll(PDO::FETCH_ASSOC);
-    }else{
-        return $base;
-    }
+
 
 
   }
