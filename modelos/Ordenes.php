@@ -40,21 +40,24 @@ class Ordenes extends Conectar{
 
   /////////////////  COMPROBAR SI EXISTE CORRELATIVO ///////////////
 
-  public function comprobar_existe_correlativo($codigo){
+  public function comprobar_existe_correlativo($paciente,$date_validate){
   	$conectar = parent::conexion();
     parent::set_names();
-    $sql="select codigo from orden where codigo=?;";
+    $fecha = $date_validate."%";
+    $sql="select codigo from orden where paciente=? and fecha_creacion like ?;";
     $sql= $conectar->prepare($sql);
-    $sql->bindValue(1, $codigo);
+    $sql->bindValue(1, $paciente);
+    $sql->bindValue(2, $fecha);
     $sql->execute();
     return $resultado=$sql->fetchAll();
   }
+
   //////////////CREAR  BARCODE///////////////////////////////////
   public function crea_barcode($codigo){
     include 'barcode.php';       
     barcode('../codigos/' . $codigo . '.png', $codigo, 50, 'horizontal', 'code128', true);
+  }
 
-   }
   /////////////   REGISTRAR ORDEN ///////////////////////////////
    public function registrar_orden($codigo,$paciente,$observaciones,$usuario,$id_sucursal,$id_optica,$tipo_orden,$tipo_lente,$odesferasf_orden,$odcilindrosf_orden,$odejesf_orden,$oddicionf_orden,$odprismaf_orden,$oiesferasf_orden,$oicilindrosf_orden,$oiejesf_orden,$oiadicionf_orden,$oiprismaf_orden,$modelo,$marca,$color,$diseno,$horizontal,$diagonal,$vertical,$puente,$od_dist_pupilar,$od_altura_pupilar,$od_altura_oblea,$oi_dist_pupilar,$oi_altura_pupilar,$oi_altura_oblea,$trat_multifocal){
 
@@ -121,7 +124,7 @@ class Ordenes extends Conectar{
     $sql4->bindValue(6, $oi_dist_pupilar);
     $sql4->bindValue(7, $oi_altura_pupilar);
     $sql4->bindValue(8, $oi_altura_oblea);
-    $sql4->execute();  
+    $sql4->execute();
 
 }
 
@@ -130,12 +133,12 @@ public function get_ordenes_pendientes(){
     $conectar = parent::conexion();
     parent::set_names();
 
-    $sql="select ord.id_orden,ord.codigo,ord.paciente,ord.estado,o.nombre,s.direccion from orden as ord inner join optica as o on ord.id_optica=o.id_optica inner join sucursal_optica as s on o.id_optica=s.id_optica where ord.id_sucursal=s.id_sucursal and (ord.estado='0' or ord.estado='1') order by ord.id_orden DESC;";
+    $sql="select ord.id_orden,ord.codigo,ord.paciente,ord.estado,ord.id_sucursal,ord.id_optica,o.nombre,s.direccion from orden as ord inner join optica as o on ord.id_optica=o.id_optica inner join sucursal_optica as s on o.id_optica=s.id_optica where ord.id_sucursal=s.id_sucursal and (ord.estado='0' or ord.estado='1') order by ord.id_orden DESC;";
     $sql = $conectar->prepare($sql);
     $sql->execute();
     return $resultado=$sql->fetchAll();
 }
-
+/*SELECT p.id_paciente,c.numero_venta,p.nombres,p.empresas,p.sucursal,c.monto,c.saldo,c.monto-c.saldo as abonado,c.monto/c.plazo as cuota, c.plazo,o.fecha_inicio,o.fecha_finalizacion from pacientes as p INNER join creditos as c on p.id_paciente=c.id_paciente JOIN orden_credito as o where o.id_paciente=p.id_paciente and p.empresas like "%mpressa%" GROUP by c.numero_venta*/
 ////////////////////////////// DATA ORDEN ///////////////////
 public function get_data_orden($codigo){
     $conectar = parent::conexion();

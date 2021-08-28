@@ -32,11 +32,30 @@ case 'sucursales_optica':
 	break;
 
 case 'registrar_orden':
-    //$mensaje='';
-	$datos = $ordenes->comprobar_existe_correlativo($_POST["codigo"]);
+
+    date_default_timezone_set('America/El_Salvador'); 
+    $fecha = date('d-m-Y');
+    $date_validate = date("d-m-Y H:i");
+    $dia = date('d');
+    $mes = date('m');
+    $year = date('Y');
+    $anio = substr($year, 2,3);
+    $datos = $ordenes->get_correlativo_orden($fecha);
+
+  if(is_array($datos)==true and count($datos)>0){
+    foreach($datos as $row){
+      $numero_orden = substr($row["codigo"],6,15)+1;
+      $codigo = $anio.$dia.$mes.$numero_orden;
+    }  
+
+  }else{
+        $codigo = $anio.$dia.$mes.'1';
+  }
+
+	$datos = $ordenes->comprobar_existe_correlativo($_POST["paciente"],$date_validate);
     if(is_array($datos) == true and count($datos)==0){		
-		$ordenes->registrar_orden($_POST['codigo'],$_POST['paciente'],$_POST['observaciones'],$_POST['usuario'],$_POST['id_sucursal'],$_POST["id_optica"],$_POST["tipo_orden"],$_POST["tipo_lente"],$_POST['odesferasf_orden'],$_POST['odcilindrosf_orden'],$_POST['odejesf_orden'],$_POST['oddicionf_orden'],$_POST['odprismaf_orden'],$_POST['oiesferasf_orden'],$_POST['oicilindrosf_orden'],$_POST['oiejesf_orden'],$_POST['oiadicionf_orden'],$_POST['oiprismaf_orden'],$_POST['modelo'],$_POST['marca'],$_POST['color'],$_POST['diseno'],$_POST['horizontal'],$_POST['diagonal'],$_POST['vertical'],$_POST['puente'],$_POST["od_dist_pupilar"],$_POST["od_altura_pupilar"],$_POST["od_altura_oblea"],$_POST["oi_dist_pupilar"],$_POST["oi_altura_pupilar"],$_POST["oi_altura_oblea"],$_POST["trat_multifocal"]);
-		$messages[]='exito';	
+		$ordenes->registrar_orden($codigo,$_POST['paciente'],$_POST['observaciones'],$_POST['usuario'],$_POST['id_sucursal'],$_POST["id_optica"],$_POST["tipo_orden"],$_POST["tipo_lente"],$_POST['odesferasf_orden'],$_POST['odcilindrosf_orden'],$_POST['odejesf_orden'],$_POST['oddicionf_orden'],$_POST['odprismaf_orden'],$_POST['oiesferasf_orden'],$_POST['oicilindrosf_orden'],$_POST['oiejesf_orden'],$_POST['oiadicionf_orden'],$_POST['oiprismaf_orden'],$_POST['modelo'],$_POST['marca'],$_POST['color'],$_POST['diseno'],$_POST['horizontal'],$_POST['diagonal'],$_POST['vertical'],$_POST['puente'],$_POST["od_dist_pupilar"],$_POST["od_altura_pupilar"],$_POST["od_altura_oblea"],$_POST["oi_dist_pupilar"],$_POST["oi_altura_pupilar"],$_POST["oi_altura_oblea"],$_POST["trat_multifocal"]);
+		$messages[] = $codigo;	
 	}else{
 		$errors[]="error";
 	}
@@ -63,23 +82,6 @@ case 'registrar_orden':
    }
 	break;
 
-case "get_correlativo_orden":
-  	date_default_timezone_set('America/El_Salvador'); $now = date("dmY");
-  	$fecha = date('d-m-Y');
-    $datos= $ordenes->get_correlativo_orden($fecha);
-
-	if(is_array($datos)==true and count($datos)>0){
-		foreach($datos as $row){
-			$numero_orden = substr($row["codigo"],8,15)+1;
-			$output["codigo_orden"] = $now.$numero_orden;
-		}	 
-
-	}else{
-	    	$output["codigo_orden"] = $now.'1';
-	}
-	echo json_encode($output);
-
-    break;
 
 case 'get_ordenes':
 	$datos = $ordenes->get_ordenes_pendientes();
@@ -118,7 +120,7 @@ case 'get_ordenes':
 	$sub_array[] = '<span class="right badge badge-'.$color.'" style="font-size:12px"><i class=" fas '.$icon.'" style="color:'.$badge.'"></i> '.$status.'</span>';
 	$sub_array[] = '<button type="button"  class="btn btn-sm bg-light"><i class="fa fa-eye" aria-hidden="true" style="color:blue"></i></button>';
 
-	$sub_array[] = '<i class="fas fa-barcode" aria-hidden="true" style="color:black" onClick="'.$func.'(\''.$row["codigo"].'\',\''.$row["paciente"].'\',\''.$row["nombre"]." - ".$row["direccion"].'\')"></i>';
+	$sub_array[] = '<i class="fas fa-barcode" aria-hidden="true" style="color:black" onClick="'.$func.'(\''.$row["codigo"].'\',\''.$row["paciente"].'\','.$row["id_optica"].','.$row["id_sucursal"].')"></i>';
 	$sub_array[] = '<button type="button"  class="btn btn-sm bg-light"><i class="fa fa-edit" aria-hidden="true" style="color:green"></i></button><button type="button"  class="btn btn-xs bg-light"><i class="fa fa-trash" aria-hidden="true" style="color:red"></i></button><button type="button"  class="btn btn-xs bg-light"><i class="far fa-file-pdf" aria-hidden="true" style="color:blue"></i></button>';               
                                                 
     $data[] = $sub_array;

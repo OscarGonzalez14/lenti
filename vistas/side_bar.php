@@ -4,8 +4,14 @@
      <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
-
+          
+          <li class="nav-item">
+            <a href='orden.php'class="nav-link" style="color: white">
+              <i class="nav-icon fas fa-glasses"></i>
+              <p>Ópticas</p>
+            </a>
+          </li>
+           
           <li class="nav-item">
             <a href='orden.php'class="nav-link" style="color: white">
               <i class="nav-icon fas fa-file"></i>

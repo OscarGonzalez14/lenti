@@ -208,6 +208,12 @@ function setStockTerminados(){
 }
 
 //////////////////DESCARGOS DE INVENTARIO///////////
+function put_cursor_order(){
+  $('#modal_descargo').on('shown.bs.modal', function() {
+      $('#cod_orden_current').focus();
+  });
+}
+
 let detalle_descargos= [];
 function valida_tipo_lente(ojo){
   console.log(det_orden);
