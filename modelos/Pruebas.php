@@ -6,12 +6,12 @@ class Pruebas extends Conectar{
 
 	public function get_data_ar_green_term(){
 		$conectar=parent::conexion();
-        parent::set_names();
+    parent::set_names();
 
-        $sql="select * from lente_terminado;";
-        $sql=$conectar->prepare($sql);
-        $sql->execute();
-        return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+    $sql="select * from lente_terminado;";
+    $sql=$conectar->prepare($sql);
+    $sql->execute();
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 	}
 }
 

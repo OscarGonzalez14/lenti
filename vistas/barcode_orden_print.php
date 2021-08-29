@@ -7,9 +7,7 @@ require_once '../modelos/Reporteria.php';
 $reportes = new Reporteria();
 $paciente = $_POST["paciente"];
 $id_optica = $_POST["id_optica"];
-echo $id_optica;
 $id_sucursal = $_POST["id_sucursal"];
-echo $id_sucursal;
 $codigo = $_POST["codigo"];//$_POST["codigoOrden"];
 date_default_timezone_set('America/El_Salvador'); 
 $hoy = date("d-m-Y H:i:s");
@@ -19,6 +17,7 @@ $Bar = new Picqer\Barcode\BarcodeGeneratorHTML();
 $code = $Bar->getBarcode($codigo, $Bar::TYPE_CODE_128,'2','50');
 
 $optica_act = $reportes->get_optica_barcode($id_optica,$id_sucursal);
+
 foreach ($optica_act as $key) {
   $optica = $key["nombre"]."-".$key["direccion"];
 }
