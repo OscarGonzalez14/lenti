@@ -73,17 +73,15 @@ foreach ($optica_act as $key) {
 <?php
 
 $salida_html = ob_get_contents();
-  //$user=$_SESSION["id_usuario"];
+//$user=$_SESSION["id_usuario"];
 ob_end_clean();
 $dompdf = new Dompdf();
 $dompdf->loadHtml($salida_html);
 $dompdf->setPaper('tabloid', 'landscape');
 // (Optional) Setup the paper size and orientation
 $dompdf->setPaper(array(0,0,220,210));
-
 // Render the HTML as PDF
 $dompdf->render();
-
 // Output the generated PDF to Browser
 //$dompdf->stream();
 $dompdf->stream('document', array('Attachment'=>'0'));

@@ -10,10 +10,8 @@ if(isset($_SESSION["usuario"])){
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Home</title>
 <?php require_once("links_plugin.php"); 
- require_once('../modelos/Productos.php');
- require_once('../modales/warehouseIncome/vs_argreen_essilor.php');
- require_once('../modales/new_barcode_lentes.php');
- ?>
+ require_once('../modales/ingresos_tallado.php');
+?>
 <style>
   .buttons-excel{
       background-color: green !important;
@@ -56,23 +54,12 @@ if(isset($_SESSION["usuario"])){
 <div class="wrapper">
 <!-- top-bar -->
   <?php 
-  require_once("../modelos/Pruebas.php");
-  $productos = new Productos();
-  $data = $productos->get_data_ar_green_term();
   require_once('top_menu.php')?>
 
   <?php require_once('side_bar.php');   
   ?>
-  <div class="content-wrapper">
-    <section class="content">
-      <div class="container-fluid">
-        
-      <div class="card card-dark card-outline" style="margin: 2px;">
-        <h5 style="text-align: center;background:#034f84;color:white;font-family: Helvetica, Arial, sans-serif;font-size: 16px;">LENTE TERMINADO SPH GREEN, LENTES POR PARES</h5>
-       
-      </div>
-      </div><!-- /.container-fluid -->
-    </section>
+  <div class="content-wrapper">       
+    <button class="btn btn-info btn-sm btn-flat new_order_class" data-toggle="modal" data-target="#ing_tallado" data-backdrop="static" data-keyboard="false"  onClick="input_focus_clear()();" style="border-radius: 2px;font-family: Helvetica, Arial, sans-serif;font-size: 14px;text-align: center;margin-top: 5px;margin-left: 4px"><i class="fas fa-sort" style="margin-top: 2px"> Registrar ingresos</i></button>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -85,6 +72,8 @@ if(isset($_SESSION["usuario"])){
 require_once("links_js.php");
 ?>
 <script type="text/javascript" src="../js/productos.js"></script>
+<script type="text/javascript" src="../js/tallado.js"></script>
+
   </footer>
 </div>
 
