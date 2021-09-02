@@ -60,7 +60,7 @@ $(document).on('shown.bs.modal', function (e) {
   cancelButtonColor: '#d33',
   cancelButtonText: 'No',
   confirmButtonText: 'Si!'
-}).then((result) => {
+  }).then((result) => {
   if (result.isConfirmed) {
    $("#codigob_lente").val('12785')
   }

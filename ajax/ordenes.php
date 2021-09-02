@@ -152,11 +152,10 @@ case 'get_ordenes':
 				$data["id_sucursal"] = $key["id_sucursal"];
 			}
 
-			echo json_encode($data);
-		}else{
-			echo json_encode("error");
-		}
-
+				echo json_encode($data);
+			}else{
+				echo json_encode("error");
+			}
 	break;
 
 	case 'get_rxfinal_oden':

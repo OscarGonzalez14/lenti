@@ -59,7 +59,7 @@ if(isset($_SESSION["usuario"])){
   <?php require_once('side_bar.php');   
   ?>
   <div class="content-wrapper">       
-    <button class="btn btn-info btn-sm btn-flat new_order_class" data-toggle="modal" data-target="#ing_tallado" data-backdrop="static" data-keyboard="false"  onClick="input_focus_clear()();" style="border-radius: 2px;font-family: Helvetica, Arial, sans-serif;font-size: 14px;text-align: center;margin-top: 5px;margin-left: 4px"><i class="fas fa-sort" style="margin-top: 2px"> Registrar ingresos</i></button>
+    <button class="btn btn-info btn-sm btn-flat new_order_class" data-toggle="modal" data-target="#ing_tallado" data-backdrop="static" data-keyboard="false" id="ingresos_t" onClick="input_focus_clear();" style="border-radius: 2px;font-family: Helvetica, Arial, sans-serif;font-size: 14px;text-align: center;margin-top: 5px;margin-left: 4px"><i class="fas fa-sort" style="margin-top: 2px"> Registrar ingresos</i></button>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

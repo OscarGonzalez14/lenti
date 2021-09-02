@@ -1,6 +1,21 @@
 
-function registrar_ingreso_tallado(){
-    
+$(document).on('click', '#ingresos_t', function(){ 
+  items_tallado = [];
+  show_items();
+});
+
+function alerts_tallado(icono, titulo){
+    Swal.fire({
+        position: 'top-center',
+        icon: icono,
+        title: titulo,
+        showConfirmButton: true,
+        timer: 2500
+    });
+}
+
+var items_tallado = [];
+function registrar_ingreso_tallado(){    
 	let cod_orden_act = $("#reg_intreso_tallado").val();	
 	$.ajax({
       url:"../ajax/ordenes.php?op=get_data_oden",
@@ -8,12 +23,36 @@ function registrar_ingreso_tallado(){
       data : {cod_orden_act:cod_orden_act},
       cache:false,
       dataType:"json",
-      success:function(data){       
-      console.log(data)
-      
-      input_focus_clear();
-
-      //;            
+      success:function(data){
+      if(data !="error"){
+        let codigo = data.codigo; 
+        let indice = items_tallado.findIndex((objeto, indice, items_tallado) =>{
+        return objeto.n_orden == codigo;
+        });
+        console.log(indice);
+        if(indice>=0){
+            var y = document.getElementById("error_sound"); 
+            y.play();
+            //alerts_tallado("error","Ya existe orden en la lista");
+            input_focus_clear();
+      	}else{
+      		var x = document.getElementById("success_sound"); 
+            x.play();
+        	let items_ingresos = {
+      		n_orden : data.codigo,
+      		paciente: data.paciente,
+      		optica: data.optica
+            }
+            items_tallado.push(items_ingresos);
+            show_items();       
+            input_focus_clear();  
+        }          
+        }else{
+        	var z = document.getElementById("error_sond"); 
+            z.play();
+            alerts_tallado("error","Orden No existe");
+            input_focus_clear();
+        }
     }
     });
 }
@@ -21,6 +60,23 @@ function registrar_ingreso_tallado(){
 function input_focus_clear(){
 	$("#reg_intreso_tallado").val("");
 	$('#ing_tallado').on('shown.bs.modal', function() {
-        $('#reg_intreso_tallado').focus();
+    $('#reg_intreso_tallado').focus();
     });
+    //
+
+}
+
+function show_items(){
+  $("#items_orden_tallado_ingresos").html('');
+  let filas = "";
+
+  for(let i=0;i<items_tallado.length;i++){
+  	filas = filas+    
+    "<tr style='text-align:center'>"+
+    "<td>"+items_tallado[i].n_orden+"</td>"+
+    "<td>"+items_tallado[i].paciente+"</td>"+
+    "<td>"+items_tallado[i].optica+"</td>"+
+    "</tr>";
+  }
+  $("#items_orden_tallado_ingresos").html(filas);
 }

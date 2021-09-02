@@ -1,18 +1,29 @@
+<!DOCTYPE html>
 <html>
-<input type="text" id="input_uno" class="clear_orden_i">
-<input type="text" id="input_dos" class="clear_orden_i">
-<input type="text" id="input_tres" class="clear_orden_i">
+<body>
 
+<audio id="myAudio">
+
+  <source src="Beep.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<p>Click the buttons to play or pause the audio.</p>
+
+<button onclick="playAudio()" type="button">Play Audio</button>
+<button onclick="pauseAudio()" type="button">Pause Audio</button> 
 
 <script>
-    var element = document.getElementsByClassName("clear_orden_i");
+var x = document.getElementById("myAudio"); 
 
-    for(i=0;i<element.length;i++){
-      let id_element = element[i].id;
-      console.log(id_element);
-      //document.getElementById(id_element).classList.remove('is-invalid');
-      //document.getElementById(id_element).classList.remove('is-valid');
-      //document.getElementById(id_element).value="";
-    }
+function playAudio() { 
+  x.play(); 
+} 
+
+function pauseAudio() { 
+  x.pause(); 
+} 
 </script>
+
+</body>
 </html>
