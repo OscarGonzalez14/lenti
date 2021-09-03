@@ -67,16 +67,21 @@ function input_focus_clear(){
 }
 
 function show_items(){
-  $("#items_orden_tallado_ingresos").html('');
-  let filas = "";
 
+  $("#items_orden_tallado_ingresos").html('');
+
+  let filas = "";
   for(let i=0;i<items_tallado.length;i++){
-  	filas = filas+    
+  	filas = filas +    
     "<tr style='text-align:center'>"+
+    "<td>"+(i+1)+"</td>"+
     "<td>"+items_tallado[i].n_orden+"</td>"+
     "<td>"+items_tallado[i].paciente+"</td>"+
     "<td>"+items_tallado[i].optica+"</td>"+
+    "<td>"+"<button type='button'  class='btn btn-sm bg-light'><i class='fa fa-eye' aria-hidden='true' style='color:blue'></i></button>"+"</td>"+
+    "<td>"+"<button type='button'  class='btn btn-sm bg-light'><i class='fa fa-times-circle fa-2x' aria-hidden='true' style='color:red'></i></button>"+"</td>"+
     "</tr>";
   }
+
   $("#items_orden_tallado_ingresos").html(filas);
 }

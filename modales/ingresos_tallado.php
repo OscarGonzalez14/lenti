@@ -1,6 +1,6 @@
 <!-- The Modal -->
-  <div class="modal" id="ing_tallado">
-    <div class="modal-dialog" style="max-width: 60%">
+  <div class="modal" id="ing_tallado">    
+    <div class="modal-dialog" style="max-width: 75%">
       <div class="modal-content">      
         <!-- Modal Header -->
         <div class="modal-header">
@@ -13,15 +13,18 @@
 
           <table class="table-hover table-bordered" style="font-family: Helvetica, Arial, sans-serif;max-width: 100%;text-align: left;margin-top: 5px !important" width="100%">
           <thead style="font-family: Helvetica, Arial, sans-serif;width: 100%;text-align: center;font-size: 13px;" class="bg-dark">
+            <th>#</th>
             <th>#Orden</th>
             <th>Paciente</th>
             <th>Optica</th>
+            <th>Detalles</th>
+            <th>Eliminar</th>
           </thead>
           <tbody id="items_orden_tallado_ingresos"></tbody>
         </table>
         </div> 
-        <audio id="success_sound"><source src="../Success.mp3" type="audio/mp3"></audio>
-        <audio id="error_sound"><source src="../Beep.mp3" type="audio/mp3"></audio> 
+        <audio id="success_sound"><source src="../Beep.mp3" type="audio/mp3"></audio>
+        <audio id="error_sound"><source src="../error-beep.wav" type="audio/wav"></audio> 
         <!-- Modal footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">Registar items</button>
