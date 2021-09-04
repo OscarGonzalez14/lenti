@@ -11,6 +11,7 @@ if(isset($_SESSION["usuario"])){
   <title>Home</title>
 <?php require_once("links_plugin.php"); 
  require_once('../modales/ingresos_tallado.php');
+ require_once('../modales/detalle_orden.php');
 ?>
 <style>
   .buttons-excel{
@@ -55,8 +56,9 @@ if(isset($_SESSION["usuario"])){
 <!-- top-bar -->
   <?php 
   require_once('top_menu.php')?>
+  
+  <?php require_once('side_bar.php');  
 
-  <?php require_once('side_bar.php');   
   ?>
   <div class="content-wrapper">       
     <button class="btn btn-info btn-sm btn-flat new_order_class" data-toggle="modal" data-target="#ing_tallado" data-backdrop="static" data-keyboard="false" id="ingresos_t" onClick="input_focus_clear();" style="border-radius: 2px;font-family: Helvetica, Arial, sans-serif;font-size: 14px;text-align: center;margin-top: 5px;margin-left: 4px"><i class="fas fa-sort" style="margin-top: 2px"> Registrar ingresos</i></button>
@@ -73,6 +75,7 @@ require_once("links_js.php");
 ?>
 <script type="text/javascript" src="../js/productos.js"></script>
 <script type="text/javascript" src="../js/tallado.js"></script>
+<script type="text/javascript" src="../js/ordenes.js"></script>
 
   </footer>
 </div>

@@ -45,7 +45,7 @@ foreach ($optica_act as $key) {
         </div>
         <div><?php echo $code;?></div>
          
-        <div style="font-size:18px"><?php echo $codigo;?><br>
+        <div style="font-size:18px"><?php echo $codigo;?>
         <span style="font-size: 18px">lentitulaboratorio.com</span>
         </div>
       </div>

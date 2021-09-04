@@ -73,15 +73,24 @@ function show_items(){
   let filas = "";
   for(let i=0;i<items_tallado.length;i++){
   	filas = filas +    
-    "<tr style='text-align:center'>"+
+    "<tr style='text-align:center' id='item_t"+i+"'>"+
     "<td>"+(i+1)+"</td>"+
     "<td>"+items_tallado[i].n_orden+"</td>"+
     "<td>"+items_tallado[i].paciente+"</td>"+
     "<td>"+items_tallado[i].optica+"</td>"+
-    "<td>"+"<button type='button'  class='btn btn-sm bg-light'><i class='fa fa-eye' aria-hidden='true' style='color:blue'></i></button>"+"</td>"+
-    "<td>"+"<button type='button'  class='btn btn-sm bg-light'><i class='fa fa-times-circle fa-2x' aria-hidden='true' style='color:red'></i></button>"+"</td>"+
+    "<td>"+"<button type='button'  class='btn btn-sm bg-light' onClick='detOrdenes("+items_tallado[i].n_orden+")'><i class='fa fa-eye' aria-hidden='true' style='color:blue'></i></button>"+"</td>"+
+    "<td>"+"<button type='button'  class='btn btn-sm bg-light' onClick='eliminarItemTallado("+i+")'><i class='fa fa-times-circle' aria-hidden='true' style='color:red'></i></button>"+"</td>"+
     "</tr>";
   }
 
   $("#items_orden_tallado_ingresos").html(filas);
+}
+
+function eliminarItemTallado(index) {
+  $("#item_t" + index).remove();
+  drop_index(index);
+}
+
+function drop_index(position_element){
+  items_tallado.splice(position_element, 1);
 }

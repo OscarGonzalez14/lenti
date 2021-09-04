@@ -50,15 +50,16 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="lentes.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Lentes</p>
+                <a href="pages/layout/fixed-topnav.html" class="nav-link">
+                  <i class="far fa-circle nav-icon text-success"></i>
+                  <p>Insumos</p>
                 </a>
               </li>
+
               <li class="nav-item">
                 <a href="pages/layout/fixed-topnav.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Insumos</p>
+                  <i class="far fa-file-alt nav-icon text-info"></i>
+                  <p>Reporteria</p>
                 </a>
               </li>
              
@@ -76,14 +77,14 @@
               <li class="nav-item">
                 <a href="tallado_ingresos.php" class="nav-link">
                   <i class="far fa-circle nav-icon text-info"></i>
-                  <p>Ingresos a tallado</p>
+                  <p>Ingresos tallado</p>
                 </a>
               </li>
 
               <li class="nav-item">
                 <a href="tallado_despachos.php" class="nav-link">
                   <i class="far fa-circle nav-icon text-warning"></i>
-                  <p>Despachos a tallado</p>
+                  <p>Despachos a AR</p>
                 </a>
               </li>
 

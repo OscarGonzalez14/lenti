@@ -3,6 +3,17 @@
 require_once("config/conexion.php");
 
 class Login extends Conectar{
+
+  public function permisos($id_usuario){
+    $conectar=parent::conexion();
+    parent::set_names();
+
+    $sql="select * from usuario_permiso where id_usuario=?;";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$id_usuario);
+    $sql->execute();
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+  }
   
 public function login_users(){
   $conectar=parent::conexion();
@@ -28,7 +39,13 @@ public function login_users(){
         $_SESSION["id_usuario"] = $resultado["id_usuario"];           
         $_SESSION["usuario"] = $resultado["usuario"];
         $_SESSION["categoria"] = $resultado["categoria"];
-       
+
+      $tokens=$this->permisos($resultado["id_usuario"]);
+      $valores = array();
+      foreach ($tokens as $value) {
+        $valores[]=$value["id_permiso"];
+      }
+      in_array(1,$valores)?$_SESSION['ordenes']=1:$_SESSION['ordenes']=0;
       header("Location:vistas/home.php");
       exit();
     } else {                         

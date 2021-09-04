@@ -12,6 +12,7 @@ $cat_admin = $_SESSION["categoria"];
   <title>Home</title>
 <?php require_once("links_plugin.php"); 
  require_once('../modelos/Ordenes.php');
+ require_once('../modales/detalle_orden.php');
  $ordenes = new Ordenes();
  $suc = $ordenes->get_opticas(); 
  ?>

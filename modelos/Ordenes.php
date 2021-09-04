@@ -30,7 +30,7 @@ class Ordenes extends Conectar{
 
    	public function get_correlativo_orden($fecha){
     $conectar= parent::conexion();
-    $fecha_act = $fecha.'%';         
+    $fecha_act = "%".$fecha.'%';         
     $sql= "select codigo from orden where fecha_creacion like ? order by id_orden DESC limit 1;";
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1,$fecha_act);
@@ -43,11 +43,23 @@ class Ordenes extends Conectar{
   public function comprobar_existe_correlativo($paciente,$date_validate){
   	$conectar = parent::conexion();
     parent::set_names();
-    $fecha = $date_validate."%";
-    $sql="select codigo from orden where paciente=? and fecha_creacion like ?;";
+    $fecha = "%".$date_validate."%";
+    $sql="select id_orden from orden where paciente=? and fecha_creacion like ?;";
     $sql= $conectar->prepare($sql);
     $sql->bindValue(1, $paciente);
     $sql->bindValue(2, $fecha);
+    $sql->execute();
+    return $resultado=$sql->fetchAll();
+  }
+
+  public function comprobar_existe_ord_dig($paciente,$sucursal){
+    $conectar = parent::conexion();
+    parent::set_names();
+    $pac = "%".$paciente."%";
+    $sql="select id_orden from orden where paciente like ? and sucursal=?;";
+    $sql= $conectar->prepare($sql);
+    $sql->bindValue(1, $pac);
+    $sql->bindValue(2, $sucursal);
     $sql->execute();
     return $resultado=$sql->fetchAll();
   }
