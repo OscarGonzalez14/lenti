@@ -1,7 +1,4 @@
 <style>
-  /*
-Full screen Modal 
-*/
 .fullscreen-modal .modal-dialog {
   margin: 0;
   margin-right: auto;
@@ -53,10 +50,8 @@ body {
           <div class="col-sm-4">
             <label for="">Diseño</label>
             <input type="text" class="form-control" id="dis_lente" readonly="">
-          </div>
-          
-      </div>
-      
+          </div>          
+      </div>      
       
       <div class="eight" style="align-items: center" id="flap_terminado_section">
           <div class="d-flex justify-content-center form-row">          
@@ -70,7 +65,7 @@ body {
           </div>
           <div class="form-group col-sm-4">
             <label for="inlineRadio1">Cant. Ingreso</label>
-              <input class="form-control" type="number" name="inlineRadioOptions" id="cant_ingreso" value="0">
+              <input class="form-control" type="number" name="inlineRadioOptions" id="cant_ingreso" value="0" placeholder="Unidades">
           </div>
 
           </div>

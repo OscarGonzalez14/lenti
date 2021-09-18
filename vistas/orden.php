@@ -47,11 +47,6 @@ $cat_admin = $_SESSION["categoria"];
         </a>-->
         </div>
       <button class="btn btn-outline-primary btn-sm btn-flat new_order_class" data-toggle="modal" data-target="#nueva_orden_lab" data-backdrop="static" data-keyboard="false" onClick='get_numero_orden();' id="new_order"><i class="fa fa-glasses" style="margin-top: 2px"> Crear Orden</i></button>
-      <div class="row">
-         <div class="col-sm-4"></div>
-         <div class="col-sm-4"></div>
-         <div class="col-sm-4"><input type="text" class="form-control"></div>
-       </div>
       <div class="card card-dark card-outline" style="margin: 2px;">
        <table width="100%" class="table-hover table-bordered" id="datatable_ordenes" data-order='[[ 0, "desc" ]]'>        
          <thead class="style_th bg-dark" style="color: white">
@@ -70,6 +65,26 @@ $cat_admin = $_SESSION["categoria"];
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+  </div>
+
+
+
+  <div class="modal fade" id="contenedor">
+  <div class="modal-dialog modal-xs">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="dropdown-divider"></div>
+          <label for=""># Contenedor</label>
+          <input type="text" class="form-control clear_orden_i" id="contenedor_orden">
+        </div><!--./Modal body-->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary btn-block" onClick='guardar_orden();' id="reg_orden"><i class="fas fa-save"></i> Guardar Orden</button>
+          <button type="button" class="btn btn-dark btn-block" onClick='printEtiqueta();' id="print_etiqueta"><i class="fas fa-barcode"></i> Imprimir etiqueta</button>
+        </div>    
+    </div><!--./Modal content-->
+  </div>
+  </div>
+  <!-- /.modal-dialog -->
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
@@ -91,3 +106,5 @@ require_once("links_js.php");
  <?php } else{
 echo "Acceso denegado";
   } ?>
+
+

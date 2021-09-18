@@ -4,12 +4,12 @@ function init(){
 
 function alerts(icono, titulo){
   Swal.fire({
-        position: 'top-center',
-        icon: icono,
-        title: titulo,
-        showConfirmButton: true,
-        timer: 2500
-      });
+    position: 'top-center',
+    icon: icono,
+    title: titulo,
+    showConfirmButton: true,
+    timer: 2500
+  });
 }
 
 
@@ -135,7 +135,17 @@ $(document).on('click', '.items_tratamientos', function(){
   tratamientos.push(obj);
 });
 
+function saveOrder(){
+ document.getElementById('print_etiqueta').style.display="none";
+ $("#contenedor").modal("show");
+} 
+
 function guardar_orden(){
+  let contenedor = $("#contenedor_orden").val();
+  if(contenedor==""){
+    alerts("error","La orden debe ser asignada a un contenedor");
+    return false;
+  }
   let paciente = $("#paciente_orden").val();
   let observaciones = $("#observaciones_orden").val();
   let usuario = $("#id_usuario").val();
@@ -195,7 +205,7 @@ function guardar_orden(){
     'oiadicionf_orden':oiadicionf_orden,'oiprismaf_orden':oiprismaf_orden,
     'modelo':modelo,'marca':marca,'color':color,'diseno':diseno,'horizontal':horizontal,'diagonal':diagonal,'vertical':vertical,'puente':puente,
     'od_dist_pupilar':od_dist_pupilar,'od_altura_pupilar':od_altura_pupilar,'od_altura_oblea':od_altura_oblea,'oi_dist_pupilar':oi_dist_pupilar,
-    'oi_altura_pupilar':oi_altura_pupilar,'oi_altura_oblea':oi_altura_oblea,'trat_multifocal':trat_multifocal},
+    'oi_altura_pupilar':oi_altura_pupilar,'oi_altura_oblea':oi_altura_oblea,'trat_multifocal':trat_multifocal,'contenedor':contenedor},
     cache: false,
     dataType:"json",
       error:function(x,y,z){
@@ -215,9 +225,10 @@ function guardar_orden(){
         timer: 2500
       });
       //////  GENERAR CODIGO DE BARRAS ///////
-      $("#nueva_orden_lab").modal('hide');
+      document.getElementById('print_etiqueta').style.display="block";
+      document.getElementById('reg_orden').style.display="none";
       $("#datatable_ordenes").DataTable().ajax.reload();
-      generate_barcode_print(codigo,paciente,id_sucursal,id_optica);    
+      //generate_barcode_print(codigo,paciente,id_sucursal,id_optica);    
 
      }else{
       Swal.fire({
@@ -289,9 +300,9 @@ var form = document.createElement("form");
  function listar_ordenes(){
   $("#datatable_ordenes").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
-      //dom: 'Bfrti',
+      dom: 'frti',
       //"buttons": [ "excel"],
-      "searching": false,
+      "searching": true,
       "ajax":
         {
           url: '../ajax/ordenes.php?op=get_ordenes',

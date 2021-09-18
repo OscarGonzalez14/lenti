@@ -16,39 +16,39 @@ if(isset($_SESSION["usuario"])){
  ?>
 <style>
   .buttons-excel{
-      background-color: green !important;
-      margin: 2px;
-      max-width: 150px;
+    background-color: green !important;
+    margin: 2px;
+    max-width: 150px;
   }
 
-    .stilot1{
-       border: 1px solid black;
-       padding: 5px;
-       font-size: 12px;
-       font-family: Helvetica, Arial, sans-serif;
-       border-collapse: collapse;
-       text-align: center;
-    }
+  .stilot1{
+    border: 1px solid black;
+    padding: 5px;
+    font-size: 12px;
+    font-family: Helvetica, Arial, sans-serif;
+    border-collapse: collapse;
+    text-align: center;
+  }
 
-    .stilot2{
-       border: 1px solid black;
-       text-align: center;
-       font-size: 11px;
-       font-family: Helvetica, Arial, sans-serif;
-    }
-    .stilot3{
-       text-align: center;
-       font-size: 11px;
-       font-family: Helvetica, Arial, sans-serif;
-    }
+  .stilot2{
+    border: 1px solid black;
+    text-align: center;
+    font-size: 11px;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+  .stilot3{
+    text-align: center;
+    font-size: 11px;
+    font-family: Helvetica, Arial, sans-serif;
+  }
 
-    #table2 {
-       border-collapse: collapse;
-    }
+  #table2 {
+    border-collapse: collapse;
+  }
 
   .fila:hover {
-  background-color: lightyellow;
-}
+    background-color: lightyellow;
+  }
 </style>
 
 </head>
@@ -103,7 +103,7 @@ if(isset($_SESSION["usuario"])){
           $esfera = substr($key["esfera"], 0,-1);
           $cilindro = substr($key["cilindro"], 0,-1);
           $row = "
-            <td class='stilot1 id_lente' id='".$key["id_terminado"]."' data-toggle='tooltip' title='Esfera: ".$esfera." * Cilindro: ".$cilindro."'>".$key["stock"]."</td>      
+            <td class='stilot1 item_ingreso' id='".$key["id_terminado"]."' data-toggle='tooltip' title='Esfera: ".$esfera." * Cilindro: ".$cilindro."'>".$key["stock"]."</td>      
           ";
           array_push($measures, $row);
          }

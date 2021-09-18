@@ -100,7 +100,7 @@ function read_barcode(){
   }
 }
 
-$(document).on('click', '.id_lente', function(){
+$(document).on('click', '.item_ingreso', function(){
   let id_item = $(this).attr("id");
   console.log(id_item); //return false;
 
@@ -122,6 +122,7 @@ $(document).on('click', '.id_lente', function(){
       $("#id_lente_term").val(data.id_terminado);
       $("#codigo_lente_term").val(data.codigo);
       $("#stock_act").val(data.stock);
+      $("#cant_ingreso").val('');
     }      
   });//Fin Ajax
    
@@ -178,6 +179,7 @@ function setStockTerminados(){
   if (codigo_term=="" || codigo_term==null || codigo_term==undefined) {
     $("#new_barcode_lens").modal('show');
     $("#id_terminado_lense").val(id_terminado);
+    $("#codebar_lente").val("");
 
     $('#new_barcode_lens').on('shown.bs.modal', function() {
       $('#codebar_lente').focus();

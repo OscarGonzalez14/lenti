@@ -71,14 +71,14 @@ class Ordenes extends Conectar{
   }
 
   /////////////   REGISTRAR ORDEN ///////////////////////////////
-   public function registrar_orden($codigo,$paciente,$observaciones,$usuario,$id_sucursal,$id_optica,$tipo_orden,$tipo_lente,$odesferasf_orden,$odcilindrosf_orden,$odejesf_orden,$oddicionf_orden,$odprismaf_orden,$oiesferasf_orden,$oicilindrosf_orden,$oiejesf_orden,$oiadicionf_orden,$oiprismaf_orden,$modelo,$marca,$color,$diseno,$horizontal,$diagonal,$vertical,$puente,$od_dist_pupilar,$od_altura_pupilar,$od_altura_oblea,$oi_dist_pupilar,$oi_altura_pupilar,$oi_altura_oblea,$trat_multifocal){
+   public function registrar_orden($codigo,$paciente,$observaciones,$usuario,$id_sucursal,$id_optica,$tipo_orden,$tipo_lente,$odesferasf_orden,$odcilindrosf_orden,$odejesf_orden,$oddicionf_orden,$odprismaf_orden,$oiesferasf_orden,$oicilindrosf_orden,$oiejesf_orden,$oiadicionf_orden,$oiprismaf_orden,$modelo,$marca,$color,$diseno,$horizontal,$diagonal,$vertical,$puente,$od_dist_pupilar,$od_altura_pupilar,$od_altura_oblea,$oi_dist_pupilar,$oi_altura_pupilar,$oi_altura_oblea,$trat_multifocal,$contenedor){
 
    	$conectar = parent::conexion();
     date_default_timezone_set('America/El_Salvador'); 
     $hoy = date("d-m-Y H:i:s");
     $estado = 1;
 
-    $sql = "insert into orden values (null,?,?,?,?,?,?,?,?,?,?,?);";
+    $sql = "insert into orden values (null,?,?,?,?,?,?,?,?,?,?,?,?);";
     $sql = $conectar->prepare($sql);
     $sql->bindValue(1, $codigo);
     $sql->bindValue(2, $paciente);
@@ -91,6 +91,7 @@ class Ordenes extends Conectar{
     $sql->bindValue(9, $id_optica);
     $sql->bindValue(10, $tipo_orden);
     $sql->bindValue(11, $trat_multifocal);
+    $sql->bindValue(12, $contenedor);
     $sql->execute();
 
 /////////////////////////INSERTAR EN RX ORDEN////// 

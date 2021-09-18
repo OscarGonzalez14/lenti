@@ -16,8 +16,7 @@ class Productos extends Conectar{
   public function  get_data_item_ingreso($id_lente){
     $conectar=parent::conexion();
     parent::set_names();
-
-    /*$sql = "select l.marca,l.diseno,l.esfera,l.cilindro,l.id_terminado,c.codigo,c.id_lente from lente_terminado as l inner join codigos_lentes as c on l.id_terminado=c.id_lente where l.id_terminado=?;";*/
+    
     $sql="select*from lente_terminado where id_terminado=?;";
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1,$id_lente);
@@ -71,7 +70,7 @@ class Productos extends Conectar{
     $sql->bindValue(2, $id_terminado_term);
     $sql->bindValue(3, $tipo_lente);
     $sql->execute();
-
+    ///////////////////////////////////////////////////////////////////
     $sql2 ="update lente_terminado set codigo=? where id_terminado=?;";
     $sql2= $conectar->prepare($sql2);
     $sql2->bindValue(1, $new_code);
@@ -84,7 +83,6 @@ class Productos extends Conectar{
   public function valida_tipo_lente($codigo_lente){
     $conectar=parent::conexion();
     parent::set_names();
-
     $sql = "select*from codigos_lentes where codigo=?;";
     $sql = $conectar->prepare($sql);
     $sql->bindValue(1, $codigo_lente);

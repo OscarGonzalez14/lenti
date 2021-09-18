@@ -43,13 +43,14 @@ foreach ($optica_act as $key) {
         <span style="font-size: 15px"><b><?php echo $paciente;?></span><br>
         <span style="font-size: 15px"><b><?php echo $optica;?></span>
         </div>
-        <div><?php echo $code;?></div>
+        <div></div>
          
         <div style="font-size:18px"><?php echo $codigo;?>
         <span style="font-size: 18px">lentitulaboratorio.com</span>
         </div>
       </div>
     </div>
+
   <!--<div style="page-break-after:always;"></div>
   
   <div style="text-align: left; font-size: 10px;font-family: Helvetica, Arial, sans-serif;">

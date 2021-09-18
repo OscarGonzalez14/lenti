@@ -257,8 +257,9 @@
                 </div>
               </div>
 
+
           <table style="margin:0px;width:100%">
-              <thead class="thead-light" style="color: black;font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center;background: #f8f8f8">
+              <thead class="thead-light" style="color: black;font-family: Helvetica, Arial, sans-serif;text-align: center;background: #f8f8f8">
                 <tr>
                   <th  colspan="25" style="text-align:center;width:25%">HORIZONTAL</th>
                   <th  colspan="25" style="text-align:center;width:25%">DIAGONAL</th>
@@ -286,7 +287,7 @@
         </form>
           </div><!--/END MODAL BODY-->
             <div class="modal-footer justify-content-between">            
-              <button type="button" class="btn btn-primary btn-block" onClick='guardar_orden();'>Guardar</button>
+              <button type="button" class="btn btn-primary btn-block" onClick='saveOrder();'>Guardar</button>
             </div>
           </div>
           <!-- /.modal-content -->
