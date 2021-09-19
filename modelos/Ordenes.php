@@ -138,6 +138,15 @@ class Ordenes extends Conectar{
     $sql4->bindValue(7, $oi_altura_pupilar);
     $sql4->bindValue(8, $oi_altura_oblea);
     $sql4->execute();
+    $accion = "Registro";
+    $sql5 = "insert into acciones_orden values(?,?,?,?,?);";
+    $sql5 = $conectar->prepare($sql5);
+    $sql5->bindValue(1, $codigo);
+    $sql5->bindValue(2, $hoy);
+    $sql5->bindValue(3, $accion);
+    $sql5->bindValue(4, "");
+    $sql5->bindValue(5, $usuario);
+    $sql5->execute();
 
 }
 

@@ -39,6 +39,7 @@ public function login_users(){
         $_SESSION["id_usuario"] = $resultado["id_usuario"];           
         $_SESSION["usuario"] = $resultado["usuario"];
         $_SESSION["categoria"] = $resultado["categoria"];
+        $_SESSION["codigo_emp"] = $resultado["codigo_emp"];
 
       $tokens=$this->permisos($resultado["id_usuario"]);
       $valores = array();

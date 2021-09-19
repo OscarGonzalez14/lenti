@@ -138,6 +138,9 @@ $(document).on('click', '.items_tratamientos', function(){
 function saveOrder(){
  document.getElementById('print_etiqueta').style.display="none";
  $("#contenedor").modal("show");
+    $('#contenedor').on('shown.bs.modal', function() {
+    $('#contenedor_orden').focus();
+  });
 } 
 
 function guardar_orden(){
@@ -215,6 +218,7 @@ function guardar_orden(){
     },
          
     success:function(data){
+      console.log("Codigoo"+data);
      if (data !='error') {
      let codigo = data;
       Swal.fire({
@@ -228,7 +232,7 @@ function guardar_orden(){
       document.getElementById('print_etiqueta').style.display="block";
       document.getElementById('reg_orden').style.display="none";
       $("#datatable_ordenes").DataTable().ajax.reload();
-      //generate_barcode_print(codigo,paciente,id_sucursal,id_optica);    
+      $("#numero_etiqueta").val(data);   
 
      }else{
       Swal.fire({
@@ -246,6 +250,16 @@ function guardar_orden(){
 
 function validar_est_orden(){
   alerts("error", "La orden debe ser recibida")
+}
+
+function printEtiqueta(){
+  let n_etiqueta = $("#numero_etiqueta").val();
+  let paciente = $("#paciente_orden").val();
+  let id_sucursal = $("#optica_sucursal").val();
+  let id_optica = $("#optica_orden").val();
+  $("#contenedor").modal('hide');
+  $("#nueva_orden_lab").modal('hide');
+  generate_barcode_print(n_etiqueta,paciente,id_sucursal,id_optica)
 }
 
 

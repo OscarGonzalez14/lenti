@@ -253,12 +253,15 @@
 
               <div class="form-group col-sm-3">
                   <label for="">Diseño</label>
-                  <input type="text" class="form-control clear_orden_i" id="diseno_aro_orden">
+                  <select class="form-control clear_orden_i" id="diseno_aro_orden">
+                  <option value="Cerrado">Cerrado</option>
+                  <option value="Semia-aereo">Semia-aereo</option>
+                  <option value="Areo">Areo</option>                 
+                  </select>
                 </div>
               </div>
 
-
-          <table style="margin:0px;width:100%">
+            <table style="margin:0px;width:100%">
               <thead class="thead-light" style="color: black;font-family: Helvetica, Arial, sans-serif;text-align: center;background: #f8f8f8">
                 <tr>
                   <th  colspan="25" style="text-align:center;width:25%">HORIZONTAL</th>
@@ -281,7 +284,7 @@
               <label for="">Observaciones</label>
               <input type="text" class="form-control clear_orden_i" id="observaciones_orden">
             </div>
-
+            
          </div> 
           <input type="hidden" id="codigoOrden" name="codigoOrden">
         </form>

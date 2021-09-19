@@ -39,7 +39,7 @@ $cat_admin = $_SESSION["categoria"];
   <div class="content-wrapper">
     <section class="content">
       <div class="container-fluid">
-      <input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION['id_usuario']?>"/>
+      <input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION['codigo_emp']?>"/>
       <input type="hidden" name="usuario" id="usuario" value="<?php echo $_SESSION["usuario"];?>"/>
         <div style="border-top: 0px">
       <!--<a class="btn btn-app bg-info btn-sm btn-flat" data-toggle="modal" data-target="#nueva_orden_lab" onClick='get_numero_orden();' style="border-radius: 5px;margin:2px;">
@@ -48,6 +48,7 @@ $cat_admin = $_SESSION["categoria"];
         </div>
       <button class="btn btn-outline-primary btn-sm btn-flat new_order_class" data-toggle="modal" data-target="#nueva_orden_lab" data-backdrop="static" data-keyboard="false" onClick='get_numero_orden();' id="new_order"><i class="fa fa-glasses" style="margin-top: 2px"> Crear Orden</i></button>
       <div class="card card-dark card-outline" style="margin: 2px;">
+        <h5 style="text-align: center; font-size: 14px" align="center" class="bg-info">ORDENES DIGITADAS-LABORATORIO</h5>
        <table width="100%" class="table-hover table-bordered" id="datatable_ordenes" data-order='[[ 0, "desc" ]]'>        
          <thead class="style_th bg-dark" style="color: white">
            <th>Id</th>
@@ -75,15 +76,16 @@ $cat_admin = $_SESSION["categoria"];
       <div class="modal-body">
         <div class="dropdown-divider"></div>
           <label for=""># Contenedor</label>
-          <input type="text" class="form-control clear_orden_i" id="contenedor_orden">
+          <input type="text" class="form-control clear_orden_i is-error" id="contenedor_orden">
         </div><!--./Modal body-->
         <div class="modal-footer">
           <button type="button" class="btn btn-primary btn-block" onClick='guardar_orden();' id="reg_orden"><i class="fas fa-save"></i> Guardar Orden</button>
           <button type="button" class="btn btn-dark btn-block" onClick='printEtiqueta();' id="print_etiqueta"><i class="fas fa-barcode"></i> Imprimir etiqueta</button>
-        </div>    
+        </div>
+        <input type="hidden" id="numero_etiqueta">    
     </div><!--./Modal content-->
   </div>
-  </div>
+  </div><!--Fin Modal-->
   <!-- /.modal-dialog -->
   </div>
   <!-- /.content-wrapper -->
