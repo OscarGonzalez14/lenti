@@ -41,7 +41,6 @@
             </div><!--./*********Fin datos-generales************-->
 
             <div class="eight"style="align-items: center">
-
               <strong><h1 style="color:#034f84">TIPO LENTE</h1></strong>
               <div class="row">
                   <div class="col-sm-4" class="d-flex justify-content-center" style="display:flex;justify-content: center;margin-top:0px;">
@@ -135,17 +134,17 @@
                   <div class="d-flex justify-content-center">
 
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input items_tratamientos" type="checkbox" id="arbluecap" value="Blue Cap" onClick='status_checks_tratamientos();'>
+                      <input class="form-check-input items_tratamientos" type="checkbox" id="arbluecap" value="Blue Cap" name='chk_tratamientos'  onClick='status_checks_tratamientos(this.id);'>
                       <label class="form-check-label" for="inlineCheckbox1" id="lbl_arbluecap">Blue Cap</label>
                     </div>
 
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input items_tratamientos" type="checkbox" id="arnouv" value="No Uv" onClick='status_checks_tratamientos();'>
+                      <input class="form-check-input items_tratamientos" type="checkbox" id="arnouv" value="No Uv" name='chk_tratamientos' onClick='status_checks_tratamientos(this.id);'>
                       <label class="form-check-label" for="inlineCheckbox2" id="lbl_arnouv">No UV</label>
                     </div>
 
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input items_tratamientos" type="checkbox" id="arsh" value="ARSH" onClick='status_checks_tratamientos();'>
+                      <input class="form-check-input items_tratamientos" type="checkbox" id="arsh" value="ARSH" name='chk_tratamientos' onClick='status_checks_tratamientos(this.id);'>
                       <label class="form-check-label" for="inlineCheckbox3" id="lbl_arsh">ARSH</label>
                     </div>
                   </div>
@@ -159,7 +158,7 @@
               <h1>BLANCO</h1>
                   <div class="d-flex justify-content-center">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input items_tratamientos" type="checkbox" id="blanco" value="Blanco" onClick='status_checks_tratamientos();'>
+                        <input class="form-check-input items_tratamientos" type="checkbox" id="blanco" value="Blanco" name='chk_tratamientos' onClick='status_checks_tratamientos(this.id);'>
                         <label class="form-check-label" for="inlineCheckbox2" id="lbl_blanco"></label>
                     </div>
                   </div>
@@ -171,12 +170,12 @@
                 <h1>PHOTOSENSIBLE</h1>
                     <div class="d-flex justify-content-center">
                       <div class="form-check form-check-inline">
-                          <input class="form-check-input items_tratamientos" type="checkbox" id="photocromphoto" value="Photocrom" onClick='status_checks_tratamientos();'>
+                          <input class="form-check-input items_tratamientos" type="checkbox" id="photocromphoto" value="Photocrom" name='chk_tratamientos' onClick='status_checks_tratamientos(this.id);'>
                         <label class="form-check-label" for="inlineCheckbox1">Photocrom</label>
                       </div>
 
                       <div class="form-check form-check-inline ">
-                          <input class="form-check-input items_tratamientos" type="checkbox" id="transitionphoto" value="Transitions" onClick='status_checks_tratamientos();'>
+                          <input class="form-check-input items_tratamientos" type="checkbox" id="transitionphoto" value="Transitions" name='chk_tratamientos' onClick='status_checks_tratamientos(this.id);'>
                           <label class="form-check-label" for="inlineCheckbox2" id="lbl_transitionphoto">Transitions</label>
                       </div>
                     </div>
@@ -272,10 +271,10 @@
               </thead>
               <tbody>
                 <tr>
-                  <td colspan="25" style="width: 25%"> <input type="text" class="form-control clear_orden_i" placeholder="---" id="med_a" onClick="get_correlativo_orden();"></td>
-                  <td colspan="25" style="width: 25%"> <input type="text" class="form-control clear_orden_i" placeholder="---" id="med_b" onClick="get_correlativo_orden();"></td>
-                  <td colspan="25" style="width: 25%"> <input type="text" class="form-control clear_orden_i" placeholder="---" id="med_c" onClick="get_correlativo_orden();"></td>     
-                  <td colspan="25" style="width: 25%"> <input type="text" class="form-control clear_orden_i" placeholder="---" id="med_d" onClick="get_correlativo_orden();"></td>              
+                  <td colspan="25" style="width: 25%"> <input type="text" class="form-control clear_orden_i" placeholder="---" id="med_a"></td>
+                  <td colspan="25" style="width: 25%"> <input type="text" class="form-control clear_orden_i" placeholder="---" id="med_b"></td>
+                  <td colspan="25" style="width: 25%"> <input type="text" class="form-control clear_orden_i" placeholder="---" id="med_c"></td>     
+                  <td colspan="25" style="width: 25%"> <input type="text" class="form-control clear_orden_i" placeholder="---" id="med_d"></td>              
                 </tr>
               </tbody>  
             </table>

@@ -37,17 +37,22 @@ body {
       </div>
       <div class="modal-body">
         <div class="form-row">
-          <div class="col-sm-4">
+          <div class="col-sm-3">
             <label for="">Codigo</label>
             <input type="text" class="form-control" id="codigo_lente_term" readonly="">
           </div>
           
-          <div class="col-sm-4" class="autocomplete">
+          <div class="col-sm-3">
+            <label for="">Stock min.</label>
+            <input type="number" class="form-control" id="stock_min_term">
+          </div>
+
+          <div class="col-sm-3" class="autocomplete">
             <label for="">Marca</label>
             <input type="text" class="form-control" name="marca_lente" id="marca_lente" readonly="">
           </div>
           
-          <div class="col-sm-4">
+          <div class="col-sm-3">
             <label for="">Diseño</label>
             <input type="text" class="form-control" id="dis_lente" readonly="">
           </div>          

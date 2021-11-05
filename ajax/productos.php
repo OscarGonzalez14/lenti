@@ -85,22 +85,23 @@ switch ($_GET["op"]){
 
       break;
 
-      case 'get_info_terminado':
-        $data = $productos->getInfoTerminado($_POST["codigo"],$_POST["id_lente"]);
-        if (is_array($data)==true and count($data)>0) {
-          foreach ($data as $key) {
-           $output["lente"]=$key["lente"];
-           $output["marca"]=$key["marca"];
-           $output["diseno"]=$key["diseno"];
-           $output["esfera"]=$key["esfera"];
-           $output["cilindro"]=$key["cilindro"];
-           $output["id_terminado"]=$key["id_terminado"];
-           $output["codigo"]=$key["codigo"];
-        }
-        echo json_encode($output);
-      }
+    case 'get_info_terminado':
+    
+    $data = $productos->getInfoTerminado($_POST["codigo"],$_POST["id_lente"]);
 
-      break;
-
+    if (is_array($data)==true and count($data)>0) {
+      foreach ($data as $key) {
+        $output["lente"]=$key["lente"];
+        $output["marca"]=$key["marca"];
+        $output["diseno"]=$key["diseno"];
+        $output["esfera"]=$key["esfera"];
+        $output["cilindro"]=$key["cilindro"];
+        $output["id_terminado"]=$key["id_terminado"];
+        $output["codigo"]=$key["codigo"];
+        $output["tipo_lente"]=$key["tipo_lente"];
+    }
+     echo json_encode($output);
+    }
+    break;
 
 }///Fin Switch

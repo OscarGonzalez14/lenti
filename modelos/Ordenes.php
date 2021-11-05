@@ -4,8 +4,8 @@
   
 
 class Ordenes extends Conectar{
-/*SELECT o.paciente,o.fecha_creacion,s.nombre,s.direccion,op.nombre from orden as o inner join sucursal_optica as s on o.id_sucursal = s.id_sucursal INNER join optica as op on s.id_optica= op.id_optica*/
-    ///////////GET SUCURSALES ///////////
+
+  ///////////GET SUCURSALES ///////////
     public function get_opticas(){
       $conectar=parent::conexion();
       parent::set_names();
@@ -15,7 +15,7 @@ class Ordenes extends Conectar{
       return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    ///////////GET SUCURSALES ///////////
+///////////GET SUCURSALES ///////////
     public function get_sucursales_optica($id_optica){
       $conectar=parent::conexion();
       parent::set_names();
@@ -26,29 +26,27 @@ class Ordenes extends Conectar{
       return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
-   	//////////////////  GET CODIGO DE ORDEN ////////////////////////
-
+  //////////////////  GET CODIGO DE ORDEN ////////////////////////
    	public function get_correlativo_orden($fecha){
-    $conectar= parent::conexion();
-    $fecha_act = "%".$fecha.'%';         
-    $sql= "select codigo from orden where fecha_creacion like ? order by id_orden DESC limit 1;";
-    $sql=$conectar->prepare($sql);
-    $sql->bindValue(1,$fecha_act);
-    $sql->execute();
+      $conectar= parent::conexion();
+      $fecha_act = "%".$fecha.'%';         
+      $sql= "select codigo from orden where fecha_creacion like ? order by id_orden DESC limit 1;";
+      $sql=$conectar->prepare($sql);
+      $sql->bindValue(1,$fecha_act);
+      $sql->execute();
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  /////////////////  COMPROBAR SI EXISTE CORRELATIVO ///////////////
-
+/////////////////  COMPROBAR SI EXISTE CORRELATIVO ///////////////
   public function comprobar_existe_correlativo($paciente,$date_validate){
   	$conectar = parent::conexion();
-    parent::set_names();
-    $fecha = "%".$date_validate."%";
-    $sql="select id_orden from orden where paciente=? and fecha_creacion like ?;";
-    $sql= $conectar->prepare($sql);
-    $sql->bindValue(1, $paciente);
-    $sql->bindValue(2, $fecha);
-    $sql->execute();
+      parent::set_names();
+      $fecha = "%".$date_validate."%";
+      $sql="select id_orden from orden where paciente=? and fecha_creacion like ?;";
+      $sql= $conectar->prepare($sql);
+      $sql->bindValue(1, $paciente);
+      $sql->bindValue(2, $fecha);
+      $sql->execute();
     return $resultado=$sql->fetchAll();
   }
 
@@ -74,6 +72,13 @@ class Ordenes extends Conectar{
    public function registrar_orden($codigo,$paciente,$observaciones,$usuario,$id_sucursal,$id_optica,$tipo_orden,$tipo_lente,$odesferasf_orden,$odcilindrosf_orden,$odejesf_orden,$oddicionf_orden,$odprismaf_orden,$oiesferasf_orden,$oicilindrosf_orden,$oiejesf_orden,$oiadicionf_orden,$oiprismaf_orden,$modelo,$marca,$color,$diseno,$horizontal,$diagonal,$vertical,$puente,$od_dist_pupilar,$od_altura_pupilar,$od_altura_oblea,$oi_dist_pupilar,$oi_altura_pupilar,$oi_altura_oblea,$trat_multifocal,$contenedor){
 
    	$conectar = parent::conexion();
+    
+
+    $arrayTrat = array();
+    $arrayTrat = json_decode($_POST['arrayTratamientos']);
+
+
+
     date_default_timezone_set('America/El_Salvador'); 
     $hoy = date("d-m-Y H:i:s");
     $estado = 1;
@@ -147,6 +152,15 @@ class Ordenes extends Conectar{
     $sql5->bindValue(4, "");
     $sql5->bindValue(5, $usuario);
     $sql5->execute();
+
+    foreach($arrayTrat as $k => $v){
+      $tratamiento = $v->tratamiento;
+      $trat="insert into tratamiento_orden values(?,?);";
+      $trat = $conectar->prepare($trat);
+      $trat->bindValue(1, $codigo);
+      $trat->bindValue(2, $tratamiento);
+      $trat->execute();
+    }
 
 }
 

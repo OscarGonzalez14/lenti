@@ -35,20 +35,22 @@ case 'registrar_orden':
 
     date_default_timezone_set('America/El_Salvador'); 
     $fecha = date('m-Y');
-    $date_validate = date("d-m-Y H:i");
+    $date_validate = date("d-m-Y");
     $mes = date('m');
     $year = date('Y');
+    $anio = substr($year, 2,5);
     $datos = $ordenes->get_correlativo_orden($fecha);
     $pac = $ordenes->comprobar_existe_ord_dig($_POST["paciente"],$_POST["id_sucursal"]);
 
+////////OBTENEMOS EL CORRELATIVO //////
   if(is_array($datos)==true and count($datos)>0){
     foreach($datos as $row){
-      $numero_orden = substr($row["codigo"],6,15)+1;
-      $codigo = $mes.$year.$numero_orden;
+      $numero_orden = substr($row["codigo"],5,15)+1;
+      $codigo = $mes.$anio."-".$numero_orden;
     }  
 
   }else{
-        $codigo = $mes.$year.'1';
+        $codigo = $mes.$anio.'-1';
   }
     if(is_array($pac)==true and count($pac)==0){
 	$data_ord = $ordenes->comprobar_existe_correlativo($_POST["paciente"],$date_validate);
@@ -210,7 +212,7 @@ case 'get_ordenes':
 	break;
 
 	case 'get_aros_orden':
-	
+		
 	$aro = $ordenes->get_aros_orden($_POST["cod_orden_act"]);
 
 	if (is_array($aro)==true and count($aro)>0) {			
@@ -229,15 +231,8 @@ case 'get_ordenes':
 	}else{
 		echo json_encode("error");
 	}
-
 	break;
    
-
-
-
-
-
-
 
 
 }

@@ -102,10 +102,8 @@ function read_barcode(){
 
 $(document).on('click', '.item_ingreso', function(){
   let id_item = $(this).attr("id");
-  console.log(id_item); //return false;
-
-  ////////////////agregar hover a celda /////////////
-  
+  console.log(id_item);
+  //////////////// agregar hover a celda /////////////  
   $("#vs_ar_green_essilor").modal("show");
   $.ajax({
     url:"../ajax/productos.php?op=get_data_item_ingreso",
@@ -249,8 +247,8 @@ function valida_tipo_lente(ojo){
 var terminado_od_data = [];
 var terminado_oi_data = [];
 function getInfoTerminado(codigo,id_lente,ojo,categoria){  
-  terminado_od_data = [];
-  terminado_oi_data = [];
+  
+
   $.ajax({
    url: "../ajax/productos.php?op=get_info_terminado",
    method: "POST",
@@ -258,6 +256,7 @@ function getInfoTerminado(codigo,id_lente,ojo,categoria){
    cache: false,
    dataType: "json",
    success:function(data){
+    console.log(data);
     let od_data = {
       id_lente: id_lente,
       lente:data.lente,
@@ -268,9 +267,11 @@ function getInfoTerminado(codigo,id_lente,ojo,categoria){
       codigo:data.codigo
     }
     if(ojo=='derecho'){
+      terminado_od_data = [];
       terminado_od_data.push(od_data);
       table_od();
     }else if(ojo=='izquierdo'){
+      terminado_oi_data = [];
       terminado_oi_data.push(od_data);
       table_oi(); 
     }
@@ -294,7 +295,7 @@ function table_od(){
     "<tr style='text-align:center'>"+
     "<td>Esfera: "+terminado_od_data[j].esfera+"</td>"+
     "<td>Cilindro: "+terminado_od_data[j].cilindro+"</td>"+
-    "<td>"+"<i class='fas fa-trash' style='color:red'></i>"+"</td>"+
+    "<td>"+"<i class='fas fa-trash' style='color:red' onClick='delete_item_od()'></i>"+"</td>"+
     "</tr>";
   }
   $("#encabezado_od").html(header);
@@ -318,7 +319,7 @@ function table_oi(){
     "<tr style='text-align:center'>"+
     "<td>Esfera: "+terminado_oi_data[j].esfera+"</td>"+
     "<td>Cilindro: "+terminado_oi_data[j].cilindro+"</td>"+
-    "<td>"+"<i class='fas fa-trash' style='color:red'></i>"+"</td>"+
+    "<td>"+"<i class='fas fa-trash' style='color:red' onClick='delete_item_oi()'></i>"+"</td>"+
     "</tr>";
   }
   $("#encabezado_oi").html(header_oi);
@@ -327,5 +328,47 @@ function table_oi(){
   
 }
 
+function delete_item_od(){
+  $("#cod_lente_inv").val("");
+  document.getElementById("cod_lente_inv").focus();
+  terminado_od_data = [];
+  table_od();
+}
+
+function delete_item_oi(){
+  $("#cod_lente_oi").val("");
+  document.getElementById("cod_lente_oi").focus();
+  terminado_oi_data = [];
+  table_oi();
+}
+
+function registrarDescargo(){
+
+  let codigo_orden = $("#cod_orden_current").val();
+  let codebar = $("#cod_orden_current").val();
+  let terminado_od = terminado_od_data;
+  let terminado_oi = terminado_oi_data;
+
+  if(terminado_od == undefined || terminado_od==null || terminado_od==0) {
+    alerts_productos("error","OD campo obligatorio");
+  }else{
+    let long_od = terminado_od_data.length;
+    if (long_od==0) {
+      alerts_productos("error","OD campo obligatorio");
+    }
+  } 
+  
+  $.ajax({
+  url:"../ajax/productos.php?op=registrarDescargo",
+  method:"POST",
+  data : {'ojoDerechoArray':JSON.stringify(terminado_od_data),'ojoIzquierdoArray':JSON.stringify(terminado_od_data)},
+  cache:false,
+  dataType:"json",
+  success:function(data){
+    console.log(data)      
+  }
+}); 
+  
+}
 
 init();

@@ -92,13 +92,13 @@ if(isset($_SESSION["usuario"])){
          </thead>
          <tbody class="style_th"></tbody>
          <?php
-      $esfera =1;
-      $cilindros = 0;
-      $count_rows =0;
-      $columns = Array();
-      $measures = Array();
-      $colum_cil ='2.00';
-      $cil_row='';
+         $esfera =1;
+         $cilindros = 0;
+         $count_rows =0;
+         $columns = Array();
+         $measures = Array();
+         $colum_cil ='2.00';
+         $cil_row='';
          foreach ($data as $key) {
           $esfera = substr($key["esfera"], 0,-1);
           $cilindro = substr($key["cilindro"], 0,-1);
@@ -158,3 +158,5 @@ require_once("links_js.php");
  <?php } else{
 echo "Acceso denegado";
   } ?>
+
+

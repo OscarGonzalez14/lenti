@@ -63,33 +63,34 @@ function valida_adicion(){
   }
 }
 
-function status_checks_tratamientos(){
+function status_checks_tratamientos(identificador){
 
-  let photocrom_check = $('#photocromphoto').is(":checked");
-
-  if (photocrom_check) {
-
+  let checkbox = document.getElementById(identificador);
+  let check_state = checkbox.checked;
+  //console.log(identificador+' * '+ check_state)
+  
+  if (check_state==true && identificador=='photocromphoto') {
     $("#transitionphoto").attr("disabled", true);    
-    $('#lbl_arsh').css('color', 'green');
-
-    $("#arbluecap").attr("disabled", true);
-    $('#arbluecap').prop('checked', false)
-    $('#lbl_arbluecap').css('color', '#989898');
-
-    $("#arnouv").attr("disabled", true);
-    $('#arnouv').prop('checked', false)
-    $('#lbl_arnouv').css('color', '#989898');
-
-    $("#blanco").attr("disabled", true);
-    $('#blanco').prop('checked', false)
-    $('#lbl_blanco').css('color', '#989898');
-
-    $("#transitionphoto").attr("disabled", true);
-    $('#transitionphoto').prop('checked', false)
-    $('#lbl_transitionphoto').css('color', '#989898');
-    
-  }else{  	
+    $("#blanco").attr("disabled", true);  
+  }else if(check_state==false && identificador=='photocromphoto'){  	
     $("#transitionphoto").removeAttr("disabled");
+    $("#blanco").removeAttr("disabled");
+  }
+
+  if(check_state==true && identificador=='transitionphoto') {
+    $("#photocromphoto").attr("disabled", true);    
+    $("#blanco").attr("disabled", true);  
+  }else if(check_state==false && identificador=='transitionphoto'){    
+    $("#photocromphoto").removeAttr("disabled");
+    $("#blanco").removeAttr("disabled");
+  }
+
+  if(check_state==true && identificador=='blanco') {
+    $("#transitionphoto").attr("disabled", true);    
+    $("#photocromphoto").attr("disabled", true);  
+  }else if(check_state==false && identificador=='blanco'){    
+    $("#transitionphoto").removeAttr("disabled");
+    $("#photocromphoto").removeAttr("disabled");
   }
 
 }
@@ -126,17 +127,9 @@ function create_barcode(){
 /***********************************************************
 /////////////////////  GUARDAR ORDEN ///////////////////////
 /***********************************************************/
-var tratamientos = [];
-$(document).on('click', '.items_tratamientos', function(){
-  let tratamiento = $(this).attr("value");
-  let obj ={
-    tratamientos : tratamiento
-  }
-  tratamientos.push(obj);
-});
-
 function saveOrder(){
- document.getElementById('print_etiqueta').style.display="none";
+ document.getElementById('reg_orden').style.display = "block";
+ document.getElementById('print_etiqueta').style.display = "none";
  $("#contenedor").modal("show");
     $('#contenedor').on('shown.bs.modal', function() {
     $('#contenedor_orden').focus();
@@ -144,11 +137,25 @@ function saveOrder(){
 } 
 
 function guardar_orden(){
+
+  let tratamientos = [];
+  $("input[name='chk_tratamientos']:checked").each(function(){
+      let obj = {
+        tratamiento : this.value        
+      }
+  tratamientos.push(obj);
+  });
+
+  console.log(tratamientos);
+
   let contenedor = $("#contenedor_orden").val();
+
   if(contenedor==""){
     alerts("error","La orden debe ser asignada a un contenedor");
     return false;
   }
+
+
   let paciente = $("#paciente_orden").val();
   let observaciones = $("#observaciones_orden").val();
   let usuario = $("#id_usuario").val();
@@ -185,23 +192,25 @@ function guardar_orden(){
   let oi_dist_pupilar = $("#dip_oi").val();
   let oi_altura_pupilar = $("#ap_oi").val();
   let oi_altura_oblea = $("#ao_oi").val();
-  let tipo_lente = $("input[type='radio'][name='tipo_lente']:checked").val();  
-  if (tipo_lente==undefined || tipo_lente==null) {
+  let tipo_lente = $("input[type='radio'][name='tipo_lente']:checked").val(); 
+
+  if (tipo_lente==undefined || tipo_lente==null){
     alerts('error','Debe seleccionar Lente');return false;
   }
+
   let trat_multifocal = '';
   let trat_mult = $("input[type='radio'][name='tratamiento_multifocal']:checked").val();
-  if(trat_mult!=undefined || trat_mult!=null){
 
+  if(trat_mult!=undefined || trat_mult!=null){
     trat_multifocal = trat_mult;
   }else{
-      trat_multifocal = '';
+    trat_multifocal = '';
   }
 
   $.ajax({
     url:"../ajax/ordenes.php?op=registrar_orden",
     method:"POST",
-    data:{'paciente':paciente,'observaciones':observaciones,'usuario':usuario,'id_sucursal':id_sucursal,
+    data:{'arrayTratamientos':JSON.stringify(tratamientos),'paciente':paciente,'observaciones':observaciones,'usuario':usuario,'id_sucursal':id_sucursal,
     'id_optica':id_optica,'tipo_orden':tipo_orden,'tipo_lente':tipo_lente,
     'odesferasf_orden':odesferasf_orden,'odcilindrosf_orden':odcilindrosf_orden,'odejesf_orden':odejesf_orden,'oddicionf_orden':oddicionf_orden,
     'odprismaf_orden':odprismaf_orden,'oiesferasf_orden':oiesferasf_orden,'oicilindrosf_orden':oicilindrosf_orden,'oiejesf_orden':oiejesf_orden,
@@ -217,9 +226,9 @@ function guardar_orden(){
       console.log(z);
     },
          
-    success:function(data){
-      console.log("Codigoo"+data);
-     if (data !='error') {
+     success:function(data){
+     console.log("Codigoo"+data);
+     if (data != 'error') {
      let codigo = data;
       Swal.fire({
         position: 'top-center',
@@ -244,7 +253,7 @@ function guardar_orden(){
       })
      }     
     }
-  });//////FIN AJAX
+  });//////  FIN AJAX
 
 }
 
@@ -265,51 +274,51 @@ function printEtiqueta(){
 
 function generate_barcode_print(codigo,paciente,id_sucursal,id_optica){
 
-var form = document.createElement("form");
-      form.target = "print_popup";
-      form.method = "POST";
-      form.action = "barcode_orden_print.php";
-      var input = document.createElement("input");
-        input.type = "hidden";
-        input.name = "paciente";
-        input.value = paciente;
-        form.appendChild(input);
+    var form = document.createElement("form");
 
-      var input = document.createElement("input");
-      input.type = "hidden";
-      input.name = "codigo";
-      input.value = codigo;
-      form.appendChild(input);
+    form.target = "print_popup";
+    form.method = "POST";
+    form.action = "barcode_orden_print.php";
 
-      var input = document.createElement("input");
-      input.type = "hidden";
-      input.name = "id_optica";
-      input.value = id_optica;
-      form.appendChild(input);
+    var input = document.createElement("input");
+    input.type = "hidden";
+    input.name = "paciente";
+    input.value = paciente;
+    form.appendChild(input);
 
-      var input = document.createElement("input");
-      input.type = "hidden";
-      input.name = "id_sucursal";
-      input.value = id_sucursal;
-      form.appendChild(input);
+    var input = document.createElement("input");
+    input.type = "hidden";
+    input.name = "codigo";
+    input.value = codigo;
+    form.appendChild(input);
 
-      let alto = (parseInt(window.innerHeight) / 4);
-      let ancho = (parseInt(window.innerWidth) / 4);
-      let x = parseInt((screen.width - ancho) / 2);
-      let y = parseInt((screen.height - alto) / 2);
+    var input = document.createElement("input");
+    input.type = "hidden";
+    input.name = "id_optica";
+    input.value = id_optica;
+    form.appendChild(input);
+
+    var input = document.createElement("input");
+    input.type = "hidden";
+    input.name = "id_sucursal";
+    input.value = id_sucursal;
+    form.appendChild(input);
+
+    let alto = (parseInt(window.innerHeight) / 4);
+    let ancho = (parseInt(window.innerWidth) / 4);
+    let x = parseInt((screen.width - ancho) / 2);
+    let y = parseInt((screen.height - alto) / 2);
 
     document.body.appendChild(form);//"width=600,height=500"
     window.open("about:blank","print_popup",`
-            width=${ancho}
-            height=${alto}
-            top=${y}
-            left=${x}`);
+      width=${ancho}
+      height=${alto}
+      top=${y}
+      left=${x}`);
     form.submit();
     document.body.removeChild(form);
-
-}
-
-
+  
+  }
 
  function listar_ordenes(){
   $("#datatable_ordenes").DataTable({
@@ -332,22 +341,30 @@ var form = document.createElement("form");
     }).buttons().container().appendTo('#datatable_ordenes_wrapper .col-md-6:eq(0)');
 
  }
+
 ///////////////LIMPIAR CAMPOS NUEVA ORDEN LAB//////////
 $(document).on('click', '#new_order', function(){
     let element = document.getElementsByClassName("clear_orden_i");
     for(i=0;i<element.length;i++){
       let id_element = element[i].id;
-      document.getElementById(id_element).value="";
+      document.getElementById(id_element).value = "";
    }
+
 /////////////////////////////UNCHECKED RADIO //////////
-   let check_box = document.getElementsByClassName("checkit");
-   for(i=0;i<check_box.length;i++){
-    let id_check = check_box[i].id;
+  let check_box = document.getElementsByClassName("checkit");
+   for(j=0;j<check_box.length;j++){
+    let id_check = check_box[j].id;
+    document.getElementById(id_check).checked = false;
+  }
+//////////////////////////////////////////////////////
+  let check_tratamientos = document.getElementsByClassName("items_tratamientos");
+   for(k=0;k<check_tratamientos.length;k++){
+    let id_check = check_tratamientos[k].id;
     document.getElementById(id_check).checked = false;
    }
 });
 
-////////////////ocultar input OTROS TRATAMIENTOS
+////////////////ocultar input OTROS TRATAMIENTOS ////////////
 $(document).on('click', '.new_order_class', function(){
   document.getElementById("otros_trat").style.display = "none";
 });
@@ -466,6 +483,7 @@ function get_dets_orden(){
 function detOrdenes(cod_orden_act){
 
   $("#detalle_orden").modal('show');
+
   $.ajax({
       url:"../ajax/ordenes.php?op=get_data_oden",
       method:"POST",
@@ -491,7 +509,7 @@ function detOrdenes(cod_orden_act){
       det_orden.push(items_orden);
        
       }
-    });
+  });
 
   /////////////////GET DATA RX FINAL   
 
@@ -554,4 +572,6 @@ function detOrdenes(cod_orden_act){
       }
     });
 }
+
+
 init();

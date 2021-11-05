@@ -10,9 +10,6 @@
       <div class="modal-header">
       <div class="form-row"><!--INPUTS-->
 
-
-
-
       <div class="col-sm-3">
         <label> Cod. Orden</label>
           <div class="input-group">
@@ -211,7 +208,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-block" style="background: #112438;color: white;border-radius: 0px">REGISTRAR DESCARGO</button>
+        <button type="button" class="btn btn-block" style="background: #112438;color: white;border-radius: 0px" onClick="registrarDescargo();">REGISTRAR DESCARGO</button>
       </div>
     </div>
   </div>

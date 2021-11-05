@@ -39,16 +39,17 @@ foreach ($optica_act as $key) {
     <div style="text-align: left; font-size: 10px;font-family: Helvetica, Arial, sans-serif;">
       <div id="qrbox">
         <div style="margin: 0px;">
-        <span style="font-size: 18px"><b>LENTI</b></span><br>
-        <span style="font-size: 15px"><b><?php echo $paciente;?></span><br>
-        <span style="font-size: 15px"><b><?php echo $optica;?></span>
+          <span style="font-size: 18px"><b>LENTI</b></span><br>
+          <span style="font-size: 15px"><b><?php echo $paciente;?></span><br>
+          <span style="font-size: 15px"><b><?php echo $optica;?></span>
         </div>
         <div><?php echo $code;?></div>         
-        <div style="font-size:18px"><?php echo $codigo;?>
+          <div style="font-size:18px"><?php echo $codigo;?><br>
         <span style="font-size: 18px">lentitulaboratorio.com</span>
         </div>
       </div>
-    </div>
+  </div>
+
   <!--<div style="page-break-after:always;"></div>
   
   <div style="text-align: left; font-size: 10px;font-family: Helvetica, Arial, sans-serif;">

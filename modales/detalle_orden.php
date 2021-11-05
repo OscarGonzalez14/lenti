@@ -34,7 +34,7 @@
                     <div class="col-sm-12">
                       
                     <table class="table-hover table-bordered" style="font-family: Helvetica, Arial, sans-serif;max-width: 100%;text-align: left;margin-top: 0px !important" width="100%">
-                    <h5 style="font-family: Helvetica, Arial, sans-serif;width: 100%;text-align: center;font-size: 13px;padding: 1px;border-top-left-radius: 4px;border-top-right-radius: 4px;margin-bottom: 0px" class="bg-info">RX FINAL</h5>                     
+                     <h5 style="font-family: Helvetica, Arial, sans-serif;width: 100%;text-align: center;font-size: 13px;padding: 1px;border-top-left-radius: 4px;border-top-right-radius: 4px;margin-bottom: 0px" class="bg-info">RX FINAL</h5>                     
                       <thead style="font-family: Helvetica, Arial, sans-serif;width: 100%;text-align: center;font-size: 13px;" class="bg-dark">
                         <th>OJO</th>
                         <th>ESFERAS</th>
@@ -51,7 +51,6 @@
                         <td><span id="adi_od"></span></td>
                         <td><span id="pri_od"></span></td>
                       </tr>
-
                       <tr style="text-align: center;font-size: 12px">
                         <td class="bg-dark">OI</td>
                         <td><span id="esf_oi"></span></td>
@@ -60,7 +59,6 @@
                         <td><span id="adi_oi"></span></td>
                         <td><span id="pri_oi"></span></td>
                       </tr>
-
                     </table>
 
                     <table class="table-hover table-bordered" style="font-family: Helvetica, Arial, sans-serif;max-width: 100%;text-align: left;margin-top: 0px !important" width="100%">
@@ -100,8 +98,8 @@
                       </tr>
                       <tr style="text-align: center;font-size: 12px">
                         <td><span id="mod_aro_orden"></span></td>
-                        <td><span id="marca_aro_orden"></span></td>
-                        <td><span id="color_aro_orden"></span></td>
+                        <td><span id=""></span></td>
+                        <td><span id=""></span></td>
                         <td><span id="dis_aro_orden"></span></td>
                         <td><span id="hor_aro_orden"></span></td>
                         <td><span id="diagonal_aro_orden"></span></td>

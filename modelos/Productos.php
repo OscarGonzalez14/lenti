@@ -95,14 +95,26 @@ class Productos extends Conectar{
     $conectar=parent::conexion();
     parent::set_names();
  
-        $sql2 = "select*from lente_terminado where id_terminado=? and codigo=?;";
-        $sql2 = $conectar->prepare($sql2);
-        $sql2->bindValue(1, $id_lente);
-        $sql2->bindValue(2, $codigo_lente);
-        $sql2->execute();
-        return $resultado = $sql2->fetchAll(PDO::FETCH_ASSOC);
+    $sql2 = "select c.tipo_lente,l.id_terminado,l.marca,l.diseno,l.lente,l.identificador,l.stock,l.esfera,l.cilindro,l.codigo from lente_terminado as l inner join codigos_lentes as c on c.codigo=l.codigo WHERE l.id_terminado=? and l.codigo=? and c.codigo=?";
+    $sql2 = $conectar->prepare($sql2);
+    $sql2->bindValue(1, $id_lente);
+    $sql2->bindValue(2, $codigo_lente);
+    $sql2->bindValue(3, $codigo_lente);
+    $sql2->execute();
+    return $resultado = $sql2->fetchAll(PDO::FETCH_ASSOC);
 
+  }
 
+  public function registrarDescargo(){
+    $conectar=parent::conexion();
+    parent::set_names();
+
+    $str = '';
+    $array_od = array();
+    $array_oi = array();
+    
+    $array_od = json_decode($_POST["ojoDerechoArray"]);
+    $array_oi = json_decode($_POST["ojoIzquierdoArray"]);
 
   }
 
