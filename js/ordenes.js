@@ -348,6 +348,24 @@ $(document).on('click', '#new_order', function(){
     for(i=0;i<element.length;i++){
       let id_element = element[i].id;
       document.getElementById(id_element).value = "";
+
+      $(".modal-header").on("mousedown", function(mousedownEvt) {
+    let $draggable = $(this);
+    let x = mousedownEvt.pageX - $draggable.offset().left,
+        y = mousedownEvt.pageY - $draggable.offset().top;
+    $("body").on("mousemove.draggable", function(mousemoveEvt) {
+        $draggable.closest(".modal-dialog").offset({
+            "left": mousemoveEvt.pageX - x,
+            "top": mousemoveEvt.pageY - y
+        });
+    });
+    $("body").one("mouseup", function() {
+        $("body").off("mousemove.draggable");
+    });
+    $draggable.closest(".modal").one("bs.modal.hide", function() {
+        $("body").off("mousemove.draggable");
+    });
+});
    }
 
 /////////////////////////////UNCHECKED RADIO //////////
@@ -573,5 +591,6 @@ function detOrdenes(cod_orden_act){
     });
 }
 
+ 
 
 init();

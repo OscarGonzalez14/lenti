@@ -86,6 +86,11 @@ $cat_admin = $_SESSION["categoria"];
   <div class="modal fade" id="contenedor">
   <div class="modal-dialog modal-xs">
     <div class="modal-content">
+      <div class="modal-header bg-dark">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
       <div class="modal-body">
         <div class="dropdown-divider"></div>
           <label for=""># Contenedor</label>
