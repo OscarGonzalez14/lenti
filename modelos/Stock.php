@@ -7,10 +7,9 @@ class Stock extends Conectar{
 	public function getTableTerminados($id_tabla){
 		$conectar=parent::conexion();
         parent::set_names();
-        $param = '1';
         $sql = "select*from tablas_terminado where id_tabla=?;";
         $sql = $conectar->prepare($sql);
-        $sql->bindValue(1,$param);
+        $sql->bindValue(1,$id_tabla);
         $sql->execute();
         $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 
@@ -18,7 +17,9 @@ class Stock extends Conectar{
         	$nombre = $value['titulo'];
         }
 
-        echo $nombre;
+        echo '<tr>
+         <td style="border:solid 1px black">Celda 1</td>
+        </tr>';
 	}
 
 }

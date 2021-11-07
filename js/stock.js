@@ -5,9 +5,9 @@ function get_dataTableTerm(id_tabla,div_element){
       method:"POST",
       data : {id_tabla:id_tabla},
       cache:false,
-      dataType:"json",
+      //dataType:"json",
       success:function(data){      
-      	console.log(data);       
+      	$("#table_term1").html(data);      
       }
     });
 

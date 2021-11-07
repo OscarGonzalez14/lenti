@@ -82,6 +82,11 @@ if(isset($_SESSION["usuario"])){
               <!-- /.card-header -->
               <div class="card-body" id="sphgreenessilor">
               <!--Aqui iran las tablas de cada seccion-->
+              <table>
+                <tbody id="table_term1">
+                  
+                </tbody>
+              </table>
               </div>
               <!-- /.card-body -->
             </div>
