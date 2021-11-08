@@ -46,7 +46,7 @@ if(isset($_SESSION["usuario"])){
     border-collapse: collapse;
   }
 
-  .fila:hover {
+  .filas:hover {
     background-color: lightyellow;
   }
 
@@ -67,7 +67,7 @@ if(isset($_SESSION["usuario"])){
     <section class="content">
       <div class="row" style="margin-top: 5px">
 
-          <div class="col-md-6" id="sphgreen" style="">
+          <div class="col-md-12" id="sphgreen" style="">
             <div class="card card-dark collapsed-card">
               <div class="card-header">
                 <h5 class="card-title" style="font-size: 14px">LENTE TERMINADO SPH GREEN ESSILOR</h5>
@@ -76,16 +76,82 @@ if(isset($_SESSION["usuario"])){
                   <button type="button" class="btn btn-tool" data-card-widget="collapse" onClick="get_dataTableTerm('1','sphgreenessilor');"><i class="fas fa-plus"></i>
                   </button>
                   <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                  <button type="button" class="btn btn-tool" id="btnExportar"><i class="fas fa-download"></i>
+                  </button>
                 </div>
                 <!-- /.card-tools -->
               </div>
               <!-- /.card-header -->
-              <div class="card-body" id="sphgreenessilor">
+              <div class="card-body" id="">
               <!--Aqui iran las tablas de cada seccion-->
-              <table>
-                <tbody id="table_term1">
-                  
+              <table width="100%" class="table-bordered" style="text-align: center" id="tabla_uno">
+              <thead class="style_th bg-dark" style="color: white">
+                <th>Sph\Cil</th>
+                <th>0.00</th>
+                <th>-0.25</th>
+                <th>-0.50</th>
+                <th>-0.75</th>
+                <th>-1.00</th>
+                <th>-1.25</th>
+                <th>-1.50</th>
+                <th>-1.75</th>
+                <th>-2.00</th>
+                <th>-2.25</th>
+                <th>-2.05</th>
+                <th>-2.75</th>
+                <th>-3.00</th>
+                <th>-3.25</th>
+                <th>-3.50</th>
+                <th>-3.75</th>
+                <th>-4.00</th>
+              </thead>
+                <tbody id="sphgreenessilor">                  
                 </tbody>
+              </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+
+          <div class="col-md-12" style="">
+            <div class="card card-primary collapsed-card">
+              <div class="card-header">
+                <h5 class="card-title" style="font-size: 14px">TERMINADO SPH BLUE CAPTURE ESSILOR</h5>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" onClick="get_dataTableTerm('2','sphbluecapessilor');"><i class="fas fa-plus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool"><i class="fas fa-download"></i>
+                  </button>
+                </div>
+                <!-- /.card-tools -->
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body" >
+              <table  width="100%" class="table-bordered" style="text-align: center">
+              <thead class="style_th bg-dark" style="color: white">
+                <th>Sph\Cil</th>
+                <th>0.00</th>
+                <th>-0.25</th>
+                <th>-0.50</th>
+                <th>-0.75</th>
+                <th>-1.00</th>
+                <th>-1.25</th>
+                <th>-1.50</th>
+                <th>-1.75</th>
+                <th>-2.00</th>
+                <th>-2.25</th>
+                <th>-2.05</th>
+                <th>-2.75</th>
+                <th>-3.00</th>
+                <th>-3.25</th>
+                <th>-3.50</th>
+                <th>-3.75</th>
+                <th>-4.00</th>
+                <tbody id="sphbluecapessilor"></tbody>
               </table>
               </div>
               <!-- /.card-body -->
@@ -132,6 +198,9 @@ require_once("links_js.php");
 ?>
 <script type="text/javascript" src="../js/productos.js"></script>
 <script type="text/javascript" src="../js/stock.js"></script>
+  <script src="../js/xlsx.full.min.js"></script>
+  <script src="../js/FileSaver.min.js"></script>
+  <script src="../js/tableexport.min.js"></script>
 
 <script>  
   function openWin() {

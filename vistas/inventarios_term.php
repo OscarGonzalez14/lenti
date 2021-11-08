@@ -46,7 +46,7 @@ if(isset($_SESSION["usuario"])){
     border-collapse: collapse;
   }
 
-  .fila:hover {
+  .filas:hover {
     background-color: lightyellow;
   }
 </style>
@@ -69,7 +69,7 @@ if(isset($_SESSION["usuario"])){
         
       <div class="card card-dark card-outline" style="margin: 2px;">
         <h5 style="text-align: center;background:#034f84;color:white;font-family: Helvetica, Arial, sans-serif;font-size: 16px;">LENTE TERMINADO SPH GREEN, LENTES POR PARES</h5>
-       <table width="100%" class="table-bordered" id="datatable_ordenes">
+       <table width="100%" class="table-bordered table-striped" id="datatable_ordenes">
          <thead class="style_th bg-dark" style="color: white">
            <th></th>
            <th>0.00</th>

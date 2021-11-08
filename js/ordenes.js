@@ -349,7 +349,7 @@ $(document).on('click', '#new_order', function(){
       let id_element = element[i].id;
       document.getElementById(id_element).value = "";
 
-      $(".modal-header").on("mousedown", function(mousedownEvt) {
+    $(".modal-header").on("mousedown", function(mousedownEvt) {
     let $draggable = $(this);
     let x = mousedownEvt.pageX - $draggable.offset().left,
         y = mousedownEvt.pageY - $draggable.offset().top;
