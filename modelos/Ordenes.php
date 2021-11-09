@@ -174,7 +174,7 @@ public function get_ordenes_pendientes(){
     $sql->execute();
     return $resultado=$sql->fetchAll();
 }
-/*SELECT p.id_paciente,c.numero_venta,p.nombres,p.empresas,p.sucursal,c.monto,c.saldo,c.monto-c.saldo as abonado,c.monto/c.plazo as cuota, c.plazo,o.fecha_inicio,o.fecha_finalizacion from pacientes as p INNER join creditos as c on p.id_paciente=c.id_paciente JOIN orden_credito as o where o.id_paciente=p.id_paciente and p.empresas like "%mpressa%" GROUP by c.numero_venta*/
+
 ////////////////////////////// DATA ORDEN ///////////////////
 public function get_data_orden($codigo){
     $conectar = parent::conexion();
@@ -211,6 +211,52 @@ public function get_altdist_orden($codigo){
 }
 
 public function get_aros_orden($codigo){
+  $conectar = parent::conexion();
+  parent::set_names();
+
+    $sql = "select*from aro_orden where codigo=?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1, $codigo);
+    $sql->execute();
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+/***INICIO DE QUERY SHOW ORDER***/
+public function get_datos_orden($codigo){
+    $conectar = parent::conexion();
+    parent::set_names();
+
+    $sql = "select op.nombre AS optica,op.id_optica,s.direccion as sucursal,s.telefono,s.id_sucursal,o.paciente,o.observaciones,o.tipo_lente,o.trat_orden,o.codigo from orden as o inner join sucursal_optica as s on o.id_sucursal=s.id_sucursal INNER JOIN optica as op on op.id_optica= s.id_optica where o.codigo=?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1, $codigo);
+    $sql->execute();
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
+public function get_orden_rxfinal($codigo){
+  $conectar = parent::conexion();
+    parent::set_names();
+
+    $sql = "select*from rx_orden where codigo=?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1, $codigo);
+    $sql->execute();
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function get_alturas_orden($codigo){
+  $conectar = parent::conexion();
+  parent::set_names();
+
+    $sql = "select*from alturas_orden where codigo=?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1, $codigo);
+    $sql->execute();
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function get_det_aros_orden($codigo){
   $conectar = parent::conexion();
   parent::set_names();
 
