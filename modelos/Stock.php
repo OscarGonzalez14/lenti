@@ -9,7 +9,7 @@ class Stock extends Conectar{
 		$conectar=parent::conexion();
         parent::set_names();
 
-        $sql = "select*from tablas_terminado where id_tabla=?;";
+        $sql = "select*from tablas_terminado where id_tabla_term=?;";
         $sql = $conectar->prepare($sql);
         $sql->bindValue(1,$id_tabla);
         $sql->execute();

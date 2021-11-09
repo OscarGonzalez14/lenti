@@ -52,6 +52,10 @@ if(isset($_SESSION["usuario"])){
 
 </style>
 
+  <script src="../js/xlsx.full.min.js"></script>
+  <script src="../js/FileSaver.min.js"></script>
+  <script src="../js/tableexport.min.js"></script>
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed" style='font-family: Helvetica, Arial, sans-serif;'>
 <div class="wrapper">
@@ -84,7 +88,7 @@ if(isset($_SESSION["usuario"])){
               <!-- /.card-header -->
               <div class="card-body" id="">
               <!--Aqui iran las tablas de cada seccion-->
-              <table width="100%" class="table-bordered" style="text-align: center" id="tabla_uno">
+              <table width="100%" class="table-bordered" style="text-align: center" id="tablessilor">
               <thead class="style_th bg-dark" style="color: white">
                 <th>Sph\Cil</th>
                 <th>0.00</th>
@@ -186,7 +190,14 @@ if(isset($_SESSION["usuario"])){
 
       </div><!-- /.container-fluid -->
     </section>
+
+
+
+    
   </div>
+
+
+
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <strong>2021 Lenti || <b>Version</b> 1.0</strong>
@@ -198,9 +209,7 @@ require_once("links_js.php");
 ?>
 <script type="text/javascript" src="../js/productos.js"></script>
 <script type="text/javascript" src="../js/stock.js"></script>
-  <script src="../js/xlsx.full.min.js"></script>
-  <script src="../js/FileSaver.min.js"></script>
-  <script src="../js/tableexport.min.js"></script>
+
 
 <script>  
   function openWin() {
