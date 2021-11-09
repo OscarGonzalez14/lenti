@@ -124,7 +124,9 @@ case 'get_ordenes':
 	$sub_array[] = '<button type="button"  class="btn btn-sm bg-light" onClick="detOrdenes(\''.$row['codigo'].'\')"><i class="fa fa-eye" aria-hidden="true" style="color:blue"></i></button>';
 
 	$sub_array[] = '<i class="fas fa-barcode" aria-hidden="true" style="color:black" onClick="'.$func.'(\''.$row["codigo"].'\',\''.$row["paciente"].'\','.$row["id_sucursal"].','.$row["id_optica"].')"></i>';
-	$sub_array[] = '<button type="button"  class="btn btn-sm bg-light"><i class="fa fa-edit" aria-hidden="true" style="color:green"></i></button><button type="button"  class="btn btn-xs bg-light"><i class="fa fa-trash" aria-hidden="true" style="color:red"></i></button><button type="button"  class="btn btn-xs bg-light"><i class="far fa-file-pdf" aria-hidden="true" style="color:blue"></i></button>';               
+	$sub_array[] = '<button type="button" class="btn btn-xs bg-light"  onClick="ver_datos_orden(\''.$row["codigo"].'\')" data-target="#nueva_orden_lab" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit" aria-hidden="true" style="color:green"></i></button>
+	 <button type="button"  class="btn btn-xs bg-light"><i class="fa fa-trash" aria-hidden="true" style="color:red"></i></button>
+	 <button type="button"  class="btn btn-xs bg-light"><i class="far fa-file-pdf" aria-hidden="true" style="color:blue"></i></button>'; 
                                                 
     $data[] = $sub_array;
 	}
@@ -161,7 +163,7 @@ case 'get_ordenes':
 			}
 	break;
 
-	case 'get_rxfinal_oden':
+	case 'get_rxfinal_orden':
 	$rx_orden = $ordenes->get_rxfinal_oden($_POST["cod_orden_act"]);
 
 	if (is_array($rx_orden)==true and count($rx_orden)>0) {
@@ -223,7 +225,7 @@ case 'get_ordenes':
 			$data["diseno"] = $key["diseno"];
 			$data["horizontal"] = $key["horizontal"];
 			$data["diagonal"] = $key["diagonal"];
-		    $data["vertical"] = $key["vertical"];
+		  $data["vertical"] = $key["vertical"];
 			$data["puente"] = $key["puente"];
 	}
 
@@ -232,10 +234,114 @@ case 'get_ordenes':
 		echo json_encode("error");
 	}
 	break;
-   
 
+///*****************GET DATOS ORDEN SHOW***************//
+  case 'get_datos_orden':
+		$det_orden = $ordenes->get_datos_orden($_POST["cod_orden_act"]);
 
+		if (is_array($det_orden)==true and count($det_orden)>0) {
+			
+			foreach ($det_orden as $key) {
+				$data["codigo"] = $key["codigo"];
+				$data["paciente"] = $key["paciente"];
+				$data["observaciones"] = $key["observaciones"];
+				$data["tipo_lente"] = $key["tipo_lente"];
+				$data["trat_orden"] = $key["trat_orden"];
+				$data["optica"] = $key["optica"];
+				$data["sucursal"] = $key["sucursal"];
+				$data["id_optica"] = $key["id_optica"];
+				$data["id_sucursal"] = $key["id_sucursal"];
+			}
+
+				echo json_encode($data);
+			}else{
+				echo json_encode("error");
+			}
+	break;
+
+//GET RXFINAL SHOW ORDEN//
+case 'get_orden_rxfinal':
+	$rx_orden = $ordenes->get_orden_rxfinal($_POST["cod_orden_act"]);
+
+	if (is_array($rx_orden)==true and count($rx_orden)>0) {
+			
+		foreach ($rx_orden as $key) {
+
+			$data["odesferas"] = $key["odesferas"];
+			$data["odcindros"] = $key["odcindros"];
+			$data["odeje"] = $key["odeje"];
+			$data["odadicion"] = $key["odadicion"];
+			$data["odprisma"] = $key["odprisma"];
+			$data["oiesferas"] = $key["oiesferas"];
+			$data["oicindros"] = $key["oicindros"];
+			$data["oieje"] = $key["oieje"];
+			$data["oiadicion"] = $key["oiadicion"];
+			$data["oiprisma"] = $key["oiprisma"];
+
+		}
+
+		echo json_encode($data);
+	}else{
+		echo json_encode("error");
+	}
+
+	break;
+
+//GET DATOS ALTURAS ORDEN SHOW//
+case 'get_datos_alturas_orden':
+
+	$dist_orden = $ordenes->get_alturas_orden($_POST["cod_orden_act"]);
+
+	if (is_array($dist_orden)==true and count($dist_orden)>0) {
+			
+		foreach ($dist_orden as $key) {
+
+			$data["od_dist_pupilar"] = $key["od_dist_pupilar"];
+			$data["od_altura_pupilar"] = $key["od_altura_pupilar"];
+			$data["od_altura_oblea"] = $key["od_altura_oblea"];
+			$data["oi_dist_pupilar"] = $key["oi_dist_pupilar"];
+			$data["oi_altura_pupilar"] = $key["oi_altura_pupilar"];
+			$data["oi_altura_oblea"] = $key["oi_altura_oblea"];
+	}
+
+		echo json_encode($data);
+	}else{
+		echo json_encode("error");
+	}
+
+	break;
+
+///SHOW DATA AROS//
+case 'get_det_aros_orden':
+		
+	$aro = $ordenes->get_aros_orden($_POST["cod_orden_act"]);
+
+	if (is_array($aro)==true and count($aro)>0) {			
+		foreach ($aro as $key) {
+			$data["modelo"] = $key["modelo"];
+			$data["marca"] = $key["marca"];
+			$data["color"] = $key["color"];
+			$data["diseno"] = $key["diseno"];
+			$data["horizontal"] = $key["horizontal"];
+			$data["diagonal"] = $key["diagonal"];
+		  $data["vertical"] = $key["vertical"];
+			$data["puente"] = $key["puente"];
+	}
+
+		echo json_encode($data);
+	}else{
+		echo json_encode("error");
+	}
+	break;
 }
+
+
+
+
+
+
+
+
 
 
 

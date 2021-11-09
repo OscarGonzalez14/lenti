@@ -22,10 +22,10 @@ $(document).ready(function(){
   $("#optica_orden").change(function () {         
     $("#optica_orden option:selected").each(function () {
      let optica = $(this).val();
-        $.post('../ajax/ordenes.php?op=sucursales_optica',{optica:optica}, function(data){
-        $("#optica_sucursal").html(data);
-      });            
-    });
+     $.post('../ajax/ordenes.php?op=sucursales_optica',{optica:optica}, function(data){
+      $("#optica_sucursal").html(data);
+    });            
+   });
   })
 });
 
@@ -63,34 +63,33 @@ function valida_adicion(){
   }
 }
 
-function status_checks_tratamientos(identificador){
+function status_checks_tratamientos(){
 
-  let checkbox = document.getElementById(identificador);
-  let check_state = checkbox.checked;
-  //console.log(identificador+' * '+ check_state)
-  
-  if (check_state==true && identificador=='photocromphoto') {
+  let photocrom_check = $('#photocromphoto').is(":checked");
+
+  if (photocrom_check) {
+
     $("#transitionphoto").attr("disabled", true);    
-    $("#blanco").attr("disabled", true);  
-  }else if(check_state==false && identificador=='photocromphoto'){  	
-    $("#transitionphoto").removeAttr("disabled");
-    $("#blanco").removeAttr("disabled");
-  }
+    $('#lbl_arsh').css('color', 'green');
 
-  if(check_state==true && identificador=='transitionphoto') {
-    $("#photocromphoto").attr("disabled", true);    
-    $("#blanco").attr("disabled", true);  
-  }else if(check_state==false && identificador=='transitionphoto'){    
-    $("#photocromphoto").removeAttr("disabled");
-    $("#blanco").removeAttr("disabled");
-  }
+    $("#arbluecap").attr("disabled", true);
+    $('#arbluecap').prop('checked', false)
+    $('#lbl_arbluecap').css('color', '#989898');
 
-  if(check_state==true && identificador=='blanco') {
-    $("#transitionphoto").attr("disabled", true);    
-    $("#photocromphoto").attr("disabled", true);  
-  }else if(check_state==false && identificador=='blanco'){    
+    $("#arnouv").attr("disabled", true);
+    $('#arnouv').prop('checked', false)
+    $('#lbl_arnouv').css('color', '#989898');
+
+    $("#blanco").attr("disabled", true);
+    $('#blanco').prop('checked', false)
+    $('#lbl_blanco').css('color', '#989898');
+
+    $("#transitionphoto").attr("disabled", true);
+    $('#transitionphoto').prop('checked', false)
+    $('#lbl_transitionphoto').css('color', '#989898');
+    
+  }else{  	
     $("#transitionphoto").removeAttr("disabled");
-    $("#photocromphoto").removeAttr("disabled");
   }
 
 }
@@ -98,10 +97,10 @@ function status_checks_tratamientos(identificador){
 //////////EJECUTAR ORDEN GUARDAR SPACE KEY ////
 function space_guardar_orden(event){
   tecla = event.keyCode; 
-    if(tecla==13)
-    {
-     create_barcode_interno();
-    }
+  if(tecla==13)
+  {
+   create_barcode_interno();
+ }
 }
 
 function create_barcode(){  
@@ -127,35 +126,29 @@ function create_barcode(){
 /***********************************************************
 /////////////////////  GUARDAR ORDEN ///////////////////////
 /***********************************************************/
+var tratamientos = [];
+$(document).on('click', '.items_tratamientos', function(){
+  let tratamiento = $(this).attr("value");
+  let obj ={
+    tratamientos : tratamiento
+  }
+  tratamientos.push(obj);
+});
+
 function saveOrder(){
- document.getElementById('reg_orden').style.display = "block";
- document.getElementById('print_etiqueta').style.display = "none";
+ document.getElementById('print_etiqueta').style.display="none";
  $("#contenedor").modal("show");
-    $('#contenedor').on('shown.bs.modal', function() {
-    $('#contenedor_orden').focus();
-  });
+ $('#contenedor').on('shown.bs.modal', function() {
+  $('#contenedor_orden').focus();
+});
 } 
 
 function guardar_orden(){
-
-  let tratamientos = [];
-  $("input[name='chk_tratamientos']:checked").each(function(){
-      let obj = {
-        tratamiento : this.value        
-      }
-  tratamientos.push(obj);
-  });
-
-  console.log(tratamientos);
-
   let contenedor = $("#contenedor_orden").val();
-
   if(contenedor==""){
     alerts("error","La orden debe ser asignada a un contenedor");
     return false;
   }
-
-
   let paciente = $("#paciente_orden").val();
   let observaciones = $("#observaciones_orden").val();
   let usuario = $("#id_usuario").val();
@@ -192,16 +185,14 @@ function guardar_orden(){
   let oi_dist_pupilar = $("#dip_oi").val();
   let oi_altura_pupilar = $("#ap_oi").val();
   let oi_altura_oblea = $("#ao_oi").val();
-  let tipo_lente = $("input[type='radio'][name='tipo_lente']:checked").val(); 
-
-  if (tipo_lente==undefined || tipo_lente==null){
+  let tipo_lente = $("input[type='radio'][name='tipo_lente']:checked").val();  
+  if (tipo_lente==undefined || tipo_lente==null) {
     alerts('error','Debe seleccionar Lente');return false;
   }
-
   let trat_multifocal = '';
   let trat_mult = $("input[type='radio'][name='tratamiento_multifocal']:checked").val();
-
   if(trat_mult!=undefined || trat_mult!=null){
+
     trat_multifocal = trat_mult;
   }else{
     trat_multifocal = '';
@@ -210,7 +201,7 @@ function guardar_orden(){
   $.ajax({
     url:"../ajax/ordenes.php?op=registrar_orden",
     method:"POST",
-    data:{'arrayTratamientos':JSON.stringify(tratamientos),'paciente':paciente,'observaciones':observaciones,'usuario':usuario,'id_sucursal':id_sucursal,
+    data:{'paciente':paciente,'observaciones':observaciones,'usuario':usuario,'id_sucursal':id_sucursal,
     'id_optica':id_optica,'tipo_orden':tipo_orden,'tipo_lente':tipo_lente,
     'odesferasf_orden':odesferasf_orden,'odcilindrosf_orden':odcilindrosf_orden,'odejesf_orden':odejesf_orden,'oddicionf_orden':oddicionf_orden,
     'odprismaf_orden':odprismaf_orden,'oiesferasf_orden':oiesferasf_orden,'oicilindrosf_orden':oicilindrosf_orden,'oiejesf_orden':oiejesf_orden,
@@ -220,17 +211,17 @@ function guardar_orden(){
     'oi_altura_pupilar':oi_altura_pupilar,'oi_altura_oblea':oi_altura_oblea,'trat_multifocal':trat_multifocal,'contenedor':contenedor},
     cache: false,
     dataType:"json",
-      error:function(x,y,z){
+    error:function(x,y,z){
       console.log(x);
       console.log(y);
       console.log(z);
     },
-         
-     success:function(data){
-     console.log("Codigoo"+data);
-     if (data != 'error') {
-     let codigo = data;
-      Swal.fire({
+
+    success:function(data){
+      console.log("Codigoo"+data);
+      if (data !='error') {
+       let codigo = data;
+       Swal.fire({
         position: 'top-center',
         icon: 'success',
         title: 'Orden creada exitosamente',
@@ -243,7 +234,7 @@ function guardar_orden(){
       $("#datatable_ordenes").DataTable().ajax.reload();
       $("#numero_etiqueta").val(data);   
 
-     }else{
+    }else{
       Swal.fire({
         position: 'top-center',
         icon: 'error',
@@ -251,9 +242,9 @@ function guardar_orden(){
         showConfirmButton: true,
         timer: 2500
       })
-     }     
-    }
-  });//////  FIN AJAX
+    }     
+  }
+  });//////FIN AJAX
 
 }
 
@@ -274,40 +265,38 @@ function printEtiqueta(){
 
 function generate_barcode_print(codigo,paciente,id_sucursal,id_optica){
 
-    var form = document.createElement("form");
+  var form = document.createElement("form");
+  form.target = "print_popup";
+  form.method = "POST";
+  form.action = "barcode_orden_print.php";
+  var input = document.createElement("input");
+  input.type = "hidden";
+  input.name = "paciente";
+  input.value = paciente;
+  form.appendChild(input);
 
-    form.target = "print_popup";
-    form.method = "POST";
-    form.action = "barcode_orden_print.php";
+  var input = document.createElement("input");
+  input.type = "hidden";
+  input.name = "codigo";
+  input.value = codigo;
+  form.appendChild(input);
 
-    var input = document.createElement("input");
-    input.type = "hidden";
-    input.name = "paciente";
-    input.value = paciente;
-    form.appendChild(input);
+  var input = document.createElement("input");
+  input.type = "hidden";
+  input.name = "id_optica";
+  input.value = id_optica;
+  form.appendChild(input);
 
-    var input = document.createElement("input");
-    input.type = "hidden";
-    input.name = "codigo";
-    input.value = codigo;
-    form.appendChild(input);
+  var input = document.createElement("input");
+  input.type = "hidden";
+  input.name = "id_sucursal";
+  input.value = id_sucursal;
+  form.appendChild(input);
 
-    var input = document.createElement("input");
-    input.type = "hidden";
-    input.name = "id_optica";
-    input.value = id_optica;
-    form.appendChild(input);
-
-    var input = document.createElement("input");
-    input.type = "hidden";
-    input.name = "id_sucursal";
-    input.value = id_sucursal;
-    form.appendChild(input);
-
-    let alto = (parseInt(window.innerHeight) / 4);
-    let ancho = (parseInt(window.innerWidth) / 4);
-    let x = parseInt((screen.width - ancho) / 2);
-    let y = parseInt((screen.height - alto) / 2);
+  let alto = (parseInt(window.innerHeight) / 4);
+  let ancho = (parseInt(window.innerWidth) / 4);
+  let x = parseInt((screen.width - ancho) / 2);
+  let y = parseInt((screen.height - alto) / 2);
 
     document.body.appendChild(form);//"width=600,height=500"
     window.open("about:blank","print_popup",`
@@ -317,72 +306,48 @@ function generate_barcode_print(codigo,paciente,id_sucursal,id_optica){
       left=${x}`);
     form.submit();
     document.body.removeChild(form);
-  
+
   }
 
- function listar_ordenes(){
-  $("#datatable_ordenes").DataTable({
+
+
+  function listar_ordenes(){
+    $("#datatable_ordenes").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
       dom: 'frti',
       //"buttons": [ "excel"],
       "searching": true,
       "ajax":
-        {
-          url: '../ajax/ordenes.php?op=get_ordenes',
-          type : "post",
-          dataType : "json",        
-          error: function(e){
-            console.log(e.responseText);  
-          }
-        },
-    "language": {
-      "sSearch": "Buscar:"
-    }
+      {
+        url: '../ajax/ordenes.php?op=get_ordenes',
+        type : "post",
+        dataType : "json",        
+        error: function(e){
+          console.log(e.responseText);  
+        }
+      },
+      "language": {
+        "sSearch": "Buscar:"
+      }
     }).buttons().container().appendTo('#datatable_ordenes_wrapper .col-md-6:eq(0)');
 
- }
-
+  }
 ///////////////LIMPIAR CAMPOS NUEVA ORDEN LAB//////////
 $(document).on('click', '#new_order', function(){
-    let element = document.getElementsByClassName("clear_orden_i");
-    for(i=0;i<element.length;i++){
-      let id_element = element[i].id;
-      document.getElementById(id_element).value = "";
-
-      $(".modal-header").on("mousedown", function(mousedownEvt) {
-    let $draggable = $(this);
-    let x = mousedownEvt.pageX - $draggable.offset().left,
-        y = mousedownEvt.pageY - $draggable.offset().top;
-    $("body").on("mousemove.draggable", function(mousemoveEvt) {
-        $draggable.closest(".modal-dialog").offset({
-            "left": mousemoveEvt.pageX - x,
-            "top": mousemoveEvt.pageY - y
-        });
-    });
-    $("body").one("mouseup", function() {
-        $("body").off("mousemove.draggable");
-    });
-    $draggable.closest(".modal").one("bs.modal.hide", function() {
-        $("body").off("mousemove.draggable");
-    });
-});
-   }
-
-/////////////////////////////UNCHECKED RADIO //////////
-  let check_box = document.getElementsByClassName("checkit");
-   for(j=0;j<check_box.length;j++){
-    let id_check = check_box[j].id;
-    document.getElementById(id_check).checked = false;
+  let element = document.getElementsByClassName("clear_orden_i");
+  for(i=0;i<element.length;i++){
+    let id_element = element[i].id;
+    document.getElementById(id_element).value="";
   }
-//////////////////////////////////////////////////////
-  let check_tratamientos = document.getElementsByClassName("items_tratamientos");
-   for(k=0;k<check_tratamientos.length;k++){
-    let id_check = check_tratamientos[k].id;
-    document.getElementById(id_check).checked = false;
-   }
+/////////////////////////////UNCHECKED RADIO //////////
+let check_box = document.getElementsByClassName("checkit");
+for(i=0;i<check_box.length;i++){
+  let id_check = check_box[i].id;
+  document.getElementById(id_check).checked = false;
+}
 });
 
-////////////////ocultar input OTROS TRATAMIENTOS ////////////
+////////////////ocultar input OTROS TRATAMIENTOS
 $(document).on('click', '.new_order_class', function(){
   document.getElementById("otros_trat").style.display = "none";
 });
@@ -392,10 +357,10 @@ function chk_otros_tratamientos(){
  if (isChecked) {
   document.getElementById("otros_trat").style.display = "block";
   document.getElementById("tratamientos_section").style.display = "none";
-  }else{
-    document.getElementById("otros_trat").style.display = "none";
-    document.getElementById("tratamientos_section").style.display = "flex";
-  }
+}else{
+  document.getElementById("otros_trat").style.display = "none";
+  document.getElementById("tratamientos_section").style.display = "flex";
+}
 }
 
 $(document).on('click', '.ident', function(){
@@ -414,85 +379,85 @@ function get_dets_orden(){
       dataType:"json",
       success:function(data){
 
-      $("#cod_det_orden_descargo").html(data.codigo);
-      $("#pac_orden_desc").html(data.paciente);
-      $("#optica_orden_suc").html(data.optica);
-      $("#sucursal_optica_orden").html(data.sucursal);
-      $("#tipo_lente_ord").html(data.tipo_lente);
-      $("#trat_multi_orden").html(data.trat_orden);
-      $("#obs_orden").val(data.observaciones);
+        $("#cod_det_orden_descargo").html(data.codigo);
+        $("#pac_orden_desc").html(data.paciente);
+        $("#optica_orden_suc").html(data.optica);
+        $("#sucursal_optica_orden").html(data.sucursal);
+        $("#tipo_lente_ord").html(data.tipo_lente);
+        $("#trat_multi_orden").html(data.trat_orden);
+        $("#obs_orden").val(data.observaciones);
 
-      let items_orden = {
-      codigo : data.codigo,
-      paciente :data.paciente,
-      id_optica: data.id_optica,
-      id_sucursal: data.id_sucursal
-      } 
-      det_orden.push(items_orden);
-       
+        let items_orden = {
+          codigo : data.codigo,
+          paciente :data.paciente,
+          id_optica: data.id_optica,
+          id_sucursal: data.id_sucursal
+        } 
+        det_orden.push(items_orden);
+
       }
     });
 
   /////////////////GET DATA RX FINAL   
 
   $.ajax({
-      url:"../ajax/ordenes.php?op=get_rxfinal_oden",
-      method:"POST",
-      data : {cod_orden_act:cod_orden_act},
-      cache:false,
-      dataType:"json",
-      success:function(data){
-       $("#esf_od").html(data.odesferas);
-       $("#cil_od").html(data.odcindros);
-       $("#eje_od").html(data.odeje);
-       $("#adi_od").html(data.odadicion);
-       $("#pri_od").html(data.odprisma);
+    url:"../ajax/ordenes.php?op=get_rxfinal_oden",
+    method:"POST",
+    data : {cod_orden_act:cod_orden_act},
+    cache:false,
+    dataType:"json",
+    success:function(data){
+     $("#esf_od").html(data.odesferas);
+     $("#cil_od").html(data.odcindros);
+     $("#eje_od").html(data.odeje);
+     $("#adi_od").html(data.odadicion);
+     $("#pri_od").html(data.odprisma);
 
-       $("#esf_oi").html(data.oiesferas);
-       $("#cil_oi").html(data.oicindros);
-       $("#eje_oi").html(data.oieje);
-       $("#adi_oi").html(data.oiadicion);
-       $("#pri_oi").html(data.oiprisma);
-       
-      }
-    });
+     $("#esf_oi").html(data.oiesferas);
+     $("#cil_oi").html(data.oicindros);
+     $("#eje_oi").html(data.oieje);
+     $("#adi_oi").html(data.oiadicion);
+     $("#pri_oi").html(data.oiprisma);
+
+   }
+ });
 
   /////////// GET DATA ALTURA PUPILAR /////
-   $.ajax({
-      url:"../ajax/ordenes.php?op=get_altdist_oden",
-      method:"POST",
-      data : {cod_orden_act:cod_orden_act},
-      cache:false,
-      dataType:"json",
-      success:function(data){
-       $("#od_dip").html(data.od_dist_pupilar);
-       $("#od_ap").html(data.od_altura_pupilar);
-       $("#od_ao").html(data.od_altura_oblea);
-       $("#oi_dip").html(data.oi_dist_pupilar);
-       $("#oi_ap").html(data.oi_altura_pupilar);
-       $("#oi_ao").html(data.oi_altura_oblea);
-       
-      }
-    });
+  $.ajax({
+    url:"../ajax/ordenes.php?op=get_altdist_oden",
+    method:"POST",
+    data : {cod_orden_act:cod_orden_act},
+    cache:false,
+    dataType:"json",
+    success:function(data){
+     $("#od_dip").html(data.od_dist_pupilar);
+     $("#od_ap").html(data.od_altura_pupilar);
+     $("#od_ao").html(data.od_altura_oblea);
+     $("#oi_dip").html(data.oi_dist_pupilar);
+     $("#oi_ap").html(data.oi_altura_pupilar);
+     $("#oi_ao").html(data.oi_altura_oblea);
+
+   }
+ });
   /////////////////////  GET DATA AROS ORDEN ////
-     $.ajax({
-      url:"../ajax/ordenes.php?op=get_aros_orden",
-      method:"POST",
-      data : {cod_orden_act:cod_orden_act},
-      cache:false,
-      dataType:"json",
-      success:function(data){
+  $.ajax({
+    url:"../ajax/ordenes.php?op=get_aros_orden",
+    method:"POST",
+    data : {cod_orden_act:cod_orden_act},
+    cache:false,
+    dataType:"json",
+    success:function(data){
       $("#mod_aro_orden").html(data.modelo);
-       $("#marca_aro_orden").html(data.marca);
-       $("#color_aro_orden").html(data.color);
-       $("#dis_aro_orden").html(data.diseno);
-       $("#hor_aro_orden").html(data.horizontal);
-       $("#diagonal_aro_orden").html(data.diagonal);
-       $("#vertical_aro_orden").html(data.vertical);
-       $("#puente_aro_orden").html(data.puente);
-         
-      }
-    });
+      $("#marca_aro_orden").html(data.marca);
+      $("#color_aro_orden").html(data.color);
+      $("#dis_aro_orden").html(data.diseno);
+      $("#hor_aro_orden").html(data.horizontal);
+      $("#diagonal_aro_orden").html(data.diagonal);
+      $("#vertical_aro_orden").html(data.vertical);
+      $("#puente_aro_orden").html(data.puente);
+
+    }
+  });
 
 
 
@@ -501,14 +466,13 @@ function get_dets_orden(){
 function detOrdenes(cod_orden_act){
 
   $("#detalle_orden").modal('show');
-
   $.ajax({
-      url:"../ajax/ordenes.php?op=get_data_oden",
-      method:"POST",
-      data : {cod_orden_act:cod_orden_act},
-      cache:false,
-      dataType:"json",
-      success:function(data){
+    url:"../ajax/ordenes.php?op=get_data_oden",
+    method:"POST",
+    data : {cod_orden_act:cod_orden_act},
+    cache:false,
+    dataType:"json",
+    success:function(data){
 
       $("#cod_det_orden_descargo").html(data.codigo);
       $("#pac_orden_desc").html(data.paciente);
@@ -517,80 +481,190 @@ function detOrdenes(cod_orden_act){
       $("#tipo_lente_ord").html(data.tipo_lente);
       $("#trat_multi_orden").html(data.trat_orden);
       $("#obs_orden").val(data.observaciones);
+      $("#tratamientos").html(data.trat_orden);
 
       let items_orden = {
-      codigo : data.codigo,
-      paciente :data.paciente,
-      id_optica: data.id_optica,
-      id_sucursal: data.id_sucursal
+        codigo : data.codigo,
+        paciente :data.paciente,
+        id_optica: data.id_optica,
+        id_sucursal: data.id_sucursal
       } 
       det_orden.push(items_orden);
-       
-      }
+    }
   });
 
   /////////////////GET DATA RX FINAL   
 
   $.ajax({
-      url:"../ajax/ordenes.php?op=get_rxfinal_oden",
-      method:"POST",
-      data : {cod_orden_act:cod_orden_act},
-      cache:false,
-      dataType:"json",
-      success:function(data){
-       $("#esf_od").html(data.odesferas);
-       $("#cil_od").html(data.odcindros);
-       $("#eje_od").html(data.odeje);
-       $("#adi_od").html(data.odadicion);
-       $("#pri_od").html(data.odprisma);
+    url:"../ajax/ordenes.php?op=get_rxfinal_oden",
+    method:"POST",
+    data : {cod_orden_act:cod_orden_act},
+    cache:false,
+    dataType:"json",
+    success:function(data){
+     $("#esf_od").html(data.odesferas);
+     $("#cil_od").html(data.odcindros);
+     $("#eje_od").html(data.odeje);
+     $("#adi_od").html(data.odadicion);
+     $("#pri_od").html(data.odprisma);
 
-       $("#esf_oi").html(data.oiesferas);
-       $("#cil_oi").html(data.oicindros);
-       $("#eje_oi").html(data.oieje);
-       $("#adi_oi").html(data.oiadicion);
-       $("#pri_oi").html(data.oiprisma);
-       
-      }
-    });
+     $("#esf_oi").html(data.oiesferas);
+     $("#cil_oi").html(data.oicindros);
+     $("#eje_oi").html(data.oieje);
+     $("#adi_oi").html(data.oiadicion);
+     $("#pri_oi").html(data.oiprisma);
+
+   }
+ });
 
   /////////// GET DATA ALTURA PUPILAR /////
-   $.ajax({
-      url:"../ajax/ordenes.php?op=get_altdist_oden",
-      method:"POST",
-      data : {cod_orden_act:cod_orden_act},
-      cache:false,
-      dataType:"json",
-      success:function(data){
-       $("#od_dip").html(data.od_dist_pupilar);
-       $("#od_ap").html(data.od_altura_pupilar);
-       $("#od_ao").html(data.od_altura_oblea);
-       $("#oi_dip").html(data.oi_dist_pupilar);
-       $("#oi_ap").html(data.oi_altura_pupilar);
-       $("#oi_ao").html(data.oi_altura_oblea);
-       
-      }
-    });
+  $.ajax({
+    url:"../ajax/ordenes.php?op=get_altdist_oden",
+    method:"POST",
+    data : {cod_orden_act:cod_orden_act},
+    cache:false,
+    dataType:"json",
+    success:function(data){
+     $("#od_dip").html(data.od_dist_pupilar);
+     $("#od_ap").html(data.od_altura_pupilar);
+     $("#od_ao").html(data.od_altura_oblea);
+     $("#oi_dip").html(data.oi_dist_pupilar);
+     $("#oi_ap").html(data.oi_altura_pupilar);
+     $("#oi_ao").html(data.oi_altura_oblea);
+
+   }
+ });
   /////////////////////  GET DATA AROS ORDEN ////
-     $.ajax({
-      url:"../ajax/ordenes.php?op=get_aros_orden",
-      method:"POST",
-      data : {cod_orden_act:cod_orden_act},
-      cache:false,
-      dataType:"json",
-      success:function(data){
+  $.ajax({
+    url:"../ajax/ordenes.php?op=get_aros_orden",
+    method:"POST",
+    data : {cod_orden_act:cod_orden_act},
+    cache:false,
+    dataType:"json",
+    success:function(data){
       $("#mod_aro_orden").html(data.modelo);
-       $("#marca_aro_orden").html(data.marca);
-       $("#color_aro_orden").html(data.color);
-       $("#dis_aro_orden").html(data.diseno);
-       $("#hor_aro_orden").html(data.horizontal);
-       $("#diagonal_aro_orden").html(data.diagonal);
-       $("#vertical_aro_orden").html(data.vertical);
-       $("#puente_aro_orden").html(data.puente);
-         
-      }
-    });
+      $("#marca_aro_orden").html(data.marca);
+      $("#color_aro_orden").html(data.color);
+      $("#dis_aro_orden").html(data.diseno);
+      $("#hor_aro_orden").html(data.horizontal);
+      $("#diagonal_aro_orden").html(data.diagonal);
+      $("#vertical_aro_orden").html(data.vertical);
+      $("#puente_aro_orden").html(data.puente);
+
+    }
+  });
 }
 
- 
+
+
+
+/////VER DATOS DE UNA ORDEN /////
+function ver_datos_orden(cod_orden_act){
+
+  $("#nueva_orden_lab").modal('show');
+
+  $.ajax({
+    url:"../ajax/ordenes.php?op=get_datos_orden",
+    method:"POST",
+    data : {cod_orden_act:cod_orden_act},
+    cache:false,
+    dataType:"json",
+    success:function(data){
+      console.log(data);
+      let lente = data.tipo_lente;
+      if (lente == "Visión Sencilla"){
+        document.getElementById("lentevs").checked=true;
+      }else if(lente == "Bifocal"){
+        document.getElementById("lentebf").checked=true;
+      }else if(lente == "Multifocal"){
+        document.getElementById("lentemulti").checked=true;
+      }
+      
+  let base = data.trat_orden;
+      if (base == "Alena"){
+        document.getElementById("Alena").checked=true;
+      }else if(base == "Aurora4D"){
+        document.getElementById("Aurora 4D").checked=true;
+      }else if(base == "Aurora A Claar"){
+        document.getElementById("Aurora_a_clear").checked=true;
+      }else if(base == "Gemini"){
+        document.getElementById("Gemini").checked=true;
+      }
+      $("#correlativo_op").html(data.codigo);
+      $("#paciente_orden").val(data.paciente);
+      $("#optica_orden").val(data.id_optica);
+      $("#optica_sucursal").val(data.id_sucursal);
+     // $("#marca_base").val(data.trat_orden);
+
+      let items_orden = {
+        codigo : data.codigo,
+        paciente :data.paciente,
+        id_optica: data.id_optica,
+        id_sucursal: data.id_sucursal
+      } 
+      det_orden.push(items_orden);
+    }
+  });
+  /////////////////GET DATA RX FINAL   
+
+  $.ajax({
+    url:"../ajax/ordenes.php?op=get_orden_rxfinal",
+    method:"POST",
+    data : {cod_orden_act:cod_orden_act},
+    cache:false,
+    dataType:"json",
+    success:function(data){
+     $("#odesferasf_orden").val(data.odesferas);
+     $("#odcilindrosf_orden").val(data.odcindros);
+     $("#odejesf_orden").val(data.odeje);
+     $("#oddicionf_orden").val(data.odadicion);
+     $("#odprismaf_orden").val(data.odprisma);
+
+     $("#oiesferasf_orden").val(data.oiesferas);
+     $("#oicolindrosf_orden").val(data.oicindros);
+     $("#oiejesf_orden").val(data.oieje);
+     $("#oiadicionf_orden").val(data.oiadicion);
+     $("#oiprismaf_orden").val(data.oiprisma);
+
+   }
+ });
+
+  /////////// GET DATA ALTURA PUPILAR /////
+  $.ajax({
+    url:"../ajax/ordenes.php?op=get_datos_alturas_orden",
+    method:"POST",
+    data : {cod_orden_act:cod_orden_act},
+    cache:false,
+    dataType:"json",
+    success:function(data){
+     $("#dip_od").val(data.od_dist_pupilar);
+     $("#ap_od").val(data.od_altura_pupilar);
+     $("#ao_od").val(data.od_altura_oblea);
+     $("#dip_oi").val(data.oi_dist_pupilar);
+     $("#ap_oi").val(data.oi_altura_pupilar);
+     $("#ao_oi").val(data.oi_altura_oblea);
+
+   }
+ });
+  /////////////////////  GET DATA AROS ORDEN ////
+  $.ajax({
+    url:"../ajax/ordenes.php?op=get_det_aros_orden",
+    method:"POST",
+    data : {cod_orden_act:cod_orden_act},
+    cache:false,
+    dataType:"json",
+    success:function(data){
+      $("#modelo_aro_orden").val(data.modelo);
+      $("#marca_aro_orden").val(data.marca);
+      $("#color_aro_orden").val(data.color);
+      $("#diseno_aro_orden").val(data.diseno);
+      $("#med_a").val(data.horizontal);
+      $("#med_b").val(data.diagonal);
+      $("#med_c").val(data.vertical);
+      $("#med_d").val(data.puente);
+
+    }
+  });
+}
 
 init();
