@@ -142,7 +142,6 @@ case 'get_ordenes':
 
 	case 'get_data_oden':
 		$det_orden = $ordenes->get_data_orden($_POST["cod_orden_act"]);
-
 		if (is_array($det_orden)==true and count($det_orden)>0) {
 			
 			foreach ($det_orden as $key) {

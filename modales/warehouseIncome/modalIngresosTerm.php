@@ -26,58 +26,58 @@ body {
     $('#codigob_lente').focus(); 
   }
   </script>
-<div class="modal fade" id="vs_ar_green_essilor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document" style="max-width: 65%">
+<div class="modal fade" id="modal_ingresos_term" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="max-width: 85%">
     <div class="modal-content">
       <div class="modal-header" style="background: black;color: white">
-        <h5 class="modal-title" id="exampleModalLabel">ESSILOR-AR GREEN-VISIÓN SENCILLA TERMINADO</h5>
+        <h5 class="modal-title" id="title_modal_term"></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <div class="form-row">
-          <div class="col-sm-3">
+          <div class="col-sm-4">
             <label for="">Codigo</label>
             <input type="text" class="form-control" id="codigo_lente_term" readonly="">
           </div>
           
-          <div class="col-sm-3">
-            <label for="">Stock min.</label>
-            <input type="number" class="form-control" id="stock_min_term">
-          </div>
-
-          <div class="col-sm-3" class="autocomplete">
+          <div class="col-sm-4" class="autocomplete">
             <label for="">Marca</label>
             <input type="text" class="form-control" name="marca_lente" id="marca_lente" readonly="">
           </div>
           
-          <div class="col-sm-3">
+          <div class="col-sm-4">
             <label for="">Diseño</label>
             <input type="text" class="form-control" id="dis_lente" readonly="">
           </div>          
       </div>      
       
-      <div class="eight" style="align-items: center" id="flap_terminado_section">
+      <div class="eight" style="align-items: center;margin-top: 4px" id="flap_terminado_section">
           <div class="d-flex justify-content-center form-row">          
-          <div class="form-group col-sm-4">
-              <label for="inlineRadio1">Esfera</label>
+          <div class="form-group col-sm-2">
+              <label for="inlineRadio1">Esf.</label>
               <input class="form-control" type="text" name="inlineRadioOptions" id="esfera_terminado" readonly="">
-            </div>
-          <div class="form-group col-sm-4">
-            <label for="inlineRadio1">Cilindro.</label>
+          </div>
+          <div class="form-group col-sm-2">
+            <label for="inlineRadio1">Cil.</label>
               <input class="form-control" type="text" name="inlineRadioOptions" id="cilindro_terminado" readonly="">
           </div>
           <div class="form-group col-sm-4">
             <label for="inlineRadio1">Cant. Ingreso</label>
               <input class="form-control" type="number" name="inlineRadioOptions" id="cant_ingreso" value="0" placeholder="Unidades">
           </div>
+          <div class="form-group col-sm-4">
+            <label for="inlineRadio1">#CCF/Fact.</label>
+              <input class="form-control" type="number" name="inlineRadioOptions" id="num_comprobante" value="0" placeholder="Unidades">
+          </div>
 
           </div>
       </div>
       </div>
       <input type="hidden" id="id_lente_term">
-      <input type="hidden" id="stock_act">
+      <input type="hidden" id="id_td">
+      <input type="hidden" id="id_tabla">
       <div class="modal-footer">
         <button type="button" class="btn btn-primary btn-block" onClick='setStockTerminados()'>REGISTRAR INGRESO</button>
       </div>

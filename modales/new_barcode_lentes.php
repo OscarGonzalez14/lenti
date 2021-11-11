@@ -7,9 +7,6 @@
     width: 100%;
   }
 }
-
-
-
 body {
   font: 16px Arial;  
 }
