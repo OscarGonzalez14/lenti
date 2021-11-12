@@ -40,20 +40,18 @@ body {
           <div class="col-sm-4">
             <label for="">Codigo</label>
             <input type="text" class="form-control" id="codigo_lente_term" readonly="">
-          </div>
-          
+          </div>          
           <div class="col-sm-4" class="autocomplete">
             <label for="">Marca</label>
             <input type="text" class="form-control" name="marca_lente" id="marca_lente" readonly="">
-          </div>
-          
+          </div>          
           <div class="col-sm-4">
             <label for="">Diseño</label>
             <input type="text" class="form-control" id="dis_lente" readonly="">
           </div>          
-      </div>      
+        </div>      
       
-      <div class="eight" style="align-items: center;margin-top: 4px" id="flap_terminado_section">
+        <div class="eight" style="align-items: center;margin-top: 4px" id="flap_terminado_section">
           <div class="d-flex justify-content-center form-row">          
           <div class="form-group col-sm-2">
               <label for="inlineRadio1">Esf.</label>
@@ -71,8 +69,7 @@ body {
             <label for="inlineRadio1">#CCF/Fact.</label>
               <input class="form-control" type="number" name="inlineRadioOptions" id="num_comprobante" value="0" placeholder="Unidades">
           </div>
-
-          </div>
+        </div>
       </div>
       </div>
       <input type="hidden" id="id_lente_term">

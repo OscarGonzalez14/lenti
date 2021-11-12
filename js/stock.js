@@ -59,24 +59,41 @@ function setStockTerminados(){
    $.ajax({
     url:"../ajax/stock.php?op=update_stock_terminados",
     method:"POST",
-    data:{codigoProducto:codigoProducto,cantidad_ingreso:cantidad_ingreso,id_tabla:id_tabla,esf:esf,cil:cil,titulo:titulo},
+    data:{codigoProducto:codigoProducto,cantidad_ingreso:cantidad_ingreso,id_tabla:id_tabla,esf:esf,cil:cil,id_td:id_td},
     cache: false,
     dataType:"json",
     success:function(data){
-    	console.log(data);
-      /*if (data=="ok"){
-        document.getElementById(id_terminado).style.background='#5bc0de';
-        document.getElementById(id_terminado).style.color='white';
-        alerts_productos("success", "Ingreso de productos exitosos");
-        $("#new_barcode_lens").modal('hide');
-        $("#vs_ar_green_essilor").modal('hide');
-        document.getElementById(id_terminado).innerHTML=new_stock;
-      }*/
+    	document.getElementById(id_td).style.background='#5bc0de';
+        document.getElementById(id_td).style.color='white';
+        $("#modal_ingresos_term").modal('hide');
+      if(data=="insertar"){        
+        alerts_productos("success", "Producto inicializado en bodega");
+      }else if(data=="Editar"){
+      	alerts_productos("info", "El stock ha sido actualizado");
+      }
+      getNewStockTerm(id_td,id_tabla,codigoProducto);
     }      
   });  
 
 
 }/*============ FIN UPDATE STOCK TERMINADOS ================*/
+
+/*============= GET NEW STOCK ITEM ====================*/
+function getNewStockTerm(id_td,id_tabla,codigoProducto){
+	$.ajax({
+    url:"../ajax/stock.php?op=new_stock_terminados",
+    method:"POST",
+    data:{codigoProducto:codigoProducto,id_tabla:id_tabla,id_td:id_td},
+    cache: false,
+    dataType:"json",
+    success:function(data){
+    console.log(data);
+    document.getElementById(id_td).innerHTML=data.stock;
+    }      
+  }); 
+}/*============= FIN GET NEW STOCK ITEM ====================*/
+
+
 let $btnExportar = document.querySelector("#btnExportar");
 let $tablessilor = document.querySelector("#tablessilor");
 $btnExportar.addEventListener("click", function() {
