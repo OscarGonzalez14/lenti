@@ -37,8 +37,16 @@ class Stock extends Conectar{
         	$ident_tabla = $value['id_tabla_term'];
         }
 
-        $html='';
+        $html='<table width="100%" class="table-bordered" style="text-align: center">';
         $id=1;
+        $html .= '<thead class="style_th bg-dark" style="color: white">';
+        $html .="<th>Sph\Cil</td>";
+        for($k = $max_cil;$k>=$min_cil;$k-=0.25){
+          $k>0 ? $cilind = '+'.number_format($k,2,'.',',') : $cilind = number_format($k,2,'.',',');
+          $html .= "<th>".$cilind."</th>";
+        }
+        $html .= "<thead>";
+        $html .= "<tbody>";
         for($i = $max_esf; $i >= $min_esf; $i-=0.25){
         	if($i>0){
         		$esf = '+'.number_format($i,2,'.',',');
@@ -69,7 +77,7 @@ class Stock extends Conectar{
                $id_td = "term_".$ident_tabla."_".$id."";
 
                $html .= '<td class="stilot1" id="term_'.$ident_tabla.'_'.$id.'" onClick="getDataIngresoModal(\''.$esf.'\',\''.$cil.'\',\''.$codigo.'\',\''.$marca.'\',\''.$diseno.'\',\''.$nombre.'\',\''.$id_td.'\',\''.$ident_tabla.'\')">'.$n_lente.'</td>';               
-               if($cil==(-4)){                  	        	
+               if($cil==($min_cil)){                  	        	
                	  $html .= "</tr>";
                }
 
@@ -77,7 +85,8 @@ class Stock extends Conectar{
    	        } 
 
 	}
-
+	$html .= "</tbody>";
+	$html .= "</table>";
     echo $html;
 }
 

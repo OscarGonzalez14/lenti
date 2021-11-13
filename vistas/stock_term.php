@@ -73,20 +73,38 @@ if(isset($_SESSION["usuario"])){
   ?>
   <div class="content-wrapper">
     <section class="content">
-      <div class="row" style="margin-top: 5px">
+      <div class="row row-term" style="margin-top: 5px">
 
       <?php 
         foreach ($tablas_term as $value) {
-          echo $value['titulo'].'<br>';
-        }
-      ?>
+          $id_tabla = $value['id_tabla_term'];
+          ($id_tabla % 2 == 0) ? $color='dark': $color='primary';
+         ?>
+            <div class="col-md-12" id="sphgreen" style="">
+            <div class="card card-<?php echo $color;?> collapsed-card">
+              <div class="card-header">
+                <h5 class="card-title" style="font-size: 14px"><?php echo $value['titulo']; ?></h5>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" onClick="get_dataTableTerm('<?php echo $value['id_tabla_term'];?>','<?php echo 'tabla_term'.$value['id_tabla_term'];?>');"><i class="fas fa-plus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" onClick="get_dataTableTerm('<?php echo $value['id_tabla_term'];?>','<?php echo 'tabla_term'.$value['id_tabla_term'];?>');"><i class="fas fa-sync-alt"></i></button>
+                  <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                  <button type="button" class="btn btn-tool" id="btnExportar"><i class="fas fa-download"></i>
+                  </button>                  
+                </div><!-- /.card-tools -->                
+              </div><!--./Card header-->
 
-      </div><!-- /.container-fluid -->
-    </section>
+              <div class="card-body" id="<?php echo 'tabla_term'.$value['id_tabla_term'];?>">
+              <!--Aqui iran las tablas de cada seccion-->
+              </div>
+              
+            </div><!--./card-->            
+          </div><!--./col-md-->
+          
+      <?php  } ?>
 
-
-
-    
+      </div><!--./Row term-->
+    </section>    
   </div>
 
 

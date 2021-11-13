@@ -1,14 +1,13 @@
 
-function get_dataTableTerm(id_tabla,div_element){
-      console.log(id_tabla);
+function get_dataTableTerm(id_tabla,div_tabla){
 	  $.ajax({
       url:"../ajax/stock.php?op=get_tableTerm",
       method:"POST",
       data : {id_tabla:id_tabla},
       cache:false,
       //dataType:"json",
-      success:function(data){      
-      	$("#"+div_element).html(data);
+      success:function(data){   
+      	$("#"+div_tabla).html(data);
       }
     });
 
