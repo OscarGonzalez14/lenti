@@ -79,7 +79,7 @@ if(isset($_SESSION["usuario"])){
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse" onClick="get_dataTableTerm('1','sphgreenessilor');"><i class="fas fa-plus"></i>
                   </button>
-                  <button type="button" class="btn btn-tool" onClick="get_dataTableTerm('1','sphgreenessilor');""><i class="fas fa-sync-alt"></i></button>
+                  <button type="button" class="btn btn-tool" onClick="get_dataTableTerm('1','sphgreenessilor');"><i class="fas fa-sync-alt"></i></button>
                   <button type="button" class="btn btn-tool"><i class="fas fa-expand"></i></button>
                   <button type="button" class="btn btn-tool" id="btnExportar"><i class="fas fa-download"></i>
                   </button>

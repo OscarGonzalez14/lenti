@@ -39,7 +39,12 @@ body {
         <div class="form-row">
           <div class="col-sm-4">
             <label for="">Codigo</label>
-            <input type="text" class="form-control" id="codigo_lente_term" readonly="">
+            <div class="input-group">
+              <input type="text" class="form-control" id="codigo_lente_term" readonly="">
+              <div class="input-group-append" onClick="buscarAro()" id="buscar_aro">
+                <span class="input-group-text bg-dark"><i class="far fa-edit"> </i></span>
+              </div>
+            </div>
           </div>          
           <div class="col-sm-4" class="autocomplete">
             <label for="">Marca</label>

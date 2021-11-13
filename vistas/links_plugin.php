@@ -1,4 +1,3 @@
-
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->  <!-- Tempusdominus Bootstrap 4 -->

@@ -4,6 +4,16 @@ require_once("../config/conexion.php");
 
 class Stock extends Conectar{
 
+	public function listar_tablas_terminados(){
+	    $conectar=parent::conexion();
+        parent::set_names();
+
+        $sql = "select titulo,id_tabla_term from tablas_terminado;";
+        $sql = $conectar->prepare($sql);
+        $sql->execute();
+        return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+	}
+
 	public function getTableTerminados($id_tabla){
 
 		$conectar=parent::conexion();
@@ -81,6 +91,18 @@ public function comprobarExisteCodigo($codigo){
     return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
+public function codigoGrad($esfera,$cilindro,$id_td){
+	$conectar=parent::conexion();
+    parent::set_names();
+    $sql = "select identificador from stock_terminados where identificador=? and esfera=? and cilindro=?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1, $id_td);
+    $sql->bindValue(2, $esfera);
+    $sql->bindValue(3, $cilindro);
+    $sql->execute();
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
 public function initStockTerm($codigoProducto,$cantidad,$id_tabla,$esfera,$cilindro,$id_td){
 	$conectar=parent::conexion();
     parent::set_names();
@@ -133,7 +155,7 @@ public function updateStockTerm($codigoProducto,$cantidad,$id_tabla,$esfera,$cil
   public function newStockTerminados($codigoProducto,$id_tabla,$id_td){
   	$conectar=parent::conexion();
     parent::set_names();
-    $sql="select stock from stock_terminados where codigo=? and id_tabla_term=? and identificador=?;";
+    $sql="select stock,codigo from stock_terminados where codigo=? and id_tabla_term=? and identificador=?;";
     $sql = $conectar->prepare($sql);
     $sql->bindValue(1, $codigoProducto);
     $sql->bindValue(2, $id_tabla);

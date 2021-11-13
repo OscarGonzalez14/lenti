@@ -24,7 +24,16 @@ function getDataIngresoModal(esfera,cilindro,codigo,marca,diseno,titulo,id_td,id
 	$('#title_modal_term').html(titulo);
 	$('#id_td').val(id_td);
 	$('#id_tabla').val(id_tabla);
+	if (codigo=="" || codigo==null || codigo==undefined){
+		$("#new_barcode_lens").modal('show');
+		$('#new_barcode_lens').on('shown.bs.modal', function() {
+		$('#codebar_lente').val('');
+		$('#codebar_lente').focus();
+	});
+
+   }
 }
+
 function set_code_bar(){
   let new_code = $("#codebar_lente").val();
   $("#codigo_lente_term").val(new_code);
@@ -43,9 +52,10 @@ function setStockTerminados(){
   let titulo = $("#title_modal_term").html()
 
 
-  if (codigoProducto=="" || codigoProducto==null || codigoProducto==undefined) {
+  if (codigoProducto=="" || codigoProducto==null || codigoProducto==undefined){
 	$("#new_barcode_lens").modal('show');
 	$('#new_barcode_lens').on('shown.bs.modal', function() {
+	$('#codebar_lente').val('');
 	$('#codebar_lente').focus();
 	});
 	  return false;
@@ -63,6 +73,7 @@ function setStockTerminados(){
     cache: false,
     dataType:"json",
     success:function(data){
+    	console.log(data);
     	document.getElementById(id_td).style.background='#5bc0de';
         document.getElementById(id_td).style.color='white';
         $("#modal_ingresos_term").modal('hide');
@@ -70,6 +81,8 @@ function setStockTerminados(){
         alerts_productos("success", "Producto inicializado en bodega");
       }else if(data=="Editar"){
       	alerts_productos("info", "El stock ha sido actualizado");
+      }else if(data=='error'){
+      	alerts_productos("warning", "Ya existe lente con codigo actual");
       }
       getNewStockTerm(id_td,id_tabla,codigoProducto);
     }      
