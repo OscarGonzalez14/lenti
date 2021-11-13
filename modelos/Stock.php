@@ -37,7 +37,7 @@ class Stock extends Conectar{
         	$ident_tabla = $value['id_tabla_term'];
         }
 
-        $html='<table width="100%" class="table-bordered" style="text-align: center">';
+        $html='<table width="100%" class="table-bordered" style="text-align: center" id="term_tabla_download_'.$ident_tabla.'">';
         $id=1;
         $html .= '<thead class="style_th bg-dark" style="color: white">';
         $html .="<th>Sph\Cil</td>";
@@ -76,7 +76,7 @@ class Stock extends Conectar{
                isset($new_result[1]) ? $codigo = "$new_result[1]" : $codigo = '';
                $id_td = "term_".$ident_tabla."_".$id."";
 
-               $html .= '<td class="stilot1" id="term_'.$ident_tabla.'_'.$id.'" onClick="getDataIngresoModal(\''.$esf.'\',\''.$cil.'\',\''.$codigo.'\',\''.$marca.'\',\''.$diseno.'\',\''.$nombre.'\',\''.$id_td.'\',\''.$ident_tabla.'\')">'.$n_lente.'</td>';               
+               $html .= '<td class="stilot1" id="term_'.$ident_tabla.'_'.$id.'" onClick="getDataIngresoModal(\''.$esf.'\',\''.$cil.'\',\''.$codigo.'\',\''.$marca.'\',\''.$diseno.'\',\''.$nombre.'\',\''.$id_td.'\',\''.$ident_tabla.'\')" data-toggle="tooltip" title="Esfera: '.$esf.' * Cilindro: '.$cil.'">'.$n_lente.'</td>';               
                if($cil==($min_cil)){                  	        	
                	  $html .= "</tr>";
                }

@@ -48,8 +48,7 @@ function setStockTerminados(){
   let cil = $("#cilindro_terminado").val();
   let id_td = $("#id_td").val();
   let id_tabla = $("#id_tabla").val();
-  let titulo = $("#title_modal_term").html()
-
+  let titulo = $("#title_modal_term").html();
 
   if (codigoProducto=="" || codigoProducto==null || codigoProducto==undefined){
 	$("#new_barcode_lens").modal('show');
@@ -73,8 +72,6 @@ function setStockTerminados(){
     dataType:"json",
     success:function(data){
     	console.log(data);
-    	document.getElementById(id_td).style.background='#5bc0de';
-        document.getElementById(id_td).style.color='white';
         $("#modal_ingresos_term").modal('hide');
       if(data=="insertar"){        
         alerts_productos("success", "Producto inicializado en bodega");
@@ -83,7 +80,9 @@ function setStockTerminados(){
       }else if(data=='error'){
       	alerts_productos("warning", "Ya existe lente con codigo actual");
       }
-      getNewStockTerm(id_td,id_tabla,codigoProducto);
+      id_div = 'tabla_term'+id_tabla
+      get_dataTableTerm(id_tabla,id_div);
+      getNewStockTerm(id_td,id_tabla,codigoProducto);      
     }      
   });  
 
@@ -101,12 +100,14 @@ function getNewStockTerm(id_td,id_tabla,codigoProducto){
     success:function(data){
     console.log(data);
     document.getElementById(id_td).innerHTML=data.stock;
+    document.getElementById(id_td).style.background='#5bc0de';
+    document.getElementById(id_td).style.color='white';
     }      
   }); 
 }/*============= FIN GET NEW STOCK ITEM ====================*/
 
 
-let $btnExportar = document.querySelector("#btnExportar");
+/*let $btnExportar = document.querySelector("#btnExportar");
 let $tablessilor = document.querySelector("#tablessilor");
 $btnExportar.addEventListener("click", function() {
     let tableExport = new TableExport($tablessilor, {
@@ -117,4 +118,19 @@ $btnExportar.addEventListener("click", function() {
     let datos = tableExport.getExportData();
     let preferenciasDocumento = datos.tablessilor.xlsx;
     tableExport.export2file(preferenciasDocumento.data, preferenciasDocumento.mimeType, preferenciasDocumento.filename, preferenciasDocumento.fileExtension, preferenciasDocumento.merges, preferenciasDocumento.RTL, preferenciasDocumento.sheetname);
-});
+});*/
+
+function downloadExcelTerm(tabla){
+    
+	let $term_tabla_download_3 = document.querySelector("#"+tabla);
+	let tableExport = new TableExport($term_tabla_download_3, {
+        exportButtons: false, // No queremos botones
+        filename: "Inventario", //Nombre del archivo de Excel
+        sheetname: "Inventario", //Título de la hoja
+    });
+    let datos = tableExport.getExportData();
+    let preferenciasDocumento = datos.term_tabla_download_3.xlsx;
+    tableExport.export2file(preferenciasDocumento.data, preferenciasDocumento.mimeType, preferenciasDocumento.filename, preferenciasDocumento.fileExtension, preferenciasDocumento.merges, preferenciasDocumento.RTL, preferenciasDocumento.sheetname);
+
+
+}

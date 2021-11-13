@@ -89,7 +89,7 @@ if(isset($_SESSION["usuario"])){
                   </button>
                   <button type="button" class="btn btn-tool" onClick="get_dataTableTerm('<?php echo $value['id_tabla_term'];?>','<?php echo 'tabla_term'.$value['id_tabla_term'];?>');"><i class="fas fa-sync-alt"></i></button>
                   <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
-                  <button type="button" class="btn btn-tool" id="btnExportar"><i class="fas fa-download"></i>
+                  <button type="button" class="btn btn-tool" onClick="downloadExcelTerm('term_tabla_download_<?php echo $value['id_tabla_term'];?>')"><i class="fas fa-download"></i>
                   </button>                  
                 </div><!-- /.card-tools -->                
               </div><!--./Card header-->
