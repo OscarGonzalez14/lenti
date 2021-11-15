@@ -116,7 +116,7 @@ case 'get_ordenes':
 		$func = "generate_barcode_print";
 	}
 
-    $sub_array[] = $row["id_orden"];
+  $sub_array[] = $row["id_orden"];
 	$sub_array[] = $row["codigo"];
 	$sub_array[] = $row["nombre"]." - ".$row["direccion"];
 	$sub_array[] = strtoupper($row["paciente"]);
@@ -125,8 +125,14 @@ case 'get_ordenes':
 
 	$sub_array[] = '<i class="fas fa-barcode" aria-hidden="true" style="color:black" onClick="'.$func.'(\''.$row["codigo"].'\',\''.$row["paciente"].'\','.$row["id_sucursal"].','.$row["id_optica"].')"></i>';
 	$sub_array[] = '<button type="button" class="btn btn-xs bg-light"  onClick="ver_datos_orden(\''.$row["codigo"].'\')" data-target="#nueva_orden_lab" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit" aria-hidden="true" style="color:green"></i></button>
+
 	 <button type="button"  class="btn btn-xs bg-light"><i class="fa fa-trash" aria-hidden="true" style="color:red"></i></button>
-	 <button type="button"  class="btn btn-xs bg-light"><i class="far fa-file-pdf" aria-hidden="true" style="color:blue"></i></button>'; 
+
+	 <form action="imprimir_orden_pdf.php" method="POST" target="_blank" style="display: inline-block">
+	   <input type="hidden" name="codigo" value="'.$row["codigo"].'">
+	 	<button class="btn btn-xs bg-light" type=submit><i class="far fa-file-pdf" aria-hidden="true" style="color:blue"></i></button>
+	 </form>
+	 '; 
                                                 
     $data[] = $sub_array;
 	}

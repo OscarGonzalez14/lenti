@@ -1,153 +1,104 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-</head>
-<body>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Buscar en el contenido de una tabla</title>
-    <meta charset="utf-8">
-    <script language="javascript">
-        function doSearch()
-        {
-            const tableReg = document.getElementById('datos');
-            const searchText = document.getElementById('searchTerm').value.toLowerCase();
-            let total = 0;
- 
-            // Recorremos todas las filas con contenido de la tabla
-            for (let i = 1; i < tableReg.rows.length; i++) {
-                // Si el td tiene la clase "noSearch" no se busca en su cntenido
-                if (tableReg.rows[i].classList.contains("noSearch")) {
-                    continue;
-                }
- 
-                let found = false;
-                const cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
-                // Recorremos todas las celdas
-                for (let j = 0; j < cellsOfRow.length && !found; j++) {
-                    const compareWith = cellsOfRow[j].innerHTML.toLowerCase();
-                    // Buscamos el texto en el contenido de la celda
-                    if (searchText.length == 0 || compareWith.indexOf(searchText) > -1) {
-                        found = true;
-                        total++;
-                    }
-                }
-                if (found) {
-                    tableReg.rows[i].style.display = '';
-                } else {
-                    // si no ha encontrado ninguna coincidencia, esconde la
-                    // fila de la tabla
-                    tableReg.rows[i].style.display = 'none';
-                }
-            }
- 
-            // mostramos las coincidencias
-            const lastTR=tableReg.rows[tableReg.rows.length-1];
-            const td=lastTR.querySelector("td");
-            lastTR.classList.remove("hide", "red");
-            if (searchText == "") {
-                lastTR.classList.add("hide");
-            } else if (total) {
-                td.innerHTML="Se ha encontrado "+total+" coincidencia"+((total>1)?"s":"");
-            } else {
-                lastTR.classList.add("red");
-                td.innerHTML="No se han encontrado coincidencias";
-            }
-        }
-
-        function doSearch2()
-        {
-            const tableReg = document.getElementById('datos');
-            const searchText = document.getElementById('searchTerm2').value.toLowerCase();
-            let total = 0;
- 
-            // Recorremos todas las filas con contenido de la tabla
-            for (let i = 1; i < tableReg.rows.length; i++) {
-                // Si el td tiene la clase "noSearch" no se busca en su cntenido
-                if (tableReg.rows[i].classList.contains("noSearch")) {
-                    continue;
-                }
- 
-                let found = false;
-                const cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
-                // Recorremos todas las celdas
-                for (let j = 0; j < cellsOfRow.length && !found; j++) {
-                    const compareWith = cellsOfRow[j].innerHTML.toLowerCase();
-                    // Buscamos el texto en el contenido de la celda
-                    if (searchText.length == 0 || compareWith.indexOf(searchText) > -1) {
-                        found = true;
-                        total++;
-                    }
-                }
-                if (found) {
-                    tableReg.rows[i].style.display = '';
-                } else {
-                    // si no ha encontrado ninguna coincidencia, esconde la
-                    // fila de la tabla
-                    tableReg.rows[i].style.display = 'none';
-                }
-            }
- 
-            // mostramos las coincidencias
-            const lastTR=tableReg.rows[tableReg.rows.length-1];
-            const td=lastTR.querySelector("td");
-            lastTR.classList.remove("hide", "red");
-            if (searchText == "") {
-                lastTR.classList.add("hide");
-            } else if (total) {
-                td.innerHTML="Se ha encontrado "+total+" coincidencia"+((total>1)?"s":"");
-            } else {
-                lastTR.classList.add("red");
-                td.innerHTML="No se han encontrado coincidencias";
-            }
-        }
-    </script>
- 
-    <style>
-        #datos {border:1px solid #ccc;padding:10px;font-size:1em;}
-        #datos tr:nth-child(even) {background:#ccc;}
-        #datos td {padding:5px;}
-        #datos tr.noSearch {background:White;font-size:0.8em;}
-        #datos tr.noSearch td {padding-top:10px;text-align:right;}
-        .hide {display:none;}
-        .red {color:Red;}
-    </style>
-</head>
- 
-<body>
-    <h1>Buscar en el contenido de una tabla</h1>
-    <form>
-        Cadena a buscar <input id="searchTerm" type="text" onkeyup="doSearch()" />
-        Cadena a buscar 2 <input id="searchTerm2" type="text" onkeyup="doSearch2()" />
-    </form>
-    <p>
-        <table id="datos">
-            <tr>
-                <th>id</th><th>Nombre</th><th>Apellidos</th><th>Género</th><th>Edad</th>
-            </tr>
-            <tr>
-                <td>1</td><td>Juan-Perez</td><td>Perez</td><td>M</td><td>30</td>
-            </tr>
-            <tr>
-                <td>2</td><td>Juan-martine</td><td>Vazquez</td><td>M</td><td>31</td>
-            </tr>
-            <tr>
-                <td>3</td><td>Luis</td><td>Astorga</td><td>M</td><td>25</td>
-            </tr>
-            <tr>
-                <td>4</td><td>Luisa</td><td>Valdes</td><td>F</td><td>56</td>
-            </tr>
-            <tr class='noSearch hide'>
-                <td colspan="5"></td>
-            </tr>
-        </table>
-    </p>
-</body>
-</html>
-
-</body>
-</html>
+<<tr>
+     <th colspan="10" style="font-size:12px;border:#0061a9 1px solid;color:black;font-family: Helvetica, Arial, sans-serif;width:100%"><span class="subt">DATOS GENERALES</span></th>
+  </tr>
+  <tr>
+    <td colspan="4"><strong>PACIENTE</strong></td>
+    <td colspan="3"><strong>ÓPTICA</strong></td>
+    <td colspan="3"><strong>SUCURSAL</strong></td>
+  </tr>
+  <tr>
+    <td colspan="4"><?php echo "$paciente"; ?></td>
+    <td colspan="3"><?php echo "$optica"; ?></td>
+    <td colspan="3"><?php echo "$sucursal"; ?></td>
+ </tr>
+ <tr>
+     <th colspan="20" style="font-size:12px;border:#0061a9 1px solid;color:black;font-family: Helvetica, Arial, sans-serif;width:100%"><span class="subt">ESPECIFICACIONES DE LENTE</span></th>
+     <th colspan="1"></th>
+     <th colspan="1"></th>
+ </tr>
+ <tr>
+    <td colspan="5"><strong>LENTE</strong></td>
+    <td colspan="5"><strong>MARCA</strong></td>
+    <td colspan="10"><strong>TRATAMIENTOS</strong></td>
+ </tr>
+ <tr>
+   <td colspan="5"><?php echo "$tipo_lente"; ?></td>
+   <td colspan="5"><?php echo "$trat_orden"; ?></td>
+   <td colspan="10"></td>
+ </tr>
+<tr>
+  <th colspan="50" style="font-size:12px;border:#0061a9 1px solid;color:black;font-family: Helvetica, Arial, sans-serif;width:100%"><span class="subt">GRADUACIÓN (RX FINAL) Y MEDIDAS</span></th>
+</tr>
+<tr>
+<td colspan="55" style="align-items:center">
+<table class="table2" style="border-collapse: collapse;">
+  <tr>
+    <th colspan="5">OJO</th>
+    <th colspan="10">ESFERAS</th>
+    <th colspan="10">CILINDROS</th>
+    <th colspan="10">EJE</th>
+    <th colspan="10">ADICION</th>
+    <th colspan="10">PRISMA</th>
+  </tr>
+  <tr>
+    <td colspan="5">OD</td>
+    <td colspan="10"><?php echo "$odesferas" ?></td>
+    <td colspan="10"><?php echo "$odcindros" ?></td>
+    <td colspan="10"><?php echo "$odeje" ?></td>
+    <td colspan="10"><?php echo "$odadicion" ?></td>
+    <td colspan="10"><?php echo "$odprisma" ?></td>
+  </tr>
+  <tr>
+    <td colspan="5">OI</td>
+    <td colspan="10"><?php echo "$oiesferas" ?></td>
+    <td colspan="10"><?php echo "$oicindros" ?></td>
+    <td colspan="10"><?php echo "$oieje" ?></td>
+    <td colspan="10"><?php echo "$oiadicion" ?></td>
+    <td colspan="10"><?php echo "$oiprisma" ?></td>
+  </tr>
+</table>
+</td>
+<td colspan="2">
+<table id="table2">
+  <tr>
+    <th>OJO</th>
+    <th>DIST. PUPILAR</th>
+    <th>ALT. PUPILAR</th>
+    <th>ALT. DE OBLEA</th>
+  </tr>
+  <tr>
+    <td>OD</td>
+    <td><?php echo $od_dist_pupilar ?></td>
+    <td><?php echo $od_altura_pupilar ?></td>
+    <td><?php echo $od_altura_oblea ?></td>
+  </tr>
+  <tr>
+    <td>OI</td>
+    <td><?php echo $oi_dist_pupilar ?></td>
+    <td><?php echo $oi_altura_pupilar ?></td>
+    <td><?php echo $oi_altura_oblea ?></td>
+  </tr>
+</table>
+</td>
+</tr>
+<tr>
+  <th colspan="4" style="font-size:12px;border:#0061a9 1px solid;color:black;font-family: Helvetica, Arial, sans-serif;width:100%"><span class="subt">ESPECIFICACIONES DE ARO</span></th>
+  <th></th>
+  <th></th>
+  <th></th>
+</tr>
+<tr>
+  <td><strong>MARCA</strong></td>
+  <td><strong>MODELO</strong></td>
+  <td><strong>COLOR</strong></td>
+  <td><strong>DISEÑO</strong></td>
+</tr>
+<tr>
+  <td><?php echo $marca ?></td>
+  <td><?php echo $modelo ?></td>
+  <td><?php echo $color ?></td>
+  <td><?php echo $diseno ?></td>
+</tr>
+<tr>
+  <th colspan="4" style="font-size:12px;border:#0061a9 1px solid;color:black;font-family: Helvetica, Arial, sans-serif;width:100%; text-align:left;"><span class="subt">OBSERVACIONES:</span> <?php echo $observaciones; ?></th>
+</tr>
