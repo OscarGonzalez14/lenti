@@ -39,5 +39,19 @@ switch ($_GET["op"]){
         	}
         }
         echo json_encode($output);
+	break;
+
+	case 'getDataTerminados':
+		$data = $stock->getDataTerminados($_POST['codigoTerminado']);
+
+		if(is_array($data)==true and count($data)>0){
+			foreach ($data as $v) {
+				$output["marca"] = $v["marca"];
+            	$output["diseno"] = $v["diseno"];
+                $output["cilindro"] = $v["cilindro"];
+            	$output["esfera"] = $v["esfera"];
+            }
+		}
+        echo json_encode($output);
 		break;
 }

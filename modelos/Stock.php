@@ -8,7 +8,7 @@ class Stock extends Conectar{
 	    $conectar=parent::conexion();
         parent::set_names();
 
-        $sql = "select titulo,id_tabla_term from tablas_terminado;";
+        $sql = "select titulo,id_tabla_term,marca,diseno from tablas_terminado order by id_tabla_term ASC;";
         $sql = $conectar->prepare($sql);
         $sql->execute();
         return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -169,6 +169,17 @@ public function updateStockTerm($codigoProducto,$cantidad,$id_tabla,$esfera,$cil
     $sql->bindValue(1, $codigoProducto);
     $sql->bindValue(2, $id_tabla);
     $sql->bindValue(3, $id_td);
+    $sql->execute();
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  public function getDataTerminados($codigoProducto){    
+    $conectar=parent::conexion();
+    parent::set_names();
+
+    $sql = 'select t.id_tabla_term,t.marca,t.diseno,s.esfera,s.cilindro,s.stock,s.codigo from tablas_terminado as t inner join stock_terminados as s on t.id_tabla_term=s.id_tabla_term where s.codigo = ?';
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1, $codigoProducto);
     $sql->execute();
     return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
   }

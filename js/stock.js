@@ -106,31 +106,44 @@ function getNewStockTerm(id_td,id_tabla,codigoProducto){
   }); 
 }/*============= FIN GET NEW STOCK ITEM ====================*/
 
+function downloadExcelTerm(tabla,title,fecha){
+  let titulo = fecha+"_"+title;
+  let tablaExport = document.getElementById(tabla);
+  if(tablaExport == null || tablaExport == undefined ){
+  	alerts_productos("warning", "Debe desplegar la tabla para poder ser descargada");
+  	return false;
+  }
+  let table2excel = new Table2Excel();
+  table2excel.export(document.getElementById(tabla),titulo);
+}
 
-/*let $btnExportar = document.querySelector("#btnExportar");
-let $tablessilor = document.querySelector("#tablessilor");
-$btnExportar.addEventListener("click", function() {
-    let tableExport = new TableExport($tablessilor, {
-        exportButtons: false, // No queremos botones
-        filename: "Inventario", //Nombre del archivo de Excel
-        sheetname: "Inventario", //Título de la hoja
-    });
-    let datos = tableExport.getExportData();
-    let preferenciasDocumento = datos.tablessilor.xlsx;
-    tableExport.export2file(preferenciasDocumento.data, preferenciasDocumento.mimeType, preferenciasDocumento.filename, preferenciasDocumento.fileExtension, preferenciasDocumento.merges, preferenciasDocumento.RTL, preferenciasDocumento.sheetname);
-});*/
+key('⌘+i, ctrl+i', function(){ 
+  ingresosGeneral();
+});
 
-function downloadExcelTerm(tabla){
-    
-	let $term_tabla_download_3 = document.querySelector("#"+tabla);
-	let tableExport = new TableExport($term_tabla_download_3, {
-        exportButtons: false, // No queremos botones
-        filename: "Inventario", //Nombre del archivo de Excel
-        sheetname: "Inventario", //Título de la hoja
-    });
-    let datos = tableExport.getExportData();
-    let preferenciasDocumento = datos.term_tabla_download_3.xlsx;
-    tableExport.export2file(preferenciasDocumento.data, preferenciasDocumento.mimeType, preferenciasDocumento.filename, preferenciasDocumento.fileExtension, preferenciasDocumento.merges, preferenciasDocumento.RTL, preferenciasDocumento.sheetname);
+function ingresosGeneral(){
+  $("#modal_ingresos_term_general").modal('show');
+  $('#modal_ingresos_term_general').on('shown.bs.modal', function() {
+  $('#codigo_term_ingreso').val('');
+  $('#codigo_term_ingreso').focus();
+  });
+}
 
+function getLenteTermData(){
+  let codigoTerminado = $('#codigo_term_ingreso').val();
+
+    $.ajax({
+    url:"../ajax/stock.php?op=getDataTerminados",
+    method:"POST",
+    data:{codigoTerminado:codigoTerminado},
+    cache: false,
+    dataType:"json",
+    success:function(data){
+      $("#marca_lente_ingreso").val(data.marca);
+      $("#dis_lente_ingreso").val(data.diseno);
+      $("#esfera_terminado_ingreso").val(data.esfera);
+      $("#cilindro_terminado_ingreso").val(data.cilindro);
+    }      
+  });
 
 }

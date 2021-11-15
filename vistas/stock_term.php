@@ -12,11 +12,12 @@ if(isset($_SESSION["usuario"])){
 <?php require_once("links_plugin.php"); 
  require_once('../modelos/Productos.php');
  require_once('../modales/warehouseIncome/modalIngresosTerm.php');
+ require_once('../modales/warehouseIncome/modalIngresosTermGeneral.php');
  require_once('../modales/new_barcode_lentes.php');
  require_once('../modelos/Stock.php');
  $stock = new Stock();
  $tablas_term = $stock->listar_tablas_terminados();
- 
+ date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H-i-s");
  ?>
 <style>
   .buttons-excel{
@@ -56,9 +57,8 @@ if(isset($_SESSION["usuario"])){
 
 </style>
 
-  <script src="../js/xlsx.full.min.js"></script>
-  <script src="../js/FileSaver.min.js"></script>
-  <script src="../js/tableexport.min.js"></script>
+  <script src="../plugins/exportoExcel.js"></script>
+  <script src="../plugins/keymaster.js"></script>
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed" style='font-family: Helvetica, Arial, sans-serif;'>
@@ -89,7 +89,9 @@ if(isset($_SESSION["usuario"])){
                   </button>
                   <button type="button" class="btn btn-tool" onClick="get_dataTableTerm('<?php echo $value['id_tabla_term'];?>','<?php echo 'tabla_term'.$value['id_tabla_term'];?>');"><i class="fas fa-sync-alt"></i></button>
                   <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
-                  <button type="button" class="btn btn-tool" onClick="downloadExcelTerm('term_tabla_download_<?php echo $value['id_tabla_term'];?>')"><i class="fas fa-download"></i>
+                  <button type="button" class="btn btn-tool" onClick="downloadExcelTerm('term_tabla_download_<?php echo $value['id_tabla_term'];?>','<?php echo $value['marca'].$value['diseno']; ?>','<?php echo $hoy;?>')"><i class="fas fa-file-excel"></i>
+                   <button type="button" data-toggle="tooltip" title="Ingresar a inventario" class="btn btn-tool" onClick="ingresosGeneral();"><i class="far fa-arrow-alt-circle-down"></i>
+                  </button>
                   </button>                  
                 </div><!-- /.card-tools -->                
               </div><!--./Card header-->
@@ -120,7 +122,6 @@ require_once("links_js.php");
 ?>
 <script type="text/javascript" src="../js/productos.js"></script>
 <script type="text/javascript" src="../js/stock.js"></script>
-
 
 <script>  
   function openWin() {
@@ -176,6 +177,7 @@ function dragElement(elmnt) {
     document.onmousemove = null;
   }
 }
+
 </script>
 </footer>
 </div>
