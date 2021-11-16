@@ -104,4 +104,29 @@ switch ($_GET["op"]){
     }
     break;
 
+
+case "get_codigo_barra":
+  date_default_timezone_set('America/El_Salvador'); $now = date("mY");
+  $tipo_lente = $_POST['tipo_lente'];
+  $identificador = $_POST['identificador'];
+  $tipo_lente == 'Terminado'? $tl = '01': $tl = '02';
+  $datos= $productos->getCodigoBarra($tipo_lente);
+
+  if(is_array($datos)==true and count($datos)>0){
+    foreach($datos as $row){
+      $numero_orden = substr($row["codigo"],8,15)+1;
+      $output["codigolente"] = $tl.$now.$numero_orden;
+    }  
+
+  }else{
+        $output["codigolente"] = $tl.$now.'1';
+  }
+  echo json_encode($output);
+
+break;
+
+case 'registrar_codigo':
+  $productos->registrarCodigo($_POST['codigo'],$_POST['tipo_lente'],$_POST['identificador']);
+  break;
+
 }///Fin Switch

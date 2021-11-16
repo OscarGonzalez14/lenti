@@ -184,6 +184,8 @@ public function updateStockTerm($codigoProducto,$cantidad,$id_tabla,$esfera,$cil
     return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
   }
 
+  
+
 }
 
 	//$stock= new Stock();

@@ -35,7 +35,7 @@ body {
             <div class="input-group">
               <input type="text" class="form-control" id="codigo_term_ingreso" onchange="getLenteTermData()">
               <div class="input-group-append">
-                <span class="input-group-text bg-dark"><i class="far fa-edit"> </i></span>
+                <span class="input-group-text bg-dark"><i class="far fa-times-circle"> </i></span>
               </div>
             </div>
           </div>          

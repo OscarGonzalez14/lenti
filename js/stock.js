@@ -138,7 +138,7 @@ function getLenteTermData(){
     data:{codigoTerminado:codigoTerminado},
     cache: false,
     dataType:"json",
-    success:function(data){
+      success:function(data){
       $("#marca_lente_ingreso").val(data.marca);
       $("#dis_lente_ingreso").val(data.diseno);
       $("#esfera_terminado_ingreso").val(data.esfera);

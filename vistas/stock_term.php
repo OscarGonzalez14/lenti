@@ -79,9 +79,10 @@ if(isset($_SESSION["usuario"])){
         foreach ($tablas_term as $value) {
           $id_tabla = $value['id_tabla_term'];
           ($id_tabla % 2 == 0) ? $color='dark': $color='primary';
-         ?>
-            <div class="col-md-12" id="sphgreen" style="">
-            <div class="card card-<?php echo $color;?> collapsed-card">
+          ($id_tabla % 2 == 0) ? $borde='#292b2c': $borde='#5bc0de';
+        ?>
+            <div class="col-md-12" id="sphgreen">
+            <div class="card card-<?php echo $color;?> collapsed-card" style="border: solid 1px <?php echo $borde;?>">
               <div class="card-header">
                 <h5 class="card-title" style="font-size: 14px"><?php echo $value['titulo']; ?></h5>
                 <div class="card-tools">
