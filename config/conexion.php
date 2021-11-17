@@ -32,5 +32,5 @@ class Conectar {
 }
 //######### cierre de llave conectar #####
 ########### TOKEN DE GITHUB ###############
-// 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 //
+// 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 //
 ?>
