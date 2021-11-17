@@ -614,7 +614,7 @@ function ver_datos_orden(cod_orden_act){
       $("#paciente_orden").val(data.paciente);
       $("#optica_orden").val(data.id_optica);
       $("#optica_sucursal").val(data.id_sucursal);
-     // $("#marca_base").val(data.trat_orden);
+
 
       let items_orden = {
         codigo : data.codigo,

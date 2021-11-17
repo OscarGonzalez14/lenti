@@ -14,12 +14,14 @@ $datos_orden = $reporteria->get_datos_orden($_POST['codigo']);
 $datos_rxfinal = $reporteria->get_orden_rxfinal($_POST["codigo"]);
 $datos_alturas = $reporteria->get_alturas_orden($_POST["codigo"]);
 $datos_aros = $reporteria->get_det_aros_orden($_POST["codigo"]);
+$titulo = 'ORDEN DE PRODUCCIÓN';
+
 //print_r($datos_alturas);exit();
 foreach ($datos_orden as $v){
-  $paciente = $v["paciente"];
-  $tipo_lente = $v["tipo_lente"];
-  $trat_orden = $v["trat_orden"];
-  $codigo = $v["codigo"];
+	$paciente = $v["paciente"];
+	$tipo_lente = $v["tipo_lente"];
+	$trat_orden = $v["trat_orden"];
+	$codigo = $v["codigo"];
   $optica = $v["optica"];
   $sucursal = $v["sucursal"];
   $tipo_lente = $v["tipo_lente"];
@@ -58,27 +60,27 @@ foreach ($datos_aros as $aros) {
 <html>
 <head>
 <link rel="stylesheet" href="../estilos/styles.css">
-<meta charset="utf-8">  
-
+<meta charset="utf-8">	
 </head>
 <body>
-  <table class="table2 stilot1 " style="margin:5px; width:100%;border-collapse: collapse;">
-  <tr>
-    <th colspan="50" class="encabezado" style="text-align:center; font-size:16px width=100% ;font-family: Helvetica, Arial, sans-serif;"><strong>ORDEN NÚMERO: <?php echo $codigo; ?></strong> 
-    </th>
-  </tr>
-  <tr>
-    <td colspan="26"><strong>PACIENTE</strong></td>
-    <td colspan="12"><strong>ÓPTICA</strong></td>
-    <td colspan="12"><strong>SUCURSAL</strong></td>
-  </tr>
-  <tr>
-    <td colspan="26"><?php echo $paciente; ?></td>
-    <td colspan="12"><?php echo $optica; ?></td>
-    <td colspan="12"><?php echo $sucursal; ?></td>
-  </tr>
-  <tr>
-    <th colspan="50"><span class="subt">ESPECIFICACIONES DE LENTE</span></th>
+  <table width="100%" style="margin-top:20px;">
+    <tr>
+      <th colspan="10"><img src="../dist/img/lenti_logo.png" width="55" height="45"/></th>
+      <th colspan="70" style="text-align: center;margin-top: 0px;color:#0088b6;font-size:14px;font-family: Helvetica, Arial, sans-serif;"><b>ORDEN DE PRODUCCIÓN</b></th>
+      <th colspan="20"><strong>ORDEN</strong><br><strong style="color:red;">No.&nbsp;<span><?php echo $codigo; ?></strong></th>
+    </tr>
+
+  </table>
+  <table class="clase_table" width="100%" style="text-align:center;margin-top:8px;text-transform: uppercase;">
+      <tr class="cladse_table">
+      <td colspan="50"><span><strong>PACIENTE: </strong></span><?php echo $paciente; ?></td>
+      <td colspan="25" style="border-left:1px solid #0275d8 ;"><span><strong>OPTICA: </strong></span><?php echo $optica; ?></td>
+      <td colspan="25" style="border-left:1px solid #0275d8 ;"><span><strong>SUCURSAL: </strong></span><?php echo $sucursal; ?></td>
+    </tr> 
+  </table>
+  <table class="table3" width="100%" style="text-align:center;margin-top:15px;border-radius:5px;">
+    <tr>
+    <th colspan="50" style="background-color:#D8D8D8;"><span>ESPECIFICACIONES DE LENTE</span></th>
   </tr>
   <tr>
     <td colspan="13"><strong>LENTE</strong></td>
@@ -90,12 +92,14 @@ foreach ($datos_aros as $aros) {
     <td colspan="13"><?php echo $trat_orden; ?></td>
     <td colspan="24"></td>
   </tr>
-  <tr>
-  <th colspan="50"><span class="subt">GRADUACIÓN (RX FINAL) Y MEDIDAS</span></th>
-  </tr>
+  </table>
+  <table width="100%" style="margin-top:15px">
   <tr>
     <td colspan="25" style="align-items:center; width: 100%;">
      <table class="table3" width="100%">
+      <tr>
+        <th colspan="100" style="background-color:#D8D8D8;"><span class="subt">GRADUACIÓN (RX FINAL)</span></th> 
+      </tr>
        <tr>
          <th colspan="10">OJO</th>
          <th colspan="18">ESFERAS</th>
@@ -105,7 +109,7 @@ foreach ($datos_aros as $aros) {
          <th colspan="18">PRISMA</th>
        </tr>
        <tr>
-         <td colspan="10">OD</td>
+         <td colspan="10"><strong>OD</strong></td>
          <td colspan="18"><?php echo $odesferas ?></td>
          <td colspan="18"><?php echo $odcindros ?></td>
          <td colspan="18"><?php echo $odeje ?></td>
@@ -113,7 +117,7 @@ foreach ($datos_aros as $aros) {
          <td colspan="18"><?php echo $odprisma ?></td>
        </tr>
        <tr>
-         <td colspan="10">OI</td>
+         <td colspan="10"><strong>OI</strong></td>
          <td colspan="18"><?php echo $oiesferas ?></td>
          <td colspan="18"><?php echo $oicindros ?></td>
          <td colspan="18"><?php echo $oieje ?></td>
@@ -124,6 +128,9 @@ foreach ($datos_aros as $aros) {
     </td>
     <td colspan="25" style="align-items:center; width: 100%;">
       <table class="table3">
+        <tr>
+         <th colspan="70" style="background-color:#D8D8D8;"><span class="subt">MEDIDAS</span></th> 
+        </tr>
        <tr>
          <th colspan="10">OJO</th>
          <th colspan="20">DIST. PUPILAR</th>
@@ -145,24 +152,28 @@ foreach ($datos_aros as $aros) {
      </table>
     </td>
    </tr>
+  </table>
+  <table width="100%" class="table3" style="margin-top:15px;">
    <tr>
-    <th colspan="50"><span class="subt">ESPECIFICACIONES DE ARO</span></th> 
+    <th colspan="50" style="background-color:#D8D8D8; margin-top: 15px;"><span>ESPECIFICACIONES DE ARO</span></th> 
    </tr>
    <tr>
-    <td colspan="13"><strong>MARCA</strong></td>
-    <td colspan="13"><strong>MODELO</strong></td>
-    <td colspan="12"><strong>COLOR</strong></td>
-    <td colspan="12"><strong>DISEÑO</strong></td>
+    <td colspan="23"><strong>MARCA</strong></td>
+    <td colspan="9"><strong>MODELO</strong></td>
+    <td colspan="9"><strong>COLOR</strong></td>
+    <td colspan="9"><strong>DISEÑO</strong></td>
    </tr>
    <tr>
-    <td colspan="13"><?php echo $marca ?></td>
-    <td colspan="13"><?php echo $modelo ?></td>
-    <td colspan="12"><?php echo $color ?></td>
-    <td colspan="12"><?php echo $diseno ?></td>
+    <td colspan="23"><?php echo $marca ?></td>
+    <td colspan="9"><?php echo $modelo ?></td>
+    <td colspan="9"><?php echo $color ?></td>
+    <td colspan="9"><?php echo $diseno ?></td>
    </tr>
+  </table>
+  <table width="100%" class="table3" style="margin-top:15px;">
    <tr>
-    <th colspan="50" class="subt" style="text-align: left;"><span> OBSERVACIONES: <span style="color:#0431B4"><?php echo $observaciones;?></span></th> 
-   </tr>
+    <th colspan="50" style="text-align:left;margin-top:15px;padding:5px;"><span> OBSERVACIONES: <span style="color:#0431B4"><?php echo $observaciones;?></span></th> 
+   </tr> 
   </table>
 </body>
 </html>

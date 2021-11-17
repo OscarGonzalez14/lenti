@@ -17,6 +17,13 @@
    background-color:#f8f8f8; 
   }
 
+  .subt h2:after,.subt h2:before {
+   content: "";
+   display: block;
+   border-bottom: 2px solid #ccc;
+   text-align: center;
+  }
+
   .log{
     display: block;
     margin-left: auto;
@@ -88,4 +95,64 @@ input[type=submit] {
 .autocomplete-active {
   background-color: DodgerBlue !important; 
   color: #ffffff; 
+}
+
+html{
+  margin-top: 2;
+  margin-left: 8px;
+  margin-right:8px; 
+  margin-bottom: 0;
+}
+body{
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+}
+aside{
+  font-size:14px;
+}
+.stilot1{
+  border: 1px solid black;
+  padding: 2.5px;
+  font-size: 12px;
+  font-family: Helvetica, Arial, sans-serif;
+  text-align: center;
+
+}
+
+.table3 tr td {
+text-align: center;
+border: 1px solid black;
+}
+
+.table2 {
+  margin-top: 5px;
+  border-collapse: collapse;
+  text-transform: uppercase;
+}
+.encabezado{
+  font-size: 12px;
+  background: #E8E8E8;
+}
+
+.table3{
+  width: 100%;
+  text-transform: uppercase;
+  border-collapse: separate;
+  border-collapse: collapse;
+  border-spacing: 10px 5px;
+  border: 1px solid black;
+}
+.subt tr th {
+  border-collapse: separate;
+  border-spacing: 10px 5px;
+  border: 1px solid black;
+  font-size:13px;
+  width:100%;
+  font-family: Helvetica, Arial, sans-serif;
+}
+.clase_table {
+  border: 1px solid #0275d8;
+  border-radius: 5px;
+  -moz-border-radius: 20px;
+  padding: 2px;
 }
