@@ -50,22 +50,50 @@ $(document).on('shown.bs.modal', function (e) {
 });
 
 
- function create_barcode_interno(){ 
+ function create_barcode_interno_term(){
+  let tipo_lente = 'Terminado';
+  let identificador = $("#id_td").val()
   Swal.fire({
   title: 'Código interno?',
   text: "Desea generar un codigo Interno",
   icon: 'warning',
-  showCancelButton: false,
+  showCancelButton: true,
   confirmButtonColor: '#3085d6',
   cancelButtonColor: '#d33',
-  cancelButtonText: 'No',
-  confirmButtonText: 'Si!'
+  cancelButtonText: 'NO',
+  confirmButtonText: 'SI'
   }).then((result) => {
   if (result.isConfirmed) {
-   $("#codigob_lente").val('12785')
+    $.ajax({
+    url:"../ajax/productos.php?op=get_codigo_barra",
+    method:"POST",
+    data:{tipo_lente:tipo_lente,identificador:identificador},
+    cache: false,
+    dataType:"json",
+      success:function(data){
+        let codigo = data.codigolente;
+        $("#codigo_lente_term").val(data.codigolente);
+        $("#new_barcode_lens").modal('hide');
+        registrar_codigo(codigo,tipo_lente,identificador);
+    }      
+  });
   }
 })
  
+}
+
+function registrar_codigo(codigo,tipo_lente,identificador){
+    
+    $.ajax({
+    url:"../ajax/productos.php?op=registrar_codigo",
+    method:"POST",
+    data:{tipo_lente:tipo_lente,identificador:identificador,codigo:codigo},
+    cache: false,
+    dataType:"json",
+      success:function(data){
+        
+    }      
+  });
 }
 
 //////////////////////////AUTOCOMPLETADO DE CAMPOS ////////////////

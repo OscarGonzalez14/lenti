@@ -11,7 +11,7 @@ if(isset($_SESSION["usuario"])){
   <title>Home</title>
 <?php require_once("links_plugin.php"); 
  require_once('../modelos/Productos.php');
- require_once('../modales/warehouseIncome/vs_argreen_essilor.php');
+ require_once('../modales/warehouseIncome/modalIngresosTerm.php');
  require_once('../modales/new_barcode_lentes.php');
  ?>
 <style>
