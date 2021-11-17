@@ -41,7 +41,7 @@ body {
             <label for="">Codigo</label>
             <div class="input-group">
               <input type="text" class="form-control" id="codigo_lente_term" readonly="">
-              <div class="input-group-append" onClick="buscarAro()" id="buscar_aro">
+              <div class="input-group-append" onClick='editCode();'>
                 <span class="input-group-text bg-dark"><i class="far fa-edit"> </i></span>
               </div>
             </div>

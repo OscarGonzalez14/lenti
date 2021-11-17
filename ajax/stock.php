@@ -42,15 +42,19 @@ switch ($_GET["op"]){
 	break;
 
 	case 'getDataTerminados':
+	    $data_codigo = $stock->verificarCodigo($_POST['codigoTerminado']);
 		$data = $stock->getDataTerminados($_POST['codigoTerminado']);
-
-		if(is_array($data)==true and count($data)>0){
+        if(is_array($data_codigo)==true and count($data_codigo)>0){
+		    if(is_array($data)==true and count($data)>0){
 			foreach ($data as $v) {
 				$output["marca"] = $v["marca"];
             	$output["diseno"] = $v["diseno"];
                 $output["cilindro"] = $v["cilindro"];
             	$output["esfera"] = $v["esfera"];
             }
+		}
+	    }else{
+		    	$output = "Vacio";
 		}
         echo json_encode($output);
 		break;

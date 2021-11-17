@@ -176,15 +176,22 @@ public function updateStockTerm($codigoProducto,$cantidad,$id_tabla,$esfera,$cil
   public function getDataTerminados($codigoProducto){    
     $conectar=parent::conexion();
     parent::set_names();
-
-    $sql = 'select t.id_tabla_term,t.marca,t.diseno,s.esfera,s.cilindro,s.stock,s.codigo from tablas_terminado as t inner join stock_terminados as s on t.id_tabla_term=s.id_tabla_term where s.codigo = ?';
+    $sql = 'select t.id_tabla_term,t.marca,t.diseno,s.esfera,s.cilindro,s.stock,s.codigo,s. from tablas_terminado as t inner join stock_terminados as s on t.id_tabla_term=s.id_tabla_term where s.codigo=?';
     $sql = $conectar->prepare($sql);
     $sql->bindValue(1, $codigoProducto);
     $sql->execute();
     return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  
+  public function verificarCodigo($codigo){
+    $conectar=parent::conexion();
+    parent::set_names();
+    $sql = "select codigo from stock_terminados where codigo = ?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1, $codigo);
+    $sql->execute();
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+  }
 
 }
 

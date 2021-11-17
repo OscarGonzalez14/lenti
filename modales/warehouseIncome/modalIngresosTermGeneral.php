@@ -34,7 +34,7 @@ body {
             <label for="">Codigo</label>
             <div class="input-group">
               <input type="text" class="form-control" id="codigo_term_ingreso" onchange="getLenteTermData()">
-              <div class="input-group-append">
+              <div class="input-group-append" onClick='clearCode();'>
                 <span class="input-group-text bg-dark"><i class="far fa-times-circle"> </i></span>
               </div>
             </div>
@@ -71,10 +71,10 @@ body {
       </div>
       </div>
       <input type="hidden" id="id_lente_term">
-      <input type="hidden" id="id_td">
-      <input type="hidden" id="id_tabla">
+      <input type="hidden" id="id_td_ingreso">
+      <input type="hidden" id="id_tabla_ingreso">
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary btn-block" onClick='setStockTerminados()'>REGISTRAR INGRESO</button>
+        <button type="button" class="btn btn-primary btn-block" onClick='setStockTerminadosUpdate()'>REGISTRAR INGRESO</button>
       </div>
     </div>
   </div>

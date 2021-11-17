@@ -1,3 +1,23 @@
+function init(){
+  $(".modal-header").on("mousedown", function(mousedownEvt) {
+    let $draggable = $(this);
+    let x = mousedownEvt.pageX - $draggable.offset().left,
+        y = mousedownEvt.pageY - $draggable.offset().top;
+    $("body").on("mousemove.draggable", function(mousemoveEvt) {
+    $draggable.closest(".modal-dialog").offset({
+    "left": mousemoveEvt.pageX - x,
+      "top": mousemoveEvt.pageY - y
+    });
+    });
+    $("body").one("mouseup", function() {
+      $("body").off("mousemove.draggable");
+    });
+    $draggable.closest(".modal").one("bs.modal.hide", function() {
+        $("body").off("mousemove.draggable");
+    });
+  });
+}
+
 
 function get_dataTableTerm(id_tabla,div_tabla){
 	  $.ajax({
@@ -23,6 +43,7 @@ function getDataIngresoModal(esfera,cilindro,codigo,marca,diseno,titulo,id_td,id
 	$('#title_modal_term').html(titulo);
 	$('#id_td').val(id_td);
 	$('#id_tabla').val(id_tabla);
+  $('#cant_ingreso').val('0');
 	if (codigo=="" || codigo==null || codigo==undefined){
 		$("#new_barcode_lens").modal('show');
 		$('#new_barcode_lens').on('shown.bs.modal', function() {
@@ -31,6 +52,19 @@ function getDataIngresoModal(esfera,cilindro,codigo,marca,diseno,titulo,id_td,id
 	});
 
    }
+}
+
+function editCode(){
+  $("#new_barcode_lens").modal('show');
+  $('#new_barcode_lens').on('shown.bs.modal', function() {
+  $('#codebar_lente').val('');
+  $('#codebar_lente').focus();
+  });
+}
+
+function clearCode(){
+  $('#codigo_term_ingreso').val('');
+  $('#codigo_term_ingreso').focus();
 }
 
 function set_code_bar(){
@@ -130,7 +164,8 @@ function ingresosGeneral(){
 }
 
 function getLenteTermData(){
-  let codigoTerminado = $('#codigo_term_ingreso').val();
+
+    let codigoTerminado = $('#codigo_term_ingreso').val();
 
     $.ajax({
     url:"../ajax/stock.php?op=getDataTerminados",
@@ -139,11 +174,37 @@ function getLenteTermData(){
     cache: false,
     dataType:"json",
       success:function(data){
-      $("#marca_lente_ingreso").val(data.marca);
-      $("#dis_lente_ingreso").val(data.diseno);
-      $("#esfera_terminado_ingreso").val(data.esfera);
-      $("#cilindro_terminado_ingreso").val(data.cilindro);
-    }      
+      if(data!="Vacio"){
+        $("#marca_lente_ingreso").val(data.marca);
+        $("#dis_lente_ingreso").val(data.diseno);
+        $("#esfera_terminado_ingreso").val(data.esfera);
+        $("#cilindro_terminado_ingreso").val(data.cilindro);
+      }else if(data=="Vacio"){
+        alerts_productos("error", "Codigo no existe");
+        return false;
+      } 
+    }     
   });
 
 }
+
+function setStockTerminadosUpdate(){
+  let codigo = $("#codigo_ingreso").val();
+  let td = $("#id_td_ingreso").val();
+  let id_tabla = $("#id_tabla_ingreso").val();
+
+ // console.log(`codigo ${codigo} td ${td} id_tabla ${id_tabla}`);
+
+  $.ajax({
+    url:"../ajax/stock.php?op=updateTerminados",
+    method:"POST",
+    data:{codigo:codigo,td:td,id_tabla:id_tabla},
+    cache: false,
+    dataType:"json",
+    success:function(data){
+
+    }
+  });
+}
+
+init();

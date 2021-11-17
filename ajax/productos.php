@@ -109,7 +109,7 @@ case "get_codigo_barra":
   date_default_timezone_set('America/El_Salvador'); $now = date("mY");
   $tipo_lente = $_POST['tipo_lente'];
   $identificador = $_POST['identificador'];
-  $tipo_lente == 'Terminado'? $tl = '01': $tl = '02';
+  $tipo_lente == 'Terminado' ? $tl = '01': $tl = '02';
   $datos= $productos->getCodigoBarra($tipo_lente);
 
   if(is_array($datos)==true and count($datos)>0){
