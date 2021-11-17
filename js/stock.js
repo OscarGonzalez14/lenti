@@ -193,7 +193,7 @@ function setStockTerminadosUpdate(){
   let td = $("#id_td_ingreso").val();
   let id_tabla = $("#id_tabla_ingreso").val();
 
- // console.log(`codigo ${codigo} td ${td} id_tabla ${id_tabla}`);
+  console.log(`codigo ${codigo} td ${td} id_tabla ${id_tabla}`);
 
   $.ajax({
     url:"../ajax/stock.php?op=updateTerminados",

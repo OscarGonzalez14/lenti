@@ -107,6 +107,9 @@ body{
   font-family: Helvetica, Arial, sans-serif;
   font-size: 12px;
 }
+aside{
+  font-size:14px;
+}
 .stilot1{
   border: 1px solid black;
   padding: 2.5px;
@@ -116,7 +119,7 @@ body{
 
 }
 
-.table2 tr td {
+.table3 tr td {
 text-align: center;
 border: 1px solid black;
 }
@@ -133,6 +136,7 @@ border: 1px solid black;
 
 .table3{
   width: 100%;
+  text-transform: uppercase;
   border-collapse: separate;
   border-collapse: collapse;
   border-spacing: 10px 5px;
@@ -145,4 +149,10 @@ border: 1px solid black;
   font-size:13px;
   width:100%;
   font-family: Helvetica, Arial, sans-serif;
+}
+.clase_table {
+  border: 1px solid #0275d8;
+  border-radius: 5px;
+  -moz-border-radius: 20px;
+  padding: 2px;
 }

@@ -5,7 +5,7 @@ class Conectar {
  	protected $dbh;
  	protected function conexion(){
  	try {
-	    $conectar = $this->dbh = new PDO("mysql:local=localhost;dbname=lenti","jackeline","jack93");
+	    $conectar = $this->dbh = new PDO("mysql:local=localhost;dbname=lenti","root","");
 		return $conectar;
     }catch (Exception $e) {
  			print "¡Error!: " . $e->getMessage() . "<br/>";
@@ -29,7 +29,8 @@ class Conectar {
 	    return $string;
 	}
 
-}//cierre de llave conectar
-###########TOKEN DE GITHUB###############
-//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
+}
+//######### cierre de llave conectar #####
+########### TOKEN DE GITHUB ###############
+// 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 //
 ?>
