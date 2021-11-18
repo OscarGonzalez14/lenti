@@ -1,3 +1,35 @@
+document.addEventListener('keydown',handleInputFocusTransfer);
+function handleInputFocusTransfer(e){
+  const focusableInputElements= document.querySelectorAll('.cant_ingreso');  
+  const focusable= [...focusableInputElements]; 
+  const index = focusable.indexOf(document.activeElement);
+  let nextIndex = 0;
+  if (e.keyCode === 38) {
+    e.preventDefault();
+    nextIndex= index > 0 ? index-1 : 0;
+    focusableInputElements[nextIndex-1].focus();
+    focusableInputElements[nextIndex-1].select();  
+
+  }
+  else if (e.keyCode === 40) {
+    e.preventDefault();
+    nextIndex= index+1 < focusable.length ? index+1 : index;
+    focusableInputElements[nextIndex+1].focus();
+    let ids = focusableInputElements[nextIndex+1].select();
+  }else if(e.keyCode === 37){
+    e.preventDefault();
+    nextIndex= index > 0 ? index-1 : 0;
+    focusableInputElements[nextIndex].focus();
+    let ids = focusableInputElements[nextIndex].select();
+  }else if(e.keyCode === 39){
+    e.preventDefault();
+    nextIndex= index+1 < focusable.length ? index+1 : index;
+    focusableInputElements[nextIndex].focus();
+    let ids = focusableInputElements[nextIndex].select();
+  }
+}
+
+
 function init(){
   $(".modal-header").on("mousedown", function(mousedownEvt) {
     let $draggable = $(this);
@@ -155,16 +187,18 @@ key('⌘+i, ctrl+i', function(){
   ingresosGeneral();
 });
 
-function ingresosGeneral(){
+function ingresosGeneral(){  
   $("#modal_ingresos_term_general").modal('show');
   $('#modal_ingresos_term_general').on('shown.bs.modal', function() {
   $('#codigo_term_ingreso').val('');
   $('#codigo_term_ingreso').focus();
   });
+  ingresos_inventario = [];
+  $("#items_ingresos_terminados").html("");
 }
-
+var ingresos_inventario = [];
 function getLenteTermData(){
-
+  
     let codigoTerminado = $('#codigo_term_ingreso').val();
 
     $.ajax({
@@ -174,19 +208,47 @@ function getLenteTermData(){
     cache: false,
     dataType:"json",
       success:function(data){
+      console.log(data)
       if(data!="Vacio"){
-        $("#marca_lente_ingreso").val(data.marca);
-        $("#dis_lente_ingreso").val(data.diseno);
-        $("#esfera_terminado_ingreso").val(data.esfera);
-        $("#cilindro_terminado_ingreso").val(data.cilindro);
+        let item_lente = {
+          marca : data.marca,
+          diseno : data.diseno,
+          esfera : data.esfera,
+          cilindro : data.cilindro,
+          cantidad : 1,
+          costo : 0
+        }
+        ingresos_inventario.push(item_lente);
+        listar_items_ingreso_term();
+        clearCode();
       }else if(data=="Vacio"){
         alerts_productos("error", "Codigo no existe");
-        return false;
+          return false;
       } 
     }     
   });
 
 }
+
+function listar_items_ingreso_term(){
+  $("#items_ingresos_terminados").html("");
+  var filas = '';
+
+  for(var i=0; i<ingresos_inventario.length; i++){
+    var filas = filas + "<tr>"+
+    "<td>"+(i+1)+"</td>"+
+    "<td>"+ingresos_inventario[i].esfera+"</td>"+
+    "<td>"+ingresos_inventario[i].cilindro+"</td>"+
+    "<td>"+ingresos_inventario[i].marca+"</td>"+
+    "<td>"+ingresos_inventario[i].diseno+"</td>"+
+    "<td>"+"<input type='text' value='1' class='form-control cant_ingreso' style='height:25px;text-align:center'>"+"</td>"+
+    "<td>"+"<input type='text' value='1' class='form-control cant_ingreso'style='height:25px;text-align:center'>"+"</td>"+
+    "<td>"+"<i class='fas fa-trash'></i>"+"</td>"+        
+    "</tr>";
+  }
+   $('#items_ingresos_terminados').html(filas);  
+}
+
 
 function setStockTerminadosUpdate(){
   let codigo = $("#codigo_ingreso").val();
