@@ -14,7 +14,16 @@ $datos_orden = $reporteria->get_datos_orden($_POST['codigo']);
 $datos_rxfinal = $reporteria->get_orden_rxfinal($_POST["codigo"]);
 $datos_alturas = $reporteria->get_alturas_orden($_POST["codigo"]);
 $datos_aros = $reporteria->get_det_aros_orden($_POST["codigo"]);
+$tratamientos = $reporteria->get_tratamientos_orden($_POST["codigo"]);
+$items_trat = array();
 $titulo = 'ORDEN DE PRODUCCIÓN';
+
+for ($i=0; $i < count($tratamientos);$i++) {
+ 
+  array_push($items_trat,$tratamientos[$i]['tratamiento']);  
+
+} 
+$tratamientos_lente = implode(', ',$items_trat);
 
 //print_r($datos_alturas);exit();
 foreach ($datos_orden as $v){
@@ -54,6 +63,9 @@ foreach ($datos_aros as $aros) {
   $color = $aros["color"];
   $diseno = $aros["diseno"];
 }
+foreach ($tratamientos as $tor) {
+  $tratamiento = $tor["tratamiento"];
+}
 ?>
 
 
@@ -90,7 +102,7 @@ foreach ($datos_aros as $aros) {
   <tr>
     <td colspan="13"><?php echo $tipo_lente; ?></td>
     <td colspan="13"><?php echo $trat_orden; ?></td>
-    <td colspan="24"></td>
+    <td colspan="24"><?php echo $tratamientos_lente; ?></td>
   </tr>
   </table>
   <table width="100%" style="margin-top:15px">
