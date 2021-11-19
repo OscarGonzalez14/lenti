@@ -97,6 +97,10 @@ function editCode(){
 key('⌘+space, control+space', function(){ 
   clearCode();
 });
+key('⌘+j, ctrl+j', function(event, handler){
+  console.log('helloWord');
+});
+
 
 function clearCode(){
   $('#codigo_term_ingreso').val('');
@@ -219,14 +223,18 @@ function getLenteTermData(){
           esfera : data.esfera,
           cilindro : data.cilindro,
           cantidad : 1,
-          costo : 0
+          costo : 0,
+          stock : data.stock,
+          codigo : data.codigo
         }
         ingresos_inventario.push(item_lente);
         listar_items_ingreso_term();
         clearCode();
       }else if(data=="Vacio"){
         alerts_productos("error", "Codigo no existe");
-          return false;
+        var error = document.getElementById("error_sound_ingreso"); 
+        error.play();
+        clearCode();
       } 
     }     
   });
@@ -236,22 +244,33 @@ function getLenteTermData(){
 function listar_items_ingreso_term(){
   $("#items_ingresos_terminados").html("");
   var filas = '';
-
-  for(var i=0; i<ingresos_inventario.length; i++){
-    var filas = filas + "<tr>"+
+  let tam_array = (ingresos_inventario.length)-1; 
+  for(var i=tam_array; i >= 0; i--){
+    var filas = filas + "<tr id='fila"+i+"'>"+
     "<td>"+(i+1)+"</td>"+
+    "<td>"+ingresos_inventario[i].codigo+"</td>"+
     "<td>"+ingresos_inventario[i].esfera+"</td>"+
     "<td>"+ingresos_inventario[i].cilindro+"</td>"+
     "<td>"+ingresos_inventario[i].marca+"</td>"+
     "<td>"+ingresos_inventario[i].diseno+"</td>"+
-    "<td>"+"<input type='text' value='1' class='form-control cant_ingreso' style='height:25px;text-align:center'>"+"</td>"+
+    "<td>"+ingresos_inventario[i].stock+"</td>"+
+    "<td>"+"<input type='text' value='1' class='form-control cant_ingreso' style='height:25px;text-align:center' id='cant_"+i+"'>"+"</td>"+
     "<td>"+"<input type='text' value='1' class='form-control cant_ingreso'style='height:25px;text-align:center'>"+"</td>"+
-    "<td>"+"<i class='fas fa-trash'></i>"+"</td>"+        
+    "<td>"+"<i class='fas fa-trash' onClick='eliminarFila("+i+");'></i>"+"</td>"+        
     "</tr>";
   }
-   $('#items_ingresos_terminados').html(filas);  
-}
+    $('#items_ingresos_terminados').html(filas);
+  }
 
+  function eliminarFila(index) {
+    $("#fila" + index).remove();
+    drop_index(index);
+  }
+
+  function drop_index(position_element){
+    ingresos_inventario.splice(position_element, 1);
+    listar_items_ingreso_term();
+  }
 
 function setStockTerminadosUpdate(){
   let codigo = $("#codigo_ingreso").val();

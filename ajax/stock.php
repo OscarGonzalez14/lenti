@@ -51,6 +51,8 @@ switch ($_GET["op"]){
             	$output["diseno"] = $v["diseno"];
                 $output["cilindro"] = $v["cilindro"];
             	$output["esfera"] = $v["esfera"];
+            	$output["stock"] = $v["stock"];
+            	$output["codigo"] = $v["codigo"];
             }
 		}
 	    }else{

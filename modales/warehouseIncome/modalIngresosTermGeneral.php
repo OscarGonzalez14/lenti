@@ -50,12 +50,14 @@ body {
             <table style="width: 100%;font-family: Helvetica, Arial, sans-serif;text-align: center;font-size: 14px" width="100%" class="table-bordered table-hover">
               <thead class="bg-dark">
                 <td style="width: 5%">#</td>
-                <td style="width: 16%">Base</td>
-                <td style="width: 16%">Cilindro</td>
-                <td style="width: 16%">Marca</td>
-                <td style="width: 16%">Diseño</td>
-                <td style="width: 10%">Cantidad</td>
-                <td style="width: 10%">Costo</td>
+                <td style="width: 7%">Codigo</td>
+                <td style="width: 13%">Base</td>
+                <td style="width: 13%">Cilindro</td>
+                <td style="width: 13%">Marca</td>
+                <td style="width: 13%">Diseño</td>
+                <td style="width: 9%">Stock act.</td>
+                <td style="width: 9%">Cantidad</td>
+                <td style="width: 9%">Costo</td>
                 <td style="width: 9%">Eliminar</td>
               </thead>
               <tbody id="items_ingresos_terminados"></tbody>
@@ -67,6 +69,7 @@ body {
       <input type="hidden" id="id_lente_term">
       <input type="hidden" id="id_td_ingreso">
       <input type="hidden" id="id_tabla_ingreso">
+      <audio id="error_sound_ingreso"><source src="../error-beep.wav" type="audio/wav"></audio> 
       <div class="modal-footer">
         <button type="button" class="btn btn-primary btn-block" onClick='setStockTerminadosUpdate()'>REGISTRAR INGRESO</button>
       </div>
