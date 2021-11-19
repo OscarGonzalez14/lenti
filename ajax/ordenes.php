@@ -338,6 +338,8 @@ case 'get_det_aros_orden':
 		echo json_encode("error");
 	}
 	break;
+
+
 }
 
 
