@@ -38,37 +38,31 @@ body {
                 <span class="input-group-text bg-dark"><i class="far fa-times-circle"> </i></span>
               </div>
             </div>
-          </div>          
-          <div class="col-sm-4" class="autocomplete">
-            <label for="">Marca</label>
-            <input type="text" class="form-control" name="" id="marca_lente_ingreso" readonly="">
-          </div>          
-          <div class="col-sm-4">
-            <label for="">Diseño</label>
-            <input type="text" class="form-control" id="dis_lente_ingreso" readonly="">
-          </div>          
-        </div>      
-      
-        <div class="eight" style="align-items: center;margin-top: 4px" id="flap_terminado_section">
-          <div class="d-flex justify-content-center form-row">          
-          <div class="form-group col-sm-2">
-              <label for="inlineRadio1">Esf.</label>
-              <input class="form-control" type="text" name="inlineRadioOptions" id="esfera_terminado_ingreso" readonly="">
-          </div>
-          <div class="form-group col-sm-2">
-            <label for="inlineRadio1">Cil.</label>
-              <input class="form-control" type="text" name="inlineRadioOptions" id="cilindro_terminado_ingreso" readonly="">
-          </div>
-          <div class="form-group col-sm-4">
-            <label for="inlineRadio1">Cant. Ingreso</label>
-              <input class="form-control" type="number" name="inlineRadioOptions" id="cant_ingreso__ingreso" value="0" placeholder="Unidades">
-          </div>
+          </div>     
           <div class="form-group col-sm-4">
             <label for="inlineRadio1">#CCF/Fact.</label>
               <input class="form-control" type="number" name="inlineRadioOptions" id="num_comprobante__ingreso" value="0" placeholder="Unidades">
-          </div>
+          </div>                   
         </div>
-      </div>
+
+        <!-- ITEMS INGRESO -->
+          <div>
+            <table style="width: 100%;font-family: Helvetica, Arial, sans-serif;text-align: center;font-size: 14px" width="100%" class="table-bordered table-hover">
+              <thead class="bg-dark">
+                <td style="width: 5%">#</td>
+                <td style="width: 16%">Base</td>
+                <td style="width: 16%">Cilindro</td>
+                <td style="width: 16%">Marca</td>
+                <td style="width: 16%">Diseño</td>
+                <td style="width: 10%">Cantidad</td>
+                <td style="width: 10%">Costo</td>
+                <td style="width: 9%">Eliminar</td>
+              </thead>
+              <tbody id="items_ingresos_terminados"></tbody>
+            </table>
+          </div>
+          <!-- fin ITEMS INGRESO -->      
+
       </div>
       <input type="hidden" id="id_lente_term">
       <input type="hidden" id="id_td_ingreso">

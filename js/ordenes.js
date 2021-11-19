@@ -144,6 +144,15 @@ function saveOrder(){
 } 
 
 function guardar_orden(){
+
+  let tratamientos = [];
+  $("input[name='chk_tratamientos']:checked").each(function(){
+      let obj = {
+      tratamiento : this.value        
+      }
+  tratamientos.push(obj);
+  });
+
   let contenedor = $("#contenedor_orden").val();
   if(contenedor==""){
     alerts("error","La orden debe ser asignada a un contenedor");
@@ -201,7 +210,7 @@ function guardar_orden(){
   $.ajax({
     url:"../ajax/ordenes.php?op=registrar_orden",
     method:"POST",
-    data:{'paciente':paciente,'observaciones':observaciones,'usuario':usuario,'id_sucursal':id_sucursal,
+    data:{'arrayTratamientos':JSON.stringify(tratamientos),'paciente':paciente,'observaciones':observaciones,'usuario':usuario,'id_sucursal':id_sucursal,
     'id_optica':id_optica,'tipo_orden':tipo_orden,'tipo_lente':tipo_lente,
     'odesferasf_orden':odesferasf_orden,'odcilindrosf_orden':odcilindrosf_orden,'odejesf_orden':odejesf_orden,'oddicionf_orden':oddicionf_orden,
     'odprismaf_orden':odprismaf_orden,'oiesferasf_orden':oiesferasf_orden,'oicilindrosf_orden':oicilindrosf_orden,'oiejesf_orden':oiejesf_orden,

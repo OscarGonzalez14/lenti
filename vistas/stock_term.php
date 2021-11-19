@@ -54,11 +54,6 @@ if(isset($_SESSION["usuario"])){
   .filas:hover {
     background-color: lightyellow;
   }
-  td:hover {
-  background: #e1f5f4;
-  color: black;
-}
-
 </style>
 
   <script src="../plugins/exportoExcel.js"></script>
