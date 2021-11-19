@@ -94,6 +94,10 @@ function editCode(){
   });
 }
 
+key('space', function(){ 
+  clearCode();
+});
+
 function clearCode(){
   $('#codigo_term_ingreso').val('');
   $('#codigo_term_ingreso').focus();
@@ -123,11 +127,11 @@ function setStockTerminados(){
 	$('#codebar_lente').focus();
 	});
 	  return false;
-   }
+  }
 
-   if(cantidad_ingreso=="0") {
-	alerts_productos("error", "Debe Especificar la cantidad a ingresar");
-	return false; 
+  if(cantidad_ingreso=="0") {
+	  alerts_productos("error", "Debe Especificar la cantidad a ingresar");
+	  return false; 
 	}
 
    $.ajax({
@@ -196,11 +200,10 @@ function ingresosGeneral(){
   ingresos_inventario = [];
   $("#items_ingresos_terminados").html("");
 }
-var ingresos_inventario = [];
-function getLenteTermData(){
-  
-    let codigoTerminado = $('#codigo_term_ingreso').val();
 
+var ingresos_inventario = [];
+function getLenteTermData(){  
+    let codigoTerminado = $('#codigo_term_ingreso').val();
     $.ajax({
     url:"../ajax/stock.php?op=getDataTerminados",
     method:"POST",
@@ -254,8 +257,6 @@ function setStockTerminadosUpdate(){
   let codigo = $("#codigo_ingreso").val();
   let td = $("#id_td_ingreso").val();
   let id_tabla = $("#id_tabla_ingreso").val();
-
-  console.log(`codigo ${codigo} td ${td} id_tabla ${id_tabla}`);
 
   $.ajax({
     url:"../ajax/stock.php?op=updateTerminados",

@@ -148,7 +148,7 @@ function guardar_orden(){
   let tratamientos = [];
   $("input[name='chk_tratamientos']:checked").each(function(){
       let obj = {
-        tratamiento : this.value        
+      tratamiento : this.value        
       }
   tratamientos.push(obj);
   });
