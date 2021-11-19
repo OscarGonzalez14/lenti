@@ -61,4 +61,15 @@ public function get_det_aros_orden($codigo){
     return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
+public function get_tratamientos_orden($codigo){
+  $conectar = parent::conexion();
+  parent::set_names();
+
+    $sql = "select tratamiento from tratamiento_orden where codigo=?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1, $codigo);
+    $sql->execute();
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
 }

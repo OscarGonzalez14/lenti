@@ -94,7 +94,7 @@ function editCode(){
   });
 }
 
-key('space', function(){ 
+key('⌘+space, control+space', function(){ 
   clearCode();
 });
 
