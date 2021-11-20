@@ -520,7 +520,7 @@ function detOrdenes(cod_orden_act){
       } 
       det_orden.push(items_orden);
     }
-  });
+});
 
   /////////////////GET DATA RX FINAL   
 

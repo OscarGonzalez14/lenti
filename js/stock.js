@@ -94,17 +94,15 @@ function editCode(){
   });
 }
 
-key('⌘+space, control+space', function(){ 
+
+key('escape', function(){
   clearCode();
-});
-key('⌘+j, ctrl+j', function(event, handler){
-  console.log('helloWord');
 });
 
 
 function clearCode(){
-  $('#codigo_term_ingreso').val('');
   $('#codigo_term_ingreso').focus();
+  $('#codigo_term_ingreso').val('');
 }
 
 function set_code_bar(){
@@ -201,6 +199,11 @@ function ingresosGeneral(){
   $('#codigo_term_ingreso').val('');
   $('#codigo_term_ingreso').focus();
   });
+
+  $('#modal_ingresos_term_general').modal({
+  backdrop: 'static',
+  keyboard: true
+})
   ingresos_inventario = [];
   $("#items_ingresos_terminados").html("");
 }
@@ -249,18 +252,23 @@ function listar_items_ingreso_term(){
     var filas = filas + "<tr id='fila"+i+"'>"+
     "<td>"+(i+1)+"</td>"+
     "<td>"+ingresos_inventario[i].codigo+"</td>"+
-    "<td>"+ingresos_inventario[i].esfera+"</td>"+
-    "<td>"+ingresos_inventario[i].cilindro+"</td>"+
     "<td>"+ingresos_inventario[i].marca+"</td>"+
     "<td>"+ingresos_inventario[i].diseno+"</td>"+
-    "<td>"+ingresos_inventario[i].stock+"</td>"+
-    "<td>"+"<input type='text' value='1' class='form-control cant_ingreso' style='height:25px;text-align:center' id='cant_"+i+"'>"+"</td>"+
+    "<td>"+ingresos_inventario[i].stock+" U."+"</td>"+
+    "<td>"+ingresos_inventario[i].esfera+"</td>"+
+    "<td>"+ingresos_inventario[i].cilindro+"</td>"+
+    "<td>"+"<input type='text' value='1' class='form-control cant_ingreso' style='height:25px;text-align:center' id='cant_"+i+"' onClick='setCantidadIng(event, this, "+(i)+");' onKeyUp='setCantidadIng(event, this, "+(i)+");'>"+"</td>"+
     "<td>"+"<input type='text' value='1' class='form-control cant_ingreso'style='height:25px;text-align:center'>"+"</td>"+
     "<td>"+"<i class='fas fa-trash' onClick='eliminarFila("+i+");'></i>"+"</td>"+        
     "</tr>";
   }
     $('#items_ingresos_terminados').html(filas);
-  }
+}
+
+function setCantidadIng(event, obj, idx){
+    event.preventDefault();
+    ingresos_inventario[idx].cantidad = parseInt(obj.value);
+}
 
   function eliminarFila(index) {
     $("#fila" + index).remove();
@@ -287,6 +295,21 @@ function setStockTerminadosUpdate(){
 
     }
   });
+}
+
+
+function registroMultiple(){
+ $.ajax({
+ url:"../ajax/stock.php?op=registroMultiple",
+ method: "POST",
+ data: {'lentesUpdate':JSON.stringify(ingresos_inventario)},
+ cache:  false,
+ dataType: "json",
+ success:function(data){
+   $("#modal_ingresos_term_general").modal("hide");
+   alerts_productos("success", "El inventario ha sido actualizado exitosamente");
+ }
+ });//Fin Ajax
 }
 
 init();

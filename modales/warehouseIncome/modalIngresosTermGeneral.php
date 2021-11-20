@@ -16,11 +16,18 @@
 }
 
 body {
-  font: 16px Arial;  
+  font: 16px Arial;
+}
+.header {
+  position: sticky;
+  top:0;
+  }
+.container {
+  overflow: auto;
 }
 </style>
-<div class="modal fade" id="modal_ingresos_term_general" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document" style="max-width: 85%">
+<div class="modal fade" id="modal_ingresos_term_general" tabindex="-1" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document" style="max-width: 85%">
     <div class="modal-content">
       <div class="modal-header" style="background: black;color: white">
         <h5 class="modal-title" id="title_modal_term"></h5>
@@ -48,17 +55,17 @@ body {
         <!-- ITEMS INGRESO -->
           <div>
             <table style="width: 100%;font-family: Helvetica, Arial, sans-serif;text-align: center;font-size: 14px" width="100%" class="table-bordered table-hover">
-              <thead class="bg-dark">
-                <td style="width: 5%">#</td>
-                <td style="width: 7%">Codigo</td>
-                <td style="width: 13%">Base</td>
-                <td style="width: 13%">Cilindro</td>
-                <td style="width: 13%">Marca</td>
-                <td style="width: 13%">Diseño</td>
-                <td style="width: 9%">Stock act.</td>
-                <td style="width: 9%">Cantidad</td>
-                <td style="width: 9%">Costo</td>
-                <td style="width: 9%">Eliminar</td>
+              <thead class="bg-dark" style="position: sticky;top: 0">
+                <td class="header" style="width: 5%">#</td>
+                <td class="header" style="width: 7%">Codigo</td>
+                <td class="header" style="width: 13%">Marca</td>
+                <td class="header" style="width: 13%">Diseño</td>
+                <td class="header" style="width: 9%">Stock act.</td>
+                <td class="header" style="width: 13%">Esfera</td>
+                <td class="header" style="width: 13%">Cilindro</td>
+                <td class="header" style="width: 9%">Cantidad</td>
+                <td class="header" style="width: 9%">Costo</td>
+                <td class="header" style="width: 9%">Eliminar</td>
               </thead>
               <tbody id="items_ingresos_terminados"></tbody>
             </table>
@@ -71,7 +78,7 @@ body {
       <input type="hidden" id="id_tabla_ingreso">
       <audio id="error_sound_ingreso"><source src="../error-beep.wav" type="audio/wav"></audio> 
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary btn-block" onClick='setStockTerminadosUpdate()'>REGISTRAR INGRESO</button>
+        <button type="button" class="btn btn-primary btn-block" onClick='registroMultiple()'>REGISTRAR INGRESO</button>
       </div>
     </div>
   </div>

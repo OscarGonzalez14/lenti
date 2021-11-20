@@ -60,4 +60,10 @@ switch ($_GET["op"]){
 		}
         echo json_encode($output);
 		break;
+
+	case 'registroMultiple':
+		$stock->registroMultiple();
+		$message = "Ok";
+		echo json_encode($message);	
+	break;
 }

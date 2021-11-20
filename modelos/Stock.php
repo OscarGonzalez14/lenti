@@ -193,6 +193,41 @@ public function updateStockTerm($codigoProducto,$cantidad,$id_tabla,$esfera,$cil
     return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
   }
 
+  public function registroMultiple(){
+    $conectar=parent::conexion();
+    parent::set_names();
+
+    $productosTerm = array();
+    $productosTerm = json_decode($_POST["lentesUpdate"]);
+
+    foreach ($productosTerm as $key => $value) {
+        $cantidad = $value->cantidad;
+        $codigo = $value->codigo;
+        $cilindro = $value->cilindro;
+        $esfera = $value->esfera;
+    
+    /////////// GET STOCK ACTUAL ///////////
+    $sql = "select stock from stock_terminados where codigo=? and esfera=? and cilindro=?";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1,$codigo);
+    $sql->bindValue(2,$esfera);
+    $sql->bindValue(3,$cilindro);
+    $sql->execute();    
+    $stock =$sql->fetchColumn();
+    $nuevo_stock = $stock+$cantidad;
+
+    $update = "update stock_terminados set stock=? where codigo=? and esfera=? and cilindro=?;";
+    $update = $conectar->prepare($update);
+    $update->bindValue(1,$nuevo_stock);
+    $update->bindValue(2,$codigo);
+    $update->bindValue(3,$esfera);
+    $update->bindValue(4,$cilindro);
+    $update->execute();
+    }//Fin foreach
+
+
+  }
+
 }
 
 	//$stock= new Stock();
