@@ -63,33 +63,34 @@ function valida_adicion(){
   }
 }
 
-function status_checks_tratamientos(){
+function status_checks_tratamientos(identificador){
 
-  let photocrom_check = $('#photocromphoto').is(":checked");
-
-  if (photocrom_check) {
-
+  let checkbox = document.getElementById(identificador);
+  let check_state = checkbox.checked;
+  //console.log(identificador+' * '+ check_state)
+  
+  if (check_state==true && identificador=='photocromphoto') {
     $("#transitionphoto").attr("disabled", true);    
-    $('#lbl_arsh').css('color', 'green');
-
-    $("#arbluecap").attr("disabled", true);
-    $('#arbluecap').prop('checked', false)
-    $('#lbl_arbluecap').css('color', '#989898');
-
-    $("#arnouv").attr("disabled", true);
-    $('#arnouv').prop('checked', false)
-    $('#lbl_arnouv').css('color', '#989898');
-
-    $("#blanco").attr("disabled", true);
-    $('#blanco').prop('checked', false)
-    $('#lbl_blanco').css('color', '#989898');
-
-    $("#transitionphoto").attr("disabled", true);
-    $('#transitionphoto').prop('checked', false)
-    $('#lbl_transitionphoto').css('color', '#989898');
-    
-  }else{  	
+    $("#blanco").attr("disabled", true);  
+  }else if(check_state==false && identificador=='photocromphoto'){    
     $("#transitionphoto").removeAttr("disabled");
+    $("#blanco").removeAttr("disabled");
+  }
+
+  if(check_state==true && identificador=='transitionphoto') {
+    $("#photocromphoto").attr("disabled", true);    
+    $("#blanco").attr("disabled", true);  
+  }else if(check_state==false && identificador=='transitionphoto'){    
+    $("#photocromphoto").removeAttr("disabled");
+    $("#blanco").removeAttr("disabled");
+  }
+
+  if(check_state==true && identificador=='blanco') {
+    $("#transitionphoto").attr("disabled", true);    
+    $("#photocromphoto").attr("disabled", true);  
+  }else if(check_state==false && identificador=='blanco'){    
+    $("#transitionphoto").removeAttr("disabled");
+    $("#photocromphoto").removeAttr("disabled");
   }
 
 }
@@ -126,15 +127,6 @@ function create_barcode(){
 /***********************************************************
 /////////////////////  GUARDAR ORDEN ///////////////////////
 /***********************************************************/
-var tratamientos = [];
-$(document).on('click', '.items_tratamientos', function(){
-  let tratamiento = $(this).attr("value");
-  let obj ={
-    tratamientos : tratamiento
-  }
-  tratamientos.push(obj);
-});
-
 function saveOrder(){
  document.getElementById('print_etiqueta').style.display="none";
  $("#contenedor").modal("show");
@@ -142,14 +134,13 @@ function saveOrder(){
   $('#contenedor_orden').focus();
 });
 } 
-
+var tratamientos = [];
 function guardar_orden(){
 
-  let tratamientos = [];
   $("input[name='chk_tratamientos']:checked").each(function(){
-      let obj = {
+    let obj = {
       tratamiento : this.value        
-      }
+    }
   tratamientos.push(obj);
   });
 

@@ -26,7 +26,7 @@ body {
     $('#codigob_lente').focus(); 
   }
   </script>
-<div class="modal fade" id="modal_ingresos_term" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_ingresos_term" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-hidden="true">
   <div class="modal-dialog" role="document" style="max-width: 85%">
     <div class="modal-content">
       <div class="modal-header" style="background: black;color: white">

@@ -109,8 +109,15 @@ function set_code_bar(){
   let new_code = $("#codebar_lente").val();
   $("#codigo_lente_term").val(new_code);
   $("#new_barcode_lens").modal('hide');
+  $('#cant_ingreso').focus();
+  $('#cant_ingreso').select();
+
 }
 /*================UPDATE STOCK TERMINADOS====================*/
+key('enter', function(){
+  setStockTerminados();
+});
+
 function setStockTerminados(){
   let codigoProducto = $("#codigo_lente_term").val();
   let cantidad_ingreso = $("#cant_ingreso").val();
@@ -185,6 +192,7 @@ function downloadExcelTerm(tabla,title,fecha){
   	alerts_productos("warning", "Debe desplegar la tabla para poder ser descargada");
   	return false;
   }
+
   let table2excel = new Table2Excel();
   table2excel.export(document.getElementById(tabla),titulo);
 }
@@ -308,6 +316,7 @@ function registroMultiple(){
  success:function(data){
    $("#modal_ingresos_term_general").modal("hide");
    alerts_productos("success", "El inventario ha sido actualizado exitosamente");
+   //get_dataTableTerm();
  }
  });//Fin Ajax
 }

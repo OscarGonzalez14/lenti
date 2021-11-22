@@ -26,7 +26,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="inventarios_term.php" class="nav-link">
+                <a href="stock_term.php" class="nav-link">
                   <i class="far fa-circle nav-icon text-warning"></i>
                   <p>Inv. Terminados</p>
                 </a>

@@ -64,7 +64,7 @@ body {
                 <td class="header" style="width: 13%">Esfera</td>
                 <td class="header" style="width: 13%">Cilindro</td>
                 <td class="header" style="width: 9%">Cantidad</td>
-                <td class="header" style="width: 9%">Costo</td>
+                <td class="header" style="width: 9%">Costo c/u</td>
                 <td class="header" style="width: 9%">Eliminar</td>
               </thead>
               <tbody id="items_ingresos_terminados"></tbody>
