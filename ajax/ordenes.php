@@ -169,7 +169,7 @@ case 'get_ordenes':
 	break;
 
 	case 'get_rxfinal_orden':
-	$rx_orden = $ordenes->get_rxfinal_oden($_POST["cod_orden_act"]);
+	$rx_orden = $ordenes->get_rxfinal_orden($_POST["cod_orden_act"]);
 
 	if (is_array($rx_orden)==true and count($rx_orden)>0) {
 			

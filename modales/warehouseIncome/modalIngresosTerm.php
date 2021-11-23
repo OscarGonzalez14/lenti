@@ -80,6 +80,7 @@ body {
       <input type="hidden" id="id_lente_term">
       <input type="hidden" id="id_td">
       <input type="hidden" id="id_tabla">
+      <input type="text" id="categoria_codigo" value="Fabricante">
       <div class="modal-footer">
         <button type="button" class="btn btn-primary btn-block" onClick='setStockTerminados()'>REGISTRAR INGRESO</button>
       </div>

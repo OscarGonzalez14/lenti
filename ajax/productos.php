@@ -104,7 +104,7 @@ switch ($_GET["op"]){
     }
     break;
 
-
+/*-------------GET CODIGO DE BARRAS LENTES SIN CODIGO DE FABRICA----*/
 case "get_codigo_barra":
   date_default_timezone_set('America/El_Salvador'); $now = date("mY");
   $tipo_lente = $_POST['tipo_lente'];

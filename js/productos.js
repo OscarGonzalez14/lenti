@@ -49,6 +49,16 @@ $(document).on('shown.bs.modal', function (e) {
     $('[autofocus]', e.target).focus();
 });
 
+function set_code_bar(){
+  let new_code = $("#codebar_lente").val();
+  $("#codigo_lente_term").val(new_code);
+  $("#new_barcode_lens").modal('hide');
+  $('#cant_ingreso').focus();
+  $('#cant_ingreso').select();
+  $("#categoria_codigo").val('Fabricante')
+
+}
+
 
  function create_barcode_interno_term(){
   let tipo_lente = 'Terminado';
@@ -74,7 +84,7 @@ $(document).on('shown.bs.modal', function (e) {
         let codigo = data.codigolente;
         $("#codigo_lente_term").val(data.codigolente);
         $("#new_barcode_lens").modal('hide');
-        registrar_codigo(codigo,tipo_lente,identificador);
+        $("#categoria_codigo").val('Interno')        
     }      
   });
   }
@@ -82,19 +92,6 @@ $(document).on('shown.bs.modal', function (e) {
  
 }
 
-function registrar_codigo(codigo,tipo_lente,identificador){
-    
-    $.ajax({
-    url:"../ajax/productos.php?op=registrar_codigo",
-    method:"POST",
-    data:{tipo_lente:tipo_lente,identificador:identificador,codigo:codigo},
-    cache: false,
-    dataType:"json",
-      success:function(data){
-        
-    }      
-  });
-}
 
 //////////////////////////AUTOCOMPLETADO DE CAMPOS ////////////////
 
@@ -153,40 +150,6 @@ $(document).on('click', '.item_ingreso', function(){
   });//Fin Ajax
    
 });
-
-function set_code_bar(){
-
-  let new_code = $("#codebar_lente").val();
-  let id_terminado_term = $("#id_terminado_lense").val();
-
-  if(new_code!=""){
-    $.ajax({
-    url:"../ajax/productos.php?op=set_code_bar_ini",
-    method:"POST",
-    data:{new_code:new_code,id_terminado_term:id_terminado_term},
-    cache: false,
-    dataType:"json",
-    success:function(data){
-      if (data=="exito") {
-        $("#new_barcode_lens").modal('hide');
-        $("#codigo_lente_term").val(new_code);
-      }else{
-        alerts_productos("error", "Este código ya existe!");
-        setTimeout ("focus_input();", 2000);
-    return false;
-   }      
-  }
-  });//Fin Ajax 
-
-  }else{
-    alerts_productos("error", "Debe escanear o crear un codigo de barras para inicializar stock de producto");
-    $('#new_barcode_lens').on('shown.bs.modal', function() {
-        $('#codebar_lente').focus();
-    });
-    return false;
-    }
-  
-}
 
 function focus_input(){
     $('#codebar_lente').val("");

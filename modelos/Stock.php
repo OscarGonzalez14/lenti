@@ -93,7 +93,7 @@ class Stock extends Conectar{
 public function comprobarExisteCodigo($codigo){
 	$conectar=parent::conexion();
     parent::set_names();
-    $sql = "select codigo from stock_terminados where codigo=?";
+    $sql = "select codigo from codigos_lentes where codigo=?";
     $sql = $conectar->prepare($sql);
     $sql->bindValue(1, $codigo);
     $sql->execute();
@@ -112,10 +112,11 @@ public function codigoGrad($esfera,$cilindro,$id_td){
     return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
-public function initStockTerm($codigoProducto,$cantidad,$id_tabla,$esfera,$cilindro,$id_td){
+public function initStockTerm($codigoProducto,$cantidad,$id_tabla,$esfera,$cilindro,$id_td,$cat_codigo){
 	$conectar=parent::conexion();
     parent::set_names();
     $stock_min = '-';
+    $tipo_lente = "Terminado";
     $sql = "insert into stock_terminados values(?,?,?,?,?,?,?)";
     $sql = $conectar->prepare($sql);
     $sql->bindValue(1, $codigoProducto);
@@ -126,7 +127,14 @@ public function initStockTerm($codigoProducto,$cantidad,$id_tabla,$esfera,$cilin
     $sql->bindValue(6, $stock_min);
     $sql->bindValue(7, $cantidad);
     $sql->execute();
-
+    
+    $sql2 = "insert into codigos_lentes values(null,?,?,?,?);";
+    $sql2 = $conectar->prepare($sql2);
+    $sql2->bindValue(1, $codigoProducto);
+    $sql2->bindValue(2, $id_td);
+    $sql2->bindValue(3, $tipo_lente);
+    $sql2->bindValue(4, $cat_codigo);
+    $sql2->execute();
     
 }
 
@@ -204,8 +212,7 @@ public function updateStockTerm($codigoProducto,$cantidad,$id_tabla,$esfera,$cil
         $cantidad = $value->cantidad;
         $codigo = $value->codigo;
         $cilindro = $value->cilindro;
-        $esfera = $value->esfera;
-    
+        $esfera = $value->esfera;    
     /////////// GET STOCK ACTUAL ///////////
     $sql = "select stock from stock_terminados where codigo=? and esfera=? and cilindro=?";
     $sql = $conectar->prepare($sql);

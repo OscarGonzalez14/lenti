@@ -128,6 +128,7 @@ function setStockTerminados(){
   let id_td = $("#id_td").val();
   let id_tabla = $("#id_tabla").val();
   let titulo = $("#title_modal_term").html();
+  let cat_codigo = $("#categoria_codigo").val();
 
   if (codigoProducto=="" || codigoProducto==null || codigoProducto==undefined){
 	$("#new_barcode_lens").modal('show');
@@ -146,7 +147,7 @@ function setStockTerminados(){
    $.ajax({
     url:"../ajax/stock.php?op=update_stock_terminados",
     method:"POST",
-    data:{codigoProducto:codigoProducto,cantidad_ingreso:cantidad_ingreso,id_tabla:id_tabla,esf:esf,cil:cil,id_td:id_td},
+    data:{codigoProducto:codigoProducto,cantidad_ingreso:cantidad_ingreso,id_tabla:id_tabla,esf:esf,cil:cil,id_td:id_td,cat_codigo:cat_codigo},
     cache: false,
     dataType:"json",
     success:function(data){

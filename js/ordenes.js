@@ -421,12 +421,13 @@ function get_dets_orden(){
   /////////////////GET DATA RX FINAL   
 
   $.ajax({
-    url:"../ajax/ordenes.php?op=get_rxfinal_oden",
+    url:"../ajax/ordenes.php?op=get_rxfinal_orden",
     method:"POST",
     data : {cod_orden_act:cod_orden_act},
     cache:false,
     dataType:"json",
     success:function(data){
+     console.log(data);
      $("#esf_od").html(data.odesferas);
      $("#cil_od").html(data.odcindros);
      $("#eje_od").html(data.odeje);
@@ -438,7 +439,6 @@ function get_dets_orden(){
      $("#eje_oi").html(data.oieje);
      $("#adi_oi").html(data.oiadicion);
      $("#pri_oi").html(data.oiprisma);
-
    }
  });
 

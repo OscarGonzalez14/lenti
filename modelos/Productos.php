@@ -108,11 +108,9 @@ class Productos extends Conectar{
   public function registrarDescargo(){
     $conectar=parent::conexion();
     parent::set_names();
-
     $str = '';
     $array_od = array();
-    $array_oi = array();
-    
+    $array_oi = array();    
     $array_od = json_decode($_POST["ojoDerechoArray"]);
     $array_oi = json_decode($_POST["ojoIzquierdoArray"]);
 

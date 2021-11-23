@@ -188,7 +188,7 @@ public function get_data_orden($codigo){
 
 }
 
-public function get_rxfinal_oden($codigo){
+public function get_rxfinal_orden($codigo){
   $conectar = parent::conexion();
     parent::set_names();
 
