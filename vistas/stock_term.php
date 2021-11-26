@@ -54,6 +54,11 @@ if(isset($_SESSION["usuario"])){
   .filas:hover {
     background-color: lightyellow;
   }
+  td:hover {
+  background: #e1f5f4;
+  color: black;
+}
+
 </style>
 
   <script src="../plugins/exportoExcel.js"></script>
@@ -79,7 +84,7 @@ if(isset($_SESSION["usuario"])){
           $id_tabla = $value['id_tabla_term'];
           ($id_tabla % 2 == 0) ? $color='dark': $color='primary';
           ($id_tabla % 2 == 0) ? $borde='#292b2c': $borde='#5bc0de';
-      ?>
+        ?>
             <div class="col-md-12" id="sphgreen">
             <div class="card card-<?php echo $color;?> collapsed-card" style="border: solid 1px <?php echo $borde;?>">
               <div class="card-header">

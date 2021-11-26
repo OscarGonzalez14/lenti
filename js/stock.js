@@ -105,20 +105,15 @@ function clearCode(){
   $('#codigo_term_ingreso').val('');
 }
 
-function set_code_bar(){
-  let new_code = $("#codebar_lente").val();
-  $("#codigo_lente_term").val(new_code);
-  $("#new_barcode_lens").modal('hide');
-  $('#cant_ingreso').focus();
-  $('#cant_ingreso').select();
-
-}
 /*================UPDATE STOCK TERMINADOS====================*/
 key('enter', function(){
   setStockTerminados();
 });
 
 function setStockTerminados(){
+
+  let cat_codigo = $("#categoria_codigo").val();
+  console.log(cat_codigo);
   let codigoProducto = $("#codigo_lente_term").val();
   let cantidad_ingreso = $("#cant_ingreso").val();
   let marca = $("#marca_lente").val();
@@ -128,7 +123,7 @@ function setStockTerminados(){
   let id_td = $("#id_td").val();
   let id_tabla = $("#id_tabla").val();
   let titulo = $("#title_modal_term").html();
-  let cat_codigo = $("#categoria_codigo").val();
+  //let cat_codigo = $("#categoria_codigo").val();
 
   if (codigoProducto=="" || codigoProducto==null || codigoProducto==undefined){
 	$("#new_barcode_lens").modal('show');
@@ -196,6 +191,13 @@ function downloadExcelTerm(tabla,title,fecha){
 
   let table2excel = new Table2Excel();
   table2excel.export(document.getElementById(tabla),titulo);
+}
+
+function downloadExcelTermx(){
+
+
+  let table2excel = new Table2Excel();
+  table2excel.export(document.getElementById("tabla_base"));
 }
 
 key('⌘+i, ctrl+i', function(){ 

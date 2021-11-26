@@ -120,7 +120,7 @@ class Productos extends Conectar{
 public function getCodigoBarra($tipo_lente){
     $conectar=parent::conexion();
     parent::set_names();
-    $sql = 'select codigo from codigos_lentes where tipo_lente=? order by id_codigo desc limit 1;';
+    $sql = 'select codigo from codigos_lentes where tipo_lente=? and categoria="Interno" order by id_codigo desc limit 1;';
     $sql = $conectar->prepare($sql);
     $sql->bindValue(1, $tipo_lente);
     $sql->execute();

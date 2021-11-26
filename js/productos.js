@@ -51,14 +51,13 @@ $(document).on('shown.bs.modal', function (e) {
 
 function set_code_bar(){
   let new_code = $("#codebar_lente").val();
+  $("#categoria_codigo").val('Fabricante');
   $("#codigo_lente_term").val(new_code);
   $("#new_barcode_lens").modal('hide');
   $('#cant_ingreso').focus();
-  $('#cant_ingreso').select();
-  $("#categoria_codigo").val('Fabricante')
-
+  $('#cant_ingreso').select(); 
+ 
 }
-
 
  function create_barcode_interno_term(){
   let tipo_lente = 'Terminado';
@@ -73,7 +72,7 @@ function set_code_bar(){
   cancelButtonText: 'NO',
   confirmButtonText: 'SI'
   }).then((result) => {
-  if (result.isConfirmed) {
+  if (result.isConfirmed){
     $.ajax({
     url:"../ajax/productos.php?op=get_codigo_barra",
     method:"POST",
@@ -84,7 +83,7 @@ function set_code_bar(){
         let codigo = data.codigolente;
         $("#codigo_lente_term").val(data.codigolente);
         $("#new_barcode_lens").modal('hide');
-        $("#categoria_codigo").val('Interno')        
+        $("#categoria_codigo").val('Interno');        
     }      
   });
   }

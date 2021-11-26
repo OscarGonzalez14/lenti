@@ -9,15 +9,18 @@
 <html>
 <body>
 
-<script>
-
- 
-for (var i = 4; i >= 0; i--) {
-    console.log(i);
+<table>
+<?php
+$longitud = 5;
+for ($i=0; $i <= 5; $i++) {
+	<tr>
+	for ($j=0; $j <= 3; $j++) { 
+	si j ==3->tr_count==0
+	count_long = longitud.
+	}
 }
-
-</script>
-
+?>
+</table>
 </body>
 </html> 
 

@@ -51,7 +51,6 @@ body {
               <input class="form-control" type="number" name="inlineRadioOptions" id="num_comprobante__ingreso" value="0" placeholder="Unidades">
           </div>                   
         </div>
-
         <!-- ITEMS INGRESO -->
           <div>
             <table style="width: 100%;font-family: Helvetica, Arial, sans-serif;text-align: center;font-size: 14px" width="100%" class="table-bordered table-hover">
