@@ -264,17 +264,30 @@ public function updateStockTerm($codigoProducto,$cantidad,$id_tabla,$esfera,$cil
            array_push($grads,$value["graduacion"]);
         }
         asort($grads);
-       $html .= "<td><table width='100%' class='table-hover table-bordered'><tr><td colspan='100' class='bg-dark' style='text-align: center'>".$titulo."</td></tr>
-        <tr class='style_th bg-primary' style='color: white'><td colspan='50'>Base</td><td colspan='50'>Stock</td></tr>";
+       $html .= "<td colspan=25 style='width:25%;vertical-align:top'><table width='100%' class='table-hover table-bordered ".$titulo."'><tr><td colspan='100' class='bg-dark' style='text-align: center;font-size:12px'>".$titulo."</td></tr>
+        <tr class='style_th'><th colspan='50'>Base</th><th colspan='50'>Stock</th></tr>";
         foreach ($grads as $key) {
-         $html .= "<tr><td colspan='50' style='text-align: center'>".$key."</td><td colspan='50' style='text-align: center'>
 
+         $sql3 = "select stock from stock_bases where id_tabla_base=? and base=?;";
+         $sql3 = $conectar->prepare($sql3);
+         $sql3->bindValue(1,$id_tabla);
+         $sql3->bindValue(2,$key);
+         $sql3->execute();
+         $existencias = $sql3->fetchAll(PDO::FETCH_ASSOC);
 
-         </td></tr>"; 
+         if (is_array($existencias)==true and count($existencias)>0) {             
+            foreach ($existencias as $v) {
+               $stock = $v['stock'];
+            }
+         }else{
+            $stock=0;
+         }
+
+         $html .= "<tr><td colspan='50' style='text-align: center'>".$key."</td><td colspan='50' style='text-align: center'>".$stock."</td></tr>"; 
 
         }
         $html .= "</td></table>";
-        if ($count_tr==3 or $tam_array==0) {
+        if ($count_tr==4 or $tam_array==0) {
             $html .="</tr>";
             $count_tr=0;
         }
@@ -287,18 +300,9 @@ public function updateStockTerm($codigoProducto,$cantidad,$id_tabla,$esfera,$cil
 
   }
 }
-    /*    $stock = new Stock();
-        $graduaciones = $stock->getTablesBases('Divel');
-        $grads = array();
-        foreach ($graduaciones as  $value) {
-           array_push($grads,$value["graduacion"]);
-        }
 
-      asort($grads);
-      foreach ($grads as $value) {
-          echo $value."<br>";
-      } */
-
+        //$stock = new Stock();
+       // $stock->getTablesBases('Divel');
 ?>
 
 

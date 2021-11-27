@@ -11,7 +11,9 @@
 
 <table>
 <?php
+
 $longitud = 5;
+///////////////////////////////
 for ($i=0; $i <= 5; $i++) {
 	<tr>
 	for ($j=0; $j <= 3; $j++) { 
@@ -19,6 +21,7 @@ for ($i=0; $i <= 5; $i++) {
 	count_long = longitud.
 	}
 }
+
 ?>
 </table>
 </body>

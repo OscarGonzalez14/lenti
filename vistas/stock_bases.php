@@ -13,6 +13,7 @@ if(isset($_SESSION["usuario"])){
  require_once('../modelos/Productos.php');
  require_once('../modales/new_barcode_lentes.php');
  require_once('../modelos/Stock.php');
+ $marcas = ['Divel', 'Essilor'];
 
  date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H-i-s");
  ?>
@@ -57,8 +58,7 @@ if(isset($_SESSION["usuario"])){
   <script src="../plugins/keymaster.js"></script>
 
 </head>
-<body class="hold-transition sidebar-mini layout-fixed" style='font-family: Helvetica, Arial, sans-serif;'>
-<div class="wrapper">
+<body class="hold-transition sidebar-mini layout-fixed" style='font-family: Helvetica, Arial, sans-serif;'><div class="wrapper">
 <!-- top-bar -->
   <?php 
   require_once("../modelos/Pruebas.php");
@@ -68,14 +68,36 @@ if(isset($_SESSION["usuario"])){
   <?php require_once('side_bar.php');   
   ?>
   <div class="content-wrapper">
-    <section class="content">     
-    <table width="100%" class="table-bordered" id="tabla_base">
-    <button type="button" class="btn btn-tool" onClick="downloadExcelTermx()"><i class="fas fa-file-excel"></i>DESC</button>
-       <?php
-        $stock = new Stock();
-        $stock->getTablesBases('Divel');
-       ?> 
-    </table>
+    <section class="content">
+      <div class="row">
+        <?php
+        $i=0;
+        foreach ($marcas as $val) { 
+         ($i % 2 == 0) ? $color='info': $color='primary';
+         ($i % 2 == 0) ? $borde='#5bc0de': $borde='#0275d8';
+        ?>
+          <div class="col-md-12">
+          <div class="card card-<?php echo $color;?> collapsed-card" style="border: solid 1px <?php echo $borde;?>">
+          <div class="card-header">
+              <h5 class="card-title" style="font-size: 16px"><?php echo "BASES VISIÓN SENCILLA ".strtoupper($val);?></h5>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" onClick="get_dataTableBase(');"><i class="fas fa-plus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+              </div>
+          </div>
+            <div class="card-body" id="base'<?php echo $val;?>'">
+            <table width="100%" class="table-bordered" id="tabla_base" style="margin-top: 0px">
+              <?php        
+                $stock = new Stock();
+                $stock->getTablesBases($val);
+              ?> 
+            </table>
+            </div>
+        </div>
+      </div>
+        <?php $i++; } ?>
+      </div>
     </section>    
   </div>
 <!-- /.content-wrapper -->
@@ -85,7 +107,6 @@ if(isset($_SESSION["usuario"])){
   <div class="float-right d-none d-sm-inline-block">      
 </div>
 <?php require_once("links_js.php"); ?>
-
 <script type="text/javascript" src="../js/productos.js"></script>
 <script type="text/javascript" src="../js/stock.js"></script>
 </footer>
