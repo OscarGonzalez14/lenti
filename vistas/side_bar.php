@@ -14,7 +14,6 @@
           </li>
           <!--######FIN ORDENES############-->
 
-          <!--######INVENTARIOS############-->
           <li class="nav-item">
             <a href="#" class="nav-link" style="color: white">
               <i class="nav-icon fas fa-clipboard-list"></i>
@@ -32,7 +31,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="inventarios_bases.php" class="nav-link">
+                <a href="stock_bases.php" class="nav-link">
                   <i class="far fa-circle nav-icon text-success"></i>
                   <p>Inv. Bases</p>
                 </a>

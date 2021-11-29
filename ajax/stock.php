@@ -66,4 +66,15 @@ switch ($_GET["op"]){
 		$message = "Ok";
 		echo json_encode($message);	
 	break;
+
+	case 'get_tableBaseVs':
+		$datos = $stock->getTablesBases($_POST["marca"]); 
+	break;
+
+	case 'update_stock_basevs':
+
+	// Comprobar si existe lente en inventario ///////
+	$codigo = $stock->comprobarExistebasevs($_POST["codigoProducto"],$_POST["id_td"],$_POST["base"]);
+
+	break;
 }

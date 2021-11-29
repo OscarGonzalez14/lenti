@@ -48,15 +48,44 @@ function focus_input(){
 $(document).on('shown.bs.modal', function (e) {
     $('[autofocus]', e.target).focus();
 });
-
+/*===================OBTENER Y VALIDAR CODIGO DE BARRA =========================*/
 function set_code_bar(){
   let new_code = $("#codebar_lente").val();
-  $("#categoria_codigo").val('Fabricante');
-  $("#codigo_lente_term").val(new_code);
-  $("#new_barcode_lens").modal('hide');
-  $('#cant_ingreso').focus();
-  $('#cant_ingreso').select(); 
- 
+  $.ajax({
+    url:"../ajax/productos.php?op=verificar_existe_codigo",
+    method:"POST",
+    data:{new_code:new_code},
+    cache: false,
+    dataType:"json",
+      success:function(data){
+      console.log(data);
+      if (data == 'Okcode') {
+        let new_code = $("#codebar_lente").val();
+        $("#categoria_codigo").val('Fabricante');
+        $("#codigo_lente_term").val(new_code);
+        $("#new_barcode_lens").modal('hide');
+        $('#cant_ingreso').focus();
+        $('#cant_ingreso').select();
+      }else{
+        Swal.fire({
+        title: 'Error codigo!!',
+        text: data,
+        icon: 'warning',
+        showCancelButton: false,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'NO',
+        confirmButtonText: 'Ok'
+        }).then((result) => {
+        if (result.isConfirmed){
+          $('#codigo_lente_term').val('');
+          $('#codebar_lente').val('');
+          $('#codebar_lente').focus();
+        }
+      });     
+    }
+    }      
+  });
 }
 
  function create_barcode_interno_term(){
@@ -91,10 +120,7 @@ function set_code_bar(){
  
 }
 
-
-//////////////////////////AUTOCOMPLETADO DE CAMPOS ////////////////
-
-//////////////// AUTOCOMPLETADO CAMPOS NUEVO LENTE //////////////////
+ //////////////// AUTOCOMPLETADO CAMPOS NUEVO LENTE //////////////////
  var marcas_lente = ["Essilor","Divel"];
  autocomplete(document.getElementById("marca_lente"), marcas_lente); 
  let disenos_lente = [];

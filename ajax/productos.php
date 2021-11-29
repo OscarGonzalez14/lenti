@@ -7,6 +7,11 @@ require_once("../modelos/Productos.php");
 $productos = new Productos();
 
 switch ($_GET["op"]){
+
+  case 'verificar_existe_codigo':
+    $codigo = $productos->verificarExisteCodigo($_POST["new_code"]);
+    break;
+
 	case 'get_data_item_ingreso':
 	$id_item = $_POST["id_item"];
 	$data = $productos->get_data_item_ingreso($_POST["id_item"]);

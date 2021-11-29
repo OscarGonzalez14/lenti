@@ -2,9 +2,42 @@
 
 require_once("../config/conexion.php");
 class Productos extends Conectar{
+    
+    public function verificarExisteCodigo($codigo){
+        $conectar=parent::conexion();
+        parent::set_names();
+        $sql = "select*from codigos_lentes where codigo=?;";
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1,$codigo);
+        $sql->execute();
+        $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 
+        if(is_array($resultado)==true and count($resultado)>0){
+            foreach ($resultado as $k) {
+                $tipo_lente = $k["tipo_lente"];
+            }
+
+        if ($tipo_lente=="Terminado") {            
+            $query = "select CONCAT('Codigo actual ya ha sido asignado en terminados. Tabla id: ', id_tabla_term,' Esf.: ',esfera,' Cil.: ',cilindro) as data from stock_terminados";
+        }         
+
+        $sql = "".$query." where codigo=?;";
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1,$codigo);
+        $sql->execute();
+        $resultado_tabla = $sql->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($resultado_tabla as $t) {
+            $data = $t['data'];
+        }
+            echo json_encode($data);
+        }else{
+            echo json_encode("Okcode");
+        }
+    }
+    
+    
 	public function get_data_ar_green_term(){
-		$conectar=parent::conexion();
+	$conectar=parent::conexion();
     parent::set_names();
 
     $sql="select * from lente_terminado;";

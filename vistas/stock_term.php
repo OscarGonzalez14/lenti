@@ -77,6 +77,7 @@ if(isset($_SESSION["usuario"])){
   ?>
   <div class="content-wrapper">
     <section class="content">
+      
       <div class="row row-term" style="margin-top: 5px">
 
       <?php 
@@ -88,7 +89,7 @@ if(isset($_SESSION["usuario"])){
             <div class="col-md-12" id="sphgreen">
             <div class="card card-<?php echo $color;?> collapsed-card" style="border: solid 1px <?php echo $borde;?>">
               <div class="card-header">
-                <h5 class="card-title" style="font-size: 14px"><?php echo $value['titulo']; ?></h5>
+                <h5 class="card-title" style="font-size: 14px"><?php echo "(ID: ".$value["id_tabla_term"].") -> ".$value['titulo']; ?></h5>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse" onClick="get_dataTableTerm('<?php echo $value['id_tabla_term'];?>','<?php echo 'tabla_term'.$value['id_tabla_term'];?>');"><i class="fas fa-plus"></i>
                   </button>

@@ -11,7 +11,8 @@ if(isset($_SESSION["usuario"])){
   <title>Home</title>
 <?php require_once("links_plugin.php"); 
  require_once('../modelos/Productos.php');
- require_once('../modales/new_barcode_lentes.php');
+ require_once('../modales/warehouseIncome/modalIngresoBaseVs.php');
+ require_once('../modales/new_barcode_lentes.php'); 
  require_once('../modelos/Stock.php');
  $marcas = ['Divel', 'Essilor'];
 
@@ -49,7 +50,7 @@ if(isset($_SESSION["usuario"])){
     border-collapse: collapse;
   }
 
-  .filas:hover {
+  .filasb:hover {
     background-color: lightyellow;
   }
 </style>
@@ -81,17 +82,14 @@ if(isset($_SESSION["usuario"])){
           <div class="card-header">
               <h5 class="card-title" style="font-size: 16px"><?php echo "BASES VISIÓN SENCILLA ".strtoupper($val);?></h5>
                 <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse" onClick="get_dataTableBase(');"><i class="fas fa-plus"></i>
-                </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" onClick="get_dataTableBase('<?php echo 'base'.$val;?>','<?php echo $val;?>');"><i class="fas fa-plus"></i>
+                  </button>
                 <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
               </div>
           </div>
-            <div class="card-body" id="base'<?php echo $val;?>'">
-            <table width="100%" class="table-bordered" id="tabla_base" style="margin-top: 0px">
-              <?php        
-                $stock = new Stock();
-                $stock->getTablesBases($val);
-              ?> 
+            <div class="card-body">
+            <table id="<?php echo 'base'.$val;?>" width="100%" class="table-bordered" style="margin-top: 0px">
+              
             </table>
             </div>
         </div>

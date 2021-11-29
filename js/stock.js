@@ -113,7 +113,6 @@ key('enter', function(){
 function setStockTerminados(){
 
   let cat_codigo = $("#categoria_codigo").val();
-  console.log(cat_codigo);
   let codigoProducto = $("#codigo_lente_term").val();
   let cantidad_ingreso = $("#cant_ingreso").val();
   let marca = $("#marca_lente").val();
@@ -123,7 +122,6 @@ function setStockTerminados(){
   let id_td = $("#id_td").val();
   let id_tabla = $("#id_tabla").val();
   let titulo = $("#title_modal_term").html();
-  //let cat_codigo = $("#categoria_codigo").val();
 
   if (codigoProducto=="" || codigoProducto==null || codigoProducto==undefined){
 	$("#new_barcode_lens").modal('show');
@@ -322,6 +320,80 @@ function registroMultiple(){
    //get_dataTableTerm();
  }
  });//Fin Ajax
+}
+
+/**************************************************
+==================== BASES INVENTARIO =============
+****************************************************/
+/*-------------- SHOW TABLAS BASES----------*/
+function get_dataTableBase(id_div,marca){
+ $.ajax({
+      url:"../ajax/stock.php?op=get_tableBaseVs",
+      method:"POST",
+      data : {marca:marca},
+      cache:false,
+      //dataType:"json",
+      success:function(data){   
+        $("#"+id_div).html(data);
+      }
+    });
+}
+
+function initStockBasesvs(base,codigo,id_tabla,marca,diseno,id_td){
+  $("#modal_ingresos_basevs").modal('show');
+  $("#title_modal_bases").html(`Ingreso a Inventario base ${base}, ${diseno}`);
+  $("#codigo_lente_term").val(codigo);
+  $("#marca_basevs").val(marca);
+  $("#base_basevs").val(base);
+  $("#id_td_base").val(id_td);
+  $("#id_tabla_base").val(id_tabla);
+  $("#dis_base").val(diseno);
+
+  if (codigo==''){
+    $("#new_barcode_lens").modal('show');
+    $('#new_barcode_lens').on('shown.bs.modal', function() {
+    $('#codebar_lente').val('');
+    $('#codebar_lente').focus();
+  });
+  }
+}
+/*===============  INICIALIZAR STOCK BASES =================*/
+function setStockBases(){
+
+  let codigoProducto = $("#codigo_lente_term").val();
+  let diseno = $("#dis_base").val();
+  let base = $("#base_basevs").val();
+  let cantidad = $("#cant_ingreso_base").val();
+  let comprobante = $("#comprobante_base").val();
+  let costo = $("#comprobante_base").val();
+  let id_td = $("#id_td_base").val();
+  let id_tabla = $("#id_tabla_base").val();
+  if (codigoProducto=="" || codigoProducto==null || codigoProducto==undefined){
+    $("#new_barcode_lens").modal('show');
+    $('#new_barcode_lens').on('shown.bs.modal', function() {
+    $('#codebar_lente').val('');
+    $('#codebar_lente').focus();
+  });
+  return false;
+  }
+
+  if(cantidad=="0") {
+    alerts_productos("error", "Debe Especificar la cantidad a ingresar");
+    return false; 
+  }
+
+  $.ajax({
+  url:"../ajax/stock.php?op=update_stock_basevs",
+  method:"POST",
+  data:{codigoProducto:codigoProducto,id_td,base:base,cantidad:cantidad,id_tabla:id_tabla,comprobante:comprobante,costo:costo},
+  cache: false,
+  dataType:"json",
+  success:function(data){
+    console.log(data);
+          
+}); 
+  
+
 }
 
 init();

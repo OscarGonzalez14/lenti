@@ -238,7 +238,7 @@ public function updateStockTerm($codigoProducto,$cantidad,$id_tabla,$esfera,$cil
     $conectar=parent::conexion();
     parent::set_names();
 
-    $sql = 'select id_tabla_base,titulo from tablas_base where marca=?';
+    $sql = 'select id_tabla_base,titulo,diseno from tablas_base where marca=?';
     $sql = $conectar->prepare($sql);
     $sql->bindValue(1,$marca);
     $sql->execute();
@@ -253,6 +253,7 @@ public function updateStockTerm($codigoProducto,$cantidad,$id_tabla,$esfera,$cil
         $count_tr++;
         $id_tabla = $value["id_tabla_base"];
         $titulo = $value["titulo"];
+        $diseno = $value["diseno"];
 
         $sql2 = "select graduacion from grad_tablas_base where id_tabla_base=?;";
         $sql2 = $conectar->prepare($sql2);
@@ -264,11 +265,12 @@ public function updateStockTerm($codigoProducto,$cantidad,$id_tabla,$esfera,$cil
            array_push($grads,$value["graduacion"]);
         }
         asort($grads);
-       $html .= "<td colspan=25 style='width:25%;vertical-align:top'><table width='100%' class='table-hover table-bordered ".$titulo."'><tr><td colspan='100' class='bg-dark' style='text-align: center;font-size:12px'>".$titulo."</td></tr>
+       $html .= "<td colspan=25 style='width:25%;vertical-align:top;border: 1px solid black;'><table width='100%' class='table-bordered".$titulo."'><tr><td colspan='100' class='bg-dark' style='text-align: center;font-size:12px'>".$titulo."</td></tr>
         <tr class='style_th'><th colspan='50'>Base</th><th colspan='50'>Stock</th></tr>";
+        $id=1;
         foreach ($grads as $key) {
 
-         $sql3 = "select stock from stock_bases where id_tabla_base=? and base=?;";
+         $sql3 = "select stock,codigo from stock_bases where id_tabla_base=? and base=?;";
          $sql3 = $conectar->prepare($sql3);
          $sql3->bindValue(1,$id_tabla);
          $sql3->bindValue(2,$key);
@@ -278,12 +280,16 @@ public function updateStockTerm($codigoProducto,$cantidad,$id_tabla,$esfera,$cil
          if (is_array($existencias)==true and count($existencias)>0) {             
             foreach ($existencias as $v) {
                $stock = $v['stock'];
+               $codigo = $v['codigo'];
             }
          }else{
             $stock=0;
+            $codigo ='';
          }
+         $id_td = 'base_'.$id_tabla."_".$id;
+         $html .= "<tr class='filasb'><td colspan='50' style='text-align: center;cursor: pointer;' onClick='initStockBasesvs(\"".$key."\",\"".$codigo."\",".$id_tabla.",\"".$marca."\",\"".$diseno."\",\"".$id_td."\");'>".$key."</td><td colspan='50' style='text-align: center;cursor: pointer;' onClick='initStockBasesvs(\"".$key."\",\"".$codigo."\",".$id_tabla.",\"".$marca."\",\"".$diseno."\",\"".$id_td."\");'>".$stock."</td></tr>";
 
-         $html .= "<tr><td colspan='50' style='text-align: center'>".$key."</td><td colspan='50' style='text-align: center'>".$stock."</td></tr>"; 
+         $id++; 
 
         }
         $html .= "</td></table>";
@@ -296,9 +302,21 @@ public function updateStockTerm($codigoProducto,$cantidad,$id_tabla,$esfera,$cil
     }
     
     echo $html;
-    //print_r($grads);
 
   }
+/////////////////  INVENTARIO DE BASES /////////////////
+public function comprobarExistebasevs($esfera,$cilindro,$id_td){
+    $conectar=parent::conexion();
+    parent::set_names();
+    $sql = "select identificador from stock_terminados where identificador=? and esfera=? and cilindro=?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1, $id_td);
+    $sql->bindValue(2, $esfera);
+    $sql->bindValue(3, $cilindro);
+    $sql->execute();
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
 }
 
         //$stock = new Stock();
