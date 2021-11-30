@@ -153,12 +153,12 @@ function setStockTerminados(){
       }else if(data=='error'){
       	alerts_productos("warning", "Ya existe lente con codigo actual");
       }
+
       id_div = 'tabla_term'+id_tabla
       get_dataTableTerm(id_tabla,id_div);
       getNewStockTerm(id_td,id_tabla,codigoProducto);      
     }      
   });  
-
 
 }/*============ FIN UPDATE STOCK TERMINADOS ================*/
 
@@ -348,6 +348,7 @@ function initStockBasesvs(base,codigo,id_tabla,marca,diseno,id_td){
   $("#id_td_base").val(id_td);
   $("#id_tabla_base").val(id_tabla);
   $("#dis_base").val(diseno);
+  $("#cant_ingreso_base").val('0');
 
   if (codigo==''){
     $("#new_barcode_lens").modal('show');
@@ -368,6 +369,10 @@ function setStockBases(){
   let costo = $("#comprobante_base").val();
   let id_td = $("#id_td_base").val();
   let id_tabla = $("#id_tabla_base").val();
+  let cat_codigo = $("#categoria_codigo").val();
+  let marca = $("#marca_basevs").val();
+  let id_div = "base"+marca;
+
   if (codigoProducto=="" || codigoProducto==null || codigoProducto==undefined){
     $("#new_barcode_lens").modal('show');
     $('#new_barcode_lens').on('shown.bs.modal', function() {
@@ -385,14 +390,41 @@ function setStockBases(){
   $.ajax({
   url:"../ajax/stock.php?op=update_stock_basevs",
   method:"POST",
-  data:{codigoProducto:codigoProducto,id_td,base:base,cantidad:cantidad,id_tabla:id_tabla,comprobante:comprobante,costo:costo},
+  data:{codigoProducto:codigoProducto,id_td,base:base,cantidad:cantidad,id_tabla:id_tabla,comprobante:comprobante,costo:costo,cat_codigo:cat_codigo},
   cache: false,
   dataType:"json",
   success:function(data){
+    $("#modal_ingresos_basevs").modal('hide');
+    if (data=='Insert'){
+      alerts_productos("success", "Producto inicializado en bodega");
+    }else if(data=="Edit"){
+      alerts_productos("info", "El stock ha sido actualizado");
+    }
+
+    get_dataTableBase(id_div,marca);
+    setTimeout ("setStockBasevs(id_td,base,codigoProducto);", 2000);           
+  }          
+  });
+
+  function setStockBasevs(id_td,base,codigo){
+
+    $.ajax({
+    url:"../ajax/stock.php?op=new_stock_basevs",
+    method:"POST",
+    data:{codigo:codigo,base:base,id_td:id_td},
+    cache: false,
+    dataType:"json",
+    success:function(data){
     console.log(data);
-          
-}); 
-  
+    document.getElementById(id_td).innerHTML=data.stock;
+    document.getElementById(id_td).style.background='#5bc0de';
+    document.getElementById(id_td).style.color='white';
+    }      
+  }); 
+
+  }
+
+
 
 }
 

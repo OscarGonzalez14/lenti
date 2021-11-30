@@ -66,15 +66,34 @@ switch ($_GET["op"]){
 		$message = "Ok";
 		echo json_encode($message);	
 	break;
-
+/////////////////////////  BASES ////////////////
 	case 'get_tableBaseVs':
 		$datos = $stock->getTablesBases($_POST["marca"]); 
 	break;
 
 	case 'update_stock_basevs':
-
 	// Comprobar si existe lente en inventario ///////
 	$codigo = $stock->comprobarExistebasevs($_POST["codigoProducto"],$_POST["id_td"],$_POST["base"]);
+	if (is_array($codigo)==true and count($codigo)==0) {
+		$stock->inicializarStockBasesVs($_POST["codigoProducto"],$_POST["id_td"],$_POST["base"],$_POST["cantidad"],$_POST["id_tabla"],$_POST["cat_codigo"]);
+		$mensaje = "Insert";
+	}else{
+		$stock->updateStockBasesVs($_POST["codigoProducto"],$_POST["cantidad"],$_POST["base"],$_POST["id_tabla"],$_POST["id_td"]);
+		$mensaje = "Edit";
+	}
 
+	echo json_encode($mensaje);
+
+	break;
+
+	case 'new_stock_basevs':
+	$data=$stock->newStockBaseVs($_POST['codigo'],$_POST['base'],$_POST['id_td']);
+	if (is_array($data)==true and count($data)>0) {
+        foreach ($data as $key) {
+        	$output["stock"]=$key["stock"];
+        	$output["codigo"]=$key["codigo"];
+        }
+    }
+    echo json_encode($output);
 	break;
 }

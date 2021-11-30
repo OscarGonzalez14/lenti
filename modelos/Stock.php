@@ -287,7 +287,7 @@ public function updateStockTerm($codigoProducto,$cantidad,$id_tabla,$esfera,$cil
             $codigo ='';
          }
          $id_td = 'base_'.$id_tabla."_".$id;
-         $html .= "<tr class='filasb'><td colspan='50' style='text-align: center;cursor: pointer;' onClick='initStockBasesvs(\"".$key."\",\"".$codigo."\",".$id_tabla.",\"".$marca."\",\"".$diseno."\",\"".$id_td."\");'>".$key."</td><td colspan='50' style='text-align: center;cursor: pointer;' onClick='initStockBasesvs(\"".$key."\",\"".$codigo."\",".$id_tabla.",\"".$marca."\",\"".$diseno."\",\"".$id_td."\");'>".$stock."</td></tr>";
+         $html .= "<tr class='filasb'><td colspan='50' style='text-align: center;cursor: pointer;' onClick='initStockBasesvs(\"".$key."\",\"".$codigo."\",".$id_tabla.",\"".$marca."\",\"".$diseno."\",\"".$id_td."\");'>".$key."</td><td colspan='50' id=".$id_td." style='text-align: center;cursor: pointer;' onClick='initStockBasesvs(\"".$key."\",\"".$codigo."\",".$id_tabla.",\"".$marca."\",\"".$diseno."\",\"".$id_td."\");'>".$stock."</td></tr>";
 
          $id++; 
 
@@ -305,22 +305,87 @@ public function updateStockTerm($codigoProducto,$cantidad,$id_tabla,$esfera,$cil
 
   }
 /////////////////  INVENTARIO DE BASES /////////////////
-public function comprobarExistebasevs($esfera,$cilindro,$id_td){
+public function comprobarExistebasevs($codigo,$identificador,$base){
     $conectar=parent::conexion();
     parent::set_names();
-    $sql = "select identificador from stock_terminados where identificador=? and esfera=? and cilindro=?;";
+    $sql = "select codigo from stock_bases where codigo=? and identificador=? and base=?;";
     $sql = $conectar->prepare($sql);
-    $sql->bindValue(1, $id_td);
-    $sql->bindValue(2, $esfera);
-    $sql->bindValue(3, $cilindro);
+    $sql->bindValue(1, $codigo);
+    $sql->bindValue(2, $identificador);
+    $sql->bindValue(3, $base);
     $sql->execute();
     return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
+public function inicializarStockBasesVs($codigo,$identificador,$base,$cantidad,$id_tabla,$cat_codigo){
+    $conectar=parent::conexion();
+    parent::set_names();
+    $stock_min = "";
+    $sql = "insert into stock_bases values(?,?,?,?,?,?)";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1, $codigo);
+    $sql->bindValue(2, $identificador);
+    $sql->bindValue(3, $base);
+    $sql->bindValue(4, $stock_min);
+    $sql->bindValue(5, $cantidad);
+    $sql->bindValue(6, $id_tabla);
+    $sql->execute();
+
+    $tipo_lente = "Base";
+    $sql2 = "insert into codigos_lentes values(null,?,?,?,?);";
+    $sql2 = $conectar->prepare($sql2);
+    $sql2->bindValue(1, $codigo);
+    $sql2->bindValue(2, $identificador);
+    $sql2->bindValue(3, $tipo_lente);
+    $sql2->bindValue(4, $cat_codigo);
+    $sql2->execute();
+
 }
 
-        //$stock = new Stock();
-       // $stock->getTablesBases('Divel');
+public function updateStockBasesVs($codigoProducto,$cantidad,$base,$id_tabla,$id_td){
+
+    $conectar=parent::conexion();
+    parent::set_names();
+
+    $sql = "select stock from stock_bases where codigo=? and base=? and id_tabla_base=?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1, $codigoProducto);
+    $sql->bindValue(2, $base);
+    $sql->bindValue(3, $id_tabla);
+    $sql->execute();
+    $existencias = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($existencias as $key) {
+        $stock_act = $key['stock'];
+    }
+
+    $new_stock = $stock_act+$cantidad;
+
+    $sql2 = "update stock_bases set stock=? where codigo=? and base=? and id_tabla_base=?;";
+    $sql2 = $conectar->prepare($sql2);
+    $sql2->bindValue(1, $new_stock);
+    $sql2->bindValue(2, $codigoProducto);
+    $sql2->bindValue(3, $base);
+    $sql2->bindValue(4, $id_tabla);
+    $sql2->execute();    
+    }
+
+  /*======================GET DATA NEW STOCK ITEM BASE VISION SENCILLA================*/
+  public function newStockBaseVs($codigo,$base,$id_td){
+    $conectar=parent::conexion();
+    parent::set_names();
+    $sql="select stock,codigo from stock_bases where codigo=? and base=? and identificador=?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1, $codigo);
+    $sql->bindValue(2, $base);
+    $sql->bindValue(3, $id_td);
+    $sql->execute();
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+}///////////FIN DE LA CLASE
+
+
 ?>
 
 

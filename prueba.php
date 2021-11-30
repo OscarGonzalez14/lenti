@@ -8,25 +8,14 @@
 <body>
 <html>
 <body>
-
-<table>
-<?php
-
-$longitud = 5;
-///////////////////////////////
-for ($i=0; $i <= 5; $i++) {
-	<tr>
-	for ($j=0; $j <= 3; $j++) { 
-	si j ==3->tr_count==0
-	count_long = longitud.
-	}
-}
-
-?>
+<button onClick="funcionEjemplo();">Clic</button>
 </table>
 </body>
 </html> 
-
+   <script> 
+    function funcionEjemplo(){
+       console.log(`Sin argumentos`)
+    }
 	</script>
 </body>
 </html>
