@@ -91,7 +91,6 @@ switch ($_GET["op"]){
 	if (is_array($data)==true and count($data)>0) {
         foreach ($data as $key) {
         	$output["stock"]=$key["stock"];
-        	$output["codigo"]=$key["codigo"];
         }
     }
     echo json_encode($output);

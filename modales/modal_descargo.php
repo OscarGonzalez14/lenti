@@ -191,13 +191,13 @@
                 <div class="card-body pt-0">
                   <!--SECCION OJO DERECHO--->
                   <h5 id="encabezado_od" style="font-family: Helvetica, Arial, sans-serif;width: 100%;text-align: center;font-size: 13px;padding: 1px;margin-top: 5px;color: white"></h5>
-                  <div id="section_od" style="border:solid #112438 1px;margin-top: 0px">
-                   <table  width="100%" class="table-hover table-bordered" id="od_term_info" > </table>
+                  <div id="section_od" style="border:solid #112438 2px;margin-top: 0px">
+                   <table  width="100%" class="table-hover table-bordered" id="data_desc_derecho"  style="padding: 4px"> </table>
                   </div> 
                    <!--SECCION OJO IZQUIERDO--->                  
                     <h5 id="encabezado_oi" style="font-family: Helvetica, Arial, sans-serif;width: 100%;text-align: center;font-size: 13px;padding: 1px;margin-top: 9px;color: white"></h5>
-                    <div id="section_oi" style="border:solid #0275d8 1px;margin-top: 0px">
-                   <table  width="100%" class="table-hover table-bordered" id="oi_term_info"> </table>
+                    <div id="section_oi" style="border:solid #0275d8 2px;margin-top: 0px">
+                   <table  width="100%" class="table-hover table-bordered" id="data_desc_izq" style="padding: 4px"> </table>
                   </div>                 
                 </div>
               </div>

@@ -124,15 +124,13 @@ class Productos extends Conectar{
   }
 
 
-  public function getInfoTerminado($codigo_lente,$id_lente){
+  public function getInfoTerminado($codigo_lente){
     $conectar=parent::conexion();
     parent::set_names();
  
-    $sql2 = "select c.tipo_lente,l.id_terminado,l.marca,l.diseno,l.lente,l.identificador,l.stock,l.esfera,l.cilindro,l.codigo from lente_terminado as l inner join codigos_lentes as c on c.codigo=l.codigo WHERE l.id_terminado=? and l.codigo=? and c.codigo=?";
+    $sql2 = "select t.marca,t.diseno,s.codigo,s.esfera,s.cilindro,s.stock from tablas_terminado as t inner join stock_terminados as s on t.id_tabla_term=s.id_tabla_term WHERE s.codigo=?;";
     $sql2 = $conectar->prepare($sql2);
-    $sql2->bindValue(1, $id_lente);
-    $sql2->bindValue(2, $codigo_lente);
-    $sql2->bindValue(3, $codigo_lente);
+    $sql2->bindValue(1, $codigo_lente);
     $sql2->execute();
     return $resultado = $sql2->fetchAll(PDO::FETCH_ASSOC);
 

@@ -340,6 +340,7 @@ function get_dataTableBase(id_div,marca){
 }
 
 function initStockBasesvs(base,codigo,id_tabla,marca,diseno,id_td){
+  $("#tipo_lente_code").val("Base");
   $("#modal_ingresos_basevs").modal('show');
   $("#title_modal_bases").html(`Ingreso a Inventario base ${base}, ${diseno}`);
   $("#codigo_lente_term").val(codigo);
@@ -401,8 +402,7 @@ function setStockBases(){
       alerts_productos("info", "El stock ha sido actualizado");
     }
 
-    get_dataTableBase(id_div,marca);
-    setTimeout ("setStockBasevs(id_td,base,codigoProducto);", 2000);           
+     setStockBasevs(id_td,base,codigoProducto);           
   }          
   });
 
@@ -414,8 +414,7 @@ function setStockBases(){
     data:{codigo:codigo,base:base,id_td:id_td},
     cache: false,
     dataType:"json",
-    success:function(data){
-    console.log(data);
+    success:function(data){    
     document.getElementById(id_td).innerHTML=data.stock;
     document.getElementById(id_td).style.background='#5bc0de';
     document.getElementById(id_td).style.color='white';

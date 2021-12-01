@@ -82,7 +82,6 @@ switch ($_GET["op"]){
       if (is_array($tipo_lente)==true and count($tipo_lente)>0) {
         foreach ($tipo_lente as $key) {
            $data["codigo"]=$key["codigo"];
-           $data["id_lente"]=$key["id_lente"];
            $data["tipo_lente"]=$key["tipo_lente"];
         }
         echo json_encode($data);
@@ -92,18 +91,16 @@ switch ($_GET["op"]){
 
     case 'get_info_terminado':
     
-    $data = $productos->getInfoTerminado($_POST["codigo"],$_POST["id_lente"]);
+    $data = $productos->getInfoTerminado($_POST["codigo"]);
 
     if (is_array($data)==true and count($data)>0) {
       foreach ($data as $key) {
-        $output["lente"]=$key["lente"];
         $output["marca"]=$key["marca"];
         $output["diseno"]=$key["diseno"];
         $output["esfera"]=$key["esfera"];
         $output["cilindro"]=$key["cilindro"];
-        $output["id_terminado"]=$key["id_terminado"];
         $output["codigo"]=$key["codigo"];
-        $output["tipo_lente"]=$key["tipo_lente"];
+        $output["tipo_lente"] = "Terminado";
     }
      echo json_encode($output);
     }
@@ -113,9 +110,8 @@ switch ($_GET["op"]){
 case "get_codigo_barra":
   date_default_timezone_set('America/El_Salvador'); $now = date("mY");
   $tipo_lente = $_POST['tipo_lente'];
-  $identificador = $_POST['identificador'];
   $tipo_lente == 'Terminado' ? $tl = '01': $tl = '02';
-  $datos= $productos->getCodigoBarra($tipo_lente);
+  $datos = $productos->getCodigoBarra($tipo_lente);
 
   if(is_array($datos)==true and count($datos)>0){
     foreach($datos as $row){

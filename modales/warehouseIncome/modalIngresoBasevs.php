@@ -75,7 +75,7 @@ body {
       <input type="hidden" id="id_lente_term">
       <input type="hidden" id="id_td_base">
       <input type="hidden" id="id_tabla_base">
-      <input type="text" id="categoria_codigo" value="Fabricante">
+      <input type="hidden" id="categoria_codigo" value="Fabricante">
       <div class="modal-footer">
         <button type="button" class="btn btn-primary btn-block" onClick='setStockBases()'>REGISTRAR INGRESO</button>
       </div>

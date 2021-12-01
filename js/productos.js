@@ -89,8 +89,10 @@ function set_code_bar(){
 }
 
  function create_barcode_interno_term(){
-  let tipo_lente = 'Terminado';
-  let identificador = $("#id_td").val()
+
+  let tipo_lente = $("#tipo_lente_code").val();
+  //let identificador = $("#id_td").val();
+  console.log(tipo_lente);
   Swal.fire({
   title: 'Código interno?',
   text: "Desea generar un codigo Interno",
@@ -105,7 +107,7 @@ function set_code_bar(){
     $.ajax({
     url:"../ajax/productos.php?op=get_codigo_barra",
     method:"POST",
-    data:{tipo_lente:tipo_lente,identificador:identificador},
+    data:{tipo_lente:tipo_lente},
     cache: false,
     dataType:"json",
       success:function(data){
@@ -247,13 +249,13 @@ function valida_tipo_lente(ojo){
     cache:false,
     dataType:"json",
     success:function(data){
-      
+    
     let codigo = data.codigo;
     let id_lente = data.id_lente;
     let categoria = data.tipo_lente;
 
     if (categoria=="Terminado") {
-      getInfoTerminado(codigo,id_lente,ojo,categoria);
+      getInfoTerminado(codigo,ojo,categoria);
     }else if(categoria=="Base")
         console.log("LENTE BASE");
     }
@@ -262,61 +264,58 @@ function valida_tipo_lente(ojo){
 
 var terminado_od_data = [];
 var terminado_oi_data = [];
-function getInfoTerminado(codigo,id_lente,ojo,categoria){  
-  
+function getInfoTerminado(codigo,ojo){ 
 
   $.ajax({
    url: "../ajax/productos.php?op=get_info_terminado",
    method: "POST",
-   data: {codigo:codigo,id_lente:id_lente},
+   data: {codigo:codigo},
    cache: false,
    dataType: "json",
    success:function(data){
-    console.log(data);
-    let od_data = {
-      id_lente: id_lente,
-      lente:data.lente,
+    
+    let od_data = {      
       marca:data.marca,
       diseno:data.diseno,
       esfera:data.esfera,
       cilindro:data.cilindro,
-      codigo:data.codigo
+      codigo:data.codigo,
+      tipo_lente:data.tipo_lente
     }
-    if(ojo=='derecho'){
-      terminado_od_data = [];
-      terminado_od_data.push(od_data);
-      table_od();
-    }else if(ojo=='izquierdo'){
-      terminado_oi_data = [];
-      terminado_oi_data.push(od_data);
-      table_oi(); 
-    }
+      terminado_desc_data = [];
+      terminado_desc_data.push(od_data);
+      table_ojo_desc(ojo);
+   
   }
 
   });
 }
 
-function table_od(){
-  $("#od_term_info").html('');
-  let filas = "";
-  let header = "OJO DERECHO - LENTE TERMINADO"
+function table_ojo_desc(ojo){
+  tabla = '';
+  ojo == 'derecho' ? tabla = 'data_desc_derecho' : tabla = 'data_desc_izq';
 
-  for(let j=0; j<terminado_od_data.length;j++ ){
-    filas = filas+    
+  $("#"+tabla).html('');
+  let filas = "";
+  let header = "-LENTE TERMINADO"
+  for(let j=0; j<terminado_desc_data.length;j++ ){
+    filas = filas+
+    "<tr style='text-align:center' class='bg-dark'>"+
+    "<td>Codigo</td>"+
+    "<td>Tipo lente</td>"+
+    "<td>Marca</td>"+
+    "<td>Diseño</td>"+
+    "</tr>"+    
     "<tr style='text-align:center'>"+
-    "<td>"+terminado_od_data[j].lente+"</td>"+
-    "<td>"+terminado_od_data[j].marca+"</td>"+
-    "<td>"+terminado_od_data[j].diseno+"</td>"+
-    "</tr>"+
-    "<tr style='text-align:center'>"+
-    "<td>Esfera: "+terminado_od_data[j].esfera+"</td>"+
-    "<td>Cilindro: "+terminado_od_data[j].cilindro+"</td>"+
-    "<td>"+"<i class='fas fa-trash' style='color:red' onClick='delete_item_od()'></i>"+"</td>"+
+    "<td>"+terminado_desc_data[j].codigo+"</td>"+
+    "<td>"+terminado_desc_data[j].tipo_lente+"</td>"+
+    "<td>"+terminado_desc_data[j].marca+"</td>"+
+    "<td>"+terminado_desc_data[j].diseno+"</td>"+
     "</tr>";
   }
-  $("#encabezado_od").html(header);
-  document.getElementById("encabezado_od").style.background ="#112438";
-  $("#od_term_info").html(filas);
+  //$("#"+title_tabla).html(header);
+  //document.getElementById(title_tabla).style.background ="#112438";
+  $("#"+tabla).html(filas);
   
 }
 

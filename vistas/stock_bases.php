@@ -70,6 +70,7 @@ if(isset($_SESSION["usuario"])){
   ?>
   <div class="content-wrapper">
     <section class="content">
+      <input type="hidden" id="tipo_lente_code">
       <div class="row">
         <?php
         $i=0;
@@ -98,6 +99,7 @@ if(isset($_SESSION["usuario"])){
       </div>
     </section>    
   </div>
+
 <!-- /.content-wrapper -->
 <footer class="main-footer">
   <strong>2021 Lenti || <b>Version</b> 1.0</strong>
