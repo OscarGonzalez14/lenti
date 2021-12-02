@@ -13,9 +13,9 @@
       <div class="col-sm-3">
         <label> Cod. Orden</label>
           <div class="input-group">
-          <input type="text" class="form-control clear_orden_i" id="cod_orden_current" placeholder="codigo orden scan" onchange="get_dets_orden()">
-          <div class="input-group-append" onClick="get_dets_orden()">
-            <span class="input-group-text bg-info"><i class="fas fa-search"> </i></span>
+          <input type="text" class="form-control clear_orden_i data_descargos" id="cod_orden_current" placeholder="codigo orden scan" onchange="get_dets_orden()" autocomplete="off">
+          <div class="input-group-append edit_field_desc" name="cod_orden_current">
+            <span class="input-group-text bg-info"><i class="fas fa-edit"> </i></span>
           </div>             
         </div>
       </div>
@@ -23,9 +23,9 @@
       <div class="col-sm-4">
         <label> OD Lente</label>
           <div class="input-group">
-          <input type="text" class="form-control clear_orden_i" id="cod_lente_inv" placeholder="Lente OD" onchange="valida_tipo_lente('derecho')">
-          <div class="input-group-append" onClick="valida_tipo_lente('derecho')">
-            <span class="input-group-text bg-info"><i class="fas fa-search"> </i></span>
+          <input type="text" class="form-control clear_orden_i" id="cod_lente_inv" placeholder="Lente OD" onchange="valida_tipo_lente('derecho')" autocomplete="off">
+          <div class="input-group-append edit_field_desc" name="cod_lente_inv">
+            <span class="input-group-text bg-info"><i class="fas fa-edit"> </i></span>
           </div>             
         </div>
       </div>
@@ -33,9 +33,9 @@
       <div class="col-sm-4">
         <label>OI Lente</label>
           <div class="input-group">
-          <input type="text" class="form-control clear_orden_i" id="cod_lente_oi" placeholder="Lente OI" onchange="valida_tipo_lente('izquierdo')">
-          <div class="input-group-append" onClick="valida_tipo_lente('izquierdo')">
-            <span class="input-group-text bg-info"><i class="fas fa-search"> </i></span>
+          <input type="text" class="form-control clear_orden_i" id="cod_lente_oi" placeholder="Lente OI" onchange="valida_tipo_lente('izquierdo')" autocomplete="off">
+          <div class="input-group-append edit_field_desc" name="cod_lente_oi">
+            <span class="input-group-text bg-info"><i class="fas fa-edit"> </i></span>
           </div>             
         </div>
       </div>
@@ -191,21 +191,17 @@
                 <div class="card-body pt-0">
                   <!--SECCION OJO DERECHO--->
                   <h5 id="encabezado_od" style="font-family: Helvetica, Arial, sans-serif;width: 100%;text-align: center;font-size: 13px;padding: 1px;margin-top: 5px;color: white"></h5>
-                  <div id="section_od" style="border:solid #112438 2px;margin-top: 0px">
-                   <table  width="100%" class="table-hover table-bordered" id="data_desc_derecho"  style="padding: 4px"> </table>
-                  </div> 
-                   <!--SECCION OJO IZQUIERDO--->                  
-                    <h5 id="encabezado_oi" style="font-family: Helvetica, Arial, sans-serif;width: 100%;text-align: center;font-size: 13px;padding: 1px;margin-top: 9px;color: white"></h5>
-                    <div id="section_oi" style="border:solid #0275d8 2px;margin-top: 0px">
-                   <table  width="100%" class="table-hover table-bordered" id="data_desc_izq" style="padding: 4px"> </table>
-                  </div>                 
+
+                  <div id="data_desc_derecho" style="border:solid #112438 2px;margin-top: 0px"></div><br>
+                   <!--SECCION OJO IZQUIERDO--->              
+                  <div id="data_desc_izq" style="border:solid #0275d8 2px;margin-top: 0px"></div>                 
                 </div>
               </div>
             </div><!--Inicio Item-->
         </div>
         </div>
         </div> 
-
+      <audio id="error_sound_desc"><source src="../error-beep.wav" type="audio/wav"></audio>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-block" style="background: #112438;color: white;border-radius: 0px" onClick="registrarDescargo();">REGISTRAR DESCARGO</button>

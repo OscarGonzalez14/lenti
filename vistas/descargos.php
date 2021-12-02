@@ -82,7 +82,39 @@ require_once("links_js.php");
 <script type="text/javascript" src="../js/productos.js"></script>
   </footer>
 </div>
+<script>
 
+document.addEventListener('keydown',handleInputFocusTransfer);
+function handleInputFocusTransfer(e){
+  const focusableInputElements= document.querySelectorAll('.data_descargos');  
+  const focusable= [...focusableInputElements]; 
+  const index = focusable.indexOf(document.activeElement);
+  let nextIndex = 0;
+  if (e.keyCode === 38) {
+    e.preventDefault();
+    nextIndex= index > 0 ? index-1 : 0;
+    focusableInputElements[nextIndex-1].focus();
+    focusableInputElements[nextIndex-1].select();  
+
+  }
+  else if (e.keyCode === 40) {
+    e.preventDefault();
+    nextIndex= index+1 < focusable.length ? index+1 : index;
+    focusableInputElements[nextIndex+1].focus();
+    let ids = focusableInputElements[nextIndex+1].select();
+  }else if(e.keyCode === 37){
+    e.preventDefault();
+    nextIndex= index > 0 ? index-1 : 0;
+    focusableInputElements[nextIndex].focus();
+    let ids = focusableInputElements[nextIndex].select();
+  }else if(e.keyCode === 39){
+    e.preventDefault();
+    nextIndex= index+1 < focusable.length ? index+1 : index;
+    focusableInputElements[nextIndex].focus();
+    let ids = focusableInputElements[nextIndex].select();
+  }
+}
+</script>
 <!-- ./wrapper -->
 
 </body>

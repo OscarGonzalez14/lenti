@@ -398,7 +398,7 @@ function get_dets_orden(){
       cache:false,
       dataType:"json",
       success:function(data){
-
+        if(data != 'error'){
         $("#cod_det_orden_descargo").html(data.codigo);
         $("#pac_orden_desc").html(data.paciente);
         $("#optica_orden_suc").html(data.optica);
@@ -415,10 +415,26 @@ function get_dets_orden(){
         } 
         det_orden.push(items_orden);
 
+        document.getElementById("cod_orden_current").readOnly = true
+        $('#cod_lente_inv').val("");
+        $('#cod_lente_inv').focus();
+
+      }else{
+        alerts_productos("error","Orden no existe!!"); 
+        $('#cod_orden_current').val("");       
+        $('#cod_orden_current').focus();
+        var z = document.getElementById("error_sound_desc"); 
+        z.play();
+        return false;
+      }
       }
     });
-
-  /////////////////GET DATA RX FINAL   
+/*============   editar capos de descargo   ===========*/
+$(document).on('click', '.edit_field_desc', function(){    
+    let id_campo = $(this).attr("name"); 
+    document.getElementById(id_campo).readOnly = false;   
+});
+/////////////////  GET DATA RX FINAL  ////////////////
 
   $.ajax({
     url:"../ajax/ordenes.php?op=get_rxfinal_orden",
@@ -478,9 +494,7 @@ function get_dets_orden(){
 
     }
   });
-
-
-
+  
 }
 
 function detOrdenes(cod_orden_act){
@@ -570,9 +584,9 @@ function detOrdenes(cod_orden_act){
       $("#diagonal_aro_orden").html(data.diagonal);
       $("#vertical_aro_orden").html(data.vertical);
       $("#puente_aro_orden").html(data.puente);
-
     }
   });
+  
 }
 
 

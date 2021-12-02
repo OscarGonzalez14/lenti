@@ -85,6 +85,8 @@ switch ($_GET["op"]){
            $data["tipo_lente"]=$key["tipo_lente"];
         }
         echo json_encode($data);
+      }else{
+        echo json_encode("errorx");
       }
 
       break;

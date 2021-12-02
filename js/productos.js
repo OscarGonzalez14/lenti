@@ -9,7 +9,7 @@ function alerts_productos(icono, titulo){
         icon: icono,
         title: titulo,
         showConfirmButton: true,
-        timer: 2500
+        timer: 1000
       });
 }
 function valida_base_term(){
@@ -228,19 +228,25 @@ function setStockTerminados(){
 //////////////////DESCARGOS DE INVENTARIO///////////
 function put_cursor_order(){
   $('#modal_descargo').on('shown.bs.modal', function() {
+      $('#cod_orden_current').val("");
       $('#cod_orden_current').focus();
+      $('#cod_lente_inv').val("");
+      $('#cod_lente_oi').val("");
   });
+
+  document.getElementById("data_desc_derecho").innerHTML = "";
+  document.getElementById("data_desc_izq").innerHTML = "";
+
+
+
 }
 
 let detalle_descargos= [];
 function valida_tipo_lente(ojo){
-  console.log(det_orden);
-  let codigo_lente=''
-  if(ojo=="derecho"){
-    codigo_lente = $("#cod_lente_inv").val();
-  }else if(ojo=="izquierdo"){
-    codigo_lente = $("#cod_lente_oi").val();
-  }  
+
+  let codigo_lente='';
+
+  ojo == 'derecho' ? codigo_lente = $("#cod_lente_inv").val() : codigo_lente = $("#cod_lente_oi").val(); 
 
   $.ajax({
     url:"../ajax/productos.php?op=get_tipo_lente",
@@ -250,20 +256,48 @@ function valida_tipo_lente(ojo){
     dataType:"json",
     success:function(data){
     
+  if(data != 'errorx'){
+    if(ojo=="derecho"){
+      document.getElementById("cod_lente_inv").readOnly = true;     
+      $('#cod_lente_oi').val("");
+      $('#cod_lente_oi').focus();
+    }else{
+      document.getElementById("cod_lente_oi").readOnly = true; 
+    }
+
     let codigo = data.codigo;
     let id_lente = data.id_lente;
     let categoria = data.tipo_lente;
 
     if (categoria=="Terminado") {
       getInfoTerminado(codigo,ojo,categoria);
-    }else if(categoria=="Base")
-        console.log("LENTE BASE");
+    }else if(categoria=="Base"){
+      console.log("LENTE BASE");
     }
+  }else{/*Fin errorx*/
+    if (ojo=='izquierdo') {
+      alerts_productos("error","Codigo lente no existe!!"); 
+      $('#cod_lente_oi').val("");
+      $('#cod_lente_oi').focus();
+      var z = document.getElementById("error_sound_desc"); 
+      z.play();
+      return false;
+    }else{
+      alerts_productos("error","Codigo lente no existe!!"); 
+      $('#cod_lente_inv').val("");
+      $('#cod_lente_inv').focus();
+      var z = document.getElementById("error_sound_desc"); 
+      z.play();
+      return false;
+    }
+  }
+}
   });
 }
 
 var terminado_od_data = [];
 var terminado_oi_data = [];
+
 function getInfoTerminado(codigo,ojo){ 
 
   $.ajax({
@@ -300,18 +334,36 @@ function table_ojo_desc(ojo){
   let header = "-LENTE TERMINADO"
   for(let j=0; j<terminado_desc_data.length;j++ ){
     filas = filas+
-    "<tr style='text-align:center' class='bg-dark'>"+
-    "<td>Codigo</td>"+
-    "<td>Tipo lente</td>"+
-    "<td>Marca</td>"+
-    "<td>Diseño</td>"+
-    "</tr>"+    
-    "<tr style='text-align:center'>"+
-    "<td>"+terminado_desc_data[j].codigo+"</td>"+
-    "<td>"+terminado_desc_data[j].tipo_lente+"</td>"+
-    "<td>"+terminado_desc_data[j].marca+"</td>"+
-    "<td>"+terminado_desc_data[j].diseno+"</td>"+
-    "</tr>";
+    "<table class='table-hover table-bordered'  width='100%'>"+
+      "<tr style='text-align:center;text-transform: uppercase' class='bg-primary'><td colspan='100'>OJO "+ojo+"</td></tr>"+    
+      "<tr style='text-align:center' class='bg-dark'>"+
+      "<td>Codigo</td>"+
+      "<td>Tipo lente</td>"+
+      "<td>Marca</td>"+
+      "<td>Diseño</td>"+
+      "</tr>"+
+
+      "<tr style='text-align:center'>"+
+      "<td>"+terminado_desc_data[j].codigo+"</td>"+
+      "<td>"+terminado_desc_data[j].tipo_lente+"</td>"+
+      "<td>"+terminado_desc_data[j].marca+"</td>"+
+      "<td>"+terminado_desc_data[j].diseno+"</td>"+
+      "</tr>"+
+
+      "<tr style='text-align:center' class='bg-dark'>"+
+      "<td>Esfera</td>"+
+      "<td>Cilindro</td>"+
+      "<td>Stock Act.</td>"+
+      "<td>Eliminar</td>"+
+      "</tr>"+
+
+      "<tr style='text-align:center'>"+
+      "<td>"+terminado_desc_data[j].esfera+"</td>"+
+      "<td>"+terminado_desc_data[j].cilindro+"</td>"+
+      "<td>0</td>"+
+      "<td><i class='fas fa-trash' style='color: red'></i></td>"+
+      "</tr>"+
+    "</table>";
   }
   //$("#"+title_tabla).html(header);
   //document.getElementById(title_tabla).style.background ="#112438";
@@ -319,29 +371,6 @@ function table_ojo_desc(ojo){
   
 }
 
-function table_oi(){
-  $("#oi_term_info").html('');
-  let filas_oi = "";
-  let header_oi = "OJO IZQUIERDO - LENTE TERMINADO"
-
-  for(let j=0; j<terminado_oi_data.length;j++ ){
-    filas_oi = filas_oi+    
-    "<tr style='text-align:center'>"+
-    "<td>"+terminado_oi_data[j].lente+"</td>"+
-    "<td>"+terminado_oi_data[j].marca+"</td>"+
-    "<td>"+terminado_oi_data[j].diseno+"</td>"+
-    "</tr>"+
-    "<tr style='text-align:center'>"+
-    "<td>Esfera: "+terminado_oi_data[j].esfera+"</td>"+
-    "<td>Cilindro: "+terminado_oi_data[j].cilindro+"</td>"+
-    "<td>"+"<i class='fas fa-trash' style='color:red' onClick='delete_item_oi()'></i>"+"</td>"+
-    "</tr>";
-  }
-  $("#encabezado_oi").html(header_oi);
-  document.getElementById("encabezado_oi").style.background ="#0275d8";
-  $("#oi_term_info").html(filas_oi);
-  
-}
 
 function delete_item_od(){
   $("#cod_lente_inv").val("");
