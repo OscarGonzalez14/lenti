@@ -138,7 +138,7 @@
 
           <!--######OPTICAS############-->
           <li class="nav-item">
-            <a href='orden.php'class="nav-link" style="color: white">
+            <a href='opticas.php'class="nav-link" style="color: white">
               <i class="nav-icon fas fa-glasses"></i>
               <p>Ópticas</p>
             </a>
