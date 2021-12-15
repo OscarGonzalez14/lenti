@@ -4,14 +4,14 @@ function handleInputFocusTransfer(e){
   const focusable= [...focusableInputElements]; 
   const index = focusable.indexOf(document.activeElement);
   let nextIndex = 0;
+
   if (e.keyCode === 38) {
     e.preventDefault();
     nextIndex= index > 0 ? index-1 : 0;
     focusableInputElements[nextIndex-1].focus();
     focusableInputElements[nextIndex-1].select();  
 
-  }
-  else if (e.keyCode === 40) {
+  }else if (e.keyCode === 40) {
     e.preventDefault();
     nextIndex= index+1 < focusable.length ? index+1 : index;
     focusableInputElements[nextIndex+1].focus();
@@ -64,6 +64,7 @@ function get_dataTableTerm(id_tabla,div_tabla){
     });
 
 }
+
 
 function getDataIngresoModal(esfera,cilindro,codigo,marca,diseno,titulo,id_td,id_tabla){
 	$('#modal_ingresos_term').modal('show');
@@ -250,8 +251,8 @@ function getLenteTermData(){
       } 
     }     
   });
-
 }
+
 
 function listar_items_ingreso_term(){
   $("#items_ingresos_terminados").html("");

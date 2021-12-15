@@ -269,6 +269,7 @@ function generate_barcode_print(codigo,paciente,id_sucursal,id_optica){
   form.target = "print_popup";
   form.method = "POST";
   form.action = "barcode_orden_print.php";
+  
   var input = document.createElement("input");
   input.type = "hidden";
   input.name = "paciente";

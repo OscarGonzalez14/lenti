@@ -19,6 +19,8 @@ class Productos extends Conectar{
 
         if ($tipo_lente=="Terminado") {            
             $query = "select CONCAT('Codigo actual ya ha sido asignado en terminados. Tabla id: ', id_tabla_term,' Esf.: ',esfera,' Cil.: ',cilindro) as data from stock_terminados";
+        }elseif($tipo_lente == "Base"){
+            $query = "select CONCAT('Codigo actual ya ha sido asignado en bases. Tabla: ', diseno,' base: ',base) AS data from stock_bases";
         }         
 
         $sql = "".$query." where codigo=?;";
