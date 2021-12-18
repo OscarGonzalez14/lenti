@@ -60,13 +60,10 @@
             <div class="col-12 col-sm-12 col-md-7"><!--Inicio Item-->
               <div class="card" style="border: solid 2px #5bc0de">
                 <div class="card-footer" style="border-bottom: solid 1px #0275d8;" id="block_header">
-                  <div class="text-left">
-                    <a class="btn btn-sm bg-dark">
-                      <i class="fas fa-file-alt"></i> # Orden: <span id="cod_det_orden_descargo"></span>
-                    </a>
+                  <div class="text-left" style="font-size: 16px;font-weight: bold;">
+                    <i class="fas fa-file-alt"></i> Orden: <span id="cod_det_orden_descargo"></span>
                       &nbsp;&nbsp;&nbsp;
-                      <i class="fas fa-user"></i> Paciente: <span id="pac_orden_desc"></span>
-
+                    <i class="fas fa-user"></i> Paciente: <span id="pac_orden_desc"></span>
                   </div>
                 </div>
                 <div class="card-body pt-0"> <!--INICIO CONTENIDO DETALLE ORDEN-->

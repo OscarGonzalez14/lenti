@@ -171,6 +171,18 @@ public function registrarCodigo($codigo,$tipo_lente,$identificador){
     $sql->execute();
   }
 
+/*-------------------- DESCARGOS DE BASE SIN ADICION ---------------------*/
+  public function getInfoBases($codigo_lente){
+    $conectar=parent::conexion();
+    parent::set_names();
+ 
+    $sql2 = "select t.marca,t.diseno,s.codigo,s.base,s.stock from tablas_base as t inner join stock_bases as s on t.id_tabla_base=s.id_tabla_base WHERE s.codigo=?;";
+    $sql2 = $conectar->prepare($sql2);
+    $sql2->bindValue(1, $codigo_lente);
+    $sql2->execute();
+    return $resultado = $sql2->fetchAll(PDO::FETCH_ASSOC);
+
+  }
 
 }////////////////////////// FIN DE LA CLASE  /////////////////
 

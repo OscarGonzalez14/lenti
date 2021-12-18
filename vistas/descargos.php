@@ -45,7 +45,7 @@ $cat_admin = $_SESSION["categoria"];
             <i class="fas fa-glasses"></i> Crear orden
         </a>-->
         </div>
-      <button class="btn btn-info btn-sm btn-flat new_order_class" data-toggle="modal" data-target="#modal_descargo" data-backdrop="static" data-keyboard="false"  id="new_desc" onClick="put_cursor_order();" style="border-radius: 3px;font-family: Helvetica, Arial, sans-serif;font-size: 14px;text-align: center"><i class="fas fa-sort" style="margin-top: 2px"> Nuevo Descargo</i></button>
+      <button class="btn btn-info btn-sm btn-flat" data-toggle="modal" data-target="#modal_descargo" data-backdrop="static" data-keyboard="false"  id="new_desc" onClick="put_cursor_order();" style="border-radius: 3px;font-family: Helvetica, Arial, sans-serif;font-size: 14px;text-align: center"><i class="fas fa-sort" style="margin-top: 2px"> Nuevo Descargo</i></button>
       <div class="row">
          <div class="col-sm-4"></div>
          <div class="col-sm-4"></div>

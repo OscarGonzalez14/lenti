@@ -132,4 +132,20 @@ case 'registrar_codigo':
   $productos->registrarCodigo($_POST['codigo'],$_POST['tipo_lente'],$_POST['identificador']);
   break;
 
+/* --------------------------  GET DATA BASE SIN ADICION --------------------*/
+
+ case 'get_info_base':
+   $data = $productos->getInfoBases($_POST["codigo"]);
+   if (is_array($data)==true and count($data)>0) {
+      foreach ($data as $key) {
+        $output["marca"]=$key["marca"];
+        $output["diseno"]=$key["diseno"];
+        $output["base"]=$key["base"];        
+        $output["codigo"]=$key["codigo"];
+        $output["tipo_lente"] = "Base";
+    }
+  }
+    echo json_encode($output);
+   break;
+
 }///Fin Switch

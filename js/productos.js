@@ -123,9 +123,7 @@ function set_code_bar(){
 }
 
  //////////////// AUTOCOMPLETADO CAMPOS NUEVO LENTE //////////////////
- var marcas_lente = ["Essilor","Divel"];
- autocomplete(document.getElementById("marca_lente"), marcas_lente); 
- let disenos_lente = [];
+ 
  function autocomplete_marcas(){
   var marcas_l = document.getElementById("marca_lente").value;
   if (marcas_l=="Essilor") {
@@ -237,10 +235,16 @@ function put_cursor_order(){
   document.getElementById("data_desc_derecho").innerHTML = "";
   document.getElementById("data_desc_izq").innerHTML = "";
 
-
-
 }
-
+/*-------------------- DESCARGOS --------------*/
+document.getElementById("new_desc").addEventListener("click", function() {
+    let element = document.getElementsByClassName("clear_orden_i");
+    for(i=0;i<element.length;i++){
+      let id_element = element[i].id;
+      document.getElementById(id_element).readOnly = false;
+      document.getElementById(id_element).value = "";
+   }
+})
 let detalle_descargos= [];
 function valida_tipo_lente(ojo){
 
@@ -270,9 +274,9 @@ function valida_tipo_lente(ojo){
     let categoria = data.tipo_lente;
 
     if (categoria=="Terminado") {
-      getInfoTerminado(codigo,ojo,categoria);
+      getInfoTerminado(codigo,ojo);
     }else if(categoria=="Base"){
-      console.log("LENTE BASE");
+      getInfoBase(codigo,ojo);
     }
   }else{/*Fin errorx*/
     if (ojo=='izquierdo') {
@@ -295,8 +299,7 @@ function valida_tipo_lente(ojo){
   });
 }
 
-var terminado_od_data = [];
-var terminado_oi_data = [];
+var array_items_desc = [];
 
 function getInfoTerminado(codigo,ojo){ 
 
@@ -316,14 +319,22 @@ function getInfoTerminado(codigo,ojo){
       codigo:data.codigo,
       tipo_lente:data.tipo_lente
     }
-      terminado_desc_data = [];
-      terminado_desc_data.push(od_data);
-      table_ojo_desc(ojo);
+
+    let data_desc = {
+      tipo_lente : data.tipo_lente,
+      codigo : data.codigo,
+      ojo
+    }
+    terminado_desc_data = [];      
+    terminado_desc_data.push(od_data);
+    array_items_desc.push(data_desc);
+    table_ojo_desc(ojo);
    
   }
 
   });
 }
+
 
 function table_ojo_desc(ojo){
   tabla = '';
@@ -334,7 +345,7 @@ function table_ojo_desc(ojo){
   let header = "-LENTE TERMINADO"
   for(let j=0; j<terminado_desc_data.length;j++ ){
     filas = filas+
-    "<table class='table-hover table-bordered'  width='100%'>"+
+    "<table class='table-hover table-bordered'  width='100%' style='font-size:12px'>"+
       "<tr style='text-align:center;text-transform: uppercase' class='bg-primary'><td colspan='100'>OJO "+ojo+"</td></tr>"+    
       "<tr style='text-align:center' class='bg-dark'>"+
       "<td>Codigo</td>"+
@@ -413,6 +424,42 @@ function registrarDescargo(){
   }
 }); 
   
+}
+
+/* ------------------- DESCARGO BASES SIN ADICIOON ---------------- */
+function getInfoBase(codigo,ojo){
+  $.ajax({
+   url: "../ajax/productos.php?op=get_info_base",
+   method: "POST",
+   data: {codigo:codigo},
+   cache: false,
+   dataType: "json",
+   success:function(data){
+    
+    let od_data = {      
+      marca:data.marca,
+      diseno:data.diseno,
+      base:data.base,
+      codigo:data.codigo,
+      tipo_lente:data.tipo_lente
+    }
+
+    let data_desc = {
+      tipo_lente : data.tipo_lente,
+      codigo : data.codigo,
+      ojo
+    }
+
+    base_desc_data = [];      
+    base_desc_data.push(od_data);
+    array_items_desc.push(data_desc);
+    table_ojo_desc(ojo);
+
+
+   
+  }
+
+  });
 }
 
 init();
