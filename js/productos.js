@@ -236,20 +236,22 @@ function put_cursor_order(){
   document.getElementById("data_desc_izq").innerHTML = "";
 
 }
-/*-------------------- DESCARGOS --------------*/
+/*----------------------- DESCARGOS -----------------*/
 document.getElementById("new_desc").addEventListener("click", function() {
+    array_items_desc = [];
     let element = document.getElementsByClassName("clear_orden_i");
     for(i=0;i<element.length;i++){
       let id_element = element[i].id;
+      console.log(id_element);
       document.getElementById(id_element).readOnly = false;
       document.getElementById(id_element).value = "";
    }
 })
+
 let detalle_descargos= [];
 function valida_tipo_lente(ojo){
 
   let codigo_lente='';
-
   ojo == 'derecho' ? codigo_lente = $("#cod_lente_inv").val() : codigo_lente = $("#cod_lente_oi").val(); 
 
   $.ajax({
@@ -300,7 +302,6 @@ function valida_tipo_lente(ojo){
 }
 
 var array_items_desc = [];
-
 function getInfoTerminado(codigo,ojo){ 
 
   $.ajax({
@@ -325,16 +326,16 @@ function getInfoTerminado(codigo,ojo){
       codigo : data.codigo,
       ojo
     }
+
     terminado_desc_data = [];      
     terminado_desc_data.push(od_data);
     array_items_desc.push(data_desc);
     table_ojo_desc(ojo);
    
   }
+});
 
-  });
 }
-
 
 function table_ojo_desc(ojo){
   tabla = '';
@@ -345,7 +346,7 @@ function table_ojo_desc(ojo){
   let header = "-LENTE TERMINADO"
   for(let j=0; j<terminado_desc_data.length;j++ ){
     filas = filas+
-    "<table class='table-hover table-bordered'  width='100%' style='font-size:12px'>"+
+    "<table class='table-hover table-bordered'  width='100%' style='font-size:12px' id="+tabla+">"+
       "<tr style='text-align:center;text-transform: uppercase' class='bg-primary'><td colspan='100'>OJO "+ojo+"</td></tr>"+    
       "<tr style='text-align:center' class='bg-dark'>"+
       "<td>Codigo</td>"+
@@ -372,7 +373,7 @@ function table_ojo_desc(ojo){
       "<td>"+terminado_desc_data[j].esfera+"</td>"+
       "<td>"+terminado_desc_data[j].cilindro+"</td>"+
       "<td>0</td>"+
-      "<td><i class='fas fa-trash' style='color: red'></i></td>"+
+      "<td><i class='fas fa-trash' style='color: red' onClick='eliminarItemDescargo("+'"'+terminado_desc_data[j].codigo+'"'+","+'"'+tabla+'"'+","+'"'+ojo+'"'+")'></i></td>"+
       "</tr>"+
     "</table>";
   }
@@ -435,7 +436,7 @@ function getInfoBase(codigo,ojo){
    cache: false,
    dataType: "json",
    success:function(data){
-    
+
     let od_data = {      
       marca:data.marca,
       diseno:data.diseno,
@@ -453,10 +454,7 @@ function getInfoBase(codigo,ojo){
     base_desc_data = [];      
     base_desc_data.push(od_data);
     array_items_desc.push(data_desc);
-    table_ojo_desc(ojo);
-
-
-   
+    //table_ojo_desc(ojo);   
   }
 
   });

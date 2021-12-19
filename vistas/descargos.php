@@ -22,6 +22,7 @@ $cat_admin = $_SESSION["categoria"];
       max-width: 150px;
   }
 </style>
+ <script src="../plugins/keymaster.js"></script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed" style='font-family: Helvetica, Arial, sans-serif;'>
 <div class="wrapper">
@@ -80,6 +81,7 @@ require_once("links_js.php");
 ?>
 <script type="text/javascript" src="../js/ordenes.js"></script>
 <script type="text/javascript" src="../js/productos.js"></script>
+<script type="text/javascript" src="../js/stock.js"></script>
   </footer>
 </div>
 <script>

@@ -406,7 +406,7 @@ function setStockBases(){
      setStockBasevs(id_td,base,codigoProducto);           
   }          
   });
-
+}
   function setStockBasevs(id_td,base,codigo){
 
     $.ajax({
@@ -424,8 +424,23 @@ function setStockBases(){
 
   }
 
+  function eliminarItemDescargo(codigo,tabla,ojo){
+   document.getElementById(tabla).innerHTML="";
+   if (ojo=='derecho') {
+    document.getElementById("cod_lente_inv").readOnly = false;
+    document.getElementById("cod_lente_inv").value = "";
+    $('#cod_lente_inv').focus();
+   }else{
+    document.getElementById("cod_lente_oi").readOnly = false;
+    document.getElementById("cod_lente_oi").value = "";
+    $('#cod_lente_oi').focus();
+   }
+   let indice = array_items_desc.findIndex((objeto, indice, array_items_desc) =>{
+      return objeto.codigo == codigo
+    });
+    array_items_desc.splice(indice,1)
+  }
 
 
-}
 
 init();
