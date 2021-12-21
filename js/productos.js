@@ -9,23 +9,23 @@ function alerts_productos(icono, titulo){
         icon: icono,
         title: titulo,
         showConfirmButton: true,
-        timer: 1000
+        timer: 5000
       });
 }
 function valida_base_term(){
-	let vs_term_check = $("#vs_term").is(":checked");
-	let vs_semi_term_chk = $("#vs_semi_term").is(":checked");
-	let bifo_flap_chk = $("#bifo_flap").is(":checked");
+  let vs_term_check = $("#vs_term").is(":checked");
+  let vs_semi_term_chk = $("#vs_semi_term").is(":checked");
+  let bifo_flap_chk = $("#bifo_flap").is(":checked");
   let flap_terminado = $("#flap_terminado").is(":checked");
     
     if(vs_term_check) {
-    	document.getElementById("terminado_section").style.display = "block";
-    	document.getElementById("base_section").style.display = "none";
+      document.getElementById("terminado_section").style.display = "block";
+      document.getElementById("base_section").style.display = "none";
       document.getElementById("semiterminado_section").style.display = "none";
       document.getElementById("flap_terminado_section").style.display = "none";
     }else if(bifo_flap_chk ){
-    	document.getElementById("base_section").style.display = "block";
-    	document.getElementById("terminado_section").style.display = "none";
+      document.getElementById("base_section").style.display = "block";
+      document.getElementById("terminado_section").style.display = "none";
       document.getElementById("semiterminado_section").style.display = "none";
       document.getElementById("flap_terminado_section").style.display = "none";
     }else if(vs_semi_term_chk){
@@ -42,7 +42,7 @@ function valida_base_term(){
 }
 
 function focus_input(){
-	$('input[name=codigob_lente]').focus();
+  $('input[name=codigob_lente]').focus();
 }
 
 $(document).on('shown.bs.modal', function (e) {
@@ -246,6 +246,13 @@ document.getElementById("new_desc").addEventListener("click", function() {
       document.getElementById(id_element).readOnly = false;
       document.getElementById(id_element).value = "";
    }
+   let items_data_orden_desc = document.getElementsByClassName("data_orden_desc");
+   for (var i = 0; i < items_data_orden_desc.length; i++) {
+    items_data_orden_desc[i].innerHTML="";
+   }
+   $("#id_optica_desc").val("");
+   $("#id_sucursal_desc").val("");
+
 })
 
 let detalle_descargos= [];
@@ -324,7 +331,8 @@ function getInfoTerminado(codigo,ojo){
     let data_desc = {
       tipo_lente : data.tipo_lente,
       codigo : data.codigo,
-      ojo
+      ojo,
+      medidas : "Esfera: "+data.esfera+", Cilindro: "+data.cilindro
     }
 
     terminado_desc_data = [];      
@@ -398,37 +406,9 @@ function delete_item_oi(){
   table_oi();
 }
 
-function registrarDescargo(){
-
-  let codigo_orden = $("#cod_orden_current").val();
-  let codebar = $("#cod_orden_current").val();
-  let terminado_od = terminado_od_data;
-  let terminado_oi = terminado_oi_data;
-
-  if(terminado_od == undefined || terminado_od==null || terminado_od==0) {
-    alerts_productos("error","OD campo obligatorio");
-  }else{
-    let long_od = terminado_od_data.length;
-    if (long_od==0) {
-      alerts_productos("error","OD campo obligatorio");
-    }
-  } 
-  
-  $.ajax({
-  url:"../ajax/productos.php?op=registrarDescargo",
-  method:"POST",
-  data : {'ojoDerechoArray':JSON.stringify(terminado_od_data),'ojoIzquierdoArray':JSON.stringify(terminado_od_data)},
-  cache:false,
-  dataType:"json",
-  success:function(data){
-    console.log(data)      
-  }
-}); 
-  
-}
-
 /* ------------------- DESCARGO BASES SIN ADICIOON ---------------- */
 function getInfoBase(codigo,ojo){
+  console.log('bases');
   $.ajax({
    url: "../ajax/productos.php?op=get_info_base",
    method: "POST",
@@ -436,28 +416,73 @@ function getInfoBase(codigo,ojo){
    cache: false,
    dataType: "json",
    success:function(data){
-
+    console.log(data)
     let od_data = {      
       marca:data.marca,
       diseno:data.diseno,
       base:data.base,
       codigo:data.codigo,
-      tipo_lente:data.tipo_lente
+      tipo_lente:data.tipo_lente,
+      stock:data.stock
     }
 
     let data_desc = {
       tipo_lente : data.tipo_lente,
       codigo : data.codigo,
-      ojo
+      ojo,
+      medidas : "base: "+data.base
     }
 
     base_desc_data = [];      
     base_desc_data.push(od_data);
     array_items_desc.push(data_desc);
-    //table_ojo_desc(ojo);   
+    show_table_bases(ojo);   
   }
 
   });
+}
+ 
+function show_table_bases(ojo){
+  tabla = '';
+  ojo == 'derecho' ? tabla = 'data_desc_derecho' : tabla = 'data_desc_izq';
+
+  $("#"+tabla).html('');
+  let filas = "";
+  let header = "-LENTE TERMINADO"
+  for(let j=0; j<base_desc_data.length;j++ ){
+    filas = filas+
+    "<table class='table-hover table-bordered'  width='100%' style='font-size:12px' id="+tabla+">"+
+      "<tr style='text-align:center;text-transform: uppercase' class='bg-primary'><td colspan='100'>OJO "+ojo+"</td></tr>"+    
+      "<tr style='text-align:center' class='bg-dark'>"+
+      "<td colspan='25'>Codigo</td>"+
+      "<td colspan='25'>Tipo lente</td>"+
+      "<td colspan='25'>Marca</td>"+
+      "<td colspan='25'>Diseño</td>"+
+      "</tr>"+
+
+      "<tr style='text-align:center'>"+
+      "<td colspan='25'>"+base_desc_data[j].codigo+"</td>"+
+      "<td colspan='25'>"+base_desc_data[j].tipo_lente+"</td>"+
+      "<td colspan='25'>"+base_desc_data[j].marca+"</td>"+
+      "<td colspan='25'>"+base_desc_data[j].diseno+"</td>"+
+      "</tr>"+
+
+      "<tr style='text-align:center' class='bg-dark'>"+
+      "<td colspan='34'>Base</td>"+
+      "<td colspan='33'>Stock Act.</td>"+
+      "<td colspan='33'>Eliminar</td>"+
+      "</tr>"+
+
+      "<tr style='text-align:center'>"+
+      "<td colspan='34'>"+base_desc_data[j].base+"</td>"+
+      "<td colspan='33'>"+base_desc_data[j].stock+"</td>"+
+      "<td colspan='33'><i class='fas fa-trash' style='color: red' onClick='eliminarItemDescargo("+'"'+base_desc_data[j].codigo+'"'+","+'"'+tabla+'"'+","+'"'+ojo+'"'+")'></i></td>"+
+      "</tr>"+
+    "</table>";
+  }
+  //$("#"+title_tabla).html(header);
+  //document.getElementById(title_tabla).style.background ="#112438";
+  $("#"+tabla).html(filas);
 }
 
 init();

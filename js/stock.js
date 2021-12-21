@@ -441,6 +441,58 @@ function setStockBases(){
     array_items_desc.splice(indice,1)
   }
 
+//window.onkeydown= space_guardar_orden;
+/*function space_guardar_orden(event){
+  event.preventDefault();
+  tecla = event.keyCode; 
+  if(tecla==16)
+  {
+   agregarDescargo();
+ }
+}*/
+
+function agregarDescargo(){
+  console.log("AAA")
+  let paciente = $("#pac_orden_desc").html();
+  let codigo_orden = $("#cod_det_orden_descargo").html();
+  let id_optica = $("#id_optica_desc").val();
+  let id_sucursal = $("#id_sucursal_desc").val();
+  let id_usuario = $("#id_usuario").val();
+
+  if (codigo_orden=="") {
+    alerts_productos("error", "Orden no ha sido agregada");
+    return false;
+  }
+
+  let tam_array_desc = array_items_desc.length;
+  if (tam_array_desc==0) {
+    alerts_productos("error", "Debe agregar productos");return false;
+  }
+  if (tam_array_desc==1) {
+    Swal.fire({
+    title: 'La orden solo posee un lente. Desea proceder?',
+    text: "Confirmar",
+    type: 'question',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Aceptar',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if(result.value){
+      registrarDescargo();
+    }
+  });
+  }
+
+}
+
+document.onkeyup=function(e){
+  var e = e || window.event; // for IE to cover IEs window event-object
+  if(e.ctrlKey) {
+    agregarDescargo();
+  }
+}
 
 
 init();

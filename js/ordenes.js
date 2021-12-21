@@ -407,14 +407,8 @@ function get_dets_orden(){
         $("#tipo_lente_ord").html(data.tipo_lente);
         $("#trat_multi_orden").html(data.trat_orden);
         $("#obs_orden").val(data.observaciones);
-
-        let items_orden = {
-          codigo : data.codigo,
-          paciente :data.paciente,
-          id_optica: data.id_optica,
-          id_sucursal: data.id_sucursal
-        } 
-        det_orden.push(items_orden);
+        $("#id_optica_desc").val(data.id_optica);
+        $("#id_sucursal_desc").val(data.id_sucursal);
 
         document.getElementById("cod_orden_current").readOnly = true
         $('#cod_lente_inv').val("");
@@ -704,5 +698,16 @@ function ver_datos_orden(cod_orden_act){
 
 }
 
+function clearDataOrdenDesc(){
+  $("#cod_orden_current").val("");
+  $('#cod_orden_current').focus();
+
+  let items_data_orden_desc = document.getElementsByClassName("data_orden_desc");
+  for (var i = 0; i < items_data_orden_desc.length; i++) {
+    items_data_orden_desc[i].innerHTML="";
+  }
+  $("#id_optica_desc").val("");
+  $("#id_sucursal_desc").val("");
+}
 
 init();

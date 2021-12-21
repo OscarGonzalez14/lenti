@@ -143,6 +143,7 @@ case 'registrar_codigo':
         $output["base"]=$key["base"];        
         $output["codigo"]=$key["codigo"];
         $output["tipo_lente"] = "Base";
+        $output["stock"] = $key["stock"];
     }
   }
     echo json_encode($output);
