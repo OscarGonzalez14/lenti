@@ -47,11 +47,11 @@ $cat_admin = $_SESSION["categoria"];
         </a>-->
         </div>
       <button class="btn btn-info btn-sm btn-flat" data-toggle="modal" data-target="#modal_descargo" data-backdrop="static" data-keyboard="false"  id="new_desc" onClick="put_cursor_order();" style="border-radius: 3px;font-family: Helvetica, Arial, sans-serif;font-size: 14px;text-align: center"><i class="fas fa-sort" style="margin-top: 2px"> Nuevo Descargo</i></button>
-      <div class="row">
+      <!--<div class="row">
          <div class="col-sm-4"></div>
          <div class="col-sm-4"></div>
          <div class="col-sm-4"><input type="text" class="form-control"></div>
-       </div>
+       </div>-->
       <div class="card card-dark card-outline" style="margin: 2px;">
        <table width="100%" class="table-hover table-bordered" id="datatable_desc_diarios" data-order='[[ 0, "desc" ]]'>        
          <thead class="style_th bg-dark" style="color: white">
@@ -60,13 +60,82 @@ $cat_admin = $_SESSION["categoria"];
            <th>Fecha</th>
            <th>Paciente</th>
            <th>Optica</th>
-           <th>Detalles</th>
-           <th>Aciones</th>
+           <th>Ojo</th>
+           <th>Lente</th>
+           <th>Medidas</th>
+           <th>Cod. Lente</th>
          </thead>
          <tbody class="style_th"></tbody>
        </table>
       </div>
       </div><!-- /.container-fluid -->
+
+
+      <div class="col-md-12">
+        <div class="card card-primary collapsed-card" style="border: solid 1px blue;">
+          <div class="card-header">
+              <h5 class="card-title" style="font-size: 16px;"> ORDENES DIGITADAS EN LABORATORIO</h5>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool bg-danger btn-xs" onClick="listar_ordenes();"><i class="fas fa-bell"></i><span>10 Pendientes</span></button>
+
+                  <button type="button" class="btn btn-tool bg-warning btn-xs"><i class="fas fa-cog"></i><span>50 Proceso</span></button>
+                  <button type="button" class="btn btn-tool btn-xs" data-card-widget="collapse" onClick="get_dataTableBase();"><i class="fas fa-plus"></i>
+                  </button>
+                <button type="button" class="btn btn-tool btn-xs" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+              </div>
+          </div>
+            <div class="card-body">
+            <table width="100%" class="table-hover table-bordered" id="datatable_ordenes" data-order='[[ 0, "desc" ]]'>        
+               <thead class="style_th bg-dark" style="color: white">
+                 <th>Id</th>
+                 <th>Código</th>
+                 <th>Óptica</th>
+                 <th>Paciente</th>
+                 <th>Estado</th>
+                 <th>Detalles</th>
+                 <th>Viñeta</th>
+                 <th>Aciones</th>
+               </thead>
+               <tbody class="style_th"></tbody>
+             </table>
+            </div>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="card card-dark collapsed-card" style="border: solid 1px black;">
+          <div class="card-header">
+              <h5 class="card-title" style="font-size: 16px;"> ORDENES DIGITADAS ÓPTICA</h5>
+                <div class="card-tools">
+
+                  <button type="button" class="btn btn-tool bg-danger btn-xs" onClick="listar_ordenes();"><i class="fas fa-bell"></i><span>15</span> Pendientes</button>
+
+                  <button type="button" class="btn btn-tool bg-warning btn-xs"><i class="fas fa-cog"></i><span>40 Proceso</span></button>
+
+                  <button type="button" class="btn btn-tool btn-xs" data-card-widget="collapse" onClick="get_dataTableBase();"><i class="fas fa-plus"></i>
+                  </button>
+                <button type="button" class="btn btn-tool btn-xs" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+              </div>
+          </div>
+            <div class="card-body">
+           <table width="100%" class="table-hover table-bordered" id="datatable_ordenes" data-order='[[ 0, "desc" ]]'>        
+               <thead class="style_th bg-dark" style="color: white">
+                 <th>Id</th>
+                 <th>Código</th>
+                 <th>Óptica</th>
+                 <th>Paciente</th>
+                 <th>Estado</th>
+                 <th>Detalles</th>
+                 <th>Viñeta</th>
+                 <th>Aciones</th>
+               </thead>
+               <tbody class="style_th"></tbody>
+             </table>
+            </div>
+        </div>
+      </div>
+
+
     </section>
     <!-- /.content -->
   </div>

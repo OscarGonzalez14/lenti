@@ -95,4 +95,47 @@ switch ($_GET["op"]){
     }
     echo json_encode($output);
 	break;
+
+	case 'registrar_descargo':
+	$validar_codigo = $stock->validarExisteOrdenDescargos($_POST["codigo_orden"]);
+	    if (is_array($validar_codigo)==true and count($validar_codigo)==0) {
+	    	$stock->registrarDescargo();
+		    $message = "Ok";		
+	    }else{
+	    	$message = "Error";
+	    }
+	echo json_encode($message);
+	break;
+
+case 'listar_descargos':
+  $datos = $stock->listadoDiarioDescargos();
+  $data = Array();
+  foreach ($datos as $row) { 
+  $sub_array = array();
+
+  $sub_array[] = $row["id_descargo"];  
+  $sub_array[] = $row["codigo_orden"];  
+  $sub_array[] = $row["fecha"];
+  $sub_array[] = $row["paciente"];   
+  $sub_array[] = $row["nombre"];
+  $sub_array[] = $row["ojo"];
+  $sub_array[] = $row["tipo_lente"];
+  $sub_array[] = $row["medidas"];
+  $sub_array[] = $row["codigo_lente"];
+  $data[] = $sub_array;
+  }
+  
+  $results = array(
+      "sEcho"=>1, //Información para el datatables
+      "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+      "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+      "aaData"=>$data);
+    echo json_encode($results);
+  break;
+
+/*============================== BASES BIFOCALES ========================*/
+	case 'get_tableBaseFlaptop':
+		$datos = $stock->getTablesBasesFtop($_POST["id_tabla"]); 
+		//echo json_encode($datos);
+	break;
 }

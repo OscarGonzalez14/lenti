@@ -1,3 +1,9 @@
+var Toast = Swal.mixin({
+  toast: true,
+  position: 'top-center',
+  showConfirmButton: false,
+  timer: 2000
+});
 document.addEventListener('keydown',handleInputFocusTransfer);
 function handleInputFocusTransfer(e){
   const focusableInputElements= document.querySelectorAll('.cant_ingreso');  
@@ -48,6 +54,7 @@ function init(){
         $("body").off("mousemove.draggable");
     });
   });
+    listar_descargos();
 }
 
 
@@ -441,18 +448,9 @@ function setStockBases(){
     array_items_desc.splice(indice,1)
   }
 
-//window.onkeydown= space_guardar_orden;
-/*function space_guardar_orden(event){
-  event.preventDefault();
-  tecla = event.keyCode; 
-  if(tecla==16)
-  {
-   agregarDescargo();
- }
-}*/
 
 function agregarDescargo(){
-  console.log("AAA")
+
   let paciente = $("#pac_orden_desc").html();
   let codigo_orden = $("#cod_det_orden_descargo").html();
   let id_optica = $("#id_optica_desc").val();
@@ -480,19 +478,137 @@ function agregarDescargo(){
     cancelButtonText: 'Cancelar'
   }).then((result) => {
     if(result.value){
-      registrarDescargo();
+      registrarDescargo(paciente,codigo_orden,id_optica,id_sucursal,id_usuario);
     }
   });
+  }else{
+    registrarDescargo(paciente,codigo_orden,id_optica,id_sucursal,id_usuario);
   }
 
 }
 
-document.onkeyup=function(e){
-  var e = e || window.event; // for IE to cover IEs window event-object
-  if(e.ctrlKey) {
-    agregarDescargo();
-  }
+function registrarDescargo(paciente,codigo_orden,id_optica,id_sucursal,id_usuario){
+
+  $.ajax({
+    url:"../ajax/stock.php?op=registrar_descargo",
+    method:"POST",
+    data : {'arrayItemsDescargo':JSON.stringify(array_items_desc),'paciente':paciente,'codigo_orden':codigo_orden,'id_optica':id_optica,'id_sucursal':id_sucursal,'id_usuario':id_usuario},
+    cache:false,
+    dataType:"json",
+    success:function(data){
+      if (data=="Ok"){
+        $("#datatable_desc_diarios").DataTable().ajax.reload();
+        clearDataOrdenDesc();
+        array_items_desc = [];
+        document.getElementById("cod_orden_current").readOnly = false;
+        document.getElementById("cod_lente_inv").readOnly = false;
+        document.getElementById("cod_lente_inv").value = "";
+        document.getElementById("cod_lente_oi").readOnly = false;
+        document.getElementById("cod_lente_oi").value = "";
+
+        let tablas_descargo = document.getElementsByClassName("tabla_descargos");
+        for (var i = 0; i < tablas_descargo.length; i++) {
+          tablas_descargo[i].innerHTML="";
+        }
+
+      Toast.fire({icon: 'success',title: 'Descargo registrado.'})
+      }else if(data=="Error"){
+        alerts('error','La orden '+codigo_orden+' ya se ha registrado');
+      }
+    }
+  });
 }
 
 
+function listar_descargos(){
+
+  tabla_ordenes= $('#datatable_desc_diarios').DataTable({      
+    "aProcessing": true,//Activamos el procesamiento del datatables
+    "aServerSide": true,//Paginación y filtrado realizados por el servidor
+    dom: 'Bfrtip',//Definimos los elementos del control de tabla
+    buttons: [     
+      'excelHtml5',
+    ],
+
+    "ajax":{
+      url:"../ajax/stock.php?op=listar_descargos",
+      type : "POST",
+      dataType : "json",
+      //data:{},           
+      error: function(e){
+      console.log(e.responseText);
+    },           
+    },
+
+        "bDestroy": true,
+        "responsive": true,
+        "bInfo":true,
+        "iDisplayLength": 25,//Por cada 10 registros hace una paginación
+          "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+
+            "language": {
+ 
+          "sProcessing":     "Procesando...",
+       
+          "sLengthMenu":     "Mostrar _MENU_ registros",
+       
+          "sZeroRecords":    "No se encontraron resultados",
+       
+          "sEmptyTable":     "Ningún dato disponible en esta tabla",
+       
+          "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+       
+          "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+       
+          "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+       
+          "sInfoPostFix":    "",
+       
+          "sSearch":         "Buscar:",
+       
+          "sUrl":            "",
+       
+          "sInfoThousands":  ",",
+       
+          "sLoadingRecords": "Cargando...",
+       
+          "oPaginate": {
+       
+              "sFirst":    "Primero",
+       
+              "sLast":     "Último",
+       
+              "sNext":     "Siguiente",
+       
+              "sPrevious": "Anterior"
+       
+          },
+       
+          "oAria": {
+       
+              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+       
+              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+       
+          }
+
+         }, //cerrando language
+
+          //"scrollX": true
+
+        });
+}
+/*------------------------  TABLAS BIFOCALES ---------------*/
+function get_dataTableBasesFtop(id_tabla,id_div){
+ $.ajax({
+    url:"../ajax/stock.php?op=get_tableBaseFlaptop",
+    method:"POST",
+    data : {id_tabla:id_tabla},
+    cache:false,
+    //dataType:"json",
+      success:function(data){
+        $("#"+id_div).html(data);
+      }
+    });
+}
 init();

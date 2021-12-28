@@ -165,7 +165,8 @@ public function updateStockTerm($codigoProducto,$cantidad,$id_tabla,$esfera,$cil
     $sql2->bindValue(3, $esfera);
     $sql2->bindValue(4, $cilindro);
     $sql2->bindValue(5, $id_tabla);
-    $sql2->execute();    
+    $sql2->execute();
+
     }
 
   /*======================GET DATA NEW STOCK ITEM ================*/
@@ -238,7 +239,7 @@ public function updateStockTerm($codigoProducto,$cantidad,$id_tabla,$esfera,$cil
     $conectar=parent::conexion();
     parent::set_names();
 
-    $sql = 'select id_tabla_base,titulo,diseno from tablas_base where marca=?';
+    $sql = 'select id_tabla_base,titulo,diseno from tablas_base where marca=? and diseno="vs";';
     $sql = $conectar->prepare($sql);
     $sql->bindValue(1,$marca);
     $sql->execute();
@@ -304,6 +305,21 @@ public function updateStockTerm($codigoProducto,$cantidad,$id_tabla,$esfera,$cil
     echo $html;
 
   }
+/*-------------------- LISTAR BASES CON ADICION BIFOCALES(FTOP)-----------------------*/
+  public function getTablesBasesFlaptop($marca){
+      $conectar=parent::conexion();
+      parent::set_names();
+
+      $sql="select id_tabla_base,marca,titulo from tablas_base where marca = ? and diseno='bf' order by marca asc;";
+      $sql = $conectar->prepare($sql);
+      $sql->bindValue(1, $marca);
+      $sql->execute();
+      return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+  }
+
+/*-------------------- FIN LISTAR BASES CON ADICION BIFOCALES(FTOP)--------------------*/
+
 /////////////////  INVENTARIO DE BASES /////////////////
 public function comprobarExistebasevs($codigo,$identificador,$base){
     $conectar=parent::conexion();
@@ -382,6 +398,151 @@ public function updateStockBasesVs($codigoProducto,$cantidad,$base,$id_tabla,$id
     $sql->execute();
     return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
   }
+
+/*============= REGISTRAR DESCARGO DE LENTES ==================*/
+public function validarExisteOrdenDescargos($codigo){
+    $conectar=parent::conexion();
+    parent::set_names();
+
+    $sql = "select codigo_orden from descargos where codigo_orden=?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1, $codigo);
+    $sql->execute();
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function registrarDescargo(){
+    $conectar=parent::conexion();
+    parent::set_names();
+    $paciente = $_POST["paciente"];
+    $codigo_orden = $_POST["codigo_orden"];
+    $id_optica = $_POST["id_optica"];
+    $id_sucursal = $_POST["id_sucursal"];
+    $id_usuario = $_POST["id_usuario"];
+    $itemsDescargos = array();
+    $itemsDescargos = json_decode($_POST["arrayItemsDescargo"]);
+
+    foreach ($itemsDescargos as $key => $value) {
+        $codigo = $value->codigo;
+        $medidas = $value->medidas;
+        $ojo = $value->ojo;
+        $tipo_lente = $value->tipo_lente;
+
+    $sql = "insert into descargos values(null,?,?,?,?,?,?,?,?,?,?);";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1, parent::fechas());
+    $sql->bindValue(2, $tipo_lente);
+    $sql->bindValue(3, $codigo);
+    $sql->bindValue(4, $ojo);
+    $sql->bindValue(5, $paciente);
+    $sql->bindValue(6, $medidas);
+    $sql->bindValue(7, $codigo_orden);
+    $sql->bindValue(8, $id_optica);
+    $sql->bindValue(9, $id_sucursal);
+    $sql->bindValue(10, $id_usuario);
+    $sql->execute();
+
+    if ($tipo_lente=="Base"){
+        $sql2 = "select stock from stock_bases where codigo=?;";
+        $sql2 = $conectar->prepare($sql2);
+        $sql2->bindValue(1, $codigo);
+        $sql2->execute();
+        $stock =$sql2->fetchColumn();
+        $nuevo_stock = $stock-1;
+
+        $set_stock = "update stock_bases set stock=? where codigo=?;";
+        $set_stock = $conectar->prepare($set_stock);
+        $set_stock->bindValue(1,$nuevo_stock);
+        $set_stock->bindValue(2,$codigo);
+        $set_stock->execute();
+
+    }elseif($tipo_lente=="Terminado"){
+        $sql2 = "select stock from stock_terminados where codigo=?;";
+        $sql2 = $conectar->prepare($sql2);
+        $sql2->bindValue(1, $codigo);
+        $sql2->execute();
+        $stock = $sql2->fetchColumn();
+        $nuevo_stock = $stock-1;
+
+        $set_stock = "update stock_terminados set stock=? where codigo=?;";
+        $set_stock = $conectar->prepare($set_stock);
+        $set_stock->bindValue(1,$nuevo_stock);
+        $set_stock->bindValue(2,$codigo);
+        $set_stock->execute();
+    }
+
+    }#Fin foreach
+}/*---------Fin registrar descargo----------*/
+
+public function listadoDiarioDescargos(){
+    $conectar=parent::conexion();
+    parent::set_names();
+    date_default_timezone_set('America/El_Salvador'); 
+    $hoy = date("d-m-Y");
+
+    $sql = "select d.id_descargo,d.codigo_orden,d.fecha,d.paciente,d.ojo,d.tipo_lente,d.medidas,o.nombre,s.nombre_sucursal,d.codigo_lente from descargos as d INNER join optica as o on d.id_optica=o.id_optica inner JOIN sucursal_optica as s on o.id_optica=s.id_sucursal";
+    $sql=$conectar->prepare($sql);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
+public function getTablesBasesFtop($id_tabla){
+    $conectar=parent::conexion();
+    parent::set_names();
+
+    $sql = "select graduacion from grad_tablas_base where id_tabla_base=?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1,$id_tabla);
+    $sql->execute();
+    $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+    $grads_tabla = array();
+    foreach ($resultado as $grad) {
+        array_push($grads_tabla, $grad["graduacion"]);
+    }
+    $grads_base = asort($grads_tabla);
+    $html =  '<table width="100%"  class="table-bordered" style="text-align: center;font-size:12px">';
+    $html .= '<thead class="style_th bg-dark" style="color: white">';
+    $html .= "<th>Base\Add</th>";
+
+    for($a = 1;$a <=3; $a+=0.25){
+      $html .= "<th>".number_format($a,2,'.',',')."</th>";
+    }
+    $html .= "<thead>";
+
+    foreach ($grads_tabla as $key) {
+          $base = number_format($key,2,'.',',');         
+            for($a = 1;$a <=3; $a+=0.25){
+               for($j=0;$j<2;$j++){
+                ($j % 2 == 0) ? $ojo='right' : $ojo = 'left';
+                $html .= "<tr>";
+                $html .= "<td>".$base."-".$ojo."</td>";                   
+                   $adicion = number_format($a,2,'.',',');
+                   $sql2 = "select CONCAT(stock,',',codigo) as data from stock_bases_adicion where base=? and adicion=? and id_tabla_base=?;";
+                   $sql2 = $conectar->prepare($sql2);
+                   $sql2->bindValue(1,$base);
+                   $sql2->bindValue(2,$adicion);
+                   $sql2->bindValue(3,$id_tabla);
+                   $sql2->execute();
+                   $resultads= $sql2->fetchColumn();
+                   $new_result = explode(',',$resultads); 
+                   $new_result[0] !='' ? $stock = $new_result[0] : $stock = '0'; 
+                   isset($new_result[1]) ? $codigo = $new_result[1] : $codigo = '';
+                   //$id_td = "term_".$ident_tabla."_".$id."";
+                   $html .= "<td>".$stock."</td>";
+                    $html .= "</tr>";
+            }               
+
+            }
+         
+      }
+
+    $html .= "</table>";
+
+    echo $html;
+
+}
+
 
 }///////////FIN DE LA CLASE
 

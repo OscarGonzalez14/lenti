@@ -354,7 +354,7 @@ function table_ojo_desc(ojo){
   let header = "-LENTE TERMINADO"
   for(let j=0; j<terminado_desc_data.length;j++ ){
     filas = filas+
-    "<table class='table-hover table-bordered'  width='100%' style='font-size:12px' id="+tabla+">"+
+    "<table class='table-hover table-bordered tabla_descargos'  width='100%' style='font-size:12px' id="+tabla+">"+
       "<tr style='text-align:center;text-transform: uppercase' class='bg-primary'><td colspan='100'>OJO "+ojo+"</td></tr>"+    
       "<tr style='text-align:center' class='bg-dark'>"+
       "<td>Codigo</td>"+
@@ -451,7 +451,7 @@ function show_table_bases(ojo){
   let header = "-LENTE TERMINADO"
   for(let j=0; j<base_desc_data.length;j++ ){
     filas = filas+
-    "<table class='table-hover table-bordered'  width='100%' style='font-size:12px' id="+tabla+">"+
+    "<table class='table-hover table-bordered tabla_descargos'  width='100%' style='font-size:12px' id="+tabla+">"+
       "<tr style='text-align:center;text-transform: uppercase' class='bg-primary'><td colspan='100'>OJO "+ojo+"</td></tr>"+    
       "<tr style='text-align:center' class='bg-dark'>"+
       "<td colspan='25'>Codigo</td>"+

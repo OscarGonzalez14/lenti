@@ -8,7 +8,7 @@ function alerts(icono, titulo){
     icon: icono,
     title: titulo,
     showConfirmButton: true,
-    timer: 2500
+    timer: 1500
   });
 }
 
@@ -706,8 +706,10 @@ function clearDataOrdenDesc(){
   for (var i = 0; i < items_data_orden_desc.length; i++) {
     items_data_orden_desc[i].innerHTML="";
   }
+  
   $("#id_optica_desc").val("");
   $("#id_sucursal_desc").val("");
 }
+
 
 init();

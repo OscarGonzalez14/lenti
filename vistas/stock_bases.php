@@ -15,6 +15,8 @@ if(isset($_SESSION["usuario"])){
  require_once('../modales/new_barcode_lentes.php'); 
  require_once('../modelos/Stock.php');
  $marcas = ['Divel', 'Essilor'];
+ require_once '../modelos/Stock.php';
+ $stock = new Stock();
 
  date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H-i-s");
  ?>
@@ -69,9 +71,11 @@ if(isset($_SESSION["usuario"])){
   <?php require_once('side_bar.php');   
   ?>
   <div class="content-wrapper">
-    <section class="content">
+
+    <section class="content" style="border: #D0D0D0 2px solid;border-radius: 5px;margin-top: 2px">
+      <h5 style="padding: 2px;text-align: center;font-size: 16px;border-radius: 3px;font-weight: bold">BASES VISIÓN SENCILLA</h5>
       <input type="hidden" id="tipo_lente_code">
-      <div class="row">
+      <div class="row" style="margin-top: 3px">
         <?php
         $i=0;
         foreach ($marcas as $val) { 
@@ -81,7 +85,7 @@ if(isset($_SESSION["usuario"])){
           <div class="col-md-12">
           <div class="card card-<?php echo $color;?> collapsed-card" style="border: solid 1px <?php echo $borde;?>">
           <div class="card-header">
-              <h5 class="card-title" style="font-size: 16px"><?php echo "BASES VISIÓN SENCILLA ".strtoupper($val);?></h5>
+              <h5 class="card-title" style="font-size: 16px"><?php echo ($i+1)." - BASES VISIÓN SENCILLA ".strtoupper($val);?></h5>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse" onClick="get_dataTableBase('<?php echo 'base'.$val;?>','<?php echo $val;?>');"><i class="fas fa-plus"></i>
                   </button>
@@ -97,6 +101,40 @@ if(isset($_SESSION["usuario"])){
       </div>
         <?php $i++; } ?>
       </div>
+    </section>
+    <br>
+    <section class="content" style="border: #8EB7C7 2px solid;border-radius: 5px;margin-top: 2px">
+ <h5 style="padding: 2px;text-align: center;font-size: 16px;border-radius: 3px;font-weight: bold">BASES FLAPTOP</h5>
+      <?php 
+        $j=0;
+        foreach ($marcas as $m) {
+          $tablas_base = $stock->getTablesBasesFlaptop($m);
+          foreach ($tablas_base as $t) { 
+           ($j % 2 == 0) ? $color='dark': $color='primary';
+           ($j % 2 == 0) ? $borde='#5bc0de': $borde='#0275d8';
+           ?>
+           <!--TABLAS BASES BIFIOCAL-->
+          <div class="col-md-12">
+          <div class="card card-<?php echo $color;?> collapsed-card" style="border: solid 1px <?php echo $borde;?>">
+            <div class="card-header">
+              <h5 class="card-title" style="font-size: 16px"><?php echo ($j+1)." - BASES BIFOCAL".strtoupper($t["titulo"]);?></h5>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" onClick="get_dataTableBasesFtop('<?php echo $t["id_tabla_base"];?>','<?php echo "contenft".$t["id_tabla_base"];?>');"><i class="fas fa-plus"></i>
+                  </button>           
+                </div>
+            </div>
+            <div class="card-body" id="<?php echo 'contenft'.$t["id_tabla_base"];?>">
+                    
+            </div>
+
+          </div>
+          </div>
+           <!--FIN TABLAS BASES BIFIOCAL-->
+          <?php $j++; } ?>
+          <?php
+        } ?>
+
+
     </section>    
   </div>
 
