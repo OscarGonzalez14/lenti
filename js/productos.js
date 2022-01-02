@@ -48,7 +48,7 @@ function focus_input(){
 $(document).on('shown.bs.modal', function (e) {
     $('[autofocus]', e.target).focus();
 });
-/*===================OBTENER Y VALIDAR CODIGO DE BARRA =========================*/
+/*===================OBTENER Y VALIDAR CODIGO DE BARRA P/TERMINADOS Y BASES VS=========================*/
 function set_code_bar(){
   let new_code = $("#codebar_lente").val();
   $.ajax({
@@ -62,7 +62,7 @@ function set_code_bar(){
       if (data == 'Okcode') {
         let new_code = $("#codebar_lente").val();
         $("#categoria_codigo").val('Fabricante');
-        $("#codigo_lente_term").val(new_code);
+        $(".codigoBarras").val(new_code);
         $("#new_barcode_lens").modal('hide');
         $('#cant_ingreso').focus();
         $('#cant_ingreso').select();
@@ -88,7 +88,9 @@ function set_code_bar(){
   });
 }
 
- function create_barcode_interno_term(){
+
+
+function create_barcode_interno_term(){
 
   let tipo_lente = $("#tipo_lente_code").val();
   //let identificador = $("#id_td").val();
@@ -111,10 +113,10 @@ function set_code_bar(){
     cache: false,
     dataType:"json",
       success:function(data){
-        let codigo = data.codigolente;
-        $("#codigo_lente_term").val(data.codigolente);
-        $("#new_barcode_lens").modal('hide');
-        $("#categoria_codigo").val('Interno');        
+      let codigo = data.codigolente;
+      $(".codigoBarras").val(data.codigolente);
+      $("#new_barcode_lens").modal('hide');
+      $("#categoria_codigo").val('Interno');        
     }      
   });
   }

@@ -134,8 +134,20 @@ case 'listar_descargos':
   break;
 
 /*============================== BASES BIFOCALES ========================*/
-	case 'get_tableBaseFlaptop':
-		$datos = $stock->getTablesBasesFtop($_POST["id_tabla"]); 
-		//echo json_encode($datos);
+case 'get_tableBaseFlaptop':
+	$datos = $stock->getTablesBasesFtop($_POST["id_tabla"],$_POST["marca"],$_POST["diseno"]);
+break;
+
+case 'update_stock_baseftop':
+	$codigo = $stock->comprobarExistebasevsftop($_POST["codigoProducto"],$_POST["identificador"],$_POST["base"],$_POST["adicion"],$_POST["ojo"]);
+	
+	if (is_array($codigo)==true and count($codigo)==0) {
+		$stock->inicializarStockBasesFtop($_POST["codigoProducto"],$_POST["identificador"],$_POST["base"],$_POST["adicion"],$_POST["cantidad"],$_POST["ojo"],$_POST["id_tabla"]);
+        $mensaje = "Insert";
+    }else{
+        $mensaje = "Edit";
+    }
+    echo json_encode($mensaje);
 	break;
+
 }

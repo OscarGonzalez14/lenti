@@ -40,7 +40,7 @@ body {
           <div class="col-sm-4">
             <label for="">Codigo</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="codigo_lente_term" readonly="">
+              <input type="text" class="form-control codigoBarras" id="codigo_lente_term" readonly="">
               <div class="input-group-append" onClick='editCode();'>
                 <span class="input-group-text bg-dark"><i class="far fa-edit"> </i></span>
               </div>

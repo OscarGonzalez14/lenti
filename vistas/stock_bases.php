@@ -12,6 +12,7 @@ if(isset($_SESSION["usuario"])){
 <?php require_once("links_plugin.php"); 
  require_once('../modelos/Productos.php');
  require_once('../modales/warehouseIncome/modalIngresoBaseVs.php');
+ require_once('../modales/warehouseIncome/modalIngresosFlaptop.php');
  require_once('../modales/new_barcode_lentes.php'); 
  require_once('../modelos/Stock.php');
  $marcas = ['Divel', 'Essilor'];
@@ -93,7 +94,7 @@ if(isset($_SESSION["usuario"])){
               </div>
           </div>
             <div class="card-body">
-            <table id="<?php echo 'base'.$val;?>" width="100%" class="table-bordered" style="margin-top: 0px">
+            <table id="<?php echo 'base'.$val;?>" width="100%" class="table-bordered" style="margin-top: 0px;font-size:14px">
               
             </table>
             </div>
@@ -104,7 +105,7 @@ if(isset($_SESSION["usuario"])){
     </section>
     <br>
     <section class="content" style="border: #8EB7C7 2px solid;border-radius: 5px;margin-top: 2px">
- <h5 style="padding: 2px;text-align: center;font-size: 16px;border-radius: 3px;font-weight: bold">BASES FLAPTOP</h5>
+    <h5 style="padding: 2px;text-align: center;font-size: 16px;border-radius: 3px;font-weight: bold">BASES FLAPTOP</h5>
       <?php 
         $j=0;
         foreach ($marcas as $m) {
@@ -117,24 +118,20 @@ if(isset($_SESSION["usuario"])){
           <div class="col-md-12">
           <div class="card card-<?php echo $color;?> collapsed-card" style="border: solid 1px <?php echo $borde;?>">
             <div class="card-header">
-              <h5 class="card-title" style="font-size: 16px"><?php echo ($j+1)." - BASES BIFOCAL".strtoupper($t["titulo"]);?></h5>
+              <h5 class="card-title" style="font-size: 16px"><?php echo ($j+1)." - BASES BIFOCAL".strtoupper($t["titulo"]." ".$m);?></h5>
                 <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse" onClick="get_dataTableBasesFtop('<?php echo $t["id_tabla_base"];?>','<?php echo "contenft".$t["id_tabla_base"];?>');"><i class="fas fa-plus"></i>
+                  <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" onClick="get_dataTableBasesFtop('<?php echo $t["id_tabla_base"];?>','<?php echo "contenft".$t["id_tabla_base"];?>','<?php echo $t["marca"];?>','<?php echo $t["diseno"];?>');"><i class="fas fa-plus"></i>
                   </button>           
                 </div>
             </div>
-            <div class="card-body" id="<?php echo 'contenft'.$t["id_tabla_base"];?>">
-                    
-            </div>
-
+            <div class="card-body" id="<?php echo 'contenft'.$t["id_tabla_base"];?>"></div>
           </div>
           </div>
            <!--FIN TABLAS BASES BIFIOCAL-->
           <?php $j++; } ?>
           <?php
         } ?>
-
-
     </section>    
   </div>
 

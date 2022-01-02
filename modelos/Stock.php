@@ -305,12 +305,13 @@ public function updateStockTerm($codigoProducto,$cantidad,$id_tabla,$esfera,$cil
     echo $html;
 
   }
+
 /*-------------------- LISTAR BASES CON ADICION BIFOCALES(FTOP)-----------------------*/
   public function getTablesBasesFlaptop($marca){
       $conectar=parent::conexion();
       parent::set_names();
 
-      $sql="select id_tabla_base,marca,titulo from tablas_base where marca = ? and diseno='bf' order by marca asc;";
+      $sql="select id_tabla_base,marca,titulo,diseno from tablas_base where marca = ? and diseno='bf' order by marca asc;";
       $sql = $conectar->prepare($sql);
       $sql->bindValue(1, $marca);
       $sql->execute();
@@ -384,7 +385,8 @@ public function updateStockBasesVs($codigoProducto,$cantidad,$base,$id_tabla,$id
     $sql2->bindValue(3, $base);
     $sql2->bindValue(4, $id_tabla);
     $sql2->execute();    
-    }
+
+}
 
   /*======================GET DATA NEW STOCK ITEM BASE VISION SENCILLA================*/
   public function newStockBaseVs($codigo,$base,$id_td){
@@ -487,7 +489,7 @@ public function listadoDiarioDescargos(){
 
 }
 
-public function getTablesBasesFtop($id_tabla){
+public function getTablesBasesFtop($id_tabla,$marca,$diseno){
     $conectar=parent::conexion();
     parent::set_names();
 
@@ -499,9 +501,10 @@ public function getTablesBasesFtop($id_tabla){
     $grads_tabla = array();
     foreach ($resultado as $grad) {
         array_push($grads_tabla, $grad["graduacion"]);
+
     }
-    $grads_base = asort($grads_tabla);
-    $html =  '<table width="100%"  class="table-bordered" style="text-align: center;font-size:12px">';
+    sort($grads_tabla);
+    $html =  '<table width="100%"  class="table-bordered" style="text-align: center;font-size:14px">';
     $html .= '<thead class="style_th bg-dark" style="color: white">';
     $html .= "<th>Base\Add</th>";
 
@@ -509,43 +512,80 @@ public function getTablesBasesFtop($id_tabla){
       $html .= "<th>".number_format($a,2,'.',',')."</th>";
     }
     $html .= "<thead>";
+    $contador = 1;
+    foreach ($grads_tabla as $key) {#Recorremos las bases
+        $b = number_format($key,2,'.',',');
+        $b > 0 ? $base = '+'.number_format($b,2,'.',',') : $base = number_format($b,2,'.',',');
+        $cont = 0;
+        for ($o = 0; $o < 2;$o++) {
+            ($cont % 2 == 0) ? $ojo='R' : $ojo = 'L';
+            ($cont % 2 == 0) ? $ojo_lente='Derecho' : $ojo_lente = 'Izquierdo';   
+            $html .= "<tr class='filasb'>";
+            $html .= "<td>".$base."-".$ojo."</td>";
+            
+            for ($a = 1;$a <=3; $a+=0.25) {                
 
-    foreach ($grads_tabla as $key) {
-          $base = number_format($key,2,'.',',');         
-            for($a = 1;$a <=3; $a+=0.25){
-               for($j=0;$j<2;$j++){
-                ($j % 2 == 0) ? $ojo='right' : $ojo = 'left';
-                $html .= "<tr>";
-                $html .= "<td>".$base."-".$ojo."</td>";                   
-                   $adicion = number_format($a,2,'.',',');
-                   $sql2 = "select CONCAT(stock,',',codigo) as data from stock_bases_adicion where base=? and adicion=? and id_tabla_base=?;";
-                   $sql2 = $conectar->prepare($sql2);
-                   $sql2->bindValue(1,$base);
-                   $sql2->bindValue(2,$adicion);
-                   $sql2->bindValue(3,$id_tabla);
-                   $sql2->execute();
-                   $resultads= $sql2->fetchColumn();
-                   $new_result = explode(',',$resultads); 
-                   $new_result[0] !='' ? $stock = $new_result[0] : $stock = '0'; 
-                   isset($new_result[1]) ? $codigo = $new_result[1] : $codigo = '';
-                   //$id_td = "term_".$ident_tabla."_".$id."";
-                   $html .= "<td>".$stock."</td>";
-                    $html .= "</tr>";
-            }               
-
+                $a > 0 ? $adicion = '+'.number_format($a,2,'.',',') : $adicion = number_format($a,2,'.',',');
+                $sql2 = "select CONCAT(stock,',',codigo) as data from stock_bases_adicion where base=? and adicion=? and id_tabla_base=? and ojo=?;";
+                $sql2 = $conectar->prepare($sql2);
+                $sql2->bindValue(1,$base);
+                $sql2->bindValue(2,$adicion);
+                $sql2->bindValue(3,$id_tabla);
+                $sql2->bindValue(4,$ojo_lente);
+                $sql2->execute();
+                $resultads= $sql2->fetchColumn();
+                /////////////////////////////////////
+                $new_result = explode(',',$resultads); 
+                $new_result[0] !='' ? $stock = $new_result[0] : $stock = '0'; 
+                isset($new_result[1]) ? $codigo = $new_result[1] : $codigo = '';
+                $id_td = "td_ftop_".$contador."";
+                $html .= "<td style='text-align: center;cursor: pointer;' onClick='getDataModalFtop(\"".$codigo."\",\"".$marca."\",\"".$base."\",\"".$adicion."\",\"".$ojo_lente."\",\"".$id_td."\",".$id_tabla.")' data-toggle='tooltip' title='Base: ".$base." * Add: ".$adicion." ".$ojo_lente."' id='".$id_td."'>".$stock."</td>";
+                $contador++;
             }
-         
-      }
+            $html .= "</tr>";
+            $cont++;
+        }
+       
+    }
 
-    $html .= "</table>";
-
+    $html .= "</table>";    
     echo $html;
 
 }
 
+/////////////////  INVENTARIO DE BASES CON ADICION   /////////////////
+public function comprobarExistebasevsftop($codigo,$identificador,$base,$adicion,$ojo){
+    $conectar=parent::conexion();
+    parent::set_names();
+    $sql = "select codigo from stock_bases_adicion where codigo=? and identificador=? and base=? and adicion=? and ojo=?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1, $codigo);
+    $sql->bindValue(2, $identificador);
+    $sql->bindValue(3, $base);
+    $sql->bindValue(4, $adicion);
+    $sql->bindValue(5, $ojo);
+    $sql->execute();
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function inicializarStockBasesFtop($codigo,$identificador,$base,$adicion,$cantidad,$ojo,$id_tabla){
+    $conectar=parent::conexion();
+    parent::set_names();
+    $stock_min = "";
+    $sql = "insert into stock_bases_adicion values(null,?,?,?,?,?,?,?,?)";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1, $codigo);
+    $sql->bindValue(2, $identificador);
+    $sql->bindValue(3, $base);
+    $sql->bindValue(4, $adicion);
+    $sql->bindValue(5, $stock_min);
+    $sql->bindValue(6, $cantidad);
+    $sql->bindValue(7, $ojo);
+    $sql->bindValue(8, $id_tabla);
+    $sql->execute();
+}
 
 }///////////FIN DE LA CLASE
-
 
 ?>
 

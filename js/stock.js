@@ -279,7 +279,8 @@ function listar_items_ingreso_term(){
     "<td>"+"<i class='fas fa-trash' onClick='eliminarFila("+i+");'></i>"+"</td>"+        
     "</tr>";
   }
-    $('#items_ingresos_terminados').html(filas);
+  
+  $('#items_ingresos_terminados').html(filas);
 }
 
 function setCantidadIng(event, obj, idx){
@@ -596,19 +597,84 @@ function listar_descargos(){
 
           //"scrollX": true
 
-        });
+    });
 }
+
 /*------------------------  TABLAS BIFOCALES ---------------*/
-function get_dataTableBasesFtop(id_tabla,id_div){
- $.ajax({
+function get_dataTableBasesFtop(id_tabla,id_div,marca,diseno){
+
+  $.ajax({
     url:"../ajax/stock.php?op=get_tableBaseFlaptop",
     method:"POST",
-    data : {id_tabla:id_tabla},
+    data : {id_tabla:id_tabla,marca:marca,diseno:diseno},
     cache:false,
-    //dataType:"json",
-      success:function(data){
-        $("#"+id_div).html(data);
-      }
-    });
+    success:function(data){
+      $("#"+id_div).html(data);
+    }
+  });
+}
+
+function getDataModalFtop(codigo,marca,base,adicion,ojo,id_td,id_tabla){
+ 
+  $('#modal_ingresos_baseftop').modal();
+  $("#title_modal_basesft").html(`Ingreso a Inventario base: ${base}, adicion: ${adicion}`);
+  $("#codigo_lente_ft").val(codigo);
+  $("#base_baseft").val(base);
+  $("#adicionft").val(adicion);
+  $("#marca_baseft").val(marca);
+  $("#ojo_baseft").val(ojo);
+  $("#id_td_baseft").val(id_td);
+  $('#id_tabla_baseft').val(id_tabla);
+
+  if (codigo==''){
+    $("#new_barcode_lens").modal('show');
+    $('#new_barcode_lens').on('shown.bs.modal', function() {
+    $('#codebar_lente').val('');
+    $('#codebar_lente').focus();
+  });
+  }
+}
+
+function setStockBasesFlaptop(){
+  let codigoProducto = $('#codigo_lente_ft').val();
+  let identificador =$("#id_td_baseft").val();
+  let base = $('#base_baseft').val();
+  let adicion = $('#adicionft').val();
+  let cantidad = $('#cant_ingreso_baseft').val();
+  let comprobante = $('#comprobante_baseft').val();
+  let costo = $('#costo_baseft').val();
+  let id_tabla = $('#id_tabla_baseft').val();
+  let ojo = $('#ojo_baseft').val();
+
+  if (codigoProducto=="" || codigoProducto==null || codigoProducto==undefined){
+    Toast.fire({icon: 'warning',title: ' Campo código vacio.', position: 'top-center'})
+    $("#new_barcode_lens").modal('show');
+    $('#new_barcode_lens').on('shown.bs.modal', function() {
+    $('#codebar_lente').val('');
+    $('#codebar_lente').focus();
+  });
+  return false;
+  }
+
+  $.ajax({
+  url:"../ajax/stock.php?op=update_stock_baseftop",
+  method:"POST",
+  data:{codigoProducto:codigoProducto,identificador:identificador,base:base,adicion:adicion,cantidad:cantidad,comprobante:comprobante,costo:costo,id_tabla:id_tabla,ojo:ojo},
+  cache: false,
+  dataType:"json",
+  success:function(data){
+  console.log(data);
+    /*$("#modal_ingresos_basevs").modal('hide');
+    if (data=='Insert'){
+      alerts_productos("success", "Producto inicializado en bodega");
+    }else if(data=="Edit"){
+      alerts_productos("info", "El stock ha sido actualizado");
+    }
+
+     setStockBasevs(id_td,base,codigoProducto);  */         
+  }          
+  });
+
+
 }
 init();

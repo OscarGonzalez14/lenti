@@ -25,13 +25,13 @@ body {
             <label for="">Codigo</label>
             <div class="input-group">
             <input type="text" class="form-control" id="codebar_lente" name="barcode_lente" onchange="set_code_bar();">
-              <div class="input-group-append" onClick="create_barcode_interno_term();">
+              <!--<div class="input-group-append" onClick="create_barcode_interno_term();">
                 <span class="input-group-text bg-dark"><i class="fas fa-barcode"> </i></span>
-              </div>
+              </div>-->
             </div>  
           </div>        
       </div>
-      <input type="hidden" id="id_terminado_lense">      
+      <input type="hidden" id="id_terminado_lense">
     </div>
   </div>
 </div>
