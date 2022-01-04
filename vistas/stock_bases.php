@@ -56,6 +56,7 @@ if(isset($_SESSION["usuario"])){
   .filasb:hover {
     background-color: lightyellow;
   }
+
 </style>
 
   <script src="../plugins/exportoExcel.js"></script>
@@ -122,7 +123,7 @@ if(isset($_SESSION["usuario"])){
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
                   <button type="button" class="btn btn-tool" data-card-widget="collapse" onClick="get_dataTableBasesFtop('<?php echo $t["id_tabla_base"];?>','<?php echo "contenft".$t["id_tabla_base"];?>','<?php echo $t["marca"];?>','<?php echo $t["diseno"];?>');"><i class="fas fa-plus"></i>
-                  </button>           
+                  </button> 
                 </div>
             </div>
             <div class="card-body" id="<?php echo 'contenft'.$t["id_tabla_base"];?>"></div>

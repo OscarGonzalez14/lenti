@@ -539,7 +539,7 @@ public function getTablesBasesFtop($id_tabla,$marca,$diseno){
                 $new_result[0] !='' ? $stock = $new_result[0] : $stock = '0'; 
                 isset($new_result[1]) ? $codigo = $new_result[1] : $codigo = '';
                 $id_td = "td_ftop_".$contador."";
-                $html .= "<td style='text-align: center;cursor: pointer;' onClick='getDataModalFtop(\"".$codigo."\",\"".$marca."\",\"".$base."\",\"".$adicion."\",\"".$ojo_lente."\",\"".$id_td."\",".$id_tabla.")' data-toggle='tooltip' title='Base: ".$base." * Add: ".$adicion." ".$ojo_lente."' id='".$id_td."'>".$stock."</td>";
+                $html .= "<td style='text-align: center;cursor: pointer;' onClick='getDataModalFtop(\"".$codigo."\",\"".$marca."\",\"".$base."\",\"".$adicion."\",\"".$ojo_lente."\",\"".$id_td."\",".$id_tabla.",\"".$diseno."\")' data-toggle='tooltip' title='Base: ".$base." * Add: ".$adicion." ".$ojo_lente."' id='".$id_td."' class='class-bf-td".$id_tabla."'>".$stock."</td>";
                 $contador++;
             }
             $html .= "</tr>";
@@ -583,6 +583,51 @@ public function inicializarStockBasesFtop($codigo,$identificador,$base,$adicion,
     $sql->bindValue(7, $ojo);
     $sql->bindValue(8, $id_tabla);
     $sql->execute();
+}
+
+public function newStockBaseFtp($codigo,$base,$adicion,$id_tabla,$id_td){
+    $conectar=parent::conexion();
+    parent::set_names();
+    $sql="select stock from stock_bases_adicion where codigo=? and base=? and adicion=? and id_tabla_base=? and identificador=?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1, $codigo);
+    $sql->bindValue(2, $base);
+    $sql->bindValue(3, $adicion);
+    $sql->bindValue(4, $id_tabla);
+    $sql->bindValue(5, $id_td);
+    $sql->execute();
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function updateStockBasesFtop($codigo,$identificador,$base,$adicion,$cantidad,$ojo,$id_tabla){
+   $conectar = parent::conexion();
+   parent::set_names();
+
+   $sql = "select stock from stock_bases_adicion where codigo=? and base=? and adicion=? and ojo=? and id_tabla_base=?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1, $codigo);
+    $sql->bindValue(2, $base);
+    $sql->bindValue(3, $adicion);
+    $sql->bindValue(4, $ojo);
+    $sql->bindValue(5, $id_tabla);
+    $sql->execute();
+    $existencias = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($existencias as $key) {
+        $stock_act = $key['stock'];
+    }
+
+    $new_stock = $stock_act+$cantidad;
+
+    $sql2 = "update stock_bases_adicion set stock=? where codigo=? and base=? and adicion=? and ojo=? and id_tabla_base=?;";
+    $sql2 = $conectar->prepare($sql2);
+    $sql2->bindValue(1, $new_stock);
+    $sql2->bindValue(2, $codigo);
+    $sql2->bindValue(3, $base);
+    $sql2->bindValue(4, $adicion);
+    $sql2->bindValue(5, $ojo);
+    $sql2->bindValue(6, $id_tabla);
+    $sql2->execute();     
 }
 
 }///////////FIN DE LA CLASE

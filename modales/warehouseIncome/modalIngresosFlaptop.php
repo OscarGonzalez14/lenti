@@ -70,23 +70,28 @@ body {
               <label for="inlineRadio1">Add.</label>
               <input class="form-control" type="text" name="inlineRadioOptions" id="adicionft" readonly="">
           </div>
+
           <div class="form-group col-sm-3">
             <label for="inlineRadio1">Cant. Ingreso</label>
               <input class="form-control" type="number" name="inlineRadioOptions" id="cant_ingreso_baseft" value="0" placeholder="Unidades">
           </div>
+
           <div class="form-group col-sm-3">
             <label for="inlineRadio1">#CCF/Fact.</label>
               <input class="form-control" type="number" name="inlineRadioOptions" id="comprobante_baseft" value="0" placeholder="Unidades">
           </div>
+
           <div class="form-group col-sm-2">
             <label for="inlineRadio1">#Costo</label>
-              <input class="form-control" type="number" name="inlineRadioOptions" id="costo_baseft" value="0" placeholder="Unidades">
+            <input class="form-control" type="number" name="inlineRadioOptions" id="costo_baseft" value="0" placeholder="Unidades">
           </div>
+
         </div> 
       </div>
       <input type="hidden" id="id_lente_vsft">
       <input type="hidden" id="id_td_baseft">
       <input type="hidden" id="id_tabla_baseft">
+      <input type="hidden" id="diseno_lente_bf">
       <div class="modal-footer">
         <button type="button" class="btn btn-primary btn-block" onClick='setStockBasesFlaptop()'>REGISTRAR INGRESO</button>
       </div>

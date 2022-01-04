@@ -139,15 +139,29 @@ case 'get_tableBaseFlaptop':
 break;
 
 case 'update_stock_baseftop':
+
 	$codigo = $stock->comprobarExistebasevsftop($_POST["codigoProducto"],$_POST["identificador"],$_POST["base"],$_POST["adicion"],$_POST["ojo"]);
 	
 	if (is_array($codigo)==true and count($codigo)==0) {
 		$stock->inicializarStockBasesFtop($_POST["codigoProducto"],$_POST["identificador"],$_POST["base"],$_POST["adicion"],$_POST["cantidad"],$_POST["ojo"],$_POST["id_tabla"]);
         $mensaje = "Insert";
     }else{
+    	$stock->updateStockBasesFtop($_POST["codigoProducto"],$_POST["identificador"],$_POST["base"],$_POST["adicion"],$_POST["cantidad"],$_POST["ojo"],$_POST["id_tabla"]);
         $mensaje = "Edit";
     }
     echo json_encode($mensaje);
+	
+	break;
+
+
+	case 'new_stock_base_ftp':
+	$data=$stock->newStockBaseFtp($_POST['codigoProducto'],$_POST['base'],$_POST['adicion'],$_POST['id_tabla'],$_POST['id_td']);
+	if (is_array($data)==true and count($data)>0) {
+        foreach ($data as $key) {
+        	$output["stock"]=$key["stock"];
+        }
+    }
+    echo json_encode($output);
 	break;
 
 }
