@@ -147,6 +147,25 @@ case 'registrar_codigo':
     }
   }
     echo json_encode($output);
-   break;
+  break;
+
+/* -------------------------GET DATA BASE FLAPTOP ----------------------------*/
+
+ case 'get_info_base_flaptop':
+   $data = $productos->getInfoBasesFlatop($_POST["codigo"]);
+   if (is_array($data)==true and count($data)>0) {
+      foreach ($data as $key) {
+        $output["marca"]=$key["marca"];
+        $output["diseno"]=$key["diseno"];
+        $output["base"]=$key["base"];
+        $output["adicion"]=$key["adicion"];        
+        $output["codigo"]=$key["codigo"];
+        $output["tipo_lente"] = "Base Flaptop";
+        $output["stock"] = $key["stock"];
+        $output["ojo"] = $key["ojo"];
+    }
+  }
+    echo json_encode($output);
+  break;
 
 }///Fin Switch

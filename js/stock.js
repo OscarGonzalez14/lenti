@@ -602,7 +602,7 @@ function listar_descargos(){
 
 /*------------------------  TABLAS BIFOCALES ---------------*/
 function get_dataTableBasesFtop(id_tabla,id_div,marca,diseno){
-  console.log()
+  console.log(id_tabla,id_div,marca,diseno);
   $.ajax({
     url:"../ajax/stock.php?op=get_tableBaseFlaptop",
     method:"POST",
@@ -624,14 +624,20 @@ function getDataModalFtop(codigo,marca,base,adicion,ojo,id_td,id_tabla,diseno){
   $("#marca_baseft").val(marca);
   $("#ojo_baseft").val(ojo);
   $("#id_td_baseft").val(id_td);
-  $('#id_tabla_baseft').val(id_tabla);/*A*/
+  $('#id_tabla_baseft').val(id_tabla);
   $('#diseno_lente_bf').val(diseno);
+  $('#cant_ingreso_baseft').val('');
 
   if (codigo==''){
     $("#new_barcode_lens").modal('show');
     $('#new_barcode_lens').on('shown.bs.modal', function() {
     $('#codebar_lente').val('');
     $('#codebar_lente').focus();
+  });
+  }else{
+    $('#modal_ingresos_baseftop').on('shown.bs.modal', function() {
+    $('#cant_ingreso_baseft').val('');
+    $('#cant_ingreso_baseft').focus();
   });
   }
 }
@@ -659,6 +665,12 @@ function setStockBasesFlaptop(){
   return false;
   }
 
+  if(cantidad=="0" || cantidad=="") {
+    alerts_productos("error", "Debe Especificar la cantidad a ingresar");
+    return false; 
+  }
+
+
   $.ajax({
   url:"../ajax/stock.php?op=update_stock_baseftop",
   method:"POST",
@@ -676,8 +688,11 @@ function setStockBasesFlaptop(){
     }
   }          
   });
+
 get_dataTableBasesFtop(id_tabla,)
+
 }
+
 
 function setStockBaseFtp(id_td,base,adicion,codigoProducto,id_tabla,marca,diseno){
 
@@ -688,6 +703,7 @@ function setStockBaseFtp(id_td,base,adicion,codigoProducto,id_tabla,marca,diseno
     cache: false,
     dataType:"json",
     success:function(data){
+    get_dataTableBasesFtop(id_tabla,'contenft'+id_tabla,marca,diseno)
     let tds = document.getElementsByClassName('class-bf-td'+id_tabla);
     const recorreArray = (arr) => {
       for(let i=0; i<=arr.length-1; i++){
@@ -702,7 +718,7 @@ function setStockBaseFtp(id_td,base,adicion,codigoProducto,id_tabla,marca,diseno
     document.getElementById(id_td).innerHTML=data.stock;
     document.getElementById(id_td).style.background='#5bc0de';
     document.getElementById(id_td).style.color='white';
-    get_dataTableBasesFtop(id_tabla,'contentft'+id_tabla,marca,diseno)
+    get_dataTableBasesFtop(id_tabla,'contenft'+id_tabla,marca,diseno);
 
   }
 

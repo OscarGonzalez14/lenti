@@ -21,11 +21,11 @@ body {
 </style>
 <script>
   function focus_input(){
-    console.log('Ok')
-   // document.getElementById(codigob_lente).focus();
+    console.log('Ok');
     $('#codigob_lente').focus(); 
   }
-  </script>
+</script>
+
 <div class="modal fade" id="modal_ingresos_baseftop" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-hidden="true">
   <div class="modal-dialog" role="document" style="max-width: 85%">
     <div class="modal-content">

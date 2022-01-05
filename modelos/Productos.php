@@ -171,7 +171,7 @@ public function registrarCodigo($codigo,$tipo_lente,$identificador){
     $sql->execute();
   }
 
-/*-------------------- DESCARGOS DE BASE SIN ADICION ---------------------*/
+/*-------------------- GET INFO DE BASE SIN ADICION ---------------------*/
   public function getInfoBases($codigo_lente){
     $conectar=parent::conexion();
     parent::set_names();
@@ -183,6 +183,20 @@ public function registrarCodigo($codigo,$tipo_lente,$identificador){
     return $resultado = $sql2->fetchAll(PDO::FETCH_ASSOC);
 
   }
+
+/*---------------- GET INFO BASES CON ADICION -------------------------------*/
+public function getInfoBasesFlatop($codigo){
+    $conectar=parent::conexion();
+    parent::set_names();
+
+    $sql = "select t.marca,t.diseno,s.codigo,s.base,s.adicion,s.stock,s.ojo from tablas_base as t inner join stock_bases_adicion as s on t.id_tabla_base=s.id_tabla_base WHERE s.codigo=?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1, $codigo);
+    $sql->execute();
+    return $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
 
 }////////////////////////// FIN DE LA CLASE  /////////////////
 

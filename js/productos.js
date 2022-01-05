@@ -270,6 +270,8 @@ function valida_tipo_lente(ojo){
     cache:false,
     dataType:"json",
     success:function(data){
+
+      console.log(data);
     
   if(data != 'errorx'){
     if(ojo=="derecho"){
@@ -288,6 +290,8 @@ function valida_tipo_lente(ojo){
       getInfoTerminado(codigo,ojo);
     }else if(categoria=="Base"){
       getInfoBase(codigo,ojo);
+    }else if("Base Flaptop"){      
+      getInfoBaseFlaptop(codigo,ojo);
     }
   }else{/*Fin errorx*/
     if (ojo=='izquierdo') {
@@ -410,7 +414,7 @@ function delete_item_oi(){
 
 /* ------------------- DESCARGO BASES SIN ADICIOON ---------------- */
 function getInfoBase(codigo,ojo){
-  console.log('bases');
+  
   $.ajax({
    url: "../ajax/productos.php?op=get_info_base",
    method: "POST",
@@ -479,6 +483,88 @@ function show_table_bases(ojo){
       "<td colspan='34'>"+base_desc_data[j].base+"</td>"+
       "<td colspan='33'>"+base_desc_data[j].stock+"</td>"+
       "<td colspan='33'><i class='fas fa-trash' style='color: red' onClick='eliminarItemDescargo("+'"'+base_desc_data[j].codigo+'"'+","+'"'+tabla+'"'+","+'"'+ojo+'"'+")'></i></td>"+
+      "</tr>"+
+    "</table>";
+  }
+  //$("#"+title_tabla).html(header);
+  //document.getElementById(title_tabla).style.background ="#112438";
+  $("#"+tabla).html(filas);
+}
+
+
+function getInfoBaseFlaptop(codigo,ojo){
+  
+  $.ajax({
+   url: "../ajax/productos.php?op=get_info_base_flaptop",
+   method: "POST",
+   data: {codigo:codigo},
+   cache: false,
+   dataType: "json",
+   success:function(data){
+     console.log(data)
+    let data_ftop = {
+      marca : data.marca,
+      diseno : data.diseno,
+      base : data.base,
+      adicion : data.adicion,
+      codigo : data.codigo,
+      stock : data.stock,
+      tipo_lente : data.tipo_lente
+
+    }
+
+    let data_desc = {
+      tipo_lente : data.tipo_lente,
+      codigo : data.codigo,
+      ojo,
+      medidas : "Base: "+data.base+" - "+"Adicion: "+data.adicion
+    }
+
+    baseftp_desc_data = [];
+    baseftp_desc_data.push(data_ftop);
+    array_items_desc.push(data_desc);
+    show_table_basesftp(ojo);
+   
+   }
+  });
+}
+
+function show_table_basesftp(ojo){
+  tabla = '';
+  ojo == 'derecho' ? tabla = 'data_desc_derecho' : tabla = 'data_desc_izq';
+  $("#"+tabla).html('');
+  let filas = "";
+  let header = "-LENTE BASE FLAPTOP"
+  for(let j=0; j<baseftp_desc_data.length;j++ ){
+    filas = filas+
+    "<table class='table-hover table-bordered tabla_descargos'  width='100%' style='font-size:12px' id="+tabla+">"+
+      "<tr style='text-align:center;text-transform: uppercase' class='bg-primary'><td colspan='100'>OJO "+ojo+"</td></tr>"+    
+      "<tr style='text-align:center' class='bg-dark'>"+
+      "<td>Codigo</td>"+
+      "<td>Tipo lente</td>"+
+      "<td>Marca</td>"+
+      "<td>Diseño</td>"+
+      "</tr>"+
+
+      "<tr style='text-align:center'>"+
+      "<td>"+baseftp_desc_data[j].codigo+"</td>"+
+      "<td>"+baseftp_desc_data[j].tipo_lente+"</td>"+
+      "<td>"+baseftp_desc_data[j].marca+"</td>"+
+      "<td>"+baseftp_desc_data[j].diseno+"</td>"+
+      "</tr>"+
+
+      "<tr style='text-align:center' class='bg-dark'>"+
+      "<td>Base</td>"+
+      "<td>Adicion</td>"+
+      "<td>Stock Act.</td>"+
+      "<td>Eliminar</td>"+
+      "</tr>"+
+
+      "<tr style='text-align:center'>"+
+      "<td>"+baseftp_desc_data[j].base+"</td>"+
+      "<td>"+baseftp_desc_data[j].adicion+"</td>"+
+      "<td>"+baseftp_desc_data[j].stock+"</td>"+
+      "<td><i class='fas fa-trash' style='color: red' onClick='eliminarItemDescargo("+'"'+baseftp_desc_data[j].codigo+'"'+","+'"'+tabla+'"'+","+'"'+ojo+'"'+")'></i></td>"+
       "</tr>"+
     "</table>";
   }

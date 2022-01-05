@@ -128,12 +128,11 @@ public function initStockTerm($codigoProducto,$cantidad,$id_tabla,$esfera,$cilin
     $sql->bindValue(7, $cantidad);
     $sql->execute();
     
-    $sql2 = "insert into codigos_lentes values(null,?,?,?,?);";
+    $sql2 = "insert into codigos_lentes values(null,?,?,?);";
     $sql2 = $conectar->prepare($sql2);
     $sql2->bindValue(1, $codigoProducto);
     $sql2->bindValue(2, $id_td);
     $sql2->bindValue(3, $tipo_lente);
-    $sql2->bindValue(4, $cat_codigo);
     $sql2->execute();
     
 }
@@ -349,12 +348,11 @@ public function inicializarStockBasesVs($codigo,$identificador,$base,$cantidad,$
     $sql->execute();
 
     $tipo_lente = "Base";
-    $sql2 = "insert into codigos_lentes values(null,?,?,?,?);";
+    $sql2 = "insert into codigos_lentes values(null,?,?,?);";
     $sql2 = $conectar->prepare($sql2);
     $sql2->bindValue(1, $codigo);
     $sql2->bindValue(2, $identificador);
     $sql2->bindValue(3, $tipo_lente);
-    $sql2->bindValue(4, $cat_codigo);
     $sql2->execute();
 
 }
@@ -471,6 +469,19 @@ public function registrarDescargo(){
         $set_stock->bindValue(1,$nuevo_stock);
         $set_stock->bindValue(2,$codigo);
         $set_stock->execute();
+    }elseif($tipo_lente=="Base Flaptop"){
+        $sql2 = "select stock from stock_bases_adicion where codigo=?;";
+        $sql2 = $conectar->prepare($sql2);
+        $sql2->bindValue(1, $codigo);
+        $sql2->execute();
+        $stock = $sql2->fetchColumn();
+        $nuevo_stock = $stock-1;
+
+        $set_stock = "update stock_bases_adicion set stock=? where codigo=?;";
+        $set_stock = $conectar->prepare($set_stock);
+        $set_stock->bindValue(1,$nuevo_stock);
+        $set_stock->bindValue(2,$codigo);
+        $set_stock->execute();
     }
 
     }#Fin foreach
@@ -538,7 +549,7 @@ public function getTablesBasesFtop($id_tabla,$marca,$diseno){
                 $new_result = explode(',',$resultads); 
                 $new_result[0] !='' ? $stock = $new_result[0] : $stock = '0'; 
                 isset($new_result[1]) ? $codigo = $new_result[1] : $codigo = '';
-                $id_td = "td_ftop_".$contador."";
+                $id_td = "td_ftop_".$contador.$id_tabla.$a.$key."";
                 $html .= "<td style='text-align: center;cursor: pointer;' onClick='getDataModalFtop(\"".$codigo."\",\"".$marca."\",\"".$base."\",\"".$adicion."\",\"".$ojo_lente."\",\"".$id_td."\",".$id_tabla.",\"".$diseno."\")' data-toggle='tooltip' title='Base: ".$base." * Add: ".$adicion." ".$ojo_lente."' id='".$id_td."' class='class-bf-td".$id_tabla."'>".$stock."</td>";
                 $contador++;
             }
@@ -583,6 +594,14 @@ public function inicializarStockBasesFtop($codigo,$identificador,$base,$adicion,
     $sql->bindValue(7, $ojo);
     $sql->bindValue(8, $id_tabla);
     $sql->execute();
+
+    $tipo_lente = "Base Flaptop";
+    $sql2 = "insert into codigos_lentes values(null,?,?,?);";
+    $sql2 = $conectar->prepare($sql2);
+    $sql2->bindValue(1, $codigo);
+    $sql2->bindValue(2, $identificador);
+    $sql2->bindValue(3, $tipo_lente);
+    $sql2->execute();
 }
 
 public function newStockBaseFtp($codigo,$base,$adicion,$id_tabla,$id_td){

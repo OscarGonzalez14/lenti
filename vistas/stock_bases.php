@@ -133,7 +133,8 @@ if(isset($_SESSION["usuario"])){
           <?php $j++; } ?>
           <?php
         } ?>
-    </section>    
+    </section> 
+       
   </div>
 
 <!-- /.content-wrapper -->
