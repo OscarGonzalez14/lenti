@@ -501,7 +501,8 @@ function getInfoBaseFlaptop(codigo,ojo){
    cache: false,
    dataType: "json",
    success:function(data){
-     console.log(data)
+
+    let ojo_lente = data.ojo;
     let data_ftop = {
       marca : data.marca,
       diseno : data.diseno,
@@ -510,9 +511,21 @@ function getInfoBaseFlaptop(codigo,ojo){
       codigo : data.codigo,
       stock : data.stock,
       tipo_lente : data.tipo_lente
-
     }
-
+    
+    if (ojo != ojo_lente) {
+        Toast.fire({icon: 'error',title: 'Se esperaba una base '+ojo.slice(0, -1)+"a en este campo"})
+        if (ojo == "izquierdo") {
+        document.getElementById("cod_lente_oi").readOnly = false;
+        document.getElementById("cod_lente_oi").value = "";
+        $('#cod_lente_oi').focus();
+      }else{
+        document.getElementById("cod_lente_inv").readOnly = false;
+        document.getElementById("cod_lente_inv").value = "";
+        $('#cod_lente_inv').focus();
+      }
+      return false; 
+    }
     let data_desc = {
       tipo_lente : data.tipo_lente,
       codigo : data.codigo,
@@ -571,6 +584,13 @@ function show_table_basesftp(ojo){
   //$("#"+title_tabla).html(header);
   //document.getElementById(title_tabla).style.background ="#112438";
   $("#"+tabla).html(filas);
+}
+
+function codigoInternoProducto(){
+
+  $("#nuevaVinetaProduct").modal('show');
+  $("#new_barcode_lens").modal('hide');
+
 }
 
 init();

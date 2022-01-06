@@ -14,6 +14,7 @@ if(isset($_SESSION["usuario"])){
  require_once('../modales/warehouseIncome/modalIngresosTerm.php');
  require_once('../modales/warehouseIncome/modalIngresosTermGeneral.php');
  require_once('../modales/new_barcode_lentes.php');
+ require_once('../modales/modalNuevaVinetaProducto.php');
  require_once('../modelos/Stock.php');
  $stock = new Stock();
  $tablas_term = $stock->listar_tablas_terminados();

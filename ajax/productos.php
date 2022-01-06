@@ -151,7 +151,7 @@ case 'registrar_codigo':
 
 /* -------------------------GET DATA BASE FLAPTOP ----------------------------*/
 
- case 'get_info_base_flaptop':
+  case 'get_info_base_flaptop':
    $data = $productos->getInfoBasesFlatop($_POST["codigo"]);
    if (is_array($data)==true and count($data)>0) {
       foreach ($data as $key) {
@@ -162,7 +162,7 @@ case 'registrar_codigo':
         $output["codigo"]=$key["codigo"];
         $output["tipo_lente"] = "Base Flaptop";
         $output["stock"] = $key["stock"];
-        $output["ojo"] = $key["ojo"];
+        $output["ojo"] = strtolower($key["ojo"]);
     }
   }
     echo json_encode($output);
