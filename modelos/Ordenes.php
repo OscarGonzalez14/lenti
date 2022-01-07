@@ -72,12 +72,8 @@ class Ordenes extends Conectar{
    public function registrar_orden($codigo,$paciente,$observaciones,$usuario,$id_sucursal,$id_optica,$tipo_orden,$tipo_lente,$odesferasf_orden,$odcilindrosf_orden,$odejesf_orden,$oddicionf_orden,$odprismaf_orden,$oiesferasf_orden,$oicilindrosf_orden,$oiejesf_orden,$oiadicionf_orden,$oiprismaf_orden,$modelo,$marca,$color,$diseno,$horizontal,$diagonal,$vertical,$puente,$od_dist_pupilar,$od_altura_pupilar,$od_altura_oblea,$oi_dist_pupilar,$oi_altura_pupilar,$oi_altura_oblea,$trat_multifocal,$contenedor){
 
    	$conectar = parent::conexion();
-    
-
     $arrayTrat = array();
     $arrayTrat = json_decode($_POST['arrayTratamientos']);
-
-
 
     date_default_timezone_set('America/El_Salvador'); 
     $hoy = date("d-m-Y H:i:s");
@@ -143,8 +139,10 @@ class Ordenes extends Conectar{
     $sql4->bindValue(7, $oi_altura_pupilar);
     $sql4->bindValue(8, $oi_altura_oblea);
     $sql4->execute();
-    $accion = "Registro";
-    $sql5 = "insert into acciones_orden values(?,?,?,?,?);";
+
+    $accion = "Digitada en laboratorio";
+
+    $sql5 = "insert into acciones_orden values(null,?,?,?,?,?);";
     $sql5 = $conectar->prepare($sql5);
     $sql5->bindValue(1, $codigo);
     $sql5->bindValue(2, $hoy);

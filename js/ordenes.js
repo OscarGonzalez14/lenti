@@ -149,6 +149,7 @@ function guardar_orden(){
     alerts("error","La orden debe ser asignada a un contenedor");
     return false;
   }
+  
   let paciente = $("#paciente_orden").val();
   let observaciones = $("#observaciones_orden").val();
   let usuario = $("#id_usuario").val();

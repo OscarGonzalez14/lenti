@@ -39,7 +39,7 @@ $cat_admin = $_SESSION["categoria"];
   <div class="content-wrapper">
     <section class="content">
       <div class="container-fluid">
-      <input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION['codigo_emp']?>"/>
+      <input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION['id_usuario']?>"/>
       <input type="hidden" name="usuario" id="usuario" value="<?php echo $_SESSION["usuario"];?>"/>
      <div class="card-body" style="margin-top: 0px solid red;color: black !important">
 
