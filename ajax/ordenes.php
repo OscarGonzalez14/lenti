@@ -263,6 +263,18 @@ case 'get_ordenes':
 				echo json_encode("error");
 			}
 	break;
+//******************* GET HISTORIAL DE ORDEN ******************//
+case 'get_acciones_orden':
+	$historial = $ordenes->getAccionesOrden($_POST["cod_orden_act"]);
+	foreach ($historial as $k) {
+		$data["usuario"] = $k["nombres"]." - ".$k["codigo_emp"];
+		$data["codigo"] = $k["codigo"];
+		$data["fecha_hora"] = $k["fecha_hora"];
+		$data["accion"] = $k["accion"];
+		$data["observaciones"] = $k["observaciones"];
+	}
+	echo json_encode($data);
+	break;
 
 //GET RXFINAL SHOW ORDEN//
 case 'get_orden_rxfinal':

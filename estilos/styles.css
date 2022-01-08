@@ -157,11 +157,7 @@ border: 1px solid black;
   padding: 2px;
 }
 
-/*.modal-dialog {
-  height: 75vh;
-  display: flex;
-  align-items: center;
-}*/
+
 #tanModal{
   max-width: 75% !important;
 }
@@ -178,3 +174,15 @@ border: 1px solid black;
 .input-dark{
   border: solid 1px black;
 }
+
+/* ESTILOS DETALLE ORDEN*/
+.dtOrden1{
+  font-size: 12px;
+  text-align: left
+  border: 1px solid blue;
+  padding: 2.5px;
+  font-size: 12px;
+  font-family: Helvetica, Arial, sans-serif;
+  text-align: left;
+}
+

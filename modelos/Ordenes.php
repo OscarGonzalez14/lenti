@@ -232,6 +232,19 @@ public function get_datos_orden($codigo){
 
 }
 
+/*-------------- GET ACCIONES ORDEN ----------------------*/
+public function getAccionesOrden($codigo){
+    $conectar = parent::conexion();
+    parent::set_names();
+
+    $sql = "select u.nombres,u.codigo_emp,a.codigo,a.fecha_hora,a.accion,a.observaciones from usuarios as u inner join acciones_orden as a on u.id_usuario=a.usuario where a.codigo=?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1, $codigo);
+    $sql->execute();
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
 public function get_orden_rxfinal($codigo){
   $conectar = parent::conexion();
     parent::set_names();

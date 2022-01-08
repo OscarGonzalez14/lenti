@@ -140,7 +140,8 @@ function guardar_orden(){
   $("input[name='chk_tratamientos']:checked").each(function(){
     let obj = {
       tratamiento : this.value        
-    }
+  }
+
   tratamientos.push(obj);
   });
 
@@ -149,7 +150,7 @@ function guardar_orden(){
     alerts("error","La orden debe ser asignada a un contenedor");
     return false;
   }
-  
+
   let paciente = $("#paciente_orden").val();
   let observaciones = $("#observaciones_orden").val();
   let usuario = $("#id_usuario").val();
@@ -336,7 +337,7 @@ function generate_barcode_print(codigo,paciente,id_sucursal,id_optica){
   }
 ///////////////LIMPIAR CAMPOS NUEVA ORDEN LAB//////////
 $(document).on('click', '#new_order', function(){
-
+    document.getElementById("reg_orden").style.display = "block";
     let element = document.getElementsByClassName("clear_orden_i");
     for(i=0;i<element.length;i++){
       let id_element = element[i].id;
@@ -580,6 +581,19 @@ function detOrdenes(cod_orden_act){
       $("#diagonal_aro_orden").html(data.diagonal);
       $("#vertical_aro_orden").html(data.vertical);
       $("#puente_aro_orden").html(data.puente);
+    }
+  });
+
+  /* GET ACIONES DE ORDEN */
+
+  $.ajax({
+    url:"../ajax/ordenes.php?op=get_acciones_orden",
+    method:"POST",
+    data : {cod_orden_act:cod_orden_act},
+    cache:false,
+    dataType:"json",
+    success:function(data){
+     console.log(data.fecha_hora)
     }
   });
   
