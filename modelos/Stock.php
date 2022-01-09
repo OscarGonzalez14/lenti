@@ -485,13 +485,24 @@ public function registrarDescargo(){
     }
 
     }#Fin foreach
+    date_default_timezone_set('America/El_Salvador');$hoy = date("d-m-Y");
+    $accion = "Despacho de Bodega";
+    $sql3 = "insert into acciones_orden values(null,?,?,?,?,?);";
+    $sql3 = $conectar->prepare($sql3);
+    $sql3->bindValue(1, $codigo_orden);
+    $sql3->bindValue(2, $hoy);
+    $sql3->bindValue(3, $accion);
+    $sql3->bindValue(4, "");
+    $sql3->bindValue(5, $id_usuario);
+    $sql3->execute();
+
 }/*---------Fin registrar descargo----------*/
 
 public function listadoDiarioDescargos(){
     $conectar=parent::conexion();
     parent::set_names();
     date_default_timezone_set('America/El_Salvador'); 
-    $hoy = date("d-m-Y");
+    $hoy = date("d-m-Y H:i:s");
 
     $sql = "select d.id_descargo,d.codigo_orden,d.fecha,d.paciente,d.ojo,d.tipo_lente,d.medidas,o.nombre,s.nombre_sucursal,d.codigo_lente from descargos as d INNER join optica as o on d.id_optica=o.id_optica inner JOIN sucursal_optica as s on o.id_optica=s.id_sucursal";
     $sql=$conectar->prepare($sql);

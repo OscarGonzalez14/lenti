@@ -266,12 +266,14 @@ case 'get_ordenes':
 //******************* GET HISTORIAL DE ORDEN ******************//
 case 'get_acciones_orden':
 	$historial = $ordenes->getAccionesOrden($_POST["cod_orden_act"]);
+	$data = Array();
 	foreach ($historial as $k) {
-		$data["usuario"] = $k["nombres"]." - ".$k["codigo_emp"];
-		$data["codigo"] = $k["codigo"];
-		$data["fecha_hora"] = $k["fecha_hora"];
-		$data["accion"] = $k["accion"];
-		$data["observaciones"] = $k["observaciones"];
+		$sub_array["usuario"] = $k["nombres"]." - ".$k["codigo_emp"];
+		$sub_array["codigo"] = $k["codigo"];
+		$sub_array["fecha_hora"] = $k["fecha_hora"];
+		$sub_array["accion"] = $k["accion"];
+		$sub_array["observaciones"] = $k["observaciones"];
+		$data[] = $sub_array;
 	}
 	echo json_encode($data);
 	break;

@@ -493,7 +493,7 @@ $(document).on('click', '.edit_field_desc', function(){
   });
   
 }
-
+var history_order = [];
 function detOrdenes(cod_orden_act){
 
   $("#detalle_orden").modal('show');
@@ -593,8 +593,19 @@ function detOrdenes(cod_orden_act){
     cache:false,
     dataType:"json",
     success:function(data){
-     console.log(data.fecha_hora)
-    }
+      $("#historial_orden_detalles").html("");
+      let filas = '';
+      for(var i=0; i<data.length; i++){
+        filas = filas + "<tr id='fila"+i+"'>"+
+        "<td colspan='10' style='width:10%''>"+data[i].fecha_hora+"</td>"+
+        "<td colspan='25' style='width:25%''>"+data[i].usuario+"</td>"+
+        "<td colspan='5' style='width:5%''>"+data[i].codigo+"</td>"+
+        "<td colspan='35' style='width:35%''>"+data[i].accion+"</td>"+
+        "<td colspan='25' style='width:25%''>"+data[i].observaciones+"</td>"+
+        "</tr>";
+      }
+      $("#historial_orden_detalles").html(filas);    
+  }
   });
   
 }

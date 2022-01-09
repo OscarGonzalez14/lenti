@@ -13,7 +13,7 @@
             <tr>
               <th colspan="10"><img src="../dist/img/lenti_logo.png" width="85" height="65"/></th>
               <th colspan="70" style="text-align: center;margin-top: 0px;color:#0088b6;font-size:14px;font-family: Helvetica, Arial, sans-serif;"><b>ORDEN DE PRODUCCIÓN</b></th>
-              <th colspan="20"><strong>ORDEN</strong><br><strong style="color:red;">No.&nbsp;<span>001</strong></th>
+              <th colspan="20" style="text-align: right;"><strong>No. ORDEN</strong><br><strong style="color:red;"><span>475525555001</strong></th>
             </tr>
           </table>
           <br>
@@ -22,14 +22,14 @@
           <h1>HISTORIAL</h1>
             <table width="100%" class="table-hover table-bordered display nowrap">
               <tr style="text-align: center;font-size: 12px;background: #162e41;color: white">
-                <td colspan="5" class="ord_1" style="width:5%">Fecha</td>
+                <td colspan="10" class="ord_1" style="width:10%">Fecha</td>
                 <td colspan="25" class="ord_1" style="width:25%">Usuario</td>
                 <td colspan="5" class="ord_1" style="width:5%"># Orden</td>
                 <td colspan="35" class="ord_1" style="width:35%">Acción</td>
-                <td colspan="30" class="ord_1" style="width:30%">Observaciones</td>
+                <td colspan="25" class="ord_1" style="width:25%">Observaciones</td>
               </tr>
              
-              <tbody id="historial_orden_detalles" class="ord_2"></tbody>
+              <tbody id="historial_orden_detalles" class="ord_2" style="text-align: center;font-size: 12px;"></tbody>
             </table>
           </div>     
 
