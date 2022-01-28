@@ -44,8 +44,33 @@ $opti=$optica->obtener_opticas();
               </select>               
             </div>
             <div class="form-group col-md-8">
-              <label for="ex3">Nombre</label>
-              <input type="text"  class="form-control clear_input" name="" placeholder="Nombre de sucursal" required="" id="nom_sucursal" onkeyup="mayus(this);" >
+              <label for="ex3">Nombre Distintivo </label>
+              <input type="text"  class="form-control clear_input" name="" placeholder="Nombre de sucursal" required="" id="nom_sucursal" >
+            </div>
+            <div class="form-group col-md-6">
+              <label for="exampleFormControlSelect1">Departamento</label>
+              <select class="form-control" id="dep_sucursal" class="class_depto">
+                <option value="">Seleccione departamento</option>
+                <option class="class_depto" value="Ahuachapán">Ahuachapán</option>
+                <option class="class_depto" value="Santa Ana">Santa Ana</option>
+                <option class="class_depto" value="Sonsonate">Sonsonate</option>
+                <option class="class_depto" value="Chalatenango">Chalatenango</option>
+                <option class="class_depto" value="La Libertad">La Libertad</option>
+                <option class="class_depto" value="San Salvador">San Salvador</option>
+                <option class="class_depto" value="Cuscatlán">Cuscatlán</option>
+                <option class="class_depto" value="La Paz">La Paz</option>
+                <option class="class_depto" value="Cabañas">Cabañas</option>
+                <option class="class_depto" value="San Vicente">San Vicente</option>
+                <option class="class_depto" value="Usulután">Usulután</option>
+                <option class="class_depto" value="San Miguel">San Miguel</option>
+                <option class="class_depto" value="Morazán">Morazán</option>
+                <option class="class_depto" value="La Unión">La Unión</option>
+              </select>
+            </div>
+            <div class="col-sm-6">
+              <label for="ex3">Municipio</label>
+              <select class="form-control" id="mun_sucursal" data-placeholder='Seleccione Municipio' required=''> 
+              </select>             
             </div>
             <div class="form-group col-md-7">
               <label for="ex3">Dirección</label>

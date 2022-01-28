@@ -4,14 +4,15 @@ require_once("../config/conexion.php");
 class Opticas extends conectar {//inicio de la clase
 
 ////GUARDAR OPTICA
-	public function guardar_optica($nom_optica,$num_optica,$id_usuario){
+	public function guardar_optica($nom_optica,$num_optica,$id_usuario,$cat_descuento){
 		$conectar= parent::conexion();
 		parent::set_names();
-		$sql="insert into optica values(null,?,?,?);";
+		$sql="insert into optica values(null,?,?,?,?);";
 		$sql=$conectar->prepare($sql);
 		$sql->bindValue(1, $nom_optica);
 		$sql->bindValue(2, $num_optica);
 		$sql->bindValue(3, $id_usuario);
+		$sql->bindValue(4, $cat_descuento);
 		$sql->execute();
 	}
 //////VERIFICAR SI EXISTE OPTICA
@@ -65,10 +66,10 @@ class Opticas extends conectar {//inicio de la clase
 	}
 
 //GUARDAR SUCURSAL
-	public function guardar_sucursal($nom_sucursal,$direccion,$telefono,$correo,$encargado,$codigo,$id_optica,$usuario){
+	public function guardar_sucursal($nom_sucursal,$direccion,$telefono,$correo,$encargado,$codigo,$id_optica,$usuario,$departamento,$municipio){
 		$conectar= parent::conexion();
 		parent::set_names();
-		$sql="insert into sucursal_optica values(null,?,?,?,?,?,?,?,?);";
+		$sql="insert into sucursal_optica values(null,?,?,?,?,?,?,?,?,?,?);";
 		$sql=$conectar->prepare($sql);
 		$sql->bindValue(1, $nom_sucursal);
 		$sql->bindValue(2, $direccion);
@@ -78,6 +79,8 @@ class Opticas extends conectar {//inicio de la clase
 		$sql->bindValue(6, $codigo);
 		$sql->bindValue(7, $id_optica);
 		$sql->bindValue(8, $usuario);
+		$sql->bindValue(9, $departamento);
+		$sql->bindValue(10, $municipio);
 		$sql->execute();
 	}
 
