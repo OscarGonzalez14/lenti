@@ -4,15 +4,14 @@ require_once("../config/conexion.php");
 class Opticas extends conectar {//inicio de la clase
 
 ////GUARDAR OPTICA
-	public function guardar_optica($nom_optica,$num_optica,$id_usuario,$cat_descuento){
+	public function guardar_optica($nom_optica,$num_optica,$id_usuario){
 		$conectar= parent::conexion();
 		parent::set_names();
-		$sql="insert into optica values(null,?,?,?,?);";
+		$sql="insert into optica values(null,?,?,?);";
 		$sql=$conectar->prepare($sql);
 		$sql->bindValue(1, $nom_optica);
 		$sql->bindValue(2, $num_optica);
 		$sql->bindValue(3, $id_usuario);
-		$sql->bindValue(4, $cat_descuento);
 		$sql->execute();
 	}
 //////VERIFICAR SI EXISTE OPTICA
@@ -66,10 +65,10 @@ class Opticas extends conectar {//inicio de la clase
 	}
 
 //GUARDAR SUCURSAL
-	public function guardar_sucursal($nom_sucursal,$direccion,$telefono,$correo,$encargado,$codigo,$id_optica,$usuario,$departamento,$municipio){
+	public function guardar_sucursal($nom_sucursal,$direccion,$telefono,$correo,$encargado,$codigo,$id_optica,$usuario,$departamento,$municipio,$categoria){
 		$conectar= parent::conexion();
 		parent::set_names();
-		$sql="insert into sucursal_optica values(null,?,?,?,?,?,?,?,?,?,?);";
+		$sql="insert into sucursal_optica values(null,?,?,?,?,?,?,?,?,?,?,?);";
 		$sql=$conectar->prepare($sql);
 		$sql->bindValue(1, $nom_sucursal);
 		$sql->bindValue(2, $direccion);
@@ -81,6 +80,7 @@ class Opticas extends conectar {//inicio de la clase
 		$sql->bindValue(8, $usuario);
 		$sql->bindValue(9, $departamento);
 		$sql->bindValue(10, $municipio);
+		$sql->bindValue(11, $categoria);
 		$sql->execute();
 	}
 
@@ -117,10 +117,10 @@ class Opticas extends conectar {//inicio de la clase
   }
 
 //EDITAR SUCURSAL
-	public function editar_sucursal($nom_sucursal,$direccion,$telefono,$correo,$encargado,$codigo,$id_optica,$usuario,$id_sucursal){
+	public function editar_sucursal($nom_sucursal,$direccion,$telefono,$correo,$encargado,$codigo,$id_optica,$usuario,$departamento,$municipio,$id_sucursal){
 		$conectar= parent::conexion();
 		parent::set_names();
-		$sql="update sucursal_optica set nombre_sucursal=?,direccion=?,telefono=?,correo=?,encargado=?,codigo=?,id_optica=?,id_usuario=? where id_sucursal=?;";
+		$sql="update sucursal_optica set nombre_sucursal=?,direccion=?,telefono=?,correo=?,encargado=?,codigo=?,id_optica=?,departamento=?,municipio=?,id_usuario=? where id_sucursal=?;";
 		$sql=$conectar->prepare($sql);
 		$sql->bindValue(1, $_POST["nom_sucursal"]);
 		$sql->bindValue(2, $_POST["direccion"]);
@@ -130,7 +130,9 @@ class Opticas extends conectar {//inicio de la clase
 		$sql->bindValue(6, $_POST["codigo"]);
 		$sql->bindValue(7, $_POST["id_optica"]);
 		$sql->bindValue(8, $_POST["usuario"]);
-		$sql->bindValue(9, $_POST["id_sucursal"]);
+		$sql->bindValue(9, $_POST["departamento"]);
+		$sql->bindValue(10, $_POST["municipio"]);
+		$sql->bindValue(11, $_POST["id_sucursal"]);
 		$sql->execute();
 	}
 

@@ -9,7 +9,7 @@ switch ($_GET["op"]) {
   case 'guardar_optica':
   $datos=$optica->valida_existencia_optica($_POST["nom_optica"],$_POST["num_optica"]);
   if(is_array($datos)==true and count($datos)==0){
-      $optica->guardar_optica($_POST["nom_optica"],$_POST["num_optica"],$_POST["id_usuario"],$_POST["cat_descuento"]);
+      $optica->guardar_optica($_POST["nom_optica"],$_POST["num_optica"],$_POST["id_usuario"]);
       $messages[]="ok";
   }else{
     $errors[]="error";
@@ -40,7 +40,7 @@ break;
 ///LISTAR OPTICAS REGISTRADAS
 case "listar_sucursales_optica":
 $datos=$optica->get_sucursales_opticas();
-        //Vamos a declarar un array
+      
 $data= Array();
 
 foreach($datos as $row)
@@ -91,10 +91,10 @@ break;
 case 'guardar_sucursal':
   $datos=$optica->valida_existencia_sucursal($_POST["codigo"]);
   if(is_array($datos)==true and count($datos)==0){
-    $optica->guardar_sucursal($_POST["nom_sucursal"],$_POST["direccion"],$_POST["telefono"],$_POST["correo"],$_POST["encargado"],$_POST["codigo"],$_POST["id_optica"],$_POST["usuario"],$_POST["departamento"],$_POST["municipio"]);
+    $optica->guardar_sucursal($_POST["nom_sucursal"],$_POST["direccion"],$_POST["telefono"],$_POST["correo"],$_POST["encargado"],$_POST["codigo"],$_POST["id_optica"],$_POST["usuario"],$_POST["departamento"],$_POST["municipio"],$_POST["categoria"]);
       $messages[]="creado";
   }else{
-    $optica->editar_sucursal($_POST["nom_sucursal"],$_POST["direccion"],$_POST["telefono"],$_POST["correo"],$_POST["encargado"],$_POST["codigo"],$_POST["id_optica"],$_POST["usuario"],$_POST["departamento"],$_POST["municipio"],$_POST["id_sucursal"]);
+    $optica->editar_sucursal($_POST["nom_sucursal"],$_POST["direccion"],$_POST["telefono"],$_POST["correo"],$_POST["encargado"],$_POST["codigo"],$_POST["id_optica"],$_POST["usuario"],$_POST["departamento"],$_POST["municipio"],$_POST["categoria"],$_POST["id_sucursal"]);
 
     $messages[]="editado";
 }
@@ -136,6 +136,7 @@ break;
       $output["id_usuario"] = $row["id_usuario"];
       $output["departamento"] = $row["departamento"];
       $output["municipio"] = $row["municipio"];
+      $output["categoria"] = $row["categoria"];
       }
     echo json_encode($output);
   break;

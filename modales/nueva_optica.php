@@ -26,21 +26,13 @@
         <!-- Modal body -->
         <div class="modal-body">
           <div class="form-row" autocomplete="on">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-7">
               <label for="ex3">Nombre</label>
               <input type="text"  class="form-control" name="" placeholder="Nombre de optica" required="" id="nom_optica">
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-5">
               <label for="ex3">Teléfono</label>
               <input type="text"  class="form-control" name="" placeholder="Teléfono de optica" required="" id="num_optica">
-            </div>
-            <div class="form-group col-md-2">
-              <label for="ex3">Categoría</label>
-              <select name="" id="cat_descuento" class="form-control">
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-              </select>
             </div>
           </div>
         </div>

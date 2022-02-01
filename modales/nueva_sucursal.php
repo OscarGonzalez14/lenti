@@ -34,7 +34,7 @@ $opti=$optica->obtener_opticas();
         <div class="modal-body">
           <div class="form-row">
             <div class=" form-group col-sm-4 select2-purple">
-              <label for="ex3">Sucursal</label>
+              <label for="ex3">Optica</label>
               <select class="select2 form-control clear_input" id="id_optica" multiple="multiple" data-placeholder="Seleccionar optica" data-dropdown-css-class="select2-purple" style="width: 100%;height: ">              
                 <option value="0">Seleccione Optica</option>
                 <?php
@@ -43,11 +43,19 @@ $opti=$optica->obtener_opticas();
                 <?php  } ?>              
               </select>               
             </div>
-            <div class="form-group col-md-8">
+            <div class="form-group col-md-6">
               <label for="ex3">Nombre Distintivo </label>
               <input type="text"  class="form-control clear_input" name="" placeholder="Nombre de sucursal" required="" id="nom_sucursal" >
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-2">
+              <label for="ex3">Categoría</label>
+              <select name="" id="cat_descuento" class="form-control">
+                <option value="Silver">Silver</option>
+                <option value="Gold">Gold</option>
+                <option value="Black">Black</option>
+              </select>
+            </div>
+            <div class="form-group col-md-6">                  
               <label for="exampleFormControlSelect1">Departamento</label>
               <select class="form-control" id="dep_sucursal" class="class_depto">
                 <option value="">Seleccione departamento</option>
@@ -69,7 +77,7 @@ $opti=$optica->obtener_opticas();
             </div>
             <div class="col-sm-6">
               <label for="ex3">Municipio</label>
-              <select class="form-control" id="mun_sucursal" data-placeholder='Seleccione Municipio' required=''> 
+              <select class="form-control select2 clear_input" multiple="multiple" data-dropdown-css-class="select2-purple" id="mun_sucursal" data-placeholder='Seleccione Municipio' required=''> 
               </select>             
             </div>
             <div class="form-group col-md-7">
@@ -92,7 +100,7 @@ $opti=$optica->obtener_opticas();
         </div>
         <input type="hidden" class="form-control" id='id_usuario' value="<?php echo $_SESSION['id_usuario']?>" >
         <input type="hidden" class="form-control clear_input" name="" id="id_sucursal" value="">
-        <input type="text" class="form-control clear_input" id="codigo_suc" readonly="" style="background: white;border: 1px solid white;color:black;text-align:right;">
+        <input type="hidden" class="form-control clear_input" id="codigo_suc" readonly="" style="background: white;border: 1px solid white;color:black;text-align:right;">
         <!-- Modal footer -->
         <div class="modal-footer btns_acciones" style="margin-top:3px;">
           <button type="button" class="btn btn-primary btn-block" data-dismiss="modal" id="guardar_suc" style="border-radius:0px" onClick="guardar_sucursal();"><i class="fas fa-save"></i> Guardar</button>
