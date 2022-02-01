@@ -86,7 +86,6 @@ echo json_encode($output);
 break;
 
 
-
 //GUARDAR SUCURSAL
 case 'guardar_sucursal':
   $datos=$optica->valida_existencia_sucursal($_POST["codigo"]);
@@ -125,7 +124,7 @@ break;
   case 'show_datos_sucursal':    
     $datos=$optica->show_datos_sucursal($_POST["id_sucursal"],$_POST["codigo"]);
       foreach($datos as $row){
-      $output["id_optica"] = $row["id_optica"];
+      $output["optica"] = $row["optica"];
       $output["nombre_sucursal"] = $row["nombre_sucursal"];
       $output["direccion"] = $row["direccion"];
       $output["telefono"] = $row["telefono"];

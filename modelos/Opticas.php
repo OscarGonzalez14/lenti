@@ -88,7 +88,7 @@ class Opticas extends conectar {//inicio de la clase
 	public function show_datos_sucursal($id_sucursal,$codigo){
 		$conectar= parent::conexion();
 		parent::set_names();
-		$sql="select * from sucursal_optica WHERE id_sucursal=? and codigo=?;";
+		$sql="select os.id_sucursal, o.nombre as optica, os.nombre_sucursal, os.direccion, os.telefono, os.correo, os.encargado, os.codigo, os.id_optica, os.id_usuario, os.departamento, os.municipio, os.categoria from sucursal_optica as os join optica as o on os.id_optica=o.id_optica where id_sucursal=? and codigo=?;";
 		$sql= $conectar->prepare($sql);
 		$sql->bindValue(1, $id_sucursal);
 		$sql->bindValue(2, $codigo);
@@ -117,10 +117,10 @@ class Opticas extends conectar {//inicio de la clase
   }
 
 //EDITAR SUCURSAL
-	public function editar_sucursal($nom_sucursal,$direccion,$telefono,$correo,$encargado,$codigo,$id_optica,$usuario,$departamento,$municipio,$id_sucursal){
+	public function editar_sucursal($nom_sucursal,$direccion,$telefono,$correo,$encargado,$codigo,$id_optica,$usuario,$departamento,$municipio,$categoria,$id_sucursal){
 		$conectar= parent::conexion();
 		parent::set_names();
-		$sql="update sucursal_optica set nombre_sucursal=?,direccion=?,telefono=?,correo=?,encargado=?,codigo=?,id_optica=?,departamento=?,municipio=?,id_usuario=? where id_sucursal=?;";
+		$sql="update sucursal_optica set nombre_sucursal=?,direccion=?,telefono=?,correo=?,encargado=?,codigo=?,id_optica=?,id_usuario=?,departamento=?,municipio=?,categoria=? where id_sucursal=?;";
 		$sql=$conectar->prepare($sql);
 		$sql->bindValue(1, $_POST["nom_sucursal"]);
 		$sql->bindValue(2, $_POST["direccion"]);
@@ -132,7 +132,8 @@ class Opticas extends conectar {//inicio de la clase
 		$sql->bindValue(8, $_POST["usuario"]);
 		$sql->bindValue(9, $_POST["departamento"]);
 		$sql->bindValue(10, $_POST["municipio"]);
-		$sql->bindValue(11, $_POST["id_sucursal"]);
+		$sql->bindValue(11, $_POST["categoria"]);
+		$sql->bindValue(12, $_POST["id_sucursal"]);
 		$sql->execute();
 	}
 

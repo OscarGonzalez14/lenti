@@ -109,13 +109,6 @@ $(document).on('click', '#nueva_sucursal', function(){
     }
 });
 
-$(document).on('click', '.class_depto', function(){
-	    departamento = $(this).val();
-	    console.log(departamento)
-      municipio(departamento)
-});
-
-
 $(document).ready(function(){
   $("#dep_sucursal").change(function () {         
     $("#dep_sucursal option:selected").each(function () {
@@ -276,7 +269,7 @@ function show_datos_sucursal(id_sucursal,codigo){
 		dataType:"json",
 		success:function(data){	
 		console.log(data);
-		$("#id_optica").val(data.id_optica);
+		$("#id_optica").val(data.optica);
 		$("#nom_sucursal").val(data.nombre_sucursal);
 		$("#dir_sucursal").val(data.direccion);
 		$("#tel_sucursal").val(data.telefono);

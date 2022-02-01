@@ -41,7 +41,7 @@ $opti=$optica->obtener_opticas();
                 for ($i=0; $i < sizeof($opti); $i++) { ?>
                   <option value="<?php echo $opti[$i]["id_optica"]?>"><?php echo strtoupper($opti[$i]["nombre"]);?></option>
                 <?php  } ?>              
-              </select>               
+              </select> <span id='optica'></span>             
             </div>
             <div class="form-group col-md-6">
               <label for="ex3">Nombre Distintivo </label>
@@ -78,6 +78,7 @@ $opti=$optica->obtener_opticas();
             <div class="col-sm-6">
               <label for="ex3">Municipio</label>
               <select class="form-control select2 clear_input" multiple="multiple" data-dropdown-css-class="select2-purple" id="mun_sucursal" data-placeholder='Seleccione Municipio' required=''> 
+                <span id='municipio'></span>
               </select>             
             </div>
             <div class="form-group col-md-7">
